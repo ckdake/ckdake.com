@@ -13,15 +13,17 @@
       <%= yield %>
     </div>
     <div id="sidebar">
-      <h2>TODO</h2>
+      <img src="/files/ck2012.jpg" style="border-radius: 15px; width: 152px; height: 152px;"/>
+      <h2><img src="/files/logo.png" style="display: inline; width: 16px; height: 16px; margin-right: 8px;">Chris Kelly</h2>
+      Instigator and Problem Solver
+      <h2>Some TODOs</h2>
       <ul>
-        <li>Theme</li>
+        <li>Customize Theme</li>
         <li>Timeline using <a href="http://timeline.knightlab.com">this</a></li>
         <li>Xtrack statically generated?</li>
-        <li>Blog Disqus comments</li>
-        <li>Google Adsense</li>
         <li>Search</li>
         <li>Something awesome with Flickr</li>
+        <li>Nav for pages</li>
         <li>Bikes page</li>
         <li>Race results</li>
         <li>Projects and all subpages</li>
@@ -29,9 +31,16 @@
       </ul>
       <h2>Recent Posts</h2>
       <ul>
-      <% sorted_articles.each do |post| %>
+      <% sorted_articles[0..9].each do |post| %>
         <li><%= link_to post[:title], post.path %></h1>
       <% end %>
+      <h2>Advertisements</h2>
+      <script type="text/javascript"><!--
+        google_ad_client = "pub-7424018245102468";google_ad_slot = "2779502010";google_ad_width = 120;google_ad_height = 600;
+      //-->
+      </script>
+      <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script>
     </div>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

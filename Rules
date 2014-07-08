@@ -46,7 +46,6 @@ route '*' do
     # Write item with identifier /foo/ to /foo.css
     item.identifier.chop + '.css'
   elsif item.binary?
-    puts item.identifier
     # Write item with identifier /foo/ to /foo.ext
     item.identifier.chop + '.' + item[:extension]
   else
