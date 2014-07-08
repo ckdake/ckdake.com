@@ -1,0 +1,50 @@
+---
+title: reverse proxying with apache and mod_proxy_html
+created_at: 2008-07-07 16:56:03 -0400
+kind: article
+---
+I've been fighting to get some reverse proxy things working today at work. Basically, some python application servers that speak HTTP live on servers with private IP addresses behind the firewall, but they need to be reachable to the outside world via a HTTPS portal that does authentication checking with mod_authnz_ldap. Basically, https://example.com/app1/ needs to go to http://app1:8888/.  I figured out much of what is below with the help of: <a href="http://www.apachetutor.org/admin/reverseproxies">http://www.apachetutor.org/admin/reverseproxies</a>. 
+
+Apache's <a href="http://httpd.apache.org/docs/2.0/mod/mod_proxy.html">mod_proxy</a> seemed like it would be simple enough to use and 2 lines of config file changes later, the first page was working. However, redirects from the app servers were causing the client to redirect to internal addresses which didn't work, and absolute urls in HTML from the appserver needed to be changed to include the /app1/ on the externally facing server. Enter <a href="http://apache.webthing.com/mod_proxy_html/">mod_proxy_html</a>.
+
+mod_proxy_html is a third party module that allows content modification including replacing link addresses with different addresses. I downloaded and installed it on the proxy server but it wasn't working. Turning up debugging with
+
+<pre>
+LogLevel debug
+ProxyHTMLLogVerbose On
+</pre>
+
+gave me the following message: "No links configured: nothing for proxy-html filter to do", and Google only had one result for this: <a href="http://apache.webthing.com/svn/apache/filters/proxy_html/mod_proxy_html.c">mod_proxy_html.c</a> - the source code for mod_proxy_html with the error message in it!  It turns out that much of the documentation for mod_proxy_html is out of date, and in mod_proxy_html 3.0 the link tag definitions have been removed from the code and must be included in the configuration. Had I looked at the <a href="http://apache.webthing.com/svn/apache/filters/proxy_html/proxy_html.conf">config file provided with the download</a> (instead of the one I'd been writing from howtos), this wouldn't have happened, but it's surpsising Google hasn't indexed anyone else running into this! The fix for this was to include the following in my config:
+
+<pre>
+ProxyHTMLLinks  a               href
+ProxyHTMLLinks  area            href
+ProxyHTMLLinks  link            href
+ProxyHTMLLinks  img             src longdesc usemap
+ProxyHTMLLinks  object          classid codebase data usemap
+ProxyHTMLLinks  q               cite
+ProxyHTMLLinks  blockquote      cite
+ProxyHTMLLinks  ins             cite
+ProxyHTMLLinks  del             cite
+ProxyHTMLLinks  form            action
+ProxyHTMLLinks  input           src usemap
+ProxyHTMLLinks  head            profile
+ProxyHTMLLinks  base            href
+ProxyHTMLLinks  script          src for
+ProxyHTMLLinks  iframe          src
+
+ProxyHTMLEvents onclick ondblclick onmousedown onmouseup \
+                onmouseover onmousemove onmouseout onkeypress \
+                onkeydown onkeyup onfocus onblur onload \
+                onunload onsubmit onreset onselect onchange
+</pre>
+
+An Apache restart later, and HTML links were getting rewritten. Neat!  On to the next problem.. the app servers in question have lots of hardcoded absolute URLs, many of them in CSS and JS files.  The documentation has an initial solution to this in <a href="http://apache.webthing.com/mod_proxy_html/guide.html#url">their technical guide</a>, using a regular expression like:
+
+<pre>
+ProxyHTMLURLMap url\(http://internal.example.com([^\)]*)\) url(http://proxy.example.com$1) Rihe
+</pre>
+
+However this only works on inline CSS because mod_proxy_html only works on html content types and not the text/css that CSS files are sent as. A workaround for this is setting the PROXY_HTML_FORCE environment variable, but in addition to forcing mod_proxy_html to look at css files, this forces it to process image files, etc, which uses up too much CPU for our use case. Doh!
+
+Setting up each application server as a vhost insted is a lot simpler (the 2 lines of config I started with here are enough), and while it's less than ideal, we have wildcard SSL certificates so having https://app1.example.com/ isn't the end of the world and doesn't require any additional IP addresses. 

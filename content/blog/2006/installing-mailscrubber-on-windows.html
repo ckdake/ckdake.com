@@ -1,0 +1,295 @@
+---
+title: Installing Mailscrubber on Windows
+created_at: 2006-09-25 19:57:45 -0400
+kind: article
+---
+<h2>Table of Contents</h2>
+<div class="item">
+<a href="#about">About</a><br />
+<a href="#perl">Install Perl</a><br />
+<a href="#cygwin">Install Cygwin</a><br />
+<a href="#cygwin_system">Enable SYSTEM access</a><br />
+<a href="#sshd">Enable the SSH server</a><br />
+<a href="#spamassasin">Install SpamAssassin</a><br />
+<a href="#environment">Configure the Environment</a><br />
+<a href="#custom">Install custom scripts</a><br />
+<a href="#exim">Configure Exim</a><br />
+<a href="#schedule">Schedule the task</a><br />
+<a href="#iis">Configure the admin site in IIS</a><br />
+<a href="#admin_gui">Install the administration gui</a><br />
+</div>
+<a name="about"><h2>About</h2></a>
+<div class="item">
+Todo:
+<ul>
+<li>Change sa-learn to run as "NetworkService"</li>
+<li>Package up files</li>
+</ul>
+</div>
+<a name="perl"><h2>Install Perl</h2></a>
+<div class="item">
+    Download the most recent version of the ActivePerl Windows MSI installer from the ActiveState website:
+    <a href="http://www.activestate.com/Products/Download/Download.plex?id=ActivePerl">
+        http://www.activestate.com/Products/Download/Download.plex?id=ActivePerl</a>. At the time of writing,
+        ActivePerl 5.8.6 is the most recent version.<br /><br />
+    Double click on the file and follow the installation instructions. Use the default options.
+</div>
+<a name="cygwin"><h2>Install cygwin</h2></a>
+<div class="item">
+    Download and install cygwin by running <a href="http://cygwin.com/setup.exe">http://cygwin.com/setup.exe</a>.<br /><br />
+    When asked to select a mirror, <span class="path">ftp.easynet.be</span> tends to be a fast one.<br /><br />
+    Use the default install options except when selecting packages. Mmake sure to include:gcc, automake, autoconf, make, exim, less, an editor (nano/emacs/vi/vim/etc), openssh, cron, mutt, curl-devel, openssl-devel, gd, libgd-devel<br /><br />
+    add <span class="path">c:\cygwin\bin</span> to the path.<br />
+        (right click on my computer, properties, advanced, environment variables, system, edit "PATH")<br /><br />
+    set <span class="path">"CYGWIN=ntsec tty"</span> as a system environment variable.<br />
+        (right click on my computer, properties, advanced, environment variables, system, new)<br /><br />
+    set EDITOR and VISUAL to be the name of the editor you installed above as system environment variables.
+</div>
+<a name="cygwin_system"><h2>Enable SYSTEM access</h2></a>
+<div class="item">
+    Enable login as the SYSTEM user to the system so that we can access files and run programs as the SYSTEM User.
+    Open a cygwin shell and type:<br />
+    <div class="command">mkdir /home/system &amp;&amp; chown SYSTEM /home/system</div>
+    change the SYSTEM line in <span class="path">/etc/passwd</span> to:
+    <div class="filecontents">
+        SYSTEM:*:18:18:Local System,U-COMPUTERNAME\Administrator,S-1-5-18:/home/system:/bin/bash
+    </div>
+ </div>
+<a name="sshd"><h2>Enable the SSH server</h2></a>
+<div class="item">
+    Run the config program from a Cygwin shell by typing:
+    <div class="command">ssh-host-config</div>
+    Answer yes to all of the yes/no questions.<br /><br />
+    Give a password for the sshd_server user that meets system password requirements<br /><br />
+    When prompted for what to set the <span class="path">CYGWIN</span> variable to, type <span class="path">"ntsec tty"</span><br /><br />
+    Start up the service by typing:
+    <div class="command">net start sshd</div>
+</div>
+<a name="spamassassin"><h2>Install SpamAssassin</h2></a>
+<div class="item">
+    (Based on instructions from: <a href="http://www.openhandhome.com/howtosa260.html">http://www.openhandhome.com/howtosa260.html</a>)<br /><br />
+    First download and install the components needed by SpamAssassin. Get nmake from
+    <a href="ftp://ftp.microsoft.com/Softlib/MSLFILES/nmake15.exe">ftp://ftp.microsoft.com/Softlib/MSLFILES/nmake15.exe</a><br /><br />
+    Double click on this file and extract the file to <span class="path">C:\perl\bin</span><br /><br />
+    Then install the necessary perl modules from ppm by typing:
+    <div class="command">ppm3 install Net::DNS DB_File Time::HiRes</div>
+    Now go to <a href="http://www.spamassassin.org">http://www.spamassassin.org</a>, choose Download, and get the ZIP file distribution.<br /><br />
+    Unzip the file to <span class="path">C:\</span><br />
+    Open a windows shell and type:
+    <div class="command">cd  c:\spamassassin-*\</div>
+    <div class="command">nmake</div>
+    <div class="command">nmake install</div>
+    Tell spamassasisn about your DNS server by adding <span class="path">"SET RES_NAMESERVERS=<span class="placeholder">mydnsserver</span></span> to <br />
+        <div class="path">c:\perl\bin\spamassassin.bat</div>
+        <div class="path">c:\perl\bin\sa-learn.bat</div><br />
+    Then disable razor, pyzor, and dcc in <span class="path">c:\cygwin\etc\mail\spamassassin\local.cf</span> because they don't work on windows yet:
+        <div class="filecontents">
+            use_razor2 0<br />
+            use_dcc 0<br />
+            use_pyzor 0<br />
+        </div>
+</div>
+<a name="environment"><h2>Configure the environment</h2></a>
+<div class="item">
+        Open up a cygwin shell and type in the following commands to make the folder for SpamAssasin to learn.<br />
+        <div class="command">mkdir -p /home/is_spam/.maildir</div>
+        <div class="command">mkdir -p /home/not_spam/.maildir</div>
+        <div class="command">chmod -R 777 /home/is_spam/</div>
+        <div class="command">chmod -R 777 /home/not_spam/</div>
+</div>
+<a name="custom"><h2>Install custom scripts</h2></a>
+<div class="item">
+        in <span class="path">/home/system/headermangle.pl</span>:
+        <div class="filecontents">
+        <pre>
+#!/usr/bin/perl -w
+#headermangle.pl
+
+# This is supposed to extract the header bits we don't want and toss them,
+# and save the relevant ones for some future purpose.
+
+use strict;
+local ($/); #sets the record separator built-in variable to null rather than '\n';
+
+my $debug = '0';
+my ($subject, $from, $replyto, $to, $date) = "";
+
+my $message = <>; # now we slurp the entire file into the scalar $message
+
+# then we look to see if it's been forwarded or not,
+# next rip out all the X- whatnot headers,
+# then pull out the From: and Reply to: if they're there
+# Last just spew the mail out after the original message delimiter
+
+
+$message =~ /----- Original Message -----.*\n|Begin forwarded .*\n/;
+
+if ($') { my $newmessage = $';                  # grab everything after the "Original..."
+                $newmessage =~ s/X-.*\n//g;     # rip out all the previous X-header crap
+                 # get other relevant headers in here.
+                 # Do we need to account for ">" in some forwarded messages,
+                 # is ">" ever in front of the headers we want? (probably not?)
+
+                getbasicheaders ();
+
+                print "$newmessage";
+                if ($debug) {   print "\n(New message)\n";
+                                print "It was sent to $to, on $date,\nallegedly from $from,\nabout \"$subject\"\n";
+                }
+} else { $message =~ s/X-.*\n//g;
+
+                getbasicheaders ();
+                print "$message";
+                if ($debug) {   print "\n(Original message)\n";
+                }
+}
+
+sub getbasicheaders {
+                if ($message =~ /Subject: (.*)/ ) { $subject = $1; }
+                if ($message =~ /From: (.*)/ ) { $from = $1; }
+                if ($message =~ /Reply to: (.*)/ ) { $replyto = $1; }
+                if ($message =~ /To: (.*)/ ) { $to = $1; }
+                if ($message =~ /Sent: (.*)/ ) { $date = $1; }
+}
+        </pre>
+        </div>
+        in <span class="path">/home/system/sa_learner.pl</span>:
+        <div class="filecontents">
+        <pre>
+#!C:\perl\bin\perl -w
+#sa_learner.pl
+
+use strict;
+use CWD;
+
+my $spamdir    = "C:/cygwin/home/is_spam/.maildir/new";
+my $hamdir     = "C:/cygwin/home/not_spam/.maildir/new";
+my $storedir      = "C:/cygwin/home/system/mail";
+my $bindir = "C:/cygwin/home/system/";
+
+chdir($spamdir);
+foreach my $file (<*>) {
+    if (-f $file) {
+        system("perl $bindir/headermangle.pl < $file > $storedir/spam/$file");
+        system("del $file");
+    }
+}
+
+chdir($hamdir);
+foreach my $file (<*>) {
+    if (-f $file) {
+        system("perl $bindir/headermangle.pl < $file > $storedir/ham/$file");
+        system("del $file");
+    }
+}
+
+system("sa-learn --spam $storedir\\spam");
+system("sa-learn --ham $storedir\\ham");
+        </pre>
+        </div>
+</div>
+<a name="exim"><h2>Configure Exim</h2></a>
+<div class="item">
+        edit <span class="path">/etc/exim.conf</span>
+        <div class="filecontents">
+        <pre>
+        local_interfaces = <; ip_address
+        domainlist local_domains = mailscrubber.example.com
+        domainlist relay_to_domains = example.com
+        #comment out verify = recipitent in +relay_to_domains acl
+        #add after domain_literal router:
+        spamcheck_router:
+                no_verify
+                check_local_user
+                condition = "${if and { {!def:h_X-Spam-Flag:} {!eq {$received_protocol}{spam-scanned}}} {1}{0}}"
+                driver = accept
+                transport = spamcheck
+        #add after remote_smtp transport:
+        spamcheck:
+                debug_print = "T: spamassassin_pope for $local_part@$domain"
+                driver = pipe
+                command = /usr/bin/exim -oMr spam-scanned -bS
+                use_bsmtp
+                headers_add = "X-Spam-Scanned: pumpaudio mailscrubber"
+                transport_filter = C:/Perl/bin/spamassassin.bat
+                home_directory = "/tmp"
+                current_directory = "/tmp"
+                user = Administrator
+                group = Administrators
+                # return_fail_output
+                message_prefix =
+                message_suffix =
+
+        #edit the localPdelivery transport to look like:
+        local_delivery:
+                driver = appendfile
+                # group = mail
+                mode = 0660
+                mode_fail_narrower = false
+                envelope_to_add = true
+                return_path_add = true
+                directory = /home/${local_part}/.maildir/
+                maildir_format
+        </pre>
+        </div>
+</div>
+<a name="schedule"><h2>Schedule the task</h2></a>
+<div class="item">
+        Schedule task with windows to run perl.exe sa_learner.pl at a
+        desired interval.<br /><br />
+        Start->Programs->Accessories->System Tools->Scheduled Tasks<br />
+        Double Click on "Add Scheduled Task"<br />
+        Click on "Browse" and browse to Perl->bin->Perl.exe, then click "Next"<br />
+        Name the task "SpamAssassin Learn"<br />
+        Choose to run it "Daily" and click "Next"<br />
+        Perform the task every day, set a time for this, click "Next"<br />
+        Enter in your user information so it can run as you, click "Next"<br />
+        Check the box to "Open advanced properties" and click "Next"<br />
+        In the box labeled "run", change the text to: "C:\Perl\bin\perl.exe C:\cygwin\home\system\sa_learner.pl"
+        and click "Apply" then "Ok".<br />
+</div>
+<a name="iis"><h2>Configure the admin site in IIS</h2></a>
+<div class="item">
+Make a new folder: <span class="path">C:\Mailscrubber\</span> and <span class="path">C:\Mailscrubber\admin\</span><br />
+Start -> programs -> administrative tools -> internet information systems (IIS) manager<br />
+Select the name of your server in the pane on the left and click the + next to it<br />
+Click on Web Service Extensions<br />
+You should see Perl ISAPI Extension and Perl CGI Extension on the right.<br />
+Right click on each one of them and click "allowed"<br />
+Then right click on "Web Sites" on the left pane and click on New -> Website.<br />
+Go through the wizard answering questions with the following information:<br />
+-Description:  mailscrubber.<span class="placeholder">example.com</span><br />
+-Host header for this website: mailscrubber.<span class="placeholder">example.com</span><br />
+-Path: <span class="path">C:\Mailscrubber\admin\</span><br />
+-Uncheck Allow anonymous access<br />
+-Check the box next to "Execute"<br />
+The wizard should be done and a new site should show up on the left.<br />
+Right click on "mailscrubber.<span class="placeholder">example.com</span>" and click on properties.<br />
+On the "Directory Security" Tab, under "Authentication and access control", click "Edit"<br />
+Uncheck "Enable anonymous access"<br />
+Enable other kinds of authenticated access as needed<br />
+Click ok<br />
+Under the "Documents" tab, click the add button and add "index.pl" to the list<br />
+Click on index.pl in the list and click "Move up" until it is at the top.<br />
+Click Apply, and then ok. Your site is now ready<br />
+</div>
+<a name="admin_gui"><h2>Install the admin GUI</h2></a>
+<div class="item">
+Change the permissions on <span class="path">C:\Perl\site\etc\mail\spamassassin\local.cf</span> so that
+apache has write access to it.<br /><br />
+Edit <span class="path">C:\Perl\site\etc\mail\spamassassin\local.cf</span> to:
+<div class="filecontents">
+report Mailscrubber has identifed the attached message as spam.<br />
+report If this is not spam, please forward it to<br />
+report not_spam@mailscrubber.<span class="placeholder">example.com</span>. If you have any questions,<br />
+report see _CONTACTADDRESS_ for details.<br />
+header Checker-Version : SpamAssassin _VERSION_ (_SUBVERSION_) on _HOSTNAME_ : all<br />
+header Flag : _YESNOCAPS_ : spam<br />
+header Level : _STARS(*)_ : all<br />
+header Status : "_YESNO_, score=_SCORE_ required=_REQD_ tests=_TESTS_ autolearn=_AUTOLEARN_ version=_VERSION_" : all<br />
+rewrite_header Subject ****SPAM****<br />
+required_score 5<br />
+</div>
+Then install the provided files into C:\Mailscrubber\admin\ and access them through your web browser
+at http://mailscrubber.<span class="placeholder">example.com</span>/.
+</div>

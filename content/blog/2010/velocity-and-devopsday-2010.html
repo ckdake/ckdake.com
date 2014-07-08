@@ -1,0 +1,76 @@
+---
+title: Velocity and DevOpsDay 2010
+created_at: 2010-06-28 11:43:18 -0400
+kind: article
+---
+What a crazy week last week was!  A lot happened in Silicon Valley at Velocity and DevOpsDay, and it was all pretty awesome.
+
+I flew in Monday and picked up a rental car (my first week in California with a car, and I've spent 7+ months of my life there) and headed to Facebook for lunch with my friend Don from <a href="http://gallery.menalto.com/">Gallery</a> and some informal conversations about Facebook's operations with two people that manage things there. Dinner and some long conversations about technical teams followed at Bharat's (also from Gallery) place in Menlo Park, and I was off to a super late check in at the Hotel.
+
+Tuesday morning, <a href="http://en.oreilly.com/velocity2010">Velocity 2010</a> began.  Seth, Wyatt and I from SugarCRM were a small part of the 1200 person sold-out crowd of performance and operations engineers from around the world.  Including:
+
+<ul>
+<li>Everyone that wrote all the books (e.x. <a href="http://oreilly.com/catalog/9781449377441/">Web Operations</a> co-authored by <a href="http://www.etsy.com/storque/etsy-news/john-allspaw-joins-the-etsy-team-6183/">John Allspaw of Flickr and now Etsy</a>. He signed the pre-release copy I got for free!)</li>
+<li>Everyone that wrote all the tools (e.x. Adam Jacob of <a href="http://www.opscode.com/chef/">Chef</a>, and Luke Kanies of <a href="http://www.puppetlabs.com/">Puppet</a>.)</li>
+<li>"The Greatest SysAdmin in the world" , <a href="http://omniti.com/is/theo-schlossnagle">Theo Schlossnagle</a>, founder of OmniTI. A quote from him: "Ops super powers come from developing a uniform hatred and mistrust for all tech while maintaining a positive outlook."</li>
+<li>The kind of people that are as "graph crazy" as I am and use <a href="http://www.flickr.com/photos/cyberdees/2835772977/">this sticker</a> in their presentations.</li>
+<li>The developers behind web development and performance tools, including a guy I did some grad school projects with named Jaime that works for Google and did a presentation on <a href="http://code.google.com/webtoolkit/speedtracer/">SpeedTracer</a>.</li>
+</ul>
+
+Tuesday, Wednesday and Thursday were full of entertaining and informative sessions, and I mostly stuck to the operational track.  There is far too much for me to fit in here, but if you'd like to know more about the content of the conference, Ernst at <a href="http://theagileadmin.com/">The Agile Admin</a> did great writeups of the sessions he went to which mostly cover the ones I was in, Royans posted a pretty <a href="http://www.royans.net/arch/thoughts-on-scalable-web-operations/">consise topic and idea summary</a> and Velocity has the <a href="http://en.oreilly.com/velocity2010/public/schedule/proceedings">slides and videos</a> available.  If you only have time for a few or don't know where to begin, start with these:
+
+<ul>
+<li><b>Scalable Internet Architectures</b> - Theo Schlossnagle's opening session that set the tone for the entire conference.</li>
+<li><b>Infrastructure Automation with Chef</b> - I learned a lot about Chef from this talk and talked to Adam Jacob (presenter and Chef author) afterwards about some aspects of how Chef works and some problems I have with Puppet. He was super helful about both and once I look at switching out mod_passenger for <a href="http://raa.ruby-lang.org/project/unicorn/">unicorn</a> for use in our Puppetmaster, I'll be giving Chef a shot.</li>
+<li><b><a href="http://www.kitchensoap.com/2010/06/24/ops-meta-metrics-velocity-2010-slides/">Ops Meta-Metrics</a></b> - John Allspaw's great talk about correlating data related to change and incidents with more standard monitoring data.</li>
+<li><b>Always Ship Trunk: Managing Change In Complex Websites (<a href="http://www.paulhammond.org/2010/06/trunk/alwaysshiptrunk.pdf">PDF</a>)</b> - The way that development should be done and code should be deployed.</li>
+<li><b>Facebook Operations – A Day In The Life</b> - This was the only standing room only talk I was in, and Tom from Facebook (one of the guys I talked to Monday) explained all kinds of interesting behind-the-scenes details.</li>
+</ul>
+
+Some of the most fun sessions I went to were the evening activities on Tuesday and Wednesday.  Tuesday was Ignite Talks which is an hour of presentations, each consisting of 20 slides that automatically advance every 15 seconds forcing the presenter to be quick and concise. This was the first one of these I have been to, and the topics covered ranged from completing a triathlon to cheap scalable storage using laptop drives.  Ernst at The Agile Admin did a great <a href="http://theagileadmin.com/2010/06/23/velocity-2010-ignite/">writeup of Velocity 2010: Ignite</a>.
+
+Wednesday evening was "Birds of a Feather" sessions which are small conversations around a table between people interested in the same things.  Up first for me was a Demo by <a href="http://www.zenoss.com/">ZenOSS</a>/<a href="http://www.opscode.com/">Opscode</a>/<a href="http://dyn.com/">Dyn </a>about "Geographically Based Cloud Scaling".  They demoed using ZenOSS to detect failure of servers and datacenters, which then updated DNS hosted at Dyninc using their API so traffic was only sent to "live" servers.  Once enough things failed that there wasn't enough capacity, ZenOSS used Chef (by Opscode) to spin up Amazon EC2 instances and add them to DNS to help handle the load.  Very Cool demo! I pointed out that ZenOSS was still a single point of failure, and we discussed strategies for using Chef to ensure that a ZenOSS install is always working properly somewhere. <b>update:</b> <a href="http://community.zenoss.org/blogs/zenossblog/2010/06/30/velocity-conference-cloud-scaling-and-management-demo-post-mortem">ZenOSS Blog post</a> about the demo.
+
+After cloud scaling, I switched rooms to talk "Load Balancing Tips and Tricks" with another small room of people.  It turns out that the vast majority of people use <a href="http://www.citrix.com/English/ps2/products/product.asp?contentID=21679">NetScalers</a> for load balancing (We at SugarCRM used to use them but switched last December to nginx+wackamole on Dell hardware), and most of them have the same issues we experienced.  It's pretty common to not use any of the advanced features in the Citrix load balancers and to do things like session handling, redirects, and serving error pages from upstream servers. In the early days of Youtube, they actually would have to reboot the entire site due to a "feature" in the NetScalers that couldn't be disabled:  An "overflow" queue would accept more connections than upstream had resources to handle with the goal of smoothing out small load spikes, but it ended up backing up everything and the only way to clear out the load and get response times back down was to restart all the web servers which gave all open connections error 500s. Youtube doesn't serve video content through their NetScalers and neither should you!
+
+To close out wednesday evening, I headed to <a href="http://ckdake.com/gallery/2010/stream/photo_062.jpg.html">Dyntini</a> at the hotel bar: free drinks on DynInc's tab!  It's a bunch of nice people, and I'm slowly moving over ithought.org DNS to their infrastructure. Once SugarCRM is ready to do some global load balancing, we'll probably make the switch as well.
+
+Some other interesting talks I have specific thoughts on:
+
+<ul>
+<li><b><a href="http://github.com/wesabe/grendel">Grendel</a></b> is really neat. It's a HTTP based document store with strong server-side PGP encryption: if someone gets a copy of your DB, still don't have data.</li>
+<li><b>Hidden Scalability Gotchas in Memcached and Friends</b> Neil Gunther comes from an academic background and talked about performance and modeling: "Models are from God, data is from the devil."  This talk had a bit of a confrontational response from the audience because ops people in the room want to use models to predict performance and capacity characteristics, but he claims that models are more useful to explain the data. The particular model he presented had things like a variable representing "contention factor," and the value of this variable on a curve fit tells you if cpu/disk/ram/lock/etc contention is limiting the performance of your application. This was used to show some changes that they made to Memcached to improve scalability on systems with large numbers of CPUs</li>
+<li><b><A href="http://drizzle.org/">Drizzle</a></b> - The momentum in Drizzle sounds really promissing.  It's based on MySQL but is getting a lot of features ripped out and/or converted to plugins, and comes with sane defaults. There isn't a  reason to switch to using it yet, but if at some point it doesn't become feasable to use MySQL, this will probably be the way to go.</li>
+<li><b>Choose Your Own Adventure</b> - Adam from Opscode gave a wonderful presentation that was a great close to Velocity.  You had to be there, but he's a great public speaker and everything is either a magic unicorn or it isn't. <b>UPDATE</b>: <a href="http://www.youtube.com/view_play_list?p=271D5BF52104418D">videos of this are now online!</a></li>
+</ul>
+
+<a href="http://www.devopsdays.org/">DevOpsDay</a> was a completely different yet still pretty similar experience.  A bunch of us met up at LinkedIn on Friday morning to listen to a <a href="http://www.devopsdays.org/2010-us/programme/">round of panels</a> discuss DevOps ideas and culture. The entrance was somewhat <a href="http://ckdake.com/gallery/2010/stream/photo_063.jpg.html">sneaky</a>.
+
+All of the panels were full with great speakers, including ones that stood out as being great during their presentations at Velocity and some great people that didnt' speak at Velocity like Gene Kim (wrote first version of <a href="http://www.tripwire.com/">tripwire</a>),   Michael Stahnke (created <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a>), and <a href="  http://www.cutter.com/meet-our-experts/gati.html">Israel Gat</a>.
+
+"DevOps" is sort of like the new "Cloud".  In 3 years companies may be asking "What should or DevOps strategy be?" which seems pretty funny now, but "The Cloud" was the same way several years ago. It's not a technology, but a culture and processes that revolve around people and technologies.  Terms like DevOps and "The Cloud"  are bad terms but they're nice because business people see them in magazines and online, so are more receptive when technical people bring things up.  One of the panels was on DevOps culture outside of Web Oberations, and I hope to be able to take it's content to heart: DevOps is about removing team barries (Us vs Them) including those with Engineering and those with "them" being "the business".  Everything needs to be "we" and companies that get this working correctly see 4x gains in efficiency and productivity. 
+
+Adam from Opscode, Theo from OmniTI, Luke from Puppet, and Eric from rPath were in a fantastic panel that ended up focusing much on the "sharing" aspects of the rising world of system automation. Puppet just launched <a href="http://forge.puppetlabs.com/">Puppet Forge</a> and Chef has their <a href="http://cookbooks.opscode.com/">Cookbooks Library</a>, but at some point configurations are going to be so specific to an enterprise that they'll need to be developed inside of the company.  This panel had a lot of back and forth between the panelists, and a lot of audience interaction, with no real conclusion on how much things can truly be automated.  Food and drinks at the end of the day with other "DevOps" people led to some great conversations about automation and scalability, and Saturday morning I flew back to Atlanta.
+
+Based on conversations and presentations over the week, here are a few books that are worth checking out:
+
+<ul>
+<li><a href="http://www.amazon.com/gp/product/0066620996?ie=UTF8&tag=ckdake-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0066620996">Good to Great</a></li> 
+<li><a href=" http://www.amazon.com/gp/product/0975568612?ie=UTF8&tag=ckdake-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0975568612">The Visible Ops Handbook</a></li>
+<li><a href="http://www.amazon.com/gp/product/0321601912?ie=UTF8&tag=ckdake-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0321601912">Continuous Delivery (preorder)</a></li> 
+<li><a href="http://www.amazon.com/gp/product/0787961485?ie=UTF8&tag=ckdake-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0787961485">Leading Geeks</a></li> 
+<li><a href="http://www.amazon.com/gp/product/1449377440?ie=UTF8&tag=ckdake-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1449377440
+">Web Operations</a></li></ul>
+</li>
+
+And lastly, some quotes and concepts to close out with:
+
+<ul>
+<li><b>"Hiring too many people to do things that should be automated gets you a "Meat Cloud". This is bad"</b> (Adam Jacob?) - Focus should be on hiring people that can do the automation instead.</li>
+<li><b>"us ops guys are like cicadas. Every 17 years we get to come out"</b> - Velocity is the only real gathering like this, and each year it grealy increases in size.  There was a similar sort of thing in the early years of computing, but for some time the sysadmin has been mostly forgotten.</li>
+<li><b>"cloud security: Its always going to suck, but we'll always have jobs!"</b>(Ward Spangenberg) - Running your code on someone elses infrastructure is always going to have risks, and smart people will always be needed to make sure everything is functional and secure.</li>
+<li><b>"The limiting factor for any business is time it takes to restore from app data, code repo backup, and bare metal."</b> (Theo Schlossnagle) Operationally, a business can only recover form disaster as quickly as the application data can be restored.  If there are other things that make recovery time longer, they need to be fixed and optimized out so that the restoration of data is the only limiting factor. </li>
+<li><b>"The purpose of QA is to ensure quality."</b> (John Allswaw) - So why do business have QA departments? Shouldn't engineering and operations be responsible for ensuring quality?  A lot of the big-name businesses (Facebook for example) don't have QA departments any more and it's working out alright.</li>
+</ul>
+
+That's it for the 2010 version, I'm looking forward to continuing to interact with all the people I met at Velocity and DevOpsDay, and next year should be even bigger and better.

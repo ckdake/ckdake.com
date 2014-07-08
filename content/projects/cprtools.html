@@ -1,0 +1,112 @@
+---
+title: cpr tools
+created_at: 2007-04-23 13:01:58 -0400
+kind: article
+---
+Brief overview of some of the the tools I've written to work with CPR.
+
+This document is now maintained at:
+
+<a href="http://share-it.gatech.edu/oit/rnoc/cpr-campus-performance-and-recovery/cpr-administrative-tools">http://share-it.gatech.edu/oit/rnoc/cpr-campus-performance-and-recovery/cpr-administrative-tools</a>.
+
+<h3>Installing a new CPR node</h3>
+This is a fairly easy process. Currently cpradmin should only be run for campus nodes because old nodes on the other meshes have not been updated to use the most recent setup (other meshes still use the dev user instead of the cpr user, among other things.)  cprsetup is still good to use on any machines (including those that won't be part of a CPR mesh such as servers) to set up accounts.
+<ol>
+<li>First set up the machine. Boot it up with a RHEL4 cd on the NS subnet and give it the following boot command:
+<pre>linux ks=http://rhn.gatech.edu/kickstart/ks/label/cpr-rhel4-new</pre></li>
+<li>Once the machine has RHEL4 on it, edit /etc/sysconfig/network and /etc/sysconfig/network-scripts/ifcfg-eth0 appropriately</li>
+<li>Install the box in it's new home (and make sure DNS works and that you can ssh to it from cpr-central)</li>
+<li>if this is _not_ a new hostname, make sure to remove all entries from known_hosts for the nagios user on cpr-southcentral and the cpr user on cpr-central</li>
+<li>scp ~cpr/admin/cprsetup.sh to the new host (username: root, and the password from the kickstart)</li>
+<li>on the host, as root, run cprsetup. The first option is the name of the network (campus, gammon, home, etc) and is required. The second option is optional and only needed if the name the box should report in as is different than the box's hostname. (ie:  the hostname is server.ns.gatech.edu but it should report in as cpr-server.rnoc.gatech.edu) <pre>./cprsetup.sh campus cpr-server.rnoc.gatech.edu</pre></li>
+<li>At the end of the script, you will be prompted for several steps to do on cpr-central. The instructions below are a little more detailed so use them instead.</li>
+<li>Add the printed ssh key to authorized_keys for the cpr and cpr-data users on beaker.</li>
+<li>On cpr-southcentral, make sure that as the nagios user, you can ssh to the new cpr host with the nagios user. Resolve any issues this causes until the ssh works with no warnings and the ssh key. You may need to delete an entry or two from nagios's know_hosts file and accept the new host entry when sshing.</li>
+<li>On cpr-central, make sure that as the cpr user, you can ssh to the new cpr host with the cpr user. Resolve any issues this causes until the ssh works with no warnings and the ssh key. You may need to delete an entry or two from cpr's know_hosts file and accept the new host entry when sshing.</li>
+<li>Once the cpr user can ssh properly, run the cpradmin command(s) that cprsetup gave you. Make sure to run them from the ~cpr/admin/ directory or it will not work!</li>
+</ol>
+
+<h3>Manage the CPR nodes</h3>
+cpradmin provides functionality to do almost any administrative task to one or all of the cpr nodes in a particular monitoring mesh. For several tasks, you'll need to add configuration data into MySQL directly, but cpradmin will take care of generating configuration files and updating all of the machines. Some examples are below (which all use the campus monitoring mesh and campus database on cpr-central):
+<ul>
+<li>Adding monitoring of Oracle on isis to cpr-ssc:<ul>
+    <li>Get the host id numbers of isis and cpr-ssc from the Host table: <pre>SELECT id,name FROM Host WHERE name LIKE "%ssc%" OR name LIKE "%isis%";</pre></li>
+    <li>Get the test id number for checking Oracle from the NagiosTest table. <pre>SELECT id,command FROM NagiosTest WHERE description LIKE "%Oracle%";</pre> You may need to poke around here some (selecting * from the table) to get the right test, and if it doesn't exist, you should insert a new row with the right interval, name, and command.</li>
+    <li>Add the information above into the NagiosTest table. It has four columns: host_id,target_id,enabled, and test_id.  The IDs will be the numbers found above, and enabled should be 1.  Example: <pre>INSERT INTO NagiosConfig VALUES(38,118,1,12);</pre></li>
+    <li>As the cpr user on cpr-central, use cpradmin to update cpr-ssc:  <pre>cd ~cpr/admin/; ./cpradmin.pl -n campus -h ssc -a push -c nagios</pre></li>
+</ul></li>
+<li>Adding a new CronJob or FirewallRule:<ul>
+    <li>Get the host id number of the desired host from the Host table</li>
+    <li>Insert the new cron job or firewall rule into the CronJob or FirewallRule table. The first parameter should be blank (MySQL automatically creates the id number), the second is the host id, and the third is the line from a crontab file or the rule as would be given as a parameter to iptables. See the existing rows for examples</li>
+    <li>As the cpr user on cpr-central, use cpradmin to push out the new information.  the COMMAND is either "cron" or "iptables": <pre>cd ~cpr/admin/; ./cpradmin.pl -n campus -h HOSTNAME -a push -c COMMAND</pre></li>
+</ul></li>
+<li>Run a script once on all of the machines:<ul>
+    <li>Write your script and save it to ~cpr/admin/pushfiles/runonce.sh</li>
+    <li>As the cpr user on cpr-central, use cpradmin to run it on all of the machines:<pre>cd ~cpr/admin/; ./cpradmin.pl -n campus -a push -c runonce</li>
+    <li>Alternatively, you may do this on cpr-northcentral using the threading functionality of cpradmin. This requires you to change the first line of cpradmin.pl to point to the proper perl install (/usr/local/bin/perl), but after that one change you can run the following command which will push out and run your script on every machine in parallel instead of sequentially.  Once you edit cpradmin, as the cpr user on cpr-northcentral:<pre>cd ~cpr/admin/; ./cpradmin.pl -n campus -a push -c runonce -f</pre></li>
+</ul></li>
+</ul>
+Most other things you can do with cpradmin follow the examples given above. Multithreading is not heavily tested but should work for most things. There are several folders in ~cpr/admin/ that contain files for different pieces of functionality:
+<ul>
+<li>file_generators - each of the scripts in this folder takes a -h HOSTNAME and -n NETWORK parameter and generates a config file for that host on that monitoring mesh. Each of these is run by cpradmin to generate config files before copying them to the cpr hosts, so if you want to change something you can make the change here. For example, you could edit the nagios configuration by changing ~cpr/admin/file_generators/nagios.pl and then, as the cpr user, running <pre>cd ~cpr/admin/; ./cpradmin.pl -n campus -a push -c nagios</pre> to update nagios on all of the machines. This will update the configuration and restart nagios on all machines in the campus mesh. These actions are hard coded into cpradmin and to add a new one you will need to edit cpradmin.pl and follow the example of one of the existing components.</li>
+<li>installers - these are install scripts. They are self explanatory and more can be added without changes to cpradmin.  To install pathchar on all of the cpr hosts, you would need to create a script that can install pathcar, name it pathcar.sh and put it in this folder, and then run cpradmin:  <pre>cd ~cpr/admin/; ./cpradmin.pl -n campus -a install -c pathchar</pre>. Once this finishes, pathchar will be on all the hosts! Note that the install scripts do run on the cpr machines as root.</li>
+<li>pushfiles - these are static files that get pushed out to hosts. Like file_generators, new ones must be added here and cpradmin needs to be updated.  The exact name of these varies, but for example:  You could add a new ssh key to ~cpr/admin/pushfiles/authorized_keys.cpr and then push out this updated authorized_keys file for the cpr user to all of the cpr machines: <pre>cd ~cpr/admin/; ./cpradmin.pl -n campus -a push -c authorized_keys</pre>. (Note: this will also push out the authorized keys file for the nagios user)</li>
+</ul>
+As shown above, cpradmin is fairly versatile. Below are list of some of the options and a few gotchas:
+<pre>cd ~cpr/admin/; ./cpradmin.pl -n network [-h host] -a [push|get|configure|new] -c command [-f]</pre>
+<ul>
+<li>-f : fork and run each host in its own thread (a _lot_ faster, but the output becomes a _lot_ less usable). Currently this only works on cpr-northcentral and you'll need to change the #! line first.</li>
+<li>-n : the name of the cpr network to work with</li>
+<li>-h : the name of the host to work with. this can be the shortest string that uniquely identifies the host. 711 would be acceptable, as would cpr-711.rnoc.gatech.edu or anything in between, however be careful of situations such as lawn and lawn804, french and frenchclass, etc default: the entire mesh network </li>
+<li>-a action  : whether to push something, get something, change a setting in the database here, or new something</li>
+<li>-c command : the command to push or get. <ul>
+    <li>get:  uptime,disk,status</li>
+    <li>push: crontab, iptables, smokeping, data-extraction, nagios, sshd, authorized_keys, known_hosts, motd, users, runonce (runs the script runonce.sh),console-settings</li>
+    <li>get commands for hosts can be:  firewallrules (stored in database), smokepingtargets (stored in database), uptime, disk, status</li>
+    <li>get commands for the whole network can be: hosts, or any command that is valid for a single host</li>
+</ul></li>
+</ul>
+    
+<h3>Building a map of the current network topology</h3>
+The topobuilder script is still not finished but it generally works for the most part. First of all, a file for each router that lists it's interfaces needs to be in the ~cpr/topology/ folder. The north interconnect router would have the filename ni-rtr.gatech.edu.INTERFACES and the contents of the file should be a \n separated list of ip addresses on that router. It is fine for the file to be the output of "sho ip int brief" on the router because topobuilder only looks for IP addresses in the file and as long as there are 0 or 1 IP addresses on each line, everything works out.
+
+To run topobuilder, pick a network to run on.  There are other options for level (later on this will allow doing a layer 2 traceroute using the Book Of Knowledge database), and a file to read from (later on manual traceroutes can be put into a file and used instead of having topobuilder do the traceroutes), but neither of these does anything yet. 
+
+Topobuilder must be run on cpr-northcentral currently, as it uses threading which is not available on cpr-central.
+
+<pre>cd ~cpr/topology/  ./topobuilder.pl -n NETWORK</pre>
+
+This script will chug along for a while and once it's done, the graph of the network will be stored in the database. Any new hosts discovered will be added to the Host table, and each link in the network will be added to the Link table. Every entry added to the Link table in this iteration of the script will have a revision number that is one greater than the previous time the script was run. This way we can keep track of changes in the network.
+
+Note that no images are generated when running this tool, Faultfinder must be used instead to do this. See below.
+
+<h3>Performing fault localization on the network</h3>
+For one semester, I did a project on fault localization. The result is a tool called faultfinder. Here's the short version with an explanation of how to run the thing.
+
+(If you're just trying to generate a static map of a simple topology, check out ~cpr/faultfinder/topmaps.pl. It needs to be run on cpr-northcentral or the Perl dependencies need to be installed on cpr-central)
+
+
+Faultfinder requires a few parameters to run:<ul>
+<li>-n NETWORK: network to run analysis on (usually you want this to be campus)</li>
+<li>-l LAYER: layer to run on (usually you want this to be 3, once everything is functional to build the layer 2 topology, layer 2 will be useful</li>
+<li>-m METRIC: metric to use as the performance criteria. This is the name of the table to use in the database. Any table can be used that has a host_id and target_id column that each contain id numbers of hosts in the topology. This table must also contain a column "performance" that has the results of some performance test. Right now we don't have any tables like this but one could be made in aggregate from other data (like Smokeping).  A future version of this tool will support fail_percentage and the data0...dataN columns as standardized across CPR.</li>
+<li>-t TIMESTAMP: the timestamp we're running at. Right now it needs to be an exact match, in the future a range will be used.</li>
+<li>-v THRESHOLD: the success threshold. What constitutes success for a single performance test?  This has been used for fail_percentage where 100 is success, but some data may have a lower percentage, or the output range of some other test may be 1 to 5.</li>
+</ul>
+
+Currently this tool is inoperable because it's being updated from working on test data to the real data, but once the changes mentioned above are implemented, it can be run by:
+
+<pre>cd ~cpr/faultfinder/; ./faultfinder.pl -n NETWORK -l LAYER -m METRIC -t TIMESTAMP -v THRESHOLD</pre>
+
+<h3>Using the distributed data storage system</h3>
+datawarehousing project, <a href="http://ckdake.com/node/145">Database Clustering writeup</a>.
+
+cpr/distributeddb/
+These are all the files for the distributed data storage tool.  Nothing needs to be run by hand but here is what happens:
+-dataextraction.sh on the campus cpr nodes copies stuff to the usual location and ~cpr-data/for_northcentral/campus/
+-processing/process_data.pl runs every minute and inserts stuff into the local database and the cluster
+-processing/weightcalc.pl runs every now and then and updates the weights in servers.xml so that inserts can be randomized appropriately
+-statuspage/ is at http://cpr-northcentral.rnoc.gatech.edu/cpr_status/
+-statuspage/cleanupDB.php  is run every now and then and cleans out data older than a day from the database on northcentral
+
+More details are in README.txt tehre

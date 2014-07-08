@@ -1,0 +1,147 @@
+---
+title: Gentoo Monitoring
+created_at: 2006-09-25 21:24:07 -0400
+kind: article
+---
+<h2>Syslog the crazy way</h2>
+Taken mainly from the Gentoo security guide (replaced by a handbook: <a href="http://www.gentoo.org/doc/en/security/">http://www.gentoo.org/doc/en/security/</a>) this is the config I use for my syslog-ng to log lots of nice files:
+<pre>
+#/etc/syslog-ng/syslog-ng.conf
+options { long_hostnames(off); sync(0); stats(43200); };
+
+#source where to read log
+source src { unix-stream("/dev/log"); internal(); };
+source kernsrc { file("/proc/kmsg"); };
+
+#define destinations
+destination authlog { file("/var/log/auth.log"); };
+destination syslog { file("/var/log/syslog"); };
+destination cron { file("/var/log/cron.log"); };
+destination daemon { file("/var/log/daemon.log"); };
+destination kern { file("/var/log/kern.log"); };
+destination lpr { file("/var/log/lpr.log"); };
+destination user { file("/var/log/user.log"); };
+destination mail { file("/var/log/mail.log"); };
+
+destination mailinfo { file("/var/log/mail.info"); };
+destination mailwarn { file("/var/log/mail.warn"); };
+destination mailerr { file("/var/log/mail.err"); };
+
+destination debug { file("/var/log/debug"); };
+destination messages { file("/var/log/messages"); };
+destination console { usertty("root"); };
+destination console_all { file("/dev/tty12"); };
+destination xconsole { pipe("/dev/xconsole"); };
+
+#create filters
+filter f_auth { facility(auth); };
+filter f_authpriv { facility(auth, authpriv); };
+filter f_syslog { not facility(authpriv, mail); };
+filter f_cron { facility(cron); };
+filter f_daemon { facility(daemon); };
+filter f_kern { facility(kern); };
+filter f_lpr { facility(lpr); };
+filter f_mail { facility(mail); };
+filter f_user { facility(user); };
+filter f_debug { not facility(auth, authpriv, mail); };
+filter f_messages { level(info..warn)
+        and not facility(auth, authpriv, mail); };
+filter f_emergency { level(emerg); };
+
+filter f_info { level(info); };
+filter f_notice { level(notice); };
+filter f_warn { level(warn); };
+filter f_crit { level(crit); };
+filter f_err { level(err); };
+filter f_failed { match("failed"); };
+filter f_denied { match("denied"); };
+
+#connect filter and destination
+log { source(src); filter(f_authpriv); destination(authlog); };
+log { source(src); filter(f_syslog); destination(syslog); };
+log { source(src); filter(f_cron); destination(cron); };
+log { source(src); filter(f_daemon); destination(daemon); };
+log { source(kernsrc); filter(f_kern); destination(kern); };
+log { source(src); filter(f_lpr); destination(lpr); };
+log { source(src); filter(f_mail); destination(mail); };
+log { source(src); filter(f_user); destination(user); };
+log { source(src); filter(f_mail); filter(f_info); destination(mailinfo); };
+log { source(src); filter(f_mail); filter(f_warn); destination(mailwarn); };
+log { source(src); filter(f_mail); filter(f_err); destination(mailerr); };
+
+log { source(src); filter(f_debug); destination(debug); };
+log { source(src); filter(f_messages); destination(messages); };
+log { source(src); filter(f_emergency); destination(console); };
+
+#default log
+log { source(src); destination(console_all); };
+</pre>
+<h2>Then we need to watch these logs with logcheck</h2>
+From the app-admin/logsentry package, comes logcheck. I run it ever hour and have it email me things that are "out of place" in my logs.  Just emerge it, cron it to run every hour, and edit its config file in /etc/logcheck/logcheck.sh and add in any logs you want to watch. I added in /var/log/auth.log, /var/log/kern.log, /var/log/messages, /var/log/mysql/mysqld.err, and /var/log/mail.err to mine.  Then wait for the first email to come in and start adding things to the .ignore files so you don't get emails for typical activity. This will depend on your server so I'll let you figure that part out, it's pretty easy to figure out from their examples.
+<h2>Then they need to get rotated with logrotate.</h2>
+Partially taken from <a href="http://www.gentoo.org/proj/en/infrastructure/config-syslog.xml">http://www.gentoo.org/proj/en/infrastructure/config-syslog.xml</a>,
+my way works with some crazier things I have going on. add a
+<pre>
+#! /bin/sh
+/usr/sbin/logrotate /etc/logrotate.conf
+</pre>
+to /etc/cron.daily/logrotate and then set up the following in /etc/logrotate.d/: I modified this to run webalizer before rotating the main apache log:
+<pre>
+# /etc/logrotate.d/apache2
+# Apache2 logrotate snipet for Gentoo Linux
+# Contributes by Chuck Short
+# edited by ckdake to add webalizer runs before rotating
+#
+/var/log/apache2/*log {
+  prerotate
+        /usr/bin/webalizer &> /dev/null
+  endscript
+  missingok
+  notifempty
+  sharedscripts
+  postrotate
+  /etc/init.d/apache2 reload > /dev/null 2>&1 || true
+  endscript
+}
+</pre>
+I modified this to run logcheck before rotating. logcheck would otherwise have a small gap in coverage:
+<pre>
+# /etc/logrotate.d/syslog-ng
+# $Header: /var/cvsroot/gentoo-x86/app-admin/syslog-ng/files/syslog-ng.logrotate,v 1.2 2004/07/18 02:25:02 dragonheart Exp $
+#
+# Syslog-ng logrotate snippet for Gentoo Linux
+# contributed by Michael Sterrett
+# edited by ckdae to add support for logcheck before running
+#
+
+/var/log/messages /var/log/debug /var/log/*.log {
+    prerotate
+        /bin/sh /etc/logcheck/logcheck.sh
+    endscript
+    sharedscripts
+    postrotate
+        /etc/init.d/syslog-ng reload > /dev/null 2>&1 || true
+    endscript
+    }
+    </pre>
+<h2>Then we need to monitor other stuff</h2>
+smartd for hard drives, mdadm for raid, chrootkit for rootkits
+<br />
+emerge them up, then enable them:
+<ul>
+<li>add "MAILADDR webmaster@example.com" to /etc/mdadm.conf</li>
+<li>rc-update add mdadm default &amp;&amp; /etc/init.d/mdadm start</li>
+<li>add "DEVICESCAN -H -l error -f -m webmaster@example.com" to /etc/smartd.conf</li>
+<li>rc-update add smartd default &amp;&amp; /etc/init.d/smartd start</li>
+<li>make sure /etc/cron.weekly/chrootkit has the exec line enabled</li>
+</ul>
+<h2>Then we need iptables to automatically stop SSH brute force attacks</h2>
+<ul>
+<li>emerge fail2ban</li>
+<li>edit its config file to point to your auth log above (may want to add it to logrotate too)</li>
+<li>you can also enable apache support and add "HEAD /" to the regex to catch one kind of DOS attack on apache</li>
+<li>start iptables, then fail2ban</li>
+<li>add iptables and fail2ban to default runlevel</li>
+</ul>
+<h2>Other kinds of monitoring</h2>
+I also run MRTG with ping, mysql, postfix, traffic and cpu usage which I check up on regularily. There is also phpsysinfo with sensors turned on the check the stats of the hardware (I should probably get emails about bad things but this hasnt been set up yet).

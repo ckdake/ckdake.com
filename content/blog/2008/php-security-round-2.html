@@ -1,0 +1,103 @@
+---
+title: PHP Security, Round 2
+created_at: 2008-03-23 22:14:13 -0400
+kind: article
+---
+As I've noticed from watching hits on my site here, many of you have read my <a href="http://ckdake.com/content/2006/php-security.html">page on PHP security</a> using mod_fastcgi and suexec. The logic on that page still holds, but Gentoo decided to make the switch from mod_fastcgi to mod_fcgid and it broke all sorts of things for me.  I got things scratched back together without any security on my old server, and with the installation of my new server a few weeks ago, I set things up more securely again. I still think this way is the way to go for a server where many of the virtual hosts will seldomly see traffic, but if you're running lots of high traffic sites and have a little bit of RAM overhead, you might want to check out <a href="http://blog.stuartherbert.com/php/2008/03/20/using-mpm-peruser-to-secure-a-shared-server/">this article on mpm-peruser</a>.
+
+For this setup, I decided to stick to some standards. This means no more changing the suxec directory, using /data/, or anything like that. Other than that, the key differences from last time:
+<ul>
+<li>All configuration is now done with with a setup script instead of using a mysql database. There was not really any point for the host names to be in a database, and it makes setup/teardown scripts easier to write as just a bash script.</li>
+<li>Some hosts have PHP, some don't, so no point in setting up all the overhead if a host isn't going to use PHP.</li>
+<li>Most hosts won't have any interest in having their own logs. Statistics can be done using client side things such as <a href="http://www.google.com/analytics/">Google Analytics</a>, and Apache is happier writing all the logs to 1 place instead of hundreds. I also have split-logs running when logs are rotated, so logs can easily be gathered per-site as needed, just not real time by one of my hosting customers. I've never known of one of my customers using live access to their logs.</li>
+<li>php.ini files are now stored with the wrapper script in the site's cgi-bin directory and file system extended attributes are used to protect it.  This means no separate home for php.ini files, and it's easier for users to see what their PHP confguration is.</li>
+</ul>
+
+The script isn't quite ready for sharing yet, but here's what you can do to get a setup like this:
+<ol>
+<li>on Gentoo, make sure your USE contains:  suexec, apache2, cgi, fastcgi, session.</li>
+<li>on Gentoo, "emerge apache php mod_fcgid".  On other platforms, consult your docs (or just download mod_fcgid and use apxs to install it. it should be pretty seamless)</li>
+<li>Set up your global configuration. On Gentoo, this is done for you, but make sure this gets loaded into your global apache configuration:
+<pre>
+LoadModule fcgid_module modules/mod_fcgid.so
+SocketPath /var/run/fcgidsock
+SharememPath /var/run/fcgid_shm
+
+&lt;Location /fcgid>
+SetHandler fcgid-script
+Options ExecCGI
+allow from all
+&lt;/Location>
+</pre></li>
+<li>Add a user and group for your first virtual host, test.example.com. call em "example" if you like</li>
+<li>Set up the directory tree for the virtual host:
+<pre>
+/var/www/test.example.com/
+/var/www/test.example.com/tmp
+/var/www/test.example.com/htdocs
+/var/www/test.example.com/htdocs/cgi-bin
+</pre></li>
+<li>Make some files:
+<pre>
+<!-- /var/www/test.example.com/test.html -->
+hello HTML world!
+</pre>
+<pre>
+<? 
+/* /var/www/test.example.com/test.php  */
+print("hello PHP world!");
+?>
+</pre>
+<pre>
+#!/bin/sh
+# /var/www/test.example.com/htdocs/fcgi
+PHPRC=/var/www/test.example.com/htdocs/cgi-bin/
+export PHPRC
+PHP_FCGI_CHILDREN=2
+export PHP_FCGI_CHILDREN
+PHP_FCGI_MAX_REQUESTS=25000
+export PHP_FCGI_MAX_REQUESTS
+exec /usr/bin/php-cgi
+</pre>
+</li>
+<li>Copy your php.ini to /var/www/test.example.com/htdocs/fcgi and edit it so that directories are right. All you'll likely need to change is upload.tmp_dir and session.save_path, but you may want to change others.</li>
+<li>Set fcgi to be executable, and make sure permissions are set on it so that it is owned by your test user/group and other users can't mess with it. If things don't work later, this is a frequent culprit</li>
+<li>Set the immutable bit on php.ini and fcgi (you'll need to be using extended file system attributes on your filesystem to do this, check your OS documentation for details) by running 'chattr +i /var/www/test.example.com/htdocs/*'.  You'll need to undo this with chattr -i if you want to change these files in the future.</li>
+<li>Set up this host's configuration:
+<pre>
+&lt;VirtualHost *:80>
+        DocumentRoot /var/www/test.example.com/htdocs/
+        ServerName test.example.com
+        SuexecUserGroup example example
+        &lt;Directory /var/www/test.example.com/htdocs/>
+                Options +SymLinksIfOwnerMatch
+                AllowOverride All
+                Order allow,deny
+                Allow from all
+                DirectoryIndex index.html index.php
+                AddType application/x-httpd-fastphp .php
+                Action application/x-httpd-fastphp /cgi-bin/fphp
+        &lt;/Directory>
+
+        &lt;Directory /var/www/test.example.com/htdocs/cgi-bin/>
+                SetHandler fcgid-script
+                FCGIWrapper /var/www/test.example.com/htdocs/cgi-bin/fphp .php
+                Options +ExecCGI -Includes
+                allow from all
+        &lt;/Directory>
+
+&lt;/VirtualHost>
+
+&lt;VirtualHost *:80>
+        ServerName aerospace.com
+        Redirect Permanent / http://test.example.com/
+&lt;/VirtualHost>
+</pre>
+</li>
+<li>Give apache a restart and that should be it! </li>
+</ol>
+
+Check out the processes running on your server, and after you hit test.php you should see a php-cgi process running as the example user. If you have problems, error_log and suexec_log in /var/log/apache2/ (or /var/log/httpd/) tend to tell you everything you need to know.
+
+An oh yeah, want to use <a href="http://us3.php.net/apc">APC</a> to speed up your PHP applications significantly under this setup? Just install APC, then add the configuration for it to the bottom of the php.ini for any hosts that you want to enable this on. Given that APC isn't 100% perfect and crashes sometimes, the beauty of the fcgid setup is that it will take out the php-cgi process and the fcgid manager will just start a new one like nothing happened.
+

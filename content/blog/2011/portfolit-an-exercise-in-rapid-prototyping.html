@@ -1,0 +1,32 @@
+---
+title: "Portfolit: an exercise in rapid prototyping"
+created_at: 2011-01-14 10:19:53 -0500
+kind: article
+---
+Last night around 6:30pm I decided to spend part of an evening building and deploying something neat.   I've been employed full time as a software developer now for close to 6 months and have a lot more experience with Javascript, Ruby on Rails, and deploying applications, so it was time to try something out! <a href="http://www.san-smith.com/">San</a> is re-doing her website and wanted something to display her Flickr images in a more professional looking portfolio idea, so that served as the inspiration for this project.
+
+At 6:40pm, I purchased <a href="http://portfolit.com/">portfolit.com</a> and added it to my DNS server which replicates to <a href="http://www.everydns.com/">EveryDNS</a>.  Last year, I would have done this as a PHP app on one of my servers, but I instead  decided to do this with <a href="http://rubyonrails.org/">Ruby on Rails</a>.   I don't personally own any Rails hosting infrastructure yet, so I chose to deploy on <a href="http://heroku.com/">Heroku</a> and in under 30 minutes, I had a rough design up and running on Heroku.   Both the basic hosting and the use of a custom domain name on Heroku are free, which is pretty great!
+
+I took several major steps:
+<ul>
+<li>Basic Rails 3 app with <a href="http://jquery.com/">jQuery</a></li>
+<li>Talking to the <a href="http://www.flickr.com/services/api/">Flickr API</a> using <a href="https://github.com/hanklords/flickraw">flickraw</a> to get a list of recently uploaded photos</li>
+<li>Displaying thumbnails from Flickr in 5 columns</li>
+<li><a href="http://leandrovieira.com/projects/jquery/lightbox/">Lightbox</a> effect when clicking on photos</li>
+<li>Dynamically loading the photos with Javascript instead of on server-side</li>
+<li>Loading more photos when scrolling to the bottom of the page</li>
+<li>Allowing /username to pull a users photos instead</li>
+<li>Reverting to search when a string passed in that isn't a valid username</li>
+<li>Search box on front page</li>
+<li>Opacity fading in and out on mouse hover over photo thumbnails</li>
+</ul>
+
+And that's it!  By 10pm I was showing friends the finished product.
+
+<img src="http://ckdake.com/files/portfolit.jpg" alt="Portfolit screenshot">
+
+<h3><a href="http://portfolit.com/">Portfolit</a></h3>
+
+Let me know what you think!  Hopefully I'lll spend a few more days on this in the future, especially if there is interest and feedback.
+
+Net cost:  $8.57 for the domain name,  ~3.5 hours to build and deploy the app.  The internet has come a long way over the past 10+ years!

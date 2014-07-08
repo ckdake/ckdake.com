@@ -1,0 +1,104 @@
+---
+title: VLANs in OpenVZ
+created_at: 2008-10-28 12:38:08 -0400
+kind: article
+---
+<a href="http://wiki.openvz.org/">OpenVZ</a> seems to be the hot open source container based virtualization tool these days. Instead of tools like <a href="http://www.vmware.com/">VMWare</a> and <a href="http://www.xen.org/">Xen</a> which virtualize the hardware and allow each guest operating system to run their own kernel, OpenVZ uses <a href="http://en.wikipedia.org/wiki/Operating_system-level_virtualization">operating system level virtualization</a>. While less flexible and less "secure" in some instances, this allows for better performance of the guests due to lower overhead. 
+
+I've been tinkering with using OpenVZ for a project to provide rapidly deployable emergency copies of infrastructure for situations where the primary and secondary hardware go down (DNS servers, LDAP servers, etc). OpenVZ meets the need here because it has command line management tools, is low overhead, and these kinds of services don't depend on a specific kernel or hardware stack as much as some others might. The tricky part for me is that some of these services live on separate <a href="http://en.wikipedia.org/wiki/VLAN">VLANs</a>.  
+
+In this setup, each machine (including the OpenVZ host) has two Gigabit Ethernet interfaces <a href="http://linux-ip.net/html/ether-bonding.html">bonded</a> together to two ports on separate switches that are stacked together. This provides higher throughput and prevents interruption of service if a switch, cable, or interface fails. The hosts typically don't know about VLANs and the interfaces on the switches are in access mode which automatically tags all traffic to the proper vlan. However, the OpenVZ host will need access to multiple VLANs so that it's guest machines can get to the right places on the network, so some things need to change. It will need it's own VLAN as well as the VLAN for each guest machine.
+
+Firstly, the switchports are configured to trunk the right VLANs to both of the ports that the OpenVZ host is plugged into. Note that if you do this, you'll loose access to the machine so make sure you're connected out-of-band to the console! On the switch in a config shell (Cisco IOS example):
+<pre>
+# interface Gi1/0/1
+# switchport trunk encapsulation dot1q
+# switchport trunk allowed vlan 10,20-30
+# switchport mode trunk
+# interface Gi2/0/1
+# switchport trunk encapsulation dot1q
+# switchport trunk allowed vlan 10,20-30
+# switchport mode trunk
+</pre>
+
+Then the OpenVZ machine is configured to support VLANs by adding kernel modules and creating a new interface. Note that these instructions are for RHEL5/CentOS5:
+<ol>
+<li>Add "modprobe 8021q" and "modprobe vzethdev" to /etc/rc.modules</li>
+<li>chmod +x /etc/rc.modules</li>
+<li>Manually run /etc/rc.modules. It will be automatically run when the system boots</li>
+<li>reconfigure the /etc/sysconfig/network-scripts/ifcfg-bond0 to have no IP or BOOTPROTO information, "ONBOOT=yes" and "MODE=trunk"</li>
+<li>create /etc/sysconfig/network-scripts/ifcfg-bond0.10 like the following: 
+<pre>
+DEVICE=bond0.10
+  IPADDR=10.0.10.2
+  NETMASK=255.255.255.0
+  GATEWAY=10.0.10.1
+  NETWORK=10.0.10.0
+  BROADCAST=10.0.10.255
+  ONBOOT=yes
+  BOOTPROTO=none
+  USERCTL=no
+  VLAN=yes
+  PHYSDEV=bond0
+</pre></li>
+<li>and load the interface with "ifcfg bond0.10 && ifup bond0.10"</li>
+<li>make sure that proxy_arp and forwarding are enabled for bond0.10 in /proc/sys/net/ipv4/conf/bond0.10/. If not, you should reconfigure your system to set these by default. Consult your operating system documentation for instructions on this.</li>
+</ol>
+Once this is done, you should be able to use this host on the network (on VLAN 10) like nothing changed! If not, make sure routes are set up right, ifconfig looks right, etc. Assuming it works, you're halfway there! Up next is creating an interface for each vlan you want mapped. Here's an example for /etc/sysconfig/network-scripts/ifcfg-bond0.20 on VLAN 20:
+<pre>
+DEVICE=bond0.20
+  ONBOOT=yes
+  BOOTPROTO=none
+  USERCTL=no
+  VLAN=yes
+  PHYSDEV=bond0
+</pre>
+Note that it doesn't have any IP information. We'll specify this inside of the OpenVZ instance. Next, we actually create a blank OpenVZ instance (you can use an existing one, but this is provided for completeness sake) and give it an eth0 interface. I'm using 20 as the ID here because this instance will be on VLAN 20, but this is not a requirement.
+<pre>
+vzctl create 20 --ostemplate centos-5-x86_64-default-5.2-20081013 --config vps.basic
+vzctl set 20 --onboot no --save
+vzctl set 20 --hostname vlan20host.local --save
+vzctl set 20 --numothersock 120 --save
+vzctl set 20 --nameserver 10.0.10.1 --save
+vzctl start 20
+vzctl set 20 --netif_add eth0 --save
+</pre>
+On each host, use "eth0" as the name of the interface. OpenVZ will automatically create the eth0 interface in the guest and an interface like "veth20.0" on the host where "20" in the name represents the guest ID and the .0 indicates that this is the default interface for the guest. You could add an eth0.21 interface to the guest with vzctl if you wanted VLAN 21 also piped into the guest, which would create a eth0.21 on the guest and veth20.21 on the host.
+
+Now that it has the interface, enter the instance with "vzctl enter 20" and set up it's networking by creating /etc/sysconfig/network-scripts/ifcfg-eth0:
+<pre>
+DEVICE=eth0
+  IPADDR=10.0.20.1
+  NETMASK=255.255.255.0
+  GATEWAY=10.0.20.1
+  NETWORK=10.0.20.0
+  BROADCAST=10.0.20.255
+  ONBOOT=yes
+  BOOTPROTO=none
+  USERCTL=no
+</pre>
+Then "ifcfg eth0 && ifup eth0".  You won't be able to send traffic yet, but configuration inside of the guest here is done.  Head back to the OpenVZ host and set up a <a href="http://www.linuxfoundation.org/en/Net:Bridge">bridge</a> to connect things.  Here, we name the bridge so that it's recognizable as this VLAN and add the VLAN interface and OpenVZ host interface to it. Making one bridge per VLAN is probably the right thing to do, and if multiple guests are on the same VLAN, just add their host interfaces to the same bridge.
+<pre>
+brctl addbr vzbr20
+brctl addif vzbr20 bond0.20
+brctl addif vzbr20 veth20.0
+ifup vzbr20 0
+</pre>
+Again, make sure that forwarding and arp_proxy are enabled for the bridge and the veth20.0 interface (created by adding eth0 to the guest). And that's it! You should be able to ping the guest's gateway from the guest.  If you can't, run a ping from the guest and run tcpdump from the host to see where packets stop, looking at interfaces in this order:
+
+veth20.0
+vzbr20
+bond0.20
+bond0
+
+Whichever one it stops on, make sure you have forwarding and proxy_arp enabled, and make sure that the bridge has the two things it should as members with "brctl show"
+
+Each time the vm is rebooted, you'll need to add it's host interface to the bridge again and may need to re-enable forwarding and proxy_arp depending on how your OS is configured. If you are using a newer version of OpenVZ (>3.0.22) there is a easy workaround for this on the <a href="http://wiki.openvz.org/Veth">Veth wiki page</a>. There is a more complex workaround for older OpenVZ versions there as well, but I should be using the newest version of OpenVZ when it's time to deploy this thing so I'm waiting!
+
+Hopefully you find this useful, please let me know with a comment on the original article at ckdake.com or via an email if you have any suggestions, comments, or corrections!
+
+Helpful References:
+<a href="http://wiki.openvz.org/Veth">http://wiki.openvz.org/Veth</a>
+<a href="http://wiki.openvz.org/Venet">http://wiki.openvz.org/Venet</a>
+<a href="http://www.howtoforge.com/installing-and-using-openvz-on-centos5.2-p2">http://www.howtoforge.com/installing-and-using-openvz-on-centos5.2-p2</a>
+

@@ -1,0 +1,23 @@
+---
+title: Dell RAID status using OpenManage in Gentoo
+created_at: 2009-01-25 16:34:57 -0500
+kind: article
+---
+I use <a href="http://www.gentoo.org/">Gentoo</a> on the majority of my servers, and it's the OS on my desktop that I use every day. While there are occasional annoyances, I've been using it for almost 6 years and have the know how to bend it to my will.  However, a recent server issue stumped me a little bit. 
+
+One of my new Dell servers came with a LSI 1060E built in RAID controller for the system SAS drives. I'm not quite sure how this happened because the box also contained a PERC6/E for the new <a href="http://www.dell.com/content/products/productdetails.aspx/pvaul_md1000?c=us&l=en&s=bsd&cs=04">MD1000</a>, and the 1060E is a substantial step down from the PERC6/i that I was expecting.  No big deal, this card is only to do RAID-1 mirroring on two SAS drives for the OS, but I was unable to figure out to monitor disk status to see what was going on, and I do need to know if and when one of the OS hard drives fails.  
+
+On other Dell systems that I have running Gentoo,  the "MegaCli" utility from LSI does a great job reporting physical and virtual disk status. On this new server, it works with the PERC6/E just fine but doesn't detect the 1060E. I couldn't find any documentation on how to get this to work in Linux and Dell support's only suggestion was to install Dell's full-blown OpenManage package. Conveniently, this doesn't work natively in Gentoo yet.  Watching the output of `ipmi-sel` may do the trick, but I'm not sure that the 1060E would log an event to the IPMI log if a drive failed. 
+
+After some Googling around, I stumbled across <a href="http://anothersysadmin.wordpress.com/2008/02/22/howto-install-dell-openmanage-system-administrator-on-exotic-linux-distributions/">this howto</a> that ended up being the clues that I needed to get this started. I basically followed those instructions, but a few things didn't quite work.  I got some errors at the end of `apt-get install dellomsa` and it turns out that `/etc/init.d/dataeng` wouldn't succeed and didn't give me any usable errors. I got around this by killing all dsm_sa_datamgr32d processes and running `/opt/dell/srvadmin/dataeng/bin/dsm_sa_datamgr32d` manually inside the Debian chroot. 
+
+After starting up that daemon, Dell's "omreport" tool started working!  `omreport storage vdisk` and `omreport storage pdisk controller=0` gave me the information I was expecting, and I used some existing perl scripts I had to set up a cronjob that runs regularly and e-mails me any problems. To keep things simple (by keeping scheduled jobs in one place), I set up the cron to run from the Gentoo host outside of the vhost, which runs something along the lines of this:
+
+<pre>
+my $vout = `/bin/chroot /var/debian /usr/sbin/omreport storage vdisk`;
+my $pout = `/bin/chroot /var/debian /usr/sbin/omreport storage pdisk controller=0`;
+</pre>
+
+There are still some issues with what may happen when the boxes reboot, mainly needing to mount a few things to /var/debian, chroot, and start up sdm_sa_datamgr32d again, but the only time these boxes should ever reboot is when I'm working on them so all should be well.
+
+Have a better way to run omreport in Gentoo or access 1060E drive status via IPMI natively? I'd love to hear it!

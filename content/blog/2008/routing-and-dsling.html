@@ -1,0 +1,10 @@
+---
+title: routing and DSLing
+created_at: 2008-01-10 22:41:53 -0500
+kind: article
+---
+My DSL had been a little flaky since installation. To get it installed, ATT had to run a new phone line to the house, then the Covad truck stopped by, and then things seemed to work but they were a little flaky. Every day for a period of around 45 minutes, the DSL would go up and down but it seemed pretty random. Turns out the phone jacks in my house are all daisy chained together which was causing the margin on my line to hover around 16dB instead of around 22dB where it should be. The wall jack in my office is fortunately the closest to the NID outside, so i removed all the other wires from it and things improved! Margins up to 21dB in both directions and the DSL hasn't gone out since then!  Phones in other rooms won't work now, but since I don't have phone service, that's not really a problem. 
+
+Also, I'd been using a very old 802.11b router that was pretty much worthless.  Given that work gave me a MacBook Pro with 802.11n and that my desktop has Gigabit Ethernet, I figured it was time to upgrade. I'm now the owner of an Apple <a href="http://www.apple.com/airportextreme/">Airport Extreme</a> and it's pretty great.  The important parts are the 3 GigE LAN ports on the back: one for the desktop, one for the dev box here, and one for the laptop when wired, and the 802.11n wireless.  Things are _much_faster now.  80Mb/s over wireless! That's crazy!  It's fast enough to do things like run VMware Fusion on the mac using a VMware image on the desktop that is mounted via Samba. I'd never even though of doing something like that before. (And it's a good thing because 1 out of 5 times, starting the VMware console in Linux crashes the NVidia display drivers and I have to reboot the desktop.)  Additionally, this router supports SNMP so I got it added into my monitoring setup and now have pretty graphs of network usage at home. Now I just need a GigE card in the dev box.
+
+Expect a work update tomorrow! Fun things with clusters and load testing.

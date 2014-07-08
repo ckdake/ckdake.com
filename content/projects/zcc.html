@@ -1,0 +1,93 @@
+---
+title: "ZCC: Trust Based, Firewall Supplied, Transparent Encryption of TCP Traffic"
+created_at: 2006-11-20 18:08:39 -0500
+kind: article
+---
+Chris Kelly
+Chris Lewis
+Zack Allen
+
+CS6250 Fall 2006 Semester Project
+
+This is the meat of our project proposal. The abbreviated results are at my news posting:<a href="http://ckdake.com/node/108">Transparent TCP Stream Encryption</a>. Eventually I'll update this page with even more details.
+
+<h2>1. Problem and Proposed Solution Overview</h2>
+<h3>1.1 The Current State of TCP Encryption</h3>
+<p>Security is always on the mind of any competent network administrator and encryption is perhaps the most common topic of discussion closely following firewalls.  Encryption is very useful in various parts of a network to provide the security that users need.  Encrypting the data link layer can prevent traffic analysis, encrypting the network layer can build virtual private networks, and encrypting at the transport or application layer offers end-to-end communication protection.  There are many options available for this encryption, but there are severe limitations to the existing options.</p>
+<p>The only option for data link layer encryption that we found is PPP Encryption as described in RFC 1968 (and updated to 3DES in RDC 2420).  Most traffic these days does not use PPP.</p>
+<p>Several options are available for the network layer including IPsec [RFC 241], IKE, and several commercial VPN solutions.  Each of these requires configuration on both ends and support from all devices in the middle. None of these are usually considered easy to use and many home/small business routers do not support these protocols and will thus prevent them from working. </p>
+<p>Most encryption offerings are above the transport layer S/MIME [RCF 1848,3851] encrypts MIME objects, SSH encrypts command and file transfers, HTTPS [RFC 2660] encrypts web traffic, and there are countless other examples for most higher layer protocols such as secure XMPP [RFC 3923]. Every one of these does a good job encrypting traffic but requires application support at both ends of the communication.  The client and server must both be able to handle the encryption process as well as the key verification process as used. </p>
+<p>What is missing in this picture? We couldn’t find any transport layer encryption options! This means no existing extensions to TCP, UDP, SCTP, or OSPF!  Additionally, there is no easy to use method for selectively encrypting traffic between a pair of machines.</p>
+
+<h3>1.2 Our Solution</h3>
+<p>We feel that an easy to use encryption model for the transport layer would be very useful and would become an essential tool in every network administrator’s toolbox.  An ideal solution would support ipv4 and ipv6, wouldn’t touch transport layer headers (enabling routing, QoS, and network devices to continue to function properly), would encrypt all data in the payload of transport layer packets, and would be completely transparent to both the client and server applications (encryption and decryption would occur on the machines before the packets are passed to the applications).  This means that applications won’t need to support or even be aware of encryption, yet communication would be secure.  This will initially require root/admin access on machines so that the network stack can be instructed to direct certain packets to a service that handles the encryption, but eventually this model could be wholly included in a system kernel, only requiring userspace interaction for the configuration of encryption keys and desired levels of encryption.</p>
+
+<h3>1.3 Design Choices</h3>
+<p>Our team originally planned to use IPComp [RFC3173] as a framework for the compression of our packets.  However, we decided against it due to the security concerns associated with using IPComp not in an IPSec environment.  From the RFC: <blockquote>When IPComp is used without IPsec, IP payload compression potentially reduces the security of the Internet, similar to the effects of IP encapsulation [RFC2003].  For example, IPComp may make it difficult for border routers to filter datagrams based on header fields.  In particular, the original value of the Protocol field in the IP header is not located in its normal positions within the datagram, and any transport layer header fields within the datagram, such as port numbers, are neither located in their normal positions within the datagram nor presented in their original values after compression.  A filtering border router can filter the datagram only if it shares the IPComp Association used for the compression.  To allow this sort of compression in environments in which all packets need to be filtered.</blockquote>
+As one of our goals was not to change any of the TCP headers, we decided to use our own compression scheme that would allow us to achieve compression without having to modify the TCP headers.  Instead we rely on concatenating the sender's IP address onto the compressed payload and have the receiver check if the concatenated IP address matches the sender’s IP address as a check to see if it is a ZCC / compressed packet.  This has the additional benefit of weakly authenticating the sender.</p>
+<p>The compression algorithm that we chose was LZS.  One of the main reasons for this is that the worst-case expansion factor of the compression (for already encrypted traffic such as SSH the compressed result will actually be greater in size than the original data) is 12.5% [RFC3943] Another reason for choosing LZS is that it takes a relatively short time to compress and decompress the data, thus allowing it to operate on high speed links.</p>
+<p>ZCC will use a combination of PKI and symmetric key encryption in order to secure the communication between two nodes.  When two nodes want to talk who have not had recent communication, they will first perform a Diffie-Helman key exchange with the key server acting as a middle man / relay (similar to how an attacker might do a man in the middle attack) in order to establish a shared secret key.  After the key has been established they will then request each other's public key from the key server.  They will then sign the shared secret key and communicate it through the relay in order to authenticate themselves to each other.  Further communicate between the nodes will occur without needing the relay, and communications will occur using a symmetric key encryption scheme with the previously negotiated shared secret.  For purposes of our implementation, we will use AES.</p>
+<p>The initial thought of the team was to use AES to encrypt all communication between nodes.  However, due to the fact that asymmetric encryption schemes are on the order of hundreds or thousands of times slower than symmetric encryption schemes, it was decided to use AES in hopes that our design would scale to very high-speed networks.  The other potential for slow down comes from the compression.   It is expected that some minor slowdown will occur on modern hardware – the exact amount will be tested and recorded once our implementation is complete.  More traffic will be generated as a result of ZCC due to the fact that some packets will have to be fragmented because compression is not guaranteed to reduce the size of the payload and may in fact increase the size by up to 12.5%.  The fragmentation and re-constructing algorithms will also slow down packet processing.  The exact amount of slowdown is going to tested and recorded, but at this time it is believed that it will be an acceptable delay and should not drastically affect communication speeds.</p>
+
+<h3>1.4 Research Required To Finalize Design</h3>
+Further research is needed to hammer out the details of how to handle reconstructing packets that have been fragmented.  Initial thoughts are to store the packets in a linked list until it's other packet arrives.  Due to this we are also going to have to care about sequence numbers of the packets.  Due to possible fragmentation as a result of the encryption process, we may need to establish our own TCP stream and piggyback the stream we are encrypting into its data segments.
+
+<h2>2. System Architecture and Protocol Design</h2>
+<h3>2.1 Overview</h3>
+<p>The system consists of several major and well-separated components.  Firstly, a public key server will store public keys of the machines involved in the system. It will provide a web based administrative interface for adding, modifying, and deleting keys, as well as an XML-RPC interface for clients to retrieve keys.  Next is the firewall configuration file, which stores information about what endpoints and ports may have encrypted traffic so that iptables can redirect those packets to our packet processor.  Users may manually edit this file or they may use the configuration tool that we will provide. Whenever a change is made to this file, the firewall configuration daemon will be notified (If the user makes the change by hand, they will need to notify the daemon). It will compare the new file to the rules currently in iptables and will adjust iptables to match the new configuration without terminating any open connections. Once iptables sees a packet that matches a rule specified by the configuration daemon, it will pass the packet to the packet processor which will perform the encryption or decryption as needed, looking up keys from the key server and caching them in memory.</p>
+<p>The following diagram (Figure 2.1.a) depicts one machine (Machine A) of the system. Every system participating in the system will have the same components.  (For example, Machine B in this diagram actually shares all the components and communication paths (including to the key server) that Machine A has.  There may be an unlimited number of machines in the system.</p>
+[IMAGE COMING SOON]
+<h3>2.2 Packet Format</h3>
+<p>The packet layout before and after using ZCC will look as follows:
+
+Original TCP Packet:
+
+TCP Header	Original TCP Payload
+
+ZCC TCP Packet (there may be more than one of these per original packet)
+
+TCP Header	Encrypt(Sender IP + Compress(Original TCP Payload))
+</p>
+<h3>2.3 Key Server</h3>
+<p>The key server is responsible for storing keys and relaying these keys to any client machines that request a key. It will also be required to have the functionality to relay a Diffie-Hellman key exchange between two nodes.  This is so that the nodes do not have to communicate with each other until they are ready to begin securely communicating. The key server will in effect relay communications between the two nodes to each other (this is essentially a man-in-the-middle attack, without it being an attack).   The key server will have to make sure it does not cache anything from the communication so that there is no way the secret keys can be discovered on the key server.</p>
+<p>The administrative system will run an XML-RPC service. This service will accept XML-RPC requests from clients containing an encryption scheme and the host IP address of a system with which they wish to communicate. The service will query the database with the given host name and encryption scheme and return to the client the appropriate public key.</p>
+<h3>2.4 Firewall Configuration File</h3>
+<p>The XML format that is read and written by the configuration tool is represented by the following doctype:
+<pre><?xml version="1.1"?>
+&lt;!DOCTYPE services [
+  &lt;!ELEMENT service (name,host,port,type,scheme,encrypt)>
+  &lt;!ELEMENT name    (#PCDATA)>
+  &lt;!ELEMENT host    (#PCDATA)>
+  &lt;!ELEMENT port    (#PCDATA)>
+  &lt;!ELEMENT type    (client,server)>
+  &lt;!ELEMENT scheme  (#PCDATA)>
+  &lt;!ELEMENT encrypt (false,true)>
+]></pre>
+</p>
+<p>The 'DOCTYPE' entry indicates that the main XML tag which starts and ends the file must be <services>.
+
+Each element in the list is a service, signified by the <service> tag. A service must have exactly 6 attributes: name, host, port, type, scheme, and encrypt:
+<ul>
+<li>name - This is the name of the particular service, provided by the user. Examples are 'Apache' and 'FTP'.</li>
+<li>host - This is the IP Address of the host to/from which traffic for this particular service and port will be encrypted. IPv4 and IPv6 IP Addresses are supported.</li>
+<li>port - This is the port over which traffic will be encrypted will be encrypted for this particular service to/from this particular host.</li>
+<li>type - Specifies the type of traffic. Must be one of two values: 1) client - This host is a client and I want to encrypt traffic coming from this client when it requests a connection to me on the given port. 2) server - This host is a server and I want to encrypt traffic that I send to this server when I connect to it on the given port.</li>
+<li>scheme - Specifies the desired encryption scheme with which traffic to/from this service will be encrypted.</li>
+<li>encrypt - Signifies if traffic is or is not encrypted to/from the specified host on the specified port. This value is included for the user's convenience. Rather than having to add/delete entire entries, all service entries can be saved and encryption can be toggled when necessary.</li>
+</ul>
+The following are some example service entries:
+<pre>
+&lt;services>
+  &lt;service name="Apache" host="192.168.1.101" port="80" type="client" scheme="AES-128" encrypt="true" />
+  &lt;service name="FTP" host="192.168.1.102" port="22" type="client" scheme="AES-256" encrypt="true" />
+&lt;/services>
+</pre>
+</p>
+<h3>2.5 Firewall Configuration Daemon</h3>
+<p>The firewall configuration daemon is recommended but not required. Firewall rules may be manually inserted into iptables, but the daemon is strongly recommended because it reads the firewall configuration file and automatically updates iptables as needed without dropping any existing connections. It also eliminates the possibility for human error configuring rules. The only responsibility of the configuration daemon is to run with the name “zcc_configd” and upon receiving a HUP signal, reconfigure iptables based on the configuration file.  (All rules will simply take any packets that should be using ZCC and forward them to the packet processor via iptable’s libipq interface and the ip_queue Linux kernel module)</p>
+<h3>2.6 Client Configuration Tool</h3>
+<p>Each client will have installed on their machine a program that will allow them to configure the services with which they will communicate in an encrypted manner. The user will specify the IP addresses and ports of services, the name of the service, whether the service is acting as a client or a server, their desired encryption scheme, and whether or not they wish to encrypt traffic to and from this service. Once a user completes a configuration with this program, they will export their settings to a configuration file. After this file has been exported, the program will send a signal to the firewall configuration daemon notifying it that an update to the configuration has occurred.</p>
+<h3>2.7 Packet Processor</h3>
+<p>The Packet Processor is the only truly required part of our system. Iptables may be configured by hand and keys may be provided by another service that implements the same standard, but the packet processor is responsible for handling the encryption and decryption of all of the traffic.  The packet processor will listen for packets from iptables for both incoming and outgoing traffic. It will encrypt and decrypt traffic as needed (grabbing public keys from the key server, negotiating the shared key with other machines, and caching these in RAM as needed).</p>
+<p>The only observable effect will be that the packets going between two machines will be encrypted while they will appear un-encrypted to the actual client and server applications running on the machines.  This may require fragmentation of some packets due to some of them becoming larger than the MTU after concatenating, compressing, and encrypting, but any changes made that could be noticed by the application on the other end of the pipe will be undone by the packet processor on the other end before the packets are given back to the client or server application.</p>
+<p>The encryption capabilities of the packet processor will not be limited to what we provide. Hooks will be provided to allow other modes of encryption to easily be integrated into the system. We will use some version of AES for our implementation and may add others, time permitting.</p>

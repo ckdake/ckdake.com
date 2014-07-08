@@ -1,0 +1,64 @@
+---
+title: Software RAID Drive Replacement
+created_at: 2010-08-21 13:37:01 -0400
+kind: article
+---
+Software RAID is such a finicky thing. I've blogged in the past on <a href="http://ckdake.com/content/2009/growing-a-software-raid-array-in-linux.html">how to grow a software RAID array in Linux</a>, but have since switched to using hardware RAID in all of my servers and a Drobo at home (which I wrote a little about <a href="http://ckdake.com/content/2009/drobo-and-dropbox.html">here</a>).  My Drobo just got 2 new 2TB drives and all that took was sliding the drives in, but one of my old servers lost a software-RAID drive last week.
+
+This crashed the server for some reason, and a matching replacement drive for the Hitachi Ultra320 SCSI 73GB drives was $400 or so, so I bought an IBM Ultra320 SCSI 73GB drive online for $50 shipped. It arrived this week and I headed to the datacenter today to install it. What should be a stupid-simple process like it is with Drobo was a lot more involved.  This was made even more painful because while the labeled size of the drives was identically, the new one had a few less actual blocks on it than the old one.  Should this happen to you with an ext2/3/4 data volume, (or me again in the future) these are the steps to take:
+
+<ol>
+<li>Shut down the system</li>
+<li>Replace the failed drive</li>
+<li>Boot up from a recovery CD (I used a Gentoo install CD)</li>
+<li>Use fdisk to partition the new drive with as close of a partition layout as you can to the old drive. Here are my two drives:
+<pre>
+Disk /dev/sda: 73.4 GB, 73407868928 bytes
+255 heads, 63 sectors/track, 8924 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xc36bc36b
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1           5       40131   fd  Linux raid autodetect
+/dev/sda2               6         249     1959930   82  Linux swap / Solaris
+/dev/sda3             250        8924    69681937+  fd  Linux raid autodetect
+</pre>
+
+<pre>
+Disk /dev/sdb: 72.9 GB, 72892735488 bytes
+255 heads, 63 sectors/track, 8862 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xf496138a
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1   *           1           5       40131   fd  Linux raid autodetect
+/dev/sdb2               6         249     1959930   82  Linux swap / Solaris
+/dev/sdb3             250        8862    69183922+  fd  Linux raid autodetect
+</pre>
+</li>
+<li>Note any block sizes that are different. In my case, the new sdb3 is 69183922 which is smaller than 69681937 on the old drive</li>
+<li>Use resize2fs to resize the existing partition on the good device to the size of the new partition on the new device. Yes, you are modifying it directly instead of going through the software RAID (one of the few nice things about software RAID):
+<pre>resize2fs -f /dev/sda3 69183922</pre>
+</li>
+<li>Use mdadm to shrink the raid device to the size of the new partition on the new device:
+<pre>mdadm /dev/md127 --grow --size=69183922</pre>
+</li>
+<li>Just to be safe, run a filesystem check on the new RAID volume:
+<pre>e2fsck -y /dev/md127</pre>
+</li>
+<li>Add in the new drive to the RAID array:
+<pre>mdadm /dev/md127 --add /dev/sdb3</pre>
+</li>
+<li>And wait for it to finish resyncing:
+<pre>watch cat /proc/mdstat</pre>
+</li>
+</ol>
+
+If you run into device busy errors, you may need reboots, stopping the raid device (mdadm --stop /dev/md127), etc.  And if you screw up the block sizes, all kinds of bad things happen.  Also, if you just shrink the RAID volume but don't shrink the filesystem, or you shrink the RAID volume first, be prepared to spend far to much time trying to fix things!    Sometimes it's faster (if your volume isn't close to full) to resize2fs  down to a very small number, shring the raid volume to a very small number,  let all the synchronizing happen,  and then grow the raid volume with "--grow --size=max" and then resize your filesystem up to the new size of the RAID volume. 
+
+There are worse things to spend part of a saturday afternoon on, but I'd rather be outside!
+ 

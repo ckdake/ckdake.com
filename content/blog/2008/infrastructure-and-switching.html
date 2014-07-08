@@ -1,0 +1,38 @@
+---
+title: Infrastructure and Switching
+created_at: 2008-02-14 22:24:53 -0500
+kind: article
+---
+Not only is it that time of year again, but due some externalities, it's time to upgrade my server setup again. Right now I have 2 1U servers installed, each doing their own thing, and bandwidth purchased by the GB.  I'm switching over to a setup with initially 5U of space: 1U for a switch, 3U of servers for me (including a server I'll be purchasing in the next few weeks) and a 1U server for a friend. I'm also switching my bandwidth billing to 95% <a href="http://en.wikipedia.org/wiki/Burstable_billing">burstable billing</a> which will allow me to push substantially more traffic for the same amount of money. My monthly cost is only a 33% increase, and the cash flow already works out that it makes sense to do. 
+
+This means a few fun things:
+<ul>
+<li>I'll finally have a new server with a new warranty that I can set up from scratch the "right way" and move sites over to it one by one. It will have all the good suexec and apc things that I've talked about on this site before, and will be set up in such a way that I feel comfortable giving my customers direct access to it. And it will 4x the number of cores and 4x the amount of memory as the current webserver.</li>
+<li>When that happens, I can finally troubleshoot the faulty memory in aurora and figure out which stick or pair needs replacing, and it can be reborn as a database and mail server with twice the memory of the current db/mail server.</li>
+<li>Pudge can finally get the reformatting it needs, and will come back as as the admin/stats/monitoring/backup server including acting as a live mysql slave for aurora as well as a backup mailspool.</li>
+<li>A switch will be in place so I can move data around between servers without having to go through the network in the colo, and can do mysql on a different machine than the webserver without getting nervous. I'll also be able to talk snmp to everything and make more fun graphs</li>
+<li>Thanks to 95% billing, I can do complete offsite backups with rsync on weekends by setting rsync's maximum usage rate to something that will keep me below my bandwidth commit rate. (Right now, I primarily just do backups of dynamic content like databases)</li>
+</ul>
+
+I'm pretty excited about the new server, and was pretty excited about the switch. Until it arrived today....
+
+I bought a <a href="http://www.linksys.com/servlet/Satellite?c=L_Product_C2&childpagename=US%2FLayout&cid=1123638180381&pagename=Linksys%2FCommon%2FVisitorWrapper">Linksys SRW2016</a> from Amazon for around $300. 16 Gigabit ports, full VLAN support, web access, as well as management over com, telnet, and ssh. It sounded like a cheaper solution than a Cisco switch that would allow me to be able to easily configure things. It's definitely cheaper.  The telnet/com/ssh interface is completely ridiculous. First of all, the navigation is very awkward. Say like you want to log in:
+<ol>
+<li>ssh admin@192.168.0.254</li>
+<li>press return to activate the login form</li>
+<li>type in user, down arrow, password</li>
+<li>press escape and wait 1 second to activate the menu</li>
+<li>press return to submit the form and wait 1 second for "operation successful"</li>
+<li>press any key to get to the next menu</li>
+</ol>
+After this there are a shocking small number of menus that let you ping, upload a new firmare, check and change port administrative and operational status, change passwords, restart the switch, and thats about it! Compared to the list of features of the switch... yeah.  Nothign about QoS, VLANs, Link Aggregation, SNMP, etc.  I wasn't expecting it to be amazing, but it completely lacks the ability to even associate ports with VLANs and everything takes a lot of typing and pausing. Compare this to a Cisco switch:
+<ol>
+<li>ssh admin@192.168.0.254</li>
+<li>user, return, password, return</li>
+<li>"enable" (or just "ena"), return, password, return</li>
+<li>"configure terminal" (or just "conf t")</li>
+<li>ANY CONFIGURATION COMMAND YOU WANT</li>
+</ol>
+Ah well, I can use their web browser interface... so I thought.  Firefox on Linux: Nope, FF on Mac OS X: Nope, Safari on Mac: Nope.  "IE 5.5 or newer recomended".  So I fired up Windows Vista in VMWare on the Mac and was able to get in that way. Another awkward interface with the "save" button for each screen below the scroll and hidden by having the same background color as the logo in the bottom right corner.  It won't let me set the administrative VLAN to anything other than 1, relies on popups, and is a complete pain to use. 
+
+If the plan for this switch wasn't to configure it once and then drop it in place, I'd return it. If you're thinking about using this switch for any complex network or any network that ever changes, don't buy it.  It took me about an hour to get all this figured out and set up how I like, and hopefully will never have to configure anything on this switch again. ~$300 for a 16 port Gigabit switch advertised as fully non blocking that supports VLANs for partitioning, it's still a pretty good deal but yeah.. There is a reason that the biggest sticker on the box and the only paperwork in the box is advertising how you can trade up this switch to a Cisco product right now and get cash back. If only the comparable Cisco switch with a usable command line interface wasn't over $1k. *sigh*

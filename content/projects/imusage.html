@@ -1,0 +1,14 @@
+---
+title: imusage
+created_at: 2009-01-09 22:48:30 -0500
+kind: article
+---
+To start off learning python towards the beginning of 2007, I decided to take my imstat perl script that simply generated a png into something more useful.  imusage is three python scripts:
+<ol>
+<li>log2sql.py - these 140 lines of python parse through pidgin, adium, gaim, and iChat logs and imports them all into mysql. This is run automatically every night and only adds records to the database that are not in it already.</li>
+<li>namer.py - these 20 lines provide a UI that allows me to assign proper names to buddys, and combines things across protocols so that the database will represent one person with all of their log lines combined from separate IM protocols</li>
+<li>htmlmaker.py - these 260 lines of python then read through the database and generate some numbers and pretty html+css graphs for my and your enjoyment.</li>
+</ol>
+Current output, generated nightly, is below:
+
+<?php include("/var/www/ckdake.com/htdocs/files/imusage.html"); ?>

@@ -1,0 +1,86 @@
+---
+title: Some Quick Pointers on Improving SugarCRM Performance
+created_at: 2010-06-16 15:19:09 -0400
+kind: article
+---
+<p>Getting web applications performing optimally is a never-ending full-time job for a lot of people, including me! I manage the OnDemand environment for thousands of customers at SugarCRM. This post will walk through a few pretty simple steps that can be taken to improve the performance of SugarCRM on a Linux server with MySQL, but they mostly apply to any PHP application running on a LAMP stack. </p>
+
+<p>Tuning a web application is a type of engineering, and as <A href="http://blogs.msdn.com/b/ricom/">Rico Mariani</a> at Microsoft puts it:
+
+<blockquote>If you are not measuring, you are not engineering.</blockquote>
+
+Monitoring is the key in all of the tips that follow because if you don't know how bad things are, you won't know which of these fixes help you out. Depending on the details of your situation, some can actually do more harm than good so it's important to go through these one by one, understand the implications of them, and compare you data from befor and after you make any changes.</p>
+
+<h2>MySQL Performance</h2>
+
+<p>Getting things right in MySQL is another full-time job, but there are a few quick things you can do. First of all, make sure that all of your tables are the same character set.  If they are not, this can greatly slow down queries that join between tables of different character sets.  Take a look in the output of 
+
+<pre>SHOW TABLE STATUS FROM sugarcrm;</pre>
+
+and make sure that everything is the same in your Collation column.  If you are using utf8_general_ci in most places, and the table my_custom is a different type, just run:
+
+<pre>ALTER TABLE my_custom CONVERT TO CHARACTER SET utf8;</pre>
+</p>
+
+<p>Next up is making sure that you are properly utilizing the MySQL Query Cache. This cache saves the restlts of select queries so that if the same query comes in again before changes to the table, the results can be returned much more quickly. To see the configuration for this, run:
+
+<pre>SHOW VARIABLES LIKE "query_cache%";</pre>
+
+If query_cache_type is set to something other than "ON" or query_cache_size is set to 0, you will want to change these!  32MB is a fine start, but depending on your workload you may need (a lot) more to get the full benifit from this:
+
+<pre>SET GLOBAL query_cache_type = 'ON';
+SET GLOBAL query_cache_size = 32000000;</pre>
+
+This one change can make a significant difference in performance.  To tune your numbers, check the output of:
+
+<pre>SHOW STATUS LIKE "Qcache%";</pre>
+
+After some time running with the Query Cache on, you should see hits go up and lowmem_prunes should stay pretty low with free_memory not reaching 0.  If free_memory seems to run out, or lowmem_prunes continue to climb, increase the size of the query_cache_size.  There will continue to be lots of inserts and not_cached due to constantly changing tables and queries other than SELECT queries, so don't worry about those numbers.</p>
+
+<p>Generally, using the InnoDB storage engine instead of the default MyISAM storage engine will help out as well, but any tables that you want to be able to do full-text search on cannot be InnoDB, and there is a lot more to take into consideration here than any quick fix.  If you are using all MYISAM tables, this would be a good thing to investigate.  Switching to InnoDB and tuning your MySQL storage engine based on your workload are a lot more than I can fit here today, but there is a lot of information out there about these. Head over to the <a href="http://www.mysqlperformanceblog.com/">MySQL Performance Blog</a> for more information than you ever wanted to know about MySQL performance (including an excelent article on the <a href="http://www.mysqlperformanceblog.com/2006/07/27/mysql-query-cache/">MySQL Query Cache</a>). </p>
+
+<p>All of your MySQL STATUS values should be included in your monitoring system, as graphs of these are very helpful over time for diagnosing problems and tuning cache sizes! Also, remember that the Query Cache uses up RAM so keep an eye on that as well. In this case, it will use 32MB and as you increase the query_cache_size, you are directly increasing RAM usage.</p>
+
+<h2>PHP Performance</h2>
+
+<p>Perhaps the single biggest perfomance enhancement that you can make for SugarCRM and many other PHP applications is OpCode Caching.  I've written about some of the complexity involving this before at <a href="http://ckdake.com/content/2010/sugarcrm-and-caching-with-apc.html">SugarCRM and Caching with APC</a>, but the simple version is that <a href="http://devbee.com/opcode_cache_for_dummies">OpCode caching</a> will improve the performance of your PHP applications. At SugarCRM, we use <A href="http://us2.php.net/manual/en/book.apc.php">APC</a> which is pretty straightforward to install. On CentOS, and other rpm/yum Linux distributions simply:
+
+<pre>yum install php-pecl-apc</pre> or <pre>pecl install apc</pre>
+
+Then, enable apc by adding it's configuration to /etc/php.ini or /etc/php.d/apc.ini, and make sure that apc.enabled is set to 1 and apc.shm_size is set to something reasonable. For one instance of SugarCRM, the default of 32  (for 32MB) is generally plenty but if you have other PHP things running on the server, a bigger number might help.  </p>
+
+<p>Copy  /usr/share/pear/apc.php to somewhere in your webroot and visit it in your browser, and after a bit of usage of SugarCRM, you should see the "Hits" percentage climb while the "Misses" percentage gets smaller and smaller.  Your hit ratio should be higher than 98%.  If the "Cache full count" number is more than a very very small percentage of your hit counter, you should increase the size of memory available to APC.  On some Linux systems, shm segment size is limited to 32M so instead of increasing shm_size,  you will need to increase shm_segments.</p>
+
+<p>Like MySQL, these numbers should be part of your monitoring system so that you know when it's time to change things. Also like MySQL, this directly uses RAM.  This example will use 32MB, and increasing it will use more. </p>
+
+<h2>Client-Side Performance</h2>
+
+<p>Why bother serving files to clients that never (or seldomly) change? A common industy best practice is to set a Cache-Control header for static content to 10 days in the future.  Tools like <a href="http://developer.yahoo.com/yslow/">YSlow</a> will let you know if you are not doing this. (They will also give you a lot of other pointers on perfromance! We have internal bugs open at SugarCRM for most of the client side performance issues that tools like YSlow have identified.)</p>
+
+<p>We use apache on our application servers, and to enable these cache-control headers we added this:
+<pre>&lt;FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|xml|txt)$"&gt;  
+Header set Cache-Control max-age=36000,public
+&lt;/FilesMatch&gt;</pre>
+
+
+For SugarCRM OnDemand, this cut our number of requests-per-second in half and made a several-hundred-millisecond improvement in the time it takes to load pages from SugarCRM OnDemand.  </p>
+
+<p>For this one, monitor your req/s and  check your PHP Applications after any changes using a tool like YSlow.</p>
+
+<h2>SugarCRM Specific</h2>
+
+<p>Lastly, a few specific changes just for SugarCRM:
+
+<ul>
+<li>Add <b>'disable_count_query' => true</b> to config.php.  This replaces the "1-5 of 200" with a "1-5 of 6+" and makes a big difference when you have a lot of records.  This configuration setting should be a default in a future release of SugarCRM.</li>
+<li>Disable explicit caching in the app by setting <b>'external_cache_disabled' => true</b> in config.php.  While SugarCRM can use external caches like APC's user cache and Memcached for some things, this shouldn't be enabled unless you have set up the infrastructure to handle these.  This configuration setting be a default in a future release of SugarCRM.</li>
+<li>If developer mode is enabled and you are not using it, turn this off! In SugarCRM 6.0, this is under Adminstration -> System Settings -> Advanced.  This is off by default, and if it gets turned on and accidentlally left on, it causes severe performance degradation.</li>
+<li>Turn loging down to the minimum that you need. If your SugarCRM installation is on a NFS based document root with multiple servers, this becomes even more important.  This is under Administration -> System Settings -> Logger Settings. "Error" or "Fatal" are good options here.</li>
+<li>Turn off tracker features you are not using. This is in Admin -> Tracker.  Each enabled piece of functionality causes things to be written to the database, and will slow down page loads.  Leave on only what you need for reports that you have written.</li>  
+</ul>
+</p>
+
+<h2>Thats a start!</h2>
+<p>With those changes, you should be off to a pretty good start at improving the performance of your installation of SugarCRM!  These things help us keep SugarCRM performing quickly in the SugarCRM OnDemand environment with a pretty high ratio of active users to servers, and a recent application of these tips that I did to a site that handles 200k+ unique users per month lead to a 65% decrease in system utilization and much improved response times.  </p>
+
+[Cross posted on <a href="http://developers.sugarcrm.com/wordpress/2010/06/16/quick-pointers-on-sugarcrm-performance/">developers.sugarcrm.com</a>.]

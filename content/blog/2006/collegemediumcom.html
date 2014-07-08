@@ -1,0 +1,21 @@
+---
+title: CollegeMedium.com
+created_at: 2006-04-14 01:07:37 -0400
+kind: article
+---
+It's finally here. That top secret website project I've been working on. We at College Medium, LLC are proud to announce<br /><br /><a href="http://www.collegemedium.com/actions/spread.php?from=2bce14959ac" rel="nofollow">http://www.collegemedium.com/</a><br /><br /> CollegeMedium.com provides a network for college students to sell items, rent apartments, find local jobs and student roommates, in their school or other surrounding schools.<br /><br />
+<p>Employers and property managers can also target specific college campuses for their housing and employment needs. This service is <b>FREE to EVERYONE</b>.<br /><br /> Basically, It's really cool. Stop by, check it out, sign up for an account, and let us know what you think!<br /><br /> I'm the CTO of College Medium, LLC which means I've spent the last few months doing all the infrastructure work and putting together the site. I've learned a bit doing it and here are some of the cool things that are happening behind the scenes:</p>
+<ul>
+    <li>CSS for all visuals. That includes the nifty semi-transparent dropdown menus. Tables are only used for tabular data, where they should be</li>
+    <li>AJAX for loading state/city/school names and ids, as well for for dynamically loading contextual help and displaying it inline with the content when a user requests it</li>
+    <li>Secure one way hashing of passwords for storage, and one way generation of keys that are used to verify email addresses, cell phone numbers, referals, etc</li>
+    <li>mod_rewrite rules for pretty URLs and hiding things on the file system</li>
+    <li>InnoDB tables in MySQL for strict enforcement of foreign keys including properly deleting entitys that refrence a deleted parent entity</li>
+    <li>PHP running with suexec in mod_fastcgi for secure high performance PHP execution</li>
+    <li>On site messaging for completely anonymous communication between users. Absolutley no information is shared about users, not even their member id number on the site (unless they choose to share it)</li>
+    <li>Users can choose to receive text messages on their cell phone whenever they receive a new message on the site</li>
+    <li>Database of (hopefully) every single college in the united states</li>
+    <li>Logging of all system errors and hiding them from the user</li>
+    <li>Dynamic menu and page generation relying on group permissions in access control lists</li>
+    <li>Lots of other things I probably forgot!</li>
+</ul>

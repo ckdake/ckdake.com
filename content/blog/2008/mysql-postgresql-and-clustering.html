@@ -1,0 +1,110 @@
+---
+title: MySQL, PostgreSQL, and Clustering
+created_at: 2008-01-16 09:37:23 -0500
+kind: article
+---
+So <a href="http://www.sun.com/">Sun Micrososystems</a> <a href="hhttp://blogs.mysql.com/kaj/2008/01/16/sun-acquires-mysql/">just bought</a> <a href="http://www.mysql.com">MySQL</a>. That could turn out to be pretty interesting.
+
+In other news, Clustering and Replication.  I've been setting up some highly available systems that need to use both MySQL and PostgreSQL.  MySQL has some great options for this and I was able to pick between Master-Master replication (which was the final choice here) or a clustered storage engine, both of which are available from MySQL and are very straightforward to configure.
+
+As for PostgreSQL, this is about the 2nd or 3rd time I've ever installed or used it, much less set it up to scale. (MySQL I've been using for ~10 years and with replication for at least a couple.) I assumed that replication would be as easy as MySQL and it turns out that it is, but there are a lot of 3rd party options that do different things and the documentation could be a lot more thorough. I stumbled across <a href="http://edoceo.com/liber/db-postgresql-replication">this article on PostgreSQL Replication and HA</a> which led me to try out <a href="http://pgcluster.projects.postgresql.org/">PGCluster</a>.  Your needs may vary, but this particular situation requires Master-Master replication with a definite upgrade path to High Availability.  PGCluster seemed to provide all this, but it is non-trivial to get going.  <a href="http://www.pgcluster.org/wiki/Example">This PGCluster example</a> was the most helpful thing I came across but it didn't really explain things too well, just provided a working configuration for a setup very different than mine. Read on for the details
+<!--break-->
+First is getting this all installed on CentOS.  PGCluster is not a daemon or tool, it's available as a patch to PostgreSQL or you can download a patched version which I chose to do.
+
+<pre>
+yum install readline-devel
+useradd postgres
+su - postgres
+set PGDATA=/usr/local/
+export PGDATA
+set LD_LIBRARY_PATH=/usr/local/pgsql/lib
+export LD_LIBRARY_PATH
+wget http://pgfoundry.org/frs/download.php/1295/pgcluster-1.5.0rc16.tar.gz
+tar -zxf pgcluster-1.5.0rc16.tar.gz
+chown -R postgres:postgres pgcluster-1.5.0-rc16
+cd pgcluster-1.5.0-rc16
+./configure --enable-thread-safety
+make
+su
+make install
+chown -R postgres /usr/local/pgsql
+exit
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+</pre>
+
+Then is the configuration files. This setup has host1 replicating to host2 as a backup. Make sure host1 and host2 are set up in DNS or /etc/hosts properly first!
+
+host1:cluster.conf
+<pre>
+&lt;Replicate_Server_Info&gt;
+        &lt;Host_Name&gt;host1&lt;/Host_Name&gt;
+        &lt;Port&gt;8001&lt;/Port&gt;
+        &lt;Recovery_Port&gt;8101&lt;/Recovery_Port&gt;
+        &lt;LifeCheck_Port&gt;8201&lt;/LifeCheck_Port&gt;
+&lt;/Replicate_Server_Info&gt;
+&lt;Host_Name&gt;host1&lt;/Host_Name&gt;
+&lt;Recovery_Port&gt;7001&lt;/Recovery_Port&gt;
+&lt;Rsync_Path&gt;/usr/bin/rsync&lt;/Rsync_Path&gt;
+&lt;Rsync_Option&gt;ssh -1&lt;/Rsync_Option&gt;
+&lt;Rsync_Compress&gt;yes&lt;/Rsync_Compress&gt;
+&lt;Pg_Dump_Path&gt;/usr/local/pgsql/bin/pg_dump&lt;/Pg_Dump_Path&gt;
+&lt;When_Stand_Alone&gt;read_only&lt;/When_Stand_Alone&gt;
+&lt;Replication_Timeout&gt;1min&lt;/Replication_Timeout&gt;
+&lt;LifeCheck_Timeout&gt;3s&lt;/LifeCheck_Timeout&gt;
+&lt;LifeCheck_Interval&gt;11s&lt;/LifeCheck_Interval&gt;
+</pre>
+
+host1:pgreplicate.conf
+<pre>
+&lt;Cluster_Server_Info&gt;
+    &lt;Host_Name&gt;host1&lt;/Host_Name&gt;
+    &lt;Port&gt;5432&lt;/Port&gt;
+    &lt;Recovery_Port&gt;7001&lt;/Recovery_Port&gt;
+&lt;/Cluster_Server_Info&gt;
+&lt;Cluster_Server_Info&gt;
+    &lt;Host_Name&gt;host2&lt;/Host_Name&gt;
+    &lt;Port&gt;5432&lt;/Port&gt;
+    &lt;Recovery_Port&gt;7001&lt;/Recovery_Port&gt;
+&lt;/Cluster_Server_Info&gt;
+&lt;Host_Name&gt;host1&lt;/Host_Name&gt;
+&lt;Replication_Port&gt;8001&lt;/Replication_Port&gt;
+&lt;Recovery_Port&gt;8101&lt;/Recovery_Port&gt;
+&lt;RLOG_Port&gt;8301&lt;/RLOG_Port&gt;
+&lt;Response_Mode&gt;normal&lt;/Response_Mode&gt;
+&lt;Use_Replication_Log&gt;no&lt;/Use_Replication_Log&gt;
+&lt;Replication_Timeout&gt;1min&lt;/Replication_Timeout&gt;
+&lt;LifeCheck_Timeout&gt;3s&lt;/LifeCheck_Timeout&gt;
+&lt;LifeCheck_Interval&gt;15s&lt;/LifeCheck_Interval&gt;
+&lt;Log_File_Info&gt;
+        &lt;File_Name&gt;/var/log/postgresql/pgreplicate.log&lt;/File_Name&gt;
+        &lt;File_Size&gt;1M&lt;/File_Size&gt;
+        &lt;Rotate&gt;3&lt;/Rotate&gt;
+&lt;/Log_File_Info&gt;
+</pre>
+
+host2:cluster.conf
+<pre>
+&lt;Replicate_Server_Info&gt;
+        &lt;Host_Name&gt;host1&lt;/Host_Name&gt;
+        &lt;Port&gt;8001&lt;/Port&gt;
+        &lt;Recovery_Port&gt;8101&lt;/Recovery_Port&gt;
+&lt;/Replicate_Server_Info&gt;
+&lt;Host_Name&gt;host2&lt;/Host_Name&gt;
+&lt;Recovery_Port&gt;7001&lt;/Recovery_Port&gt;
+&lt;Rsync_Path&gt;/usr/bin/rsync&lt;/Rsync_Path&gt;
+&lt;Rsync_Option&gt;ssh -1&lt;/Rsync_Option&gt;
+&lt;Rsync_Compress&gt;yes&lt;/Rsync_Compress&gt;
+&lt;Pg_Dump_Path&gt;/usr/local/pgsql/bin/pg_dump&lt;/Pg_Dump_Path&gt;
+&lt;When_Stand_Alone&gt;read_only&lt;/When_Stand_Alone&gt;
+&lt;Replication_Timeout&gt;1min&lt;/Replication_Timeout&gt;
+&lt;LifeCheck_Timeout&gt;3s&lt;/LifeCheck_Timeout&gt;
+&lt;LifeCheck_Interval&gt;11s&lt;/LifeCheck_Interval&gt;
+</pre>
+
+And you're almost done!  Start the replicator on host1:
+<pre>/usr/local/pgsql/bin/pgreplicate -D /usr/local/pgsql/data</pre>
+
+And then the patched PostgreSQL on each host:
+<pre>/usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data -o "-i" start</pre>
+
+That should be it! Any changes you make on either host will be replicated to the other in the "all servers and services up" mode. Insert/Update/etc queries on host2 will fail if host2 cannot get to the replication server, however select/etc queries on host2 will still work if the replication server is down. (The replication process is separate from the postgres process.)

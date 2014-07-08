@@ -1,0 +1,132 @@
+---
+title: Gentoo Tools
+created_at: 2006-09-25 21:26:10 -0400
+kind: article
+---
+<h2>(Almost) automatic apache2 vhosts configuration from MySQL</h2>
+<div class="item">
+I use this to make it easier to manage my virtual hosts. This is still in the
+early stages of development and could be done a lot better but this should help some people out
+there. This is for apache2 on Gentoo with a new enough version that you have httpd.conf
+(not apache2.conf and commonapache2.conf). Steps:
+<ul>
+<li>Make sure "Include /etc/apache2/vhosts.d/*.conf" is uncommented at the bottom of the
+    /etc/apache2/httpd.conf</li>
+<li>Make sure "-D DEFAULT_VHOST" is in your APACHE2_OPTS in /etc/conf.d/apache2</li>
+<li>Make the db tables:
+<pre>
+CREATE TABLE `apache_hosts` (
+    `server_name` varchar(200) NOT NULL default '',
+    `server_admin` varchar(255) NOT NULL default '',
+    `options` varchar(255) default NULL,
+    PRIMARY KEY  (`server_name`)
+)
+CREATE TABLE `apache_redirects` (
+    `server_name` varchar(200) NOT NULL default '',
+    `redirect` varchar(200) NOT NULL default '',
+    `permanent` int(11) default '1',
+    PRIMARY KEY  (`server_name`)
+)
+</pre></li>
+<li>Insert some hosts or redirects. samples:
+<pre>
+INSERT INTO `apache_hosts` VALUES('example.com','webmaster@example.com','AllowOverride ALL');
+INSERT INTO `apache_hosts` VALUES('foo.example.com','webmaster@example.com','');
+INSERT INTO `apache_redirects` VALUES('bounce.example.com','http://example.com',1);
+</pre></li>
+<li>Make the appropriate folders and make sure apache has read access to them and write access to
+the logs:
+<pre>
+/data/sites/example.com/www/index.html
+                       /logs/
+           /foo.example.com/www/index.html
+                           /logs/
+</pre></li>
+<li>Run this perl script to generate the vhosts files.  Replace the database login information with
+your own. It will error the first time, but be quiet the second time each time you add a host. This
+is ok.:
+<pre>
+#!/usr/bin/perl -w
+#
+# vhosts-regen.pl
+#
+#regenerates apache vhost config files from database
+
+use strict;
+use DBI;
+
+my $confdir = "/etc/apache2/vhosts.d/";
+
+my $db = DBI->connect("dbi:mysql:database=DATABASE;user=USER;password=SECRET")
+or die("Couldn't connect to database: $DBI::errstr\n");
+
+my $sql = "SELECT * FROM apache_hosts";
+my $statement = $db->prepare($sql)
+        or die("Couldn't prepare query '$sql': $DBI::errstr\n");
+$statement->execute()
+        or die("Couldn't execute query '$sql': $DBI::errstr\n");
+
+my ($server_name, $server_admin, $options);
+$statement->bind_columns(\$server_name, \$server_admin, \$options);
+
+while ($statement->fetch()) {
+        if (!($server_name eq "")) {
+                system('rm "'.$confdir.'/'.$server_name.'.conf"');
+                open(FILEOUT, ">$confdir/$server_name.conf");
+                print(FILEOUT '<VirtualHost *:80>
+        ServerName "'.$server_name.'"
+        DocumentRoot "/data/sites/'.$server_name.'/www/"
+        ServerAdmin "'.$server_admin.'"
+        ErrorLog "/var/log/apache2/error_log"
+        ErrorLog "/data/sites/'.$server_name.'/logs/error_log"
+        CustomLog "/var/log/apache2/access_log" combined
+        CustomLog "/data/sites/'.$server_name.'/logs/access_log" combined
+        <Directory "/data/sites/'.$server_name.'/www/">'."\n");
+                if (defined($options)) {
+                        print(FILEOUT "         $options");
+                } else {
+                        print(FILEOUT "         Options None");
+                        print(FILEOUT "         AllowOverride None");
+                }
+                        print(FILEOUT '
+                Order allow,deny
+                Allow from all
+        </Directory>
+</VirtualHost>
+');
+        }
+}
+close(FILEOUT);
+
+$sql = "SELECT * FROM apache_redirects";
+$statement = $db->prepare($sql)
+        or die("Couldn't prepare query '$sql': $DBI::errstr\n");
+$statement->execute()
+        or die("Couldn't execute query '$sql': $DBI::errstr\n");
+my ($redirect, $permanent);
+$statement->bind_columns(\$server_name, \$redirect, \$permanent);
+
+while ($statement->fetch()) {
+        if (!($server_name eq "")) {
+                system('rm "'.$confdir.'/'.$server_name.'.conf"');
+                open(FILEOUT, ">$confdir/$server_name.conf");
+                print(FILEOUT '<VirtualHost *:80>
+        ServerName "'.$server_name.'"
+        Redirect ');
+                if ($permanent != 0) {
+                        print(FILEOUT "Permanent");
+                }
+                print(FILEOUT " / ".$redirect."
+</VirtualHost>
+");
+        }
+}
+close(FILEOUT);
+</pre></li>
+<li>tell apache to reload: "apache2ctl graceful" (this tells apache to load all new
+        threads/processes with the new config and kill off old threads as soon as they are done
+        processing requests)</li>
+<li>Check your error logs for any problems, fix em!</li>
+<li>Any time you want to add another host or redirect, insert into mysql, rerun the script, and
+reload apache</li>
+</div>

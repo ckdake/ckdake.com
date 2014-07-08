@@ -1,0 +1,12 @@
+---
+title: logrotate, munin, and configuration mistakes
+created_at: 2008-01-09 12:17:08 -0500
+kind: article
+---
+I've got several servers and on each of them, I log things and graph things. <a href="http://munin.projects.linpro.no/">Munin</a> is one of my favorite graphing tools for keeping an eye on things, and I noticed something odd that was getting odder as the days went by in one of my Munin graphs:
+
+<img alt="somethingodd" src="http://ckdake.com/files/pudge_ithought_org-cpu-month.png" />
+
+System load on that server was usually low but every night at 4am when the daily scheduled jobs run, the CPU usage of those jobs was steadily getting higher.  Not good! I poked around at each of the scheduled jobs on that machine and one of them was taking an unusually amount of time to run: <a href="http://www.linuxcommand.org/man_pages/logrotate8.html">logrotate</a>. This seemed strange as my logs folder was still under 1GB for all the logs on that machine that sees a pretty high volume of web and mail hits, but something needed to be fixed. I ran strace on the logrotate process and it seemed to just be calling localtime thousands of times in a row which seemed to indicate it was broken or it was checking lots of files. Hrm.  All the logrotate configuration files looked fine and had been working for a long time.  I poked around the logs folder to see if anything unusual was happening in there and there it was. The munin log file folder was only ~100MB but had over 15,000 files in it.  Munin definitely didn't need to have that many log files...  They were named like "munin_node.log.1.gz.2.gz.1.gz.3.gz.1.gz" which meant that logrotate was rotating out files that it had already rotated, requiring ungzing and gzing and it's pretty obvious how this could get bad fast. 
+
+Turns out I made a typo in one of the logrotate config files. Telling it to rotate "/var/log/munin/*" instead of "/var/log/munin/*.log".  Doh!  It took ~10 minutes to remove all of the extraneous files (rm said too many arguments so I had to use find:  `find ./ -name "*.log.*" -exec rm {} \;`) but now all seems to be well and logrotate is running in the expected amount of time. We'll see what happens at 4am tomorrow :)

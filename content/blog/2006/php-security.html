@@ -1,0 +1,129 @@
+---
+title: PHP Security
+created_at: 2006-09-25 21:25:20 -0400
+kind: article
+---
+Updated info at: <a href="http://ckdake.com/node/219">http://ckdake.com/node/219</a>
+
+<h2>About this document</h2>
+A few things to take note:<ul>
+<li>A lot of what I learned about fastcgi I got from: <a href="http://www.k4ml.com/wiki/server/apache/php-fastcgi">http://www.k4ml.com/wiki/server/apache/php-fastcgi</a></li>
+<li>I use Gentoo. If you some some other distro and this doesn't work. Sorry! If you have fixes to make it work on other distros, please email me at ckdake at ckdake dot com and I'll add it here. Thanks in advance.</li>
+<li>Feel free to use this or link to it, but please don't copy it anywhere without asking me first. If you find it helpful, a link back to my site is always nice too.</li>
+<li> THIS IS A WORK IN PROGRESS AND INCOMPLETE! IT WORKS FOR ME BUT USE AT YOUR OWN RISK!</li>
+<li>Using mod_fcgid may be better than mod_fastcgi. More information after I do some more research</li>
+<li><a href="http://www.seaoffire.net/fcgi-faq.html">http://www.seaoffire.net/fcgi-faq.html</a> has a slightly different approach that uses chroots and should be even more secure than this method.</li>
+</ul>
+<h2>Introduction</h2>
+<p>I spend a good amount of my time dabling with information security related things. My boxes are all fairly hardened and email me and automatically firewall out IPs when people try nasty things, but a random little bug in a version of Gallery 1 caught my attention.  An "rm" got out of hand and deleted everything the webserver user could write to. Imagine if this is on a box with a lot of sites (like all of mine or yours), and then imagine someone clicked the wrong button. Poof. Everything is gone.  If you have fantistic backups (We all know how often that happens..) its a bit of a pain but you can get most things back up and running. If not, you suddenly have a lot of free disk space and a lot fewer phone calls because all of your clients have switched providers.<p>
+<p>This sounds like some kind of horror story but is actually the way that a lot of cheap/free web hosting is set up. PHP runs as mod_php, loaded into apache, runs as the apache user and everything works super easily. (On Gentoo there is one command to type and one file to change one line in to get PHP working that way) Why don't people do something else? More security means less flexibility, more complexity, and there
+really is a lack of good (free) documentation about good (free) alternatives out there. Hence this document. The criteria I'm trying to meet here are:<ol>
+<li>Support a reasonably unlimited number of virtual hosts on one server</li>
+<li>Keep php inside of each vhosts home directory</li>
+<li>Use software thats recommended for production use</li>
+<li>Improve security in any other ways possible</li>
+</ol>
+Not too terribly specific, but it ended up being a lot more research and work than I expected. Through the whole process there were several options I considered: <ul>
+<li>chrooted Apache (with mod_php) - This is the ideal solution, security speaking atleast. Each user is locked into their home directory and apache can only read and write files inside of it. This helps with #4 because apache exploits aren't a problem except the virtual host they are exploited on, and other "risky" things can be done on a per virtual host basis (apache MPMs or modules). #2 is completely resolved as well, and #3 is met, but there are some big issues with #1. The problem with this is that every single virtual host has to have atleast one set of apache processes and threads running, and to get reasonable performance for any of the hosts you'll need a lot of processes/threads for each virtual host.  This means your machine will need _much_ more ram if you have a large number of virtual hosts. Another plus for this approach is no configuration changes are needed for existing files on the virtual host except for setting up the chroot properly (which is pretty straighforward and there is good documentation on).</li>
+<li>suPHP - This is a slightly less perfect solution but still seems pretty reasonable. suPHP consists of a setuid root binary called by the mod_suphp module that sets the user/group of the process to the user/group for the virtual host before php is run. This limits damage to anything that the particular user/group has rights to which should be plenty on a properly configured server. On an improperly configured server (say one with world writable files) this could still be problematic. suPHP also has optional chroot() support which works around this, so once again numbers 2 and 4 are met above, but for #3 they are only on 0.6.1.  Often with Open Source products, this is perfectly acceptable, but it's still officially a beta release and it may or may not work for you completely. The main problem with this method is that php must be started up for every single php request. The same pool of apache threads and processes can be used, and for low volume servers this is just fine (for the server admin) but if you are serving 10s of thousands of PHP pages a day,
+you will definitely notice the load on the server go up dramatically, and regardless of the load on your server, the load time of pages for users will be noticably slower. All that said, #1 is not met for me. If you aren't pushing a high load, there seem to be a package out there for most of the major Linux distributions and getting suPHP working should just be a matter of installing one package and changing one or two lines in one or two config files</li>
+<li>php-cgi - Essentially the same security and performance as suPHP, php-cgi is basically just another way of suexecing PHP.  It requires a PHP wrapper script (or you can add #!/usr/bin/php to every single php file but thats just _crazy) in a cgi-bin folder for each host (which is infrastructure I did not have in place yet) but is supported almost out of the box with PHP on whatever OS you are using. php-cgi runs each php request through the wrapper script which executes the php binary with whatever user and group you specify in the configuration file for the virtual host. This has the same 1,2,3 and 4 as suPHP.  Good for protecting files, not so good for performance.</li>
+<li>php-fastcgi - Essentially the same security as php-cgi but with the "fast" part added in.  This requires another apache module, mod_fastcgi, which does something very nice. It daemonizes the php binary the first time it is called for a virtual host and keeps it running which eliminates the overhead of starting php for every request.  This is basically what mod_php does, but because its from the wrapper script with the suexec its limited per user. There is some performance overhead with this because php processes are kept running per each virtual host, but the apache threads and processes are shared and the number of running php threads can be tuned per virtual host so you can give more capacity to your higher traffic virtual hosts. This satisfies all of my requirements, and since its the last option I found and I don't know of any others... this is a good thing. The details follow..</li>
+</ul>
+</div>
+<h2>The virtualhost file setup</h2>
+Each virtual host needs a few things:<ul>
+<li>A home directory. Gentoo defaults to /var/www/$SITENAME/, I use /data/sites/$SITENAME. This is where everything for a host will reside that the user for that virtual host has access to. The rest of this guide assumes you have the following folders in it:<ul>
+<li>www/ - the apache docroot</li>
+<li>www/cgi-bin/ - contains the php wrapper script</li>
+<li>tmp - session files and PHP's tmp files</li>
+<li>log/ - log files</li></ul></li>
+<li>It's own php.ini file.  This allows us to also put a base directory in php that limits it to the virtual host's docroot, as well as configure each vhost's session store and tmp folder to be within their space. I put mine in /data/conf/$SITENAME/.  Apache is the only user that needs to be able to get to these, and each site must have its own folder because php looks for .ini files in a folder specified at runtime. For now just copy over the default php.ini file from /etc/php/apache2-php5/php.ini file and change the following settings:<ul>
+<li>open_basedir = "/data/sites/$SITENAME"</li>
+<li>doc_root = "/data/sites/$SITENAME/www"</li>
+<li>upload_tmp_dir = "/data/sites/$SITENAME/tmp"</li>
+<li>session.save_path = "/data/sites/$SITENAME/tmp"</li>
+</ul></li>
+<li>A php wrapper script inside of cgi-bin: 'php'. This file needs to be owned by the user and executable by the user so that suexec will allow execution of it, but we want to prevent the user from being able to change this file to say, point to a different php.ini file (or break things). One option is to alter and recompile suexec to allow execution of a file that meets different criteria but this is _very dangerous_ and strongly discouraged due to the security problems that can be introduced. The better option is using file system extras to limit access and several people have emailed me with solutions for different platforms:<ul>
+<li>On FreeBSD 5.0 and newer (and perhaps other Unix variants with file system ACLs) you can run `setfacl -m u::rx php` on the php file for each site which prevents the user from being able to override the ACL and prevents them from being able to modify it as well. Thanks to Lucian (lucian at unixro dot net) for this!</li>
+<li>Wouter pointed out to me that ACLs only are available in FreeBSD 5.0 and newer, so on any version of FreeBSD you should be able to do: `chflags schg php`  which sets the immutable bit on the file similarly to the chattr command for Linux mentioned next. You may need support for this on your filesystem. Thanks to Wouter (wouter at widexs dot nl) for this!</li> 
+<li>On Linux filesystems with extended attributes (I'm using ext3 but others with extended attributes will work as well. You will need to have extended attributes support compiled into your kernel for whatever filesystem you use and will have to mount the filesystem with the "user_xattr" option.) you can run `chattr -V +i php` on the php file for each site which sets the immutable bit for the file. This prevents anyone from being able to change the file (even root) until the bit is removed, which only root can do (by running `chattr -V -i php`). Thanks to Jonas Fietz  ( info at jonasfietz dot de ) for this!</li>
+</ul>
+    The php file should contain something along the lines of: <pre>
+#!/bin/sh
+PHPRC="/data/conf/$SITENAME/"
+export PHPRC
+PHP_FCGI_CHILDREN=8
+export PHP_FCGI_CHILDREN
+PHP_FCGI_MAX_REQUESTS=5000
+export PHP_FCGI_MAX_REQUESTS
+exec /usr/bin/php-cgi
+</pre>If this is a low traffic host, you might want to lower the number of children, if it's very
+high traffic, you might want to increase this. If you does not find a suitable, sane setting for this, then you can actually leave it out and leave it to php to figure out how many children there should be. Also, you should check a few times to see if actually about the number one has set is running, as fcgi bursts the numbers somewhat sometimes. (Thanks to Jonas Fietz for some of this information!)</li>
+<li>In addition to what is already in your conf file for each vhost, (see projects->hosting->tools
+        above for a tool to create these config files) you need to add:
+<pre>
+SuexecUserGroup USERNAME websites
+ScriptAlias /fcgi-bin/ /data/sites/$SITENAME/cgi-bin/
+&lt;Location /fcgi-bin/>
+Options ExecCGI
+SetHandler fastcgi-script
+&lt;/Location>
+
+AddType application/x-httpd-fastphp .php
+Action application/x-httpd-fastphp /fcgi-bin/php
+
+&lt;Directory "/data/sites/$SITENAME/cgi-bin">
+AllowOverride None
+Options +ExecCGI -Includes
+Order allow,deny
+Allow from all
+&lt;/Directory>
+</pre>
+</li>
+</ul>
+<h2>The Steps</h2>
+<p>This assumes that you don't have apache or PHP installed or configured yet. If you do and have a
+complicated enough setup to be using this guide after the fact, you can probably figure out the
+changes you need to make for this all to work as an addon. This also uses Apache 2 and PHP5. If you
+want to use something else, you also probably know what changes to make.</p>
+<ol>
+<li>First edit your /etc/make.conf and make sure that your USE variable contains apache2, threads,
+    fastcgi, php5, suexec, and cgi.</li>
+<li>If your website documents are outside of the default Gentoo webroot (/var/www) set up things to
+support this.<ol>
+<li>You need to do this because the suexec binary that Apache uses to launch php with this
+configuration gets the docroot (and all other settings) compiled in so that they cannot be tinkered
+with by someone trying to do nasty things later</li>
+<li>Edit your apache ebuild (should be somewhere like
+/usr/portage/net-www/apache/apache-2.0.58-r2.ebuild) and change the value for
+--with-suexec-docroot to the highest directory that contains all your web documents. Gentoo defaults
+this to /var/www/ which may be fine for you and is the easiest to deal with, but I keep mine in
+/data/sites/ so that points there in my ebuild.</li>
+<li>Rebuild the digest for the ebuild: "ebuild /usr/portage/net-www/apache/apache-2.0.58-r2.ebuild
+digest"</li>
+</ol></li>
+<li>Install all the toys: "emerge apache php mod_fastcgi" (If you're using php4 you'll need to
+emerge php-cgi instead)</li>
+<li>Make the "websites" group, add apache to it.  All virtual hosts need to be owned by their owner and this
+group, and permissions should be 750 on directories and 640 on files.</li>
+<li>Disable auth_digest in httpd.conf, it is busted with gentoo out of the box because of
+urandom. If you need it, you can recompile apache to use a different source of random data.</li>
+<li>Add "-D FASTCGI" to APACHE2_OPTS in /etc/conf.d/apache2</li>
+<li> Edit: /etc/apache2/modules.d/20_mod_fastcgi.conf
+<pre>
+&lt;IfDefine FASTCGI>
+    &lt;IfModule !mod_fastcgi.c>
+        LoadModule fastcgi_module     modules/mod_fastcgi.so
+    &lt;/IfModule>
+
+    &lt;IfModule mod_fastcgi.c>
+        AddHandler fastcgi-script .fcgi
+        FastCgiWrapper /usr/sbin/suexec2
+        FastCgiConfig -singleThreshold 100 -killInterval 300 -autoUpdate -idle-timeout 240 -pass-header HTTP_AUTHORIZATION
+    &lt;/IfModule>
+&lt;/IfDefine>
+</pre>
+You may want to tinker with the paramaters for mod_fastcti.c.  If you have websites that idle for long periods of time, the first hit to them after a period of inactivity will have a delay while php is started and daemonized for that site. (I don't think this delay is any larger than the delay of just using php as cgi without fastcgi, but I have not run any tests.)
+</li>
+</ol>

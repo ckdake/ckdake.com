@@ -1,0 +1,106 @@
+---
+title: Monitoring Nginx with ZenOSS
+created_at: 2009-11-24 10:41:35 -0500
+kind: article
+---
+If you're using <a href="http://www.zenoss.com/">ZenOSS</a> for network monitoring, and you have a few loadbalancers (or servers of some sort) running <a href="http://wiki.nginx.org/Main">Nginx</a>, chances are pretty good that you want to see what your load balancers are up to inside of ZenOSS.  It requires gluing some things together, but once you know what kind of glue to use, it's a pretty straightforward process. First, you need to add status pages for Nginx.  This means that it must be compiled with "--with-http_stub_status_module", but if you're using Nginx from a package provider like <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a>, it already has this included.  Add nginx_status to your configuration by adding something like:
+<pre>
+location /nginx_status {
+    stub_status on;
+    access_log   off;
+    allow IP.OF.MONITORING.SERVER;
+    deny all;
+}
+</pre>
+to your first server {} block. Reload nginx and visit http://IP.OF.NGINX.SERVER/nginx_status and you should get some stats like:
+<pre>
+Active connections: 8 
+server accepts handled requests
+ 455010 455010 781977 
+Reading: 0 Writing: 2 Waiting: 6 
+</pre>
+Up next is getting this information into ZenOSS.  We'll do this using a nagios plugin grabbed from here:  <a href="http://exchange.nagios.org/directory/Plugins/Web-Servers/nginx/check_nginx-2Esh/details">check_nginx</a>.  This plugin does most of the work, but it's not quite enough to use here because it bases the numbers it provides on the difference in the accepts/connects over 2 runs 1 second apart instead of real numbers, and the format doesn't work with ZenOSS's input parser, so you'll need to apply this patch:
+<pre>
+--- check_nginx.sh	2009-11-24 07:31:35.000000000 -0800
++++ check_nginx.sh.1	2009-11-24 06:45:56.000000000 -0800
+@@ -181,17 +181,13 @@
+     if [ "$secure" = 1 ]
+     then
+         wget_opts="-O- -q -t 3 -T 3 --no-check-certificate"
+-        out1=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
+-        sleep 1
+-        out2=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
++        out=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
+     else        
+         wget_opts="-O- -q -t 3 -T 3"
+-        out1=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
+-        sleep 1
+-        out2=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
++        out=`wget ${wget_opts} http://${hostname}:${port}/${status_page}`
+     fi
+ 
+-    if [ -z "$out1" -o -z "$out2" ]
++    if [ -z "$out" ]
+     then
+         echo "UNKNOWN - Local copy/copies of $status_page is empty."
+         exit $ST_UK
+@@ -199,13 +195,9 @@
+ }
+ 
+ get_vals() {
+-    tmp1_reqpsec=`echo ${out1}|awk '{print $10}'`
+-    tmp2_reqpsec=`echo ${out2}|awk '{print $10}'`
+-    reqpsec=`expr $tmp2_reqpsec - $tmp1_reqpsec`
+-
+-    tmp1_conpsec=`echo ${out1}|awk '{print $9}'`
+-    tmp2_conpsec=`echo ${out2}|awk '{print $9}'`
+-    conpsec=`expr $tmp2_conpsec - $tmp1_conpsec`
++    reqpsec=`echo ${out}|awk '{print $10}'`
++
++    conpsec=`echo ${out}|awk '{print $9}'`
+ 
+     reqpcon=`echo "scale=2; $reqpsec / $conpsec" | bc -l`
+     if [ "$reqpcon" = ".99" ]
+@@ -220,7 +212,7 @@
+ }
+ 
+ do_perfdata() {
+-    perfdata="'reqpsec'=$reqpsec 'conpsec'=$conpsec 'conpreq'=$reqpcon"
++    perfdata="reqpsec=$reqpsec conpsec=$conpsec conpreq=$reqpcon"
+ }
+ 
+ # Here we go!
+@@ -247,17 +239,17 @@
+ then
+     if [ "$reqpsec" -ge "$warning" -a "$reqpsec" -lt "$critical" ]
+     then
+-        echo "WARNING - ${output} | ${perfdata}"
++        echo "WARNING - ${output} | ${perfdata};"
+ 	exit $ST_WR
+     elif [ "$reqpsec" -ge "$critical" ]
+     then
+-        echo "CRITICAL - ${output} | ${perfdata}"
++        echo "CRITICAL - ${output} | ${perfdata};"
+ 	exit $ST_CR
+     else
+-        echo "OK - ${output} | ${perfdata} ]"
++        echo "OK - ${output} | ${perfdata}; ]"
+ 	exit $ST_OK
+     fi
+ else
+-    echo "OK - ${output} | ${perfdata}"
++    echo "OK - ${output} | ${perfdata};"
+     exit $ST_OK
+ fi
+</pre>
+by saving that to "check_nginx.patch" and running "patch -p0 < check_nginx.path" from the folder where you have the check_nginx script saved.  Make sure that the ZenOSS user can run the script, and make sure it works. The output should look like:
+<pre>
+OK - nginx is running. 782995 requests per second, 455656 connections per second (1.71 requests per connection) | reqpsec=782995 conpsec=455656 conpreq=1.71;
+</pre>
+With all this working, now you'll just need to create a new Template in ZenOSS, add a COMMAND data source to it with a command like:
+<pre>
+/home/zenoss/scripts/check_nginx_ng.sh -N -H ${dev/manageIp}
+</pre>
+Then add two datapoints, reqpsec and conpsec. Make sure to set both to the "COUNTER" type because the patched check_nginx script reports constantly increasing numbers instead of the GAUGE that it was before!  Bind this new template to any devices or device classes where servers are running Nginx, and create any graphs you like.  I have a graph on each device that shows reqpsec and conpsec,  as well as a report that shows the aggregate reqpsec and conpsec for all of the loadbalancers.  If your command is named "check_nginx" in the template, you can use the variables in any report by adding "checK_nginx_reqpsec" as a data point.
+
+Without too much trouble, you now have fancy graphs in ZenOSS for your Nginx statistics, and you can set thresholds for these if you have conditions that should send out alarms.

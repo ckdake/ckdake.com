@@ -1,0 +1,29 @@
+---
+title: Transparent TCP Stream Encryption
+created_at: 2006-12-05 23:49:46 -0500
+kind: article
+---
+School this semester has been very busy, but things are getting done and I'll post the neat things here as I get finished. The first project I completed this semester was my group project for CS6250: Advanced Computer Networks aka Router Architectures and Algorithms.
+
+My group, consisting of Me, Zack A, and Chris L (a usual in my CS groups) designed and implemented ZCC: a set of very easy to use and manage tools for encrypting TCP traffic. The end result didn't turn out quite as we originally planned, but the key functionality is there and we were all very excited about it. (For example, it only works with IPv4 currently) Chris L and I are actually hoping to build on this next semester as a project in CS 7260: Internet Architecture & Protocols.
+
+The neatest part of this project for me was becoming very familar with the ip_queue kernel module and libipq which seems to be something that almost noone is familar with. It's manual page <a href="http://www.cs.princeton.edu/~nakao/libipq.htm">here</a> hasn't been updated in a while, and the successor to it: "<a href="http://www.netfilter.org/projects/libnetfilter_queue/index.html">libnetfilter_queue</a>," (which we found out too late to use) is only available in very new Linux kernels (2.6.14 or newer). If you Google around for libipq, you'll see that we didn't have a lot to work with or examples to go by. (We were trying to modify the packet data before pushing it back into the queue while most examples just show how to accept or drop packets) 
+
+Read on for the details..
+<!--break-->
+But down to business... ZCC is a moderately sized code base with a lot of functionality in a lot of different languages.  The languages and their usages:<ul>
+<li><em>C including usage of <a href="http://www.cs.princeton.edu/~nakao/libipq.htm">ipq</a> and <a href="http://xmlrpc-c.sourceforge.net/">xmlrpc</a></em>: the userspace daemon for packet processing from iptables (moving packets in and out of the queue, recomputing IP and TCP checksums, error handling), to the encryption tools, and back. Also, for a server process that negotiates a set of <a href="http://en.wikipedia.org/wiki/Diffie-Hellman">Diffie-Hellman keys</a> between hosts for use in encryption. Also, for a library for retreiving public keys from a central server for later use in RSA encryption.</li>
+<li><em>C++ including usage of <a href="http://www.openssl.org/">OpenSSL</a></em>: For encrypting content with <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>-1028.</li>
+<li><em>perl including usage of XML::Simple</em>: For a configuration daemon that reads the XML configuration file for the server and configures iptables to get packets to the right place.</li>
+<li><em>PHP including <a href="http://phpxmlrpc.sourceforge.net/">phpxmlrpc</a> and some mysql</em>: For an administrative server for storing Public Keys for use in <a href="http://en.wikipedia.org/wiki/RSA">RSA</a> encryption.</li>
+<li><em>Java</em>: For the XML configuration file editor</li>
+</ul>
+I wrote a lot of C and Perl, Chris L wrote all the C++ and some C, and Zack took care of the Java, PHP, and a little bit of C. Somehow (through crazy makefiles, daemons, communication APIs, signals, and things like 'extern "C"' in C++ method and struct definitions) it all came together. Below is some portions of the README we turned in with our project with some explanation of how the tool works.
+
+This describes the basic flow of ZCC. This is for the current implementation utilizing a specific set of components, there are other ways of running ZCC.
+
+First, the configuration tool is used to create an XML file of server and client rules for a machine. This is done on both machines that wish to communicate. Then, the ZCC configuration daemon is launched to load the rules into iptables. DHServer is started to listen to negotiation requests for DH keys on each machine, and the packet_processor is started on each machine to handle the packets. Thats it!
+
+For example:  machine A is running an unencrypted webserver, and machine B is using a web browser. They are configured as described above and all the daemons are running. When A types in the url for B in their web browser, iptables on A redirect the packets to the ip_queue where packet_processor reads them. packet_processor calls encrypt on the outgoing packets, and the current encryption tool then calls DHClient to negotiate a diffie-hellman key with B.  The DHServer on B responds and the machines negotiate a shared secret. packet_processor then encrypts the packet, passes it back to ip_queue, and sends it on it's way.  When machine B received the packet, ip_queue passes it to packet_processor which decrypts the packet and sends it back to ip_queue. ip_queue then finally accepts the packet where it is received by the webserver on B. When the webserver responds, the same process repeats but with B doing the encryption and A doing the encryption.
+
+As far as the client and server applications know, they are speaking in cleartext but all traffic visibile on the network is encrypted! Let me know if you'd like a demo or more information.

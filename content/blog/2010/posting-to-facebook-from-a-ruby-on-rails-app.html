@@ -1,0 +1,41 @@
+---
+title: Posting to Facebook from a Ruby on Rails App
+created_at: 2010-11-02 14:40:51 -0400
+kind: article
+---
+Once you get your head wrapped around <a href="http://oauth.net/">OAuth</a> and Facebook's specific implementation of it, this isn't too bad. That said, it took me a little while to get this figured out and there wasn't a good example of this specific use case, so here goes! 
+
+You should definitely checkout the <a href="http://developers.facebook.com/docs/api">Facebook Graph API Overview</a> as it explains all the things you can do in detail. Here, I just connect with OAuth with the "offline_access" and "publish_stream" permissions which lets this application post things to Facebook without requiring any further input from the user or requiring them to be active on the site.  (The site I wrote this for let's users schedule something to be posted, so it needs to be able to post at that time regardless of if the user is around or not.)  You will need to have registered an application on Facebook to do this. The basic application flow:
+
+<ol>
+<li>User visits facebook_account/new when they want to link in Facebook</li>
+<li>They get redirected to the allow/deny page on Facebook that prompts the user to log in and accept your application</li>
+<li>Assuming they accept, they get redirected back to callback/facebook/#{ID} with a "code" paramater (The oauth verification token)</li>
+<li>The application sends that code back to Facebook to retrieve an access_token, which can be used for all future posts to Facebook to act as the user</li>
+</ol> 
+
+Assuming you're using Rails 3, everything below is stubbed out and may work out of the box, but you should use it as an example and write code yourself that does error handling, etc. The code in my actual project is a lot more comprehensive but I trimmed it out so that the basic flow here is easier to understand.  Don't just copy/paste this all and expect it to work! No warranty is provided. The Sun may explode at any time.
+
+First get the gems you'll need:
+
+<script src="http://gist.github.com/660059.js?file=Gemfile"></script>
+
+and run "bundle install".
+
+Then set up some routes:
+
+<script src="http://gist.github.com/660059.js?file=routes.rb"></script>
+
+And create a table in a migration to hold the information.  Run "rails generate migration CreateFacebookAccount"  and put this in the file it creates for you:
+
+<script src="http://gist.github.com/660059.js?file=table.rb"></script>
+
+The model takes care of building the authorize URL, validating the token we get back, and posting:
+
+<script src="http://gist.github.com/660059.js?file=facebook_account.rb"></script>
+
+While the controller redirects when needed and handles the callback from facbeook:
+
+<script src="http://gist.github.com/660059.js?file=facebook_accounts_controller.rb"></script>
+
+And thats it! Anywhere else in your account you can call .post('Hello World') on an active FacebookAccount and it'll show up on the linked user's Facebook wall. 

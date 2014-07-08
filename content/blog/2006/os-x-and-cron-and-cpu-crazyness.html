@@ -1,0 +1,10 @@
+---
+title: OS X and Cron and CPU crazyness
+created_at: 2006-11-10 00:18:05 -0500
+kind: article
+---
+Well this turned out to be pretty annoying. My friend in Montreal IMmed me saying that ever since I was there and did that thing to her computer it's been getting really hot and the fan has been really loud. (That thing being telling cron to have her computer say "poop" outloud every few minutes. Gotta love OS X and the speech synthesis manager! It was good times. Anyways...)  I thought this was strange since I undid my change when I left but "top -o cpu" on her machine said that "cron" was eating all of the CPU.  "crontab -l" said she had no crontab, and "sudo crontab -l" said that root didn't have one either. Googling around, I found two <a href="http://forums.macrumors.com/showthread.php?t=213854">other</a> <a href="http://forums.macosxhints.com/showthread.php?t=43171">people</a> with a similar problem, but no solutions.  With a little digging around, it turns out that  "/var/cron/tabs/tmp.8944" was hanging out, was not a valid crontab file, and was making cron go crazy!  
+
+My theory:  "crontab -e" on the mac creates a tmp file in the same folder that the users crontab will be stored in, in this case /var/cron/tabs.  When you quit properly it saves it to the real file, but if you just quit terminal or close the window, it leaves the invalid tmp file hanging around. Cron reads this and goes nuts eating %100 of the CPU for some reason. 
+
+So if you run into this, delete the tmp files in /var/cron/tabs/ (probably need to use sudo because root probably owns them), reboot, and your CPU woes will be gone!

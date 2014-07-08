@@ -1,0 +1,86 @@
+---
+title: Debugging a (particular) failing boot service on Linux
+created_at: 2010-01-21 19:51:22 -0500
+kind: article
+---
+At <a href="http://www.sugarcrm.com/">work</a> I recently rolled out a newer version of the Dell OpenManage tools which included for the first time a build of <a href="http://openwsman.org/about">Openwsman</a>. We didn't specifically need this functionality, but it's good to stay current with the OpenManage tools.  To load in the (unrelated) new kernel on a test machine, I rebooted the machine using <a href="https://fedorahosted.org/cobbler/wiki/PowerManagement">Cobbler's power management</a> functionality on our administrative system, but after 5 minutes the machine was still not responding to pings so something was broken. I used remote desktop to hop on our one Windows server in the datacenter which we use to get at the interactive consoles of our servers (Thankfully the new DRAC6 card's have console applets that work on Macs!), and pulled up the console for this machine. 
+
+The boot process was hung on "Starting openwsman" and didn't seem to be doing anything.  Doh!
+
+I restarted the machine again, and at the grub boot menu added a "S" to the boot string to start up the system in single user mode, and booted things up.  "chkconfig openwsman off" to disable the service, and another reboot to get the machine back up and running to let me troubleshoot a little better.  I took a look in /etc/init.d/openwsman to see what might be hanging, and nothing immediately looked suspicious. It was a pretty standard init script, with the extra feature of generating OpenSSL certificates if they didn't exist already:
+<pre>
+if [ ! -f "/etc/openwsman/serverkey.pem" ]; then
+        if [ -f "/etc/ssl/servercerts/servercert.pem" \
+                -a -f "/etc/ssl/servercerts/serverkey.pem" ]; then
+            echo "Using common server certificate /etc/ssl/servercerts/servercert.pem"
+            ln -s /etc/ssl/servercerts/server{cert,key}.pem /etc/openwsman/
+        else
+            echo "Generating Openwsman server public certificate and private key"
+            FQDN=`hostname --fqdn`
+            if [ "x${FQDN}" = "x" ]; then
+                FQDN=localhost.localdomain
+            fi
+cat << EOF | sh /etc/openwsman/owsmangencert.sh > /dev/null 2>&1
+--
+SomeState
+SomeCity
+SomeOrganization
+SomeOrganizationalUnit
+${FQDN}
+root@${FQDN}
+EOF
+        fi
+    fi
+</pre>
+It's a little strange, but not unheard of practice to do this, and shouldn't cause any problems. (<a href="http://reductivelabs.com/products/puppet/">Puppet</a> and <a href="https://fedorahosted.org/func/">Func</a>, two other systems tools we use, generate their certs in the application which is a lot more common.)
+
+I extracted the only possible culprit from the owsmangencert.sh script and tried running the openssl command manually:
+<pre>
+openssl req -days 365 $@ -config /etc/openwsman/ssleay.cnf \
+  -new -x509 -nodes -out cert.out \
+  -keyout key.out
+</pre>
+and it seemed that this was indeed the problem.  It just sat there and didn't complete with the speediness I expect from OpenSSL.  Time for <a href="http://en.wikipedia.org/wiki/Strace">strace</a>!
+<pre>
+cat << EOF | strace openssl req -days 365 -config ./ssleay.cnf.2    -new -x509 -nodes -out cert.out   -keyout key.out
+> --
+> SomeState
+> SomeCity
+> SomeOrganization
+> SomeOrganizationalUnit
+> test
+> root@test
+> EOF
+</pre>
+This ended up doing a long read with output like:
+<pre>
+open("/dev/random", O_RDONLY)           = 3
+read(3, "\323K\372u_ya'\27\266\320\25\22\373\240\330~'\224\310\243\356\225\350.\245\362\3058\230Zb"..., 1024) = 128
+read(3, "K\7:\273Zdr\274\25\227\263\366\260U\337Owp\6y\2333c\361\322\334\217\370.k\375]"..., 896) = 128
+read(3, "dH\375V\327\230Bi\221\342\326\26R\301v^Qv5f\347\303g7\2747\345\360\207A!\227"..., 768) = 128
+read(3, "X&\254r\331\353<:\36!\333\340\353", 640) = 13
+read(3, "\357F\27\347\372atf", 627)     = 8
+read(3, "\231\347\232\362\345\215n\227", 619) = 8
+read(3, "\324\304\323\30\325\10G\332", 611) = 8
+</pre>
+Looks like /dev/random wasn't returning random data nearly fast enough, which makes a whole lot of sense!  /dev/random is "good" random data because it is based on environmental entropy and the entropy data is only used once, but on a modern multi-core systems doing lots of things, there usually isn't much entropy available.  That means that while this command would eventually finish, it could take a very long time.  
+
+The fix:  using /dev/urandom instead. It is "not quite as good" random data because the output may have less entropy than /dev/random, and it uses internal entropy bits multiple times to generate it's output, but it's "good enough" for generating cryptographic keys. And, it is non blocking which means that a caller will never have to wait inane amounts of time for enough "random" data.  (See <a href="http://en.wikipedia.org/wiki//dev/random">http://en.wikipedia.org/wiki//dev/random</a> for a longer explanation.
+
+I replaced the two occurrences of /dev/random, one in /etc/openwsman/ssleay.cnf and one in /etc/openwsman/owsmangencert.sh, and initial startup of openwsman (including key generation) became pretty instantaneous.  "chkconfig --levels 2345 openwsmand on" to turn it back on, and a reboot (after removing the generated keys and certs) to confirm, and the machine booted up as expected.  To make this work everywhere, I customized those two config files and added them to our Puppet system so that all Dell servers would get Openwsman set up properly when the update is run globally:
+
+<pre>
+ file {
+    "ssleay.cnf":
+      path => "/etc/openwsman/ssleay.cnf",
+      source => "puppet://$server/dell/ssleay.cnf",
+  }
+ 
+  file {
+    "owsmangencert.sh":
+      path => "/etc/openwsman/owsmangencert.sh",
+      source => "puppet://$server/dell/owsmangencert.sh",
+  }
+</pre>
+
+Problem solved and all machines will automatically get the correct fix, so the next time a machine won't finish starting up, it will be a new and different problem to debug. 

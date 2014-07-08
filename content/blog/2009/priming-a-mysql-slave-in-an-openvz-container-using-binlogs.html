@@ -1,0 +1,60 @@
+---
+title: Priming a MySQL slave in an OpenVZ container using binlogs
+created_at: 2009-03-16 15:37:16 -0400
+kind: article
+---
+At <a href="http://www.sugarcrm.com/crm/">work</a>, I've been migrating a bunch of our internal infrastructure from <a href="http://www.vmware.com/products/vi/esx/">VMware ESX</a> virtual machines to <a href="http://wiki.openvz.org/Main_Page">OpenVZ</a> containers. There is an obvious cost difference here ($$$ to free), but a bigger benefit is that an OpenVZ host can be managed the same way as any of our <a href="http://www.centos.org/">CentOS</a> servers. Additionally it's easier to tune resources for containers which allows us to fit more services on less hardware and move things around without any service outages. I've written about OpenVZ a little bit before in "<a href="http://ckdake.com/content/2008/vlans-in-openvz.html">VLANs in OpenVZ</a>", but since then things have been pretty straightforward. Aside from live migration not working with that vlan setup, what follows is a the first gotcha I ran into involving OpenVZ and some MySQL trickery.
+
+We use MySQL replication to OpenVZ containers to give us a place to perform backups where the MySQL backups won't affect performance of our servers. The last one of the VMware machines to move was for a pretty busy cluster with several thousand databases. The usual methodology for VMware -> OpenVZ migration was:
+
+<ol>
+<li>Create a new OpenVZ container using the provisioning system, and install MySQL RPMs identical to those on the VMware vm</li>
+<li>Stop MySQL on the vm</li>
+<li>Copy /var/lib/mysql and /etc/my.cnf from the vm to the container</li>
+<li>Change MySQL GRANTs on the master to point to the new slave</li>
+<li>Start up MySQL on the container</li>
+<li>verify that things are working and then delete the VMware vm</li>
+</ol>
+
+However, for reasons unknown to me, I just couldn't get the files off of the VMware vm. This was the last vm on this particular ESX host, nothing else was running on it, and all the performance numbers looked normal, but I couldn't create a .tgz on the local filesystem, rsync to nfs would stall and timeout, scp to another machine would stall, and any combination of the above things wouldn't work. Frustrating. I'd have to wait until a maintenance window to stop the master to get the data from it (InnoDB doesn't like direct file copies and running mysqldump on all the databases with everything locked to preserve the master_log_pos would cause an outage), so I decided to try something new.
+
+There is a command called <a href="http://dev.mysql.com/doc/refman/5.0/en/load-data-from-master.html">LOAD DATA FROM MASTER</a> which is a great idea, but the implementation is pretty busted (and depreciated). Thankfully, this particular master database has all the binlogs it's ever created which allowed me to do something like "LOAD DATA FROM MASTER" but in a way that works, so here is what I did for this server:
+<ol>
+<li>Create a new OpenVZ container using the provisioning system, and install MySQL</li>
+<li>Set up /etc/my.cnf in a way that works for the memory allocated to this container and the data we have, as well as being a replication slave</li>
+<li>Add MySQL GRANTs on the master pointing to the new slave</li>
+<li>Start up MySQL on the container</li>
+<li>Run "CHANGE MASTER TO" on the container to set the master_host, master_user, master_password. Also set master_log_file to the name of the first log file on the master, and master_log_pos=0</li>
+<li>Run "SLAVE START" on the container</li>
+<li>Use "SHOW SLAVE STATUS" to watch as data trickles in!</li>
+</ol>
+
+This worked pretty well, and MySQL data copied from the master at ~20Mb/s and loaded into the slave a bit slower than that. It'll probably take this a day or two to fully catch up, but no downtime for the master is a good thing, and we can still run nightly backups from the VMware container until this new slave is caught up. 
+
+However, I started getting a "Disk quota exceeded" error that would take out MySQL. Strange, `df` reported that / still had plenty of space, and there weren't any mentions of disk in /proc/user_beancounters. After a bit of poking around and trying things, it turns out that OpenVZ has limitations on /dev/simfs relating to disk usage that are not visible in /proc/user_beancounters. The easiest way to check in on these is by running `vzquota stat ${CID}` on the host the container is running on to get something like:
+
+<pre>
+[root@vm-host /]#vzquota stat ${CID}
+   resource          usage       softlimit      hardlimit    grace
+  1k-blocks        8918860       209715200      209715200         
+     inodes          67775          200000         220000  
+</pre>
+
+The 1k-blocks is associated with blocks on /, and inodes is associated with the inodes for /. Inside the container, you can see this with `df`:
+
+<pre>
+[root@container /]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/simfs            200G   41G  160G  21% /
+none                  3.9G  4.0K  3.9G   1% /dev
+[root@container /]# df -ih
+Filesystem            Inodes   IUsed   IFree IUse% Mounted on
+/dev/simfs               20M    236K     19M    2% /
+none                    997K      94    997K    1% /dev
+</pre>
+
+The above is from after I trashed the first container and started over, and watched usage there slowly creep up. To get around this limitation, like any other openvz limit, you can run vzctl to bump things up. The relevant thing to increase here is 'diskinodes', which I did by a factor of 100:
+
+<pre>vzctl set ${CID} --diskinodes $((200000 * 100)):$((220000 * 100)) --save</pre>
+
+Looking in /proc/user_beancounters on the container, it looked like tcprcvbuf was maxing out as well so I bumped that up, and replication has been humming along. 405 days worth of data to parse through!  If you're running MySQL servers and might need to ever change your replication topology, hold on to your binlogs if you have space and they can save you from having to take down your master for changes.

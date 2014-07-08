@@ -1,0 +1,31 @@
+---
+title: Rails 3.1 Assets on S3 with HTTPS
+created_at: 2011-11-03 14:54:36 -0400
+kind: article
+---
+So your Rails app is deployed on <a href="http://www.heroku.com/">Heroku</a> which is pretty sweet and makes things easy.  The <a href="http://guides.rubyonrails.org/asset_pipeline.html">Rails 3.1</a> asset pipeline is pretty awesome and packages your files up for you.  You're using <a href="https://github.com/jnicklas/carrierwave">carrierwave</a> to store Image attachments on Amazon S3,  and everything is going great.  Then, it's time to scale. Heroku isn't going to like serving all your assets all the time, CDNs are the right place to do that.  Oh, and you need to be able to use SSL on the registration and login pages. Seems pretty easy, right?
+
+There are plenty of very easily findable docs on each of those topics, but gluing them together took some figuring.  First up,  Make sure your Amazon S3 buckets are in the format 'media-example-com' and _NOT_ 'media.example.com'.  Due to the way HTTPS works,  if you try to access a https://media.example.com.s3.amazonaws.com/ URL you're going to get an invalid certificate warning. Doh! If you haven't done this, it's pretty annoying because there is no concept of 'move' or 'rename', so you'll have to copy files from the old bucket to the new one.  Go ahead and start on this, it might take you a while.  
+
+Once that's done, it's pretty much just gems and configuration.  Make sure you have these guys installed:
+
+<script src="https://gist.github.com/1337372.js?file=Gemfile"></script>
+
+Then make a rake task that depends on 'assets:precompile' (which with asset_sync will take care of uploading your compiled assets to heroku):
+
+<script src="https://gist.github.com/1337372.js?file=deploy.rake"></script>
+
+That `assets:clean` part?  That makes sure to wipe out your assets locally so that when you make changes to CSS/JS locally, they will show up in your browser as expected. That one took a few of us a while to figure out. ("WHY WONT MY CSS UPDATE!!!111!!!")
+
+Then configure carrierwave, paying extra special attention to the fog_host URL, starting it with "//" which makes sure the resources will be loaded via http when the page is http, and https when the page is https:
+
+<script src="https://gist.github.com/1337372.js?file=carrierwave.rb"></script>
+
+Last up is configuring your asset_host for your production environment.  All the docs suggest using a Proc here, but precompiling assets (needed for Rails 3.1 -> S3 on Heroku) doesn't have a 'request' to detect the hostname from so this completely blows up and you end up with no CSS or JS on your asset hosts. There <a href="https://github.com/rails/rails/issues/2947">are</a> <a href="https://github.com/rails/rails/pull/1699">several</a> <a href="https://github.com/rails/rails/pull/1688">related</a> issues in the Rails issue tracker, but there's a super simple solution that works better than all of them:
+
+<script src="https://gist.github.com/1337372.js?file=production.rb"></script>
+
+And you're all set!  `rake deploy` will compile your assets, upload them to your bucket on S3, and deploy your code to Heroku. When a visitor visits http://example.com/  they'll get all the assets (JS/CSS) and all your media (item images) from the HTTP version of your Amazon S3 buckets, and when they visit https://example.com/, they'll get the HTTPS version.
+
+It should be super easy to plug in <a href="http://aws.amazon.com/cloudfront/">CloudFront</a> if you need to scale up even further.
+

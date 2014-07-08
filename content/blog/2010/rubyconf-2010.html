@@ -1,0 +1,46 @@
+---
+title: RubyConf 2010
+created_at: 2010-11-19 11:35:17 -0500
+kind: article
+---
+<p>Last weekend I headed to New Orleans with part of the rest of the <a href="http://highgroove.com/">Highgroove</a> team for <a href="http://www.rubyconf.org/">RubyConf 2010</a>.  I won't go into quite the same amount of details that I did for <a href="http://ckdake.com/content/2010/velocity-and-devopsday-2010.html">Velocity 2010</a>, but given how new I am to Ruby, I learned a lot and had a blast. First all of course, New Orleans is a pretty fun place. There is great food everywhere as well as the energetic street atmosphere (assisted by the fact that it's legal to get beers 'to go' from bars). Here's a random street corner:</p>
+
+<object style="height: 390px; width: 640px"><param name="movie" value="http://www.youtube.com/v/TKVXm28AS3c?version=3"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://www.youtube.com/v/TKVXm28AS3c?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="390"></object>
+
+<p>Over the 3 conference days, I met a lot of people, from those that build and run <a href="http://www.pivotaltracker.com/">Pivotal Tracker</a> and <a href="http://www.github.com/">GitHub</a>, to <a href="http://www.johndbritton.com/">John Britton</a> (who worked on <a href="http://gallery.menalto.com/">Gallery</a> with me a while back with Google Summer of Code but that I'd never met in person.), to someone that's going to be our next hire at Highgroove, to people the people that wrote both Ruby and Rails.</p>
+
+<p>Most the of presentations I went to were informative, entertaining, and well done. Here's a sample of a few that really stood out:</p>
+
+<h3>Hotspots with MetricFu</h3>
+
+<p>Jake Scruggs spoke about <a href="http://metric-fu.rubyforge.org/">MetricFu</a> which is a ruby tool that pulls together a bunch of metrics that give insight into code complexity and places where developers might need to look into code because it "smells" and is likely a source of problems.  I've been using <a href="https://github.com/nathanhumbert/rails_code_qa">rails_code_qa</a> which pulls in a smaller subset of metrics, but MetricFu looks like a potential replacement.</p>
+
+<h3>Objects Are Just Objects, Aren't They?</h3>
+
+<p>Rick DeNatale spoke about a bit of the history of Object Oriented design and how Ruby stacks up against other languages.  This talk was very interesting and included things like comparing how Lisp message passing works and implementing things in both Lisp and Ruby that showed how Ruby is not just an Abstract Data Type language.</p>
+
+<h3>Building Scalable Cloud Infrastructure with Ruby - How we build VMforce</h3>
+
+<p>Derek Collison from VMWare gave a talk on the motivations and design that went into building VMforce.  The coolest part of this was a demo where all it takes is one command to take an application (Ruby on Rails/Sinatra/JAR/etc), upload it to their cloud, deploy it, and spin up 100 copies of it to handle load. It looks pretty similar to <a href="http://heroku.com/">Heroku</a> but with support for lots of other languages, and with the full force of VMware behind it.  I'm looking forward to seeing when this service goes live and what they do with it next.</p>
+
+<h3>Grammars, Parsers, and Interpreters. In Ruby</h3>
+
+<p>Michael Jackson (a tough guy to Google for!) spoke about building his parsing expressions tool for Ruby: <a href="https://github.com/mjijackson/citrus">Citrus</a>. For situations where you need to do pattern matching for something that is more complex than what a readable regular expression can handle, <a href="http://en.wikipedia.org/wiki/Parsing_expression_grammar">Parsing Expressions</a> are the right tool for the job. This is particularily useful for building Domain Specific Languages to use within Ruby, but I spoke a little bit with him after his talk about the potential for using it to convert between data encodings like XML and JSON, and that's likely something I'll be playing with in the future</p>
+
+<h3>Pwrake : a Distributed Workflow Engine for e-Science</h3>
+
+<p>Masahiro Tanaka, while certainly not a native English speaker, gave a solid presentation on <a href="https://github.com/masa16/Pwrake/">Pwrake</a> which uses Rake to parallelize complex scientific tasks across as many machines as possible. This immediately reminded me of a presentation I saw on Microsoft's <a href="http://research.microsoft.com/en-us/projects/DryadLINQ/">DryadLINQ</a> at no:sql(east) 2009 (<a href="http://ckdake.com/content/2009/nosqleast-2009.html">blog post</a>), and was very cool. While I don't have any massively parrallizable scientific tasks with complex interdependencies, plenty of people in academia do and it's great to see tools like this coming together to bring supercomputing resources to anyone that can think of a new way to solve a big problem.</p>
+
+<h3>So You Think You Can Code?</h3>
+
+<p>This was a panel of several important people in the Ruby community (Rein Henrichs, Evan Phoenix, Yossef Mendelssohn, John Barnette, Aaron Patterson, Ben Bleything) and was officially described as "Five jerks on stage with alcohol and topics they don't agree on."  As unhelpful as they tried to be, it was pretty informative and I enjoyed hearing opinions on <a href="http://en.wikipedia.org/wiki/Monkey_patch">Monkey Patching</a>, indenting 'private' and private methods, and plenty of other things. No write up of this panel will do it justice, so this is a video to watch online when they're available</p>
+
+<h3>From Artist To Programmer</h3>
+
+<p>Keavy McMinn, a fine-artist by training turned Ruby developer gave a great talk on her experiences switching between the two environments.  I really enjoyed the surprising fluid juxtaposition of two seemingly different fields (programming and fine-art) that are actually pretty similar: Those that excel at either are driven by the drive to tinker and create. This is also a talk you should watch on video when it's available.</p>
+
+<p>There were too many more to list, but (once they're uploaded) you can get videos of all the sessions over at <a href="http://confreaks.net/events/rubyconf2010">Confreaks</a>.</p>
+
+<p>Here's Matt's writeup on the Highgroove blog:  <a href="http://napkin.highgroove.com/articles/2010/11/19/zomg-roflscale-rubyconf-or-why-you-missed-out">ZOMG ROFLscale Rubyconf OR Why you missed out.</a></p>
+
+<p>I didn't take any photos during the technical parts of the conference, but I did take some of the socialization: <a href="http://ckdake.com/gallery/2010/rubyconf/">RubyConf 2010 photos</a>. Good times had by all, and we all made it home alive!</p>

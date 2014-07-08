@@ -1,0 +1,41 @@
+---
+title: Posting to Twitter from a Ruby on Rails App
+created_at: 2010-11-04 14:18:36 -0400
+kind: article
+---
+Similar to Tuesday's <a href="http://ckdake.com/content/2010/posting-to-facebook-from-a-ruby-on-rails-app.html">Posting to Facebook</a> post, here is how to link a model in a Ruby on Rails app with Twitter and post to Twitter.  This one does the exact same thing, but of course needs to use different code because everyone implements OAuth differently.  To post to Twitter, I use the <a href="http://oauth.rubyforge.org/">OAuth gem</a> to connect, and the <a href="https://github.com/jnunemaker/twitter">Twitter Gem</a> to do posting. Note that this uses the 1.0 version of the Twitter gem which is not yet released, so the Gemfile pulls it from Github directly.  
+
+Read <a href="http://dev.twitter.com/doc">The Twitter Docs</a>, specifically the <a href="http://dev.twitter.com/pages/auth">Twitter OAuth Docs</a>.
+
+The basic flow here for the user is the same as with Facebook:
+
+<ol>
+<li>User visits twitter_account/new when they want to link in Twitter</li>
+<li>They get redirected to the allow/deny page on Twitter that prompts the user to log in and accept your application</li>
+<li>Assuming they accept, they get redirected back to callback/twitter/ with an oauth_token that we use to look up the TwitterAccount (a nice feature that Facebook doesn't do!) and the oauth_verifier</li>
+<li>The application uses the OAuth gem to sends that verifier back to Twitter to retrieve an access_token, which can be used for all future posts to Twitter to act as the user</li>
+</ol>
+
+First, some Gems:  (If you're using a feedreader and not looking at this on the web, the code snippets may not show up. Please click through to the original source to see them!)
+
+<script src="https://gist.github.com/662875.js?file=Gemfile"></script>
+
+Run "bundle install" and set up the routes:
+
+<script src="https://gist.github.com/662875.js?file=Routes.rb"></script>
+
+Note that this is simpler than the Facebook callback because Twitter includes something in responses that can be used to look up the record instead of requiring a unique callback URL.
+
+Create the table in a migration, something like:
+
+<script src="https://gist.github.com/662875.js?file=table.rb"></script>
+
+Then set up the model which takes care of generating the authorize url, validating the token, and posting:
+
+<script src="https://gist.github.com/662875.js?file=twitter_account.rb"></script>
+
+And lastly, the controller to glue it all together:
+
+<script src="https://gist.github.com/662875.js?file=twitter_accounts_controller.rb"></script>
+
+As with the Facebook example, you'll need to add your own views, error handling, etc, but hopefully this is useful to someone.  I got things close to working with the old version of the Twitter gem and had to rewrite a lot of it for the 1.0 gem (because I needed some functionality only in the 1.0 version).

@@ -1,0 +1,60 @@
+---
+title: Drupal Upgrades
+created_at: 2009-05-15 16:32:44 -0400
+kind: article
+---
+I manage a few <a href="http://drupal.org/">Drupal</a> sites, and have worked out two simple systems for making upgrades as painless as possible, one using diff and patch, the other using <a href="http://subversion.tigris.org/">subversion</a>. The two examples I'll use here don't really have customized code outside of .htaccess files and things in the sites/ folder, so these processes may require some tinkering if you've done core level customization. Hopefully these will be helpful to someone new to working with updating PHP applications, and if you're running any PHP applications you need to stay on top of security updates to protect your site and your user's information!  Upgrading both of these sites today took me less than 10 minutes to do, but if you're attempting your first upgrade, you should understand what is going on and maybe even read through the whole <a href="http://drupal.org/upgrade/tutorial-introduction">Introduction to upgrading Drupal</a> guide. I definitely leave out some of the recommended steps.
+
+<h2>ckdake.com - no revision control</h2>
+
+This site (<a href="http://ckdake.com/">ckdake.com</a>) is just my personal things and could be restored from backup pretty easily without too much trouble, and I'm the main user so it's not a big deal if it's down for a few hours. Drupal 6.12 came out and here's what I did to upgrade:
+
+<pre>
+cd /var/www/ckdake.com/
+wget http://ftp.drupal.org/files/projects/drupal-6.12.tar.gz
+tar -zxf drupal-6.12.tar.gz 
+diff -uF^f -r htdocs drupal-6.12 > upgrade.patch
+vim upgrade.patch
+patch -p0 --dry-run < upgrade.patch 
+patch -p0 < upgrade.patch
+</pre>
+
+And that's it!  In vim, I removed patch entries that did things I didn't want (like overwriting custom things I have in my .htaccess file), and I also looked at the output of the dry run of patch to make sure it looked right. After doing those things I visited ckdake.com/update.php and walked through Drupal's update wizard (which didn't make any changes this go around).  Perhaps I should have done a mysqldump to backup my database first, but I have nightly backups of the database and in several years of upgrading Drupal this way have never had a problem updating minor versions this way. There was no downtime for my site since this all worked right (as it usually does) but I've broken things before. And keep in mind, a 5.x to 6.x upgrade is not going to be this easy...
+
+<h2>fastermustache.org - revision control</h2>
+<a href="http://fastermustache.org">fastermustache.org</a> is used by a lot more people and I try to avoid any downtime there, so this process is a bit more involved and lets me roll back changes a lot more easily.  Here's the sequence for that:
+
+<pre>
+cd /var/www/test.fastermustache.org/
+mv htdocs drupal-6.12
+wget http://ftp.drupal.org/files/projects/drupal-6.12.tar.gz
+tar -zxf drupal-6.12.tar.gz
+mv drupal-6.12 htdocs
+cd htdocs
+svn st
+</pre>
+
+I now have a list of all changes for this release, and go through resolving things as needed.  `svn st | grep "?"` gives me a list of files that need to be added, and I grep on other svn status codes to verify other changes. Once everything looks good, I update the live site:
+
+<pre>
+svn commit -m "drupal-6.12 upgrade"
+cd /var/www/fastermustache.org/htdocs
+svn up
+</pre> 
+
+And then visit fastermustache.org/update.php to do any database changes required.  This process also works for module updating:
+
+<pre>
+cd /var/www/test.fastermustache.org/htdocs/sites/default/modules/
+wget http://ftp.drupal.org/files/projects/date-6.x-2.2.tar.gz
+tar -zxf date-6.x-2.2.tar.gz
+rm date-6.x-2.2.tar.gz
+svn st
+# resolve all the issues as described above
+svn commit -m "date-6.x-2.2 upgrade"
+cd /var/www/fastermustache.org/htdocs/sites/default/modules/
+svn up
+</pre>
+
+And then one more visit to fastermustache.org/update.php and any needed database changes are made. Again, it would be a really good idea to do mysql database backups before running `svn up` on the live site, but I trust Drupal to treat me well for these sorts of updates. Perhaps once something breaks horribly, I'll post some steps on how to recover from problems.
+

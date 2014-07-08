@@ -1,0 +1,23 @@
+---
+title: Adobe Fast Web View
+created_at: 2008-03-16 12:40:47 -0400
+kind: article
+---
+Adobe Fast Web View is a very lightly documented but seemingly often used feature in Adobe Acrobat Reader.  From the users point of view, it does what it says and makes pages of a PDF show up in their browser before the entire PDF is completly downloaded, but it's a bit more complicated from a server operators point of view. And, it is enabled by default when installing Adobe Acrobat Reader.
+
+We recently moved sugarcrm.com and some other web properties from stand-alone web servers to a clustered solution involving <a href="http://en.wikipedia.org/wiki/Network_File_System_(protocol)">NFS</a>, load balancers, database replication, etc. It was a pretty complex migration and we're pretty sure that we're running a handful of applications on this cluster that nobody has every clustered before, so needless to say we ran into our share of gotchas. (Other than one web server that seems to be cursed..) One of them was very strange, and involved PDFs:  Everything worked fine in all browsers on all platforms until Adobe Acrobat Reader entered the picture. Some number of PDFs would lock up the browser and never load, but only when the PDFs were served from the cluster through the load balancer. When served from one of the cluster web servers but not through the load balancer, everything would work perfectly! Also, with the Adobe plugin disabled, the PDFs would save perfectly and be viewable every time.
+
+Using livehttpheaders it was apparently that 2 HTTP requests were being made so my guess was that the browser would do a GET for the PDF, but when the Adobe plugin took over, it was sending a new HTTP request (<a href="http://en.wikipedia.org/wiki/HTTP">all about HTTP</a>). This shouldn't be an issue, but things weren't working!  I installed <a href="http://www.wireshark.org/">Wireshark</a> on my Windows test installation and dug deeper.  Immediately, I noticed that all the data packets in the response coming from the server were fragmented. This typically means that there is an <a href="http://en.wikipedia.org/wiki/Maximum_transmission_unit">MTU</a> somewhere. However, with some Googling around for PDF files I noticed the same behavior on 50% of the sites I hit, and those PDFs were working fine in the Adobe plugin. Regardless, Igor and I set out to tinker with the MTUs on the web servers and load balancer. Changing the MTU from 1500 down to 1400 did change which PDFs would load in the plugin, but not all of them. Strange!
+
+Again looking in the Wireshark traces, we saw what looked like a TCP reset loop (<a href="ftp://ftp.rfc-editor.org/in-notes/std/std7.txt">read all the details about TCP here</a>). After the first part of data came through successfully, every packet from the server was a RST and the Adobe plugin just sat there waiting for data that was never going to arrive. We poked around the load balancer looking for anything that could cause this but no luck. Googling around for this PDF problem, the only solutions we found were recommendations to disable "Fast Web View." What's that?  This gave us another thing to search for and led us to a server-side solution in <a href="http://www.apachelounge.com/forum/viewtopic.php?t=902&start=0">this forum topic</a>.  For whatever reason, the load balancer was breaking HTTP requests with a "Request-Range" header, and Adobe Acrobat Reader was using this to attempt to make the PDF load faster.  In retrospect, this makes sense, but it sure was a time consuming thing to discover!  If you run into this, the solution is to add the following to your Apache configuration file (or something equivalent if you use lighttpd or something else, we found examples of this happening with other server software):
+
+<pre>
+LoadModule headers_module modules/mod_headers.so
+...
+&lt;FilesMatch "\.(mp3|zip|pdf)$">
+    Header unset Accept-Ranges
+    RequestHeader unset Range
+    RequestHeader unset Unless-Modified-Since
+    RequestHeader unset If-Range
+&lt;/FilesMatch>
+</pre>

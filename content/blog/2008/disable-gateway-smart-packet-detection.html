@@ -1,0 +1,12 @@
+---
+title: Disable Gateway Smart Packet Detection
+created_at: 2008-12-05 14:25:49 -0500
+kind: article
+---
+Do you have Comcast business cable internet?  Do you occasionally have crazy random problems connecting to remote machines/websites and/or do you notices an very unusual number of TCP retransmits when looking at packet traces that go through your Comcast provided SMC Networks cable modem?  You are not alone! And there is one checkbox to fix all of this!
+
+Head in to your modem admin page, go to Firewall Settings and check the box next to "Disable Gateway Smart Packet Detection" and all of your problems will be solved. (No guarantees, but seriously, it should work)
+
+How did I find this out?  I was getting a lot of things delivered via UPS this week and was unable to get to their website after a few successful attempts. Things still worked through a proxy server at work, so I thought it must be them blocking my IP address due to the number of requests I made (possibly violating some AUP with them) and tcp dump showed my packets going to their webserver (on Akamai) but nothing coming back after my SYN packets went out. After 15 minutes on the phone with Comcast support, they escalated me to second level support which meant a callback in 2 days. The second level guy confirmed my ISP and told me to change this setting because they'd had a lot of problems with Comcast customers and, working with Comcast, they came up with this solution. 
+
+Um ok. Whats going on here? The best part about this is that nobody really knows! Searching around the internet about "Gateway Smart Packet Detection" doesn't lead to any documentation or any "good" answers, just lots of people having problems and this checkbox fixing all of them.  I've gathered that it is some kind of Anti-DOS feature for blocking multiple attempts at something, but chances are you are better off just turning it off. Hope this helps someone as the problems that checking this box have solved for me have been frustrating me for months!

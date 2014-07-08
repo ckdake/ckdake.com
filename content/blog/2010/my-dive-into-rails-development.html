@@ -1,0 +1,119 @@
+---
+title: My Dive Into Rails Development
+created_at: 2010-08-16 22:59:58 -0400
+kind: article
+---
+Being new to working in a software development environment, last week was a bit of a crash course in getting together all the pieces.  Here are some notes, mostly as a future reference for me but hopefully useful to someone else out there getting started writing software. Everyone seems to use Mac OS X these days so this is a bit skewed towards Macs, but most things apply anywhere.
+
+<h2><a href="http://macromates.com/">TextMate</a></h2>
+Rails developers love them some TextMate.  It's a clean text editor for Mac OS X that mostly stays out of the way and has helpful bundles that do things like auto-completion.  If you want to use it for things like git commit messages, add these to your ~/.profile:
+<pre>
+export EDITOR="mate -w"
+export VISUAL="mate -w"
+</pre>
+I'm a <a href="http://www.vim.org/">Vim</a> person myself, but I've been using TextMate at work to get a feel for the workflow that most people seem to use.
+
+<h2><a href="http://hadoop.apache.org/pig/">Pig</a></h2>
+I played with Pig a bit at SugarCRM, but never on a Mac.  It's one of the best ways to ramp up number crunching and file processing. If you want to use it on a Mac, you'll need to set your JAVA_HOME environment variable. I did this by adding the following to my ~/.profile:
+
+<pre>export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home"</pre>
+
+<h2><a href="http://github.com/mxcl/homebrew#readme">Homebrew</a></h2>
+It used to be Fink, then DarwinPorts, then MacPorts. Now it seems "Homebrew" is the popular way to get some things up and running that aren't that fun to get up and running on Macs. Example:
+
+<pre>brew install mysql</pre>
+
+There you go!  MySQL is now installed and running. Watch the end of the output for instructions on starting it on boot using launchd, etc. Rails apps tend to use sqlite for development but sometimes you might want to use MySQL.  
+
+<h2><a href="http://rubygems.org/">Ruby Gems</a></h2>
+All the functionality you need has probably been written by someone else and stuck in a Ruby Gem.  For example:
+
+<pre>sudo gem install clarity</pre>
+
+Will install a fancy web interface for looking at log files in real time. To prevent all the documentation from being installed on your machine,  set up a ~/.gemrc file with the following contents:
+
+<pre>gem: --no-ri --no-rdoc</pre>
+
+Some people like putting this in /etc/gemrc, but it's always better to put user specific things in your home directory! 
+
+It is recommended that you always install gems, including rubygems itself, from source and not from your operating systems package manager. Additionally, once installed everything will probably need to be updated with something like "gem update --system".
+
+<h2><a href="http://rvm.beginrescueend.com/">RVM</a></h2>
+RMV is the Ruby Version Manager. This lets you have multiple versions of Ruby installed side by side, as well as create sets of Gems that can be used in different applications. For example,  once set up you can put a ".rvmrc" file anywhere in your directory hierarcy, with contents like "rvm 1.8.7@mygemset".  Whenever you cd into this directory, rvm will set up your envrionment to use Ruby 1.8.7 and the "mygemset" gemset, and can update your prompt to remind you what is active. Getting this bit to work requires adding a few things to your ~/.profile:
+
+<pre>
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+export PS1="\$(~/.rvm/bin/rvm-prompt) $PS1"
+</pre>
+
+<h2>GIT and <a href="https://github.com/">Github</a></h2>
+Git is the source code management tool of choice for a lot of people.  It's fully distributed which enables some interesting workflows, and the Github website has done an awesome job of gluing together lots of pieces that enable effortless collaboration. <a href="http://gitref.org/">The Git Reference</a> covers (very well!) most of what you need to know about Git, but here are a few particularily useful things I've found.  
+
+Need to delete a remote branch?  Delete the branch locally, then push 'nothing' to the remote branch by using the push command and leaving the front of the colon blank. Example:
+
+<pre>git push origin :deletedbranch</pre>
+
+Need to undo something? 'git revert' doesn't do what you think.  Re-checkout the file(s) instead.
+
+To get color in some of the command output, add the following to your ~/.gitconfig:
+
+<pre>
+[color]
+        diff = yes
+        status = yes
+        branch = yes
+</pre>
+
+For auto completion and a more helpful prompt and tab completion of branch names and more, clone a copy of <a href="http://gist.github.com/75436">.git_completion.sh</a> into your home folder, and put the following in your ~/.profile:
+
+<pre>
+source ~/.git_completion.sh
+
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+}
+
+export PS1='\h:\W$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]]")$ '
+</pre>
+
+And read about using "<a href="http://ariejan.net/2008/04/23/git-using-the-stash/">git stash</a>". It is your friend, especially when you forget to create branches to work on different features and ideas, which you _should_ be doing!
+
+<h2><a href="http://rubyonrails.org/">Rails</a></h2>
+Ah Rails, I wouldn't be here without you. There is plenty of documentation out there on Rails, but a few points of interest:
+<ul>
+<li>Models are named like "Thing" but in the database the table will be called "things".  I'm used to naming my tables "thing"  and both case and plurality matter here so thats taken some habit adjusting</li>
+<li>script/server starts up your rails app in webrick,  while script/console sets up your app in an interactive ruby shell that you can use to poke around.</li>
+<li>If you need to debug something,  add breakpoints to your code with "debugger" function calls, start script/server with "-u", and when your app hits the debugger call the script/server will drop you into a debugging session. It works a lot like GDB and is pretty handy for tracking things down.</li>
+<li>Making a new {anything}?  There is probably a generator for that. Running "script/generate" will tell you about all your options</li>
+<li>"Rake" is "Make" for rails.  "rake -T" will list all the available tasks. Looking at how requests are routed? Check out the output of "rake routes".</li>
+</ul>
+
+Rails does a lot of Magic and it can be a bit overwhelming, but overall it's been pretty friendly to me so far. Still need to know more? Watch all of the <a href="http://railscasts.com/">Railscasts</a> and search the documentation at: <a href="http://api.rubyonrails.org/">http://api.rubyonrails.org/</a>.
+
+<h2><a href="http://www.capify.org/index.php/Capistrano">Capistrano</a></h2> 
+Capistrano is the most popular tool at the moment for deploying rails apps.  A deploy to a remote server is as simple as "cap deoply" from your development machine, and if you're doing anything more involved than that  for new software releases, you're doing it wrong.  "cap -T" shows available capistrano tasks. That said, if you're doing more than just deploying a new version of an app...
+
+<h2><a href="http://www.opscode.com/chef/">Chef</a></h2>
+Chef is the new <a href="http://www.puppetlabs.com/puppet/introduction/">Puppet</a>. I used Puppet a lot at SugarCRM, and figured that I need to learn more about Chef so that I can pick the best tool to use, so I've spent some time with Chef over the last week. The "Opscode Platform" is a hosted Chef server that gives you a few things for free without having to set up the whole stack, and I recommend using that for at least your first round of testing. Also worth grabbing into your setup is a copy of <a href="http://github.com/opscode/cookbooks">Opscode's Chef Cookbooks</a> that are very helpful for setting up pretty common things. Some pages worth reading:
+<ul>
+<li><a href="http://wiki.opscode.com/display/chef/Quick+Start">Chef Quick Start</a> - start here</li>
+<li><a href="http://wiki.opscode.com/display/chef/Launch+Cloud+Instances+with+Knife">Launch Cloud Instances with Knife</a> - Use "Knife" which comes with Chef for firing up Amazon EC2 instances</li>
+<li><a href="http://wiki.opscode.com/display/chef/Deploy+Resource">Deploy Resource</a> - Capistrano, meet your New Fancyness</li>
+</ul>
+The end result of this tinkering, Add your Amazon EC2 ssh key to your ssh-agent by putting this in your ~/.profile:
+
+<pre>ssh-add ~/.ssh/id_knife-test 2> /dev/null</pre></pre>
+
+Run a command like:
+
+<pre>knife ec2 server create "role[${MYAPP}]" -i ${MYAMI} -G default -x ubuntu -S knife-test</pre>
+
+And in a few seconds, MYAPP will be up and running on a new Amazon EC2 instance. Pretty sweet!  Assuming of course that you got Chef working and set up a Recipe for your app similar to this one I wrote for deploying <a href="http://www.ithought.org/">ithought.org</a>, <a href="http://github.com/ckdake/ithought.org">recoded as a Rails app</a>, inside of Apache and mod_passenger:  <a href="https://gist.github.com/aef17730ef8514799dc1">https://gist.github.com/aef17730ef8514799dc1</a>.
+
+<h2>Thats it for week one!</h2>
+I've left out a lot, and I have a long way to go, but hopefully some of those snippets will be useful to someone. A few of them took me a little while to figure out and searching the internet for things about "knife" and "make those things stop doing that thing" can be tricky! 

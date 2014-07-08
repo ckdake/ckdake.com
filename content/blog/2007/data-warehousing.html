@@ -1,0 +1,22 @@
+---
+title: Data Warehousing
+created_at: 2007-02-20 08:57:26 -0500
+kind: article
+---
+Spring 2007 class project for CS6255 - Network Management
+
+Jaime Yap - Chris Kelly - Vivek Raju - Chris Lee
+
+A New Approach to CPR Data Management
+
+The Campus Wide Network Performance Monitoring and Recovery (CPR) project collects and maintains large volumes of data from its boxes deployed across the Georgia Tech campus. Currently, the heart of the data management system is a single machine running MySql, which is responsible for logging real time updates from the CPR mesh network, as well as servicing queries for data analysis and visualization. This approach has resulted in a data management system which does not scale and does not facilitate easy access to recent real time data. Currently, simple SQL queries can take on the order of several 10's of minutes to execute, due mainly to the large number of rows in the respective database tables. This severely limits the usefulness of the CPR data and essentially makes designing useful front end visualization tools impossible. 
+
+We propose to design and develop a scalable approach to data management, acquisition, visualization, and analysis for the CPR project. Our main goals will be  to effect major performance improvements in the time it takes to execute database queries, to allow responsive access to recent real time data, and to create a system that can scale by adding hardware to match the continuous quadratic growth of the system.
+
+Our approach involves moving from a singular monolithic design, to a distributed one. We plan to physically separate the real time update component from the archival data component to maintain real time updating of new data. Additionally, we will distribute the archival data across multiple machines and design a means to coherently perform system wide data queries and analysis, via an application level abstraction layer. 
+
+We have designed a mechanism, similar to an array of hard disks with a Raid 0 controller, to spread out the data amongst the databases and take advantage of the parallelism when doing system wide queries. Each insert operation (done when populated the archival component) will be performed on a (weighted) random database in the distributed system. Queries will be performed via parallel multicast queries to  all databases from a central application level abstraction interface. Each database, containing random pieces of the query (stored contiguously on disk per machine) will return their part of the dataset to the central host, which will aggregate the information and present it to the calling application. When adding a new machine to the CPR archive, we will modify the weighting for the machine selection when doing inserts, so that the new machine can populate itself at a slightly higher rate than the other machines to catch up in terms of the size of the portion of the dataset it contains. We plan to develop the abstraction layer using DBI and Perl. 
+
+Schema optimizations, summary tables, and new cumulative statistical approaches (being developed by another group) will be explored to add further performance gains. Ideally, real time data can quickly be combined with summary and statistical information of the archival data,  to allow for real time analysis and visualization. Summary data can be computed via cron jobs at regular intervals which can be computed at leisure.  
+
+Balancing the logistics of creating a distributed architecture (monetary costs of adding new machines and development complexity) will also be a necessary component of the project. We hope to stay within the bounds of the budget currently set for the project.

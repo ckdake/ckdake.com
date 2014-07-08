@@ -1,0 +1,25 @@
+---
+title: Logging
+created_at: 2008-02-10 21:50:06 -0500
+kind: article
+---
+I've been logging my bike rides in the <a href="http://singletracks.com">singletracks.com</a> premium ride log. It's neat because I can see how many miles I'm doing and how fast, but there's not a way to plug in GPS data to it yet. I may end up making a module that does this so that other people can do it on <a href="http://fastermustache.org/">FM</a> but that does require work.
+
+The real subject of this post is logging in a cluster environment.  Say you have 10 web servers, each with a handful of apache virtual hosts. Some goals come to mind:
+<ul>
+<li>Compliance - do logs need to be stored in such a way that they are "secure" and indelible?</li>
+<li>Troubleshooting - how can technicians analyze logs for some subset of servers/domains quickly and easily?</li>
+<li>Billing - which websites are using the most bandwidth?</li>
+</ul>
+In my example, all of these are important.  Logs cannot be stored on the web servers in case one of them is compromised or fails (they are redundant after all and failure is not unexpected), problems do require immediate attention and resolution, and noticing bandwidth utilization changes of sites allows for better capacity planning (and I just like stats).
+
+Several tools are available to help with this but not one of them is the magic bullet:
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Syslog">syslog</a> (specifically <a href="http://www.balabit.com/network-security/syslog-ng/">syslog-ng</a>) allows collection of logs on a machine in a sensible way, and allows forwarding of them to a remote logging server which can aggregate logs from multiple machines into one place.</li>
+<li><a href="http://www.splunk.com/">Splunk</a> can pull in logs from syslog, correlate timestamps, and provides an excellent search interface to collected data</li>
+<li><a href="http://www.perl.org/">Perl</a>. Is there anything Perl can't do?</li>
+</ul>
+
+In the test setup, initial logging was done over NFS which turns out to be very bad with this particular NFS set up which was optimized for read loads (as a NFS server for a web application cluster probably should be). Then was getting Apache to just log to syslog locally. Theres no one-push button for this, but <a href="http://www.oreillynet.com/pub/a/sysadmin/2006/10/12/httpd-syslog.html">Sending Apache logs to Syslog</a> on the O'Reilly Network helps out greatly (much of below is a direct result of this article).  Apache can be configured to use an external script for logging and a little perl script to pipe it to syslog (which can then pass it along to another server) does the trick.  We experimented with using the 'logger' binary to log to the central server directly from apache, but it has a nasty undocumented habit of splitting long log lines into multiple entries in syslog on the central server which is unacceptable for using tools like Splunk as well as web server log analytics packages. (In addition to this, the caveats at the bottom of the O'Reilly article are very true and may matter significantly depending on your setup.)
+
+Lastly is taking care of the site separation for analytics. With the setup above, log lines were coming in with no information identifying what site they came from (and the syslog information is appended to the beginning of each line, *sigh*).  The easy way to deal with this is by adding the virtual host name to the log format Apache is using. <a href="http://devbee.com/creating_custom_apache_logfile_n">this howto</a> explains the process,  though they use %{Host}i instead of the perhaps easier to remember %v.  With this last change, everything comes into the central server and can easilly be split up into files per host with no syslog headers.  However, if you're only interested in overall stats per host like bandwidth/hits, <a href="http://www.mrunix.net/webalizer/">webalizer</a> knows what to do without any configuration changes. A "sites" section appears and gives a breakdown of the hits, files, kbs, and visits per site.  This is all running on my little cluster now and should make my life a lot easier when the new servers show up.

@@ -1,0 +1,18 @@
+---
+title: Database Clustering
+created_at: 2007-04-30 13:48:45 -0400
+kind: article
+---
+My group project in CS6255: Network Management this semester was on a data storage system for <a href="http://www.rnoc.gatech.edu/cpr/">CPR</a> (the OIT project at Georgia Tech that I spend most of my time working on).  The problem we were attempting to solve is real time access and long-term data archiving of lots of data.  Currently, the CPR monitoring mesh has close to 100 machines. Every 5 minutes, each of these machines issues 20 pings to every other CPR machine.  The math works out to over 2 million rows of data being stored in a database every single day.  Only keeping track of a day or a week isn't really a problem for a somewhat beefy machine, but what about 2 years of data?  How could we build a system that let us add more hardware in the future without system downtime or loosing data? Given the requirements of the system: <ul>
+<li>Data needs to be inserted into a database in real time</li>
+<li>Recent data needs to be accessible in real time</li>
+<li>Graphs need to be generated using statistics on older data based on the host, target, and a time range</li>
+</ul>we came up with a solution that seems to do the trick.  Below is a list of system components and a short description of how they all work:<ul>
+<li>An application server with a database of data from the past 24 hours. It processes new data and communicates with the storage cluster.</li>
+<li>Cluster of database machines:  currently just MySQL but could be any other storage engine that perl's DBI supports.  They all run listening on a port that is firewalled so that only designated application servers can connect to the database</li>
+<li>XML file containing a list of each machine in the cluster and a probabilistic weight for that machine.</li>
+<li>A weight calculation script (that I wrote) that takes into account some Industrial Engineering problem solving techniques to figure out a close to ideal probabilistic weight for each machine in the cluster based on how much data that machine has already, what the rate of incoming data is, and how far in the future we'd like all the machines to have the same ammount of data on them.</li>
+<li>A perl script that processes incoming data in realtime and stores its on the application server and picks one random database cluster machine to store it on as well. The probability that a machine in the cluster will get it is the weight of that machine divided by the combined weight of all the machines in the cluster.</li>
+<li>A perl script for running SELECT queries against the data. It fires off a thread to communicate with each database so that a query can be dispatched to each machine in the cluster at the same time and the results can be combined as soon as they come in.</li>
+</ul>
+This all is working and storing data. Right now we're up to about 30 million rows of data in a cluster of 4 P4 machines with 512MB of RAM and it's noticeably better performance than the one huge table on the Sun server with 2GB of RAM. We were hoping to make a perl DBI module containing the insert and select related code, but ended up not having enough time for this so applications will have to be slightly modified to use the storage cluster. However, even considering this, it's definitely worth it to go to our form of clustering when you need to store lots and lots of data on commodity hardware.

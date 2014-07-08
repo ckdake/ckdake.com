@@ -1,0 +1,17 @@
+---
+title: Overblown Security "Problems"
+created_at: 2006-12-02 13:26:08 -0500
+kind: article
+---
+If theres anything worse than gaping security holes in products it's false reports and overblown exagerations of supposed security problems.  (A friend of mine is <a href="http://h0bbel.p0ggel.org/2006/11/03/windows-xp-password-hoax-ii/">fed up with this</a> as well.)
+
+Current case in point, the current Nike+iPod sport kit tracking/surveillance "issue." This has been covered on a lot of fairly high profile sites. For starters, CNN has a video that was on their front page yesterday entitled "Tracked through your iPod?" and Mac Rumors has <a href="http://www.macrumors.com/pages/2006/12/20061202024057.shtml">an article on it</a>.  These point to the <a href="http://www.cs.washington.edu/research/systems/privacy.html">report</a> at the University of Washington's CS department on "Devices That Tell On You."
+
+The report explains how devices with a transmitter and receiver are problematic by explaining one surveillance scenario involving the Nike+iPod sport kit.  This is one example and the same paper could have reached the same conclusions for just about any other wireless device. For a wireless device to pair with a receiver it has to identify itself somehow. This means the hardware has to have a unique identifier (The MAC address) that it shares with the receiver. (Wikipedia explains the <a href="http://en.wikipedia.org/wiki/MAC_address">MAC address</a> from the perspective of wired ethernet)  Just about all popular devices have MAC addresses these days including: Bluetooth, WiFi, UWB, USB, wired networks, firewire, etc.   
+
+ANY of the devices can be "tracked" the same way as the Nike+iPod can be in this paper, and to track any of them, your coverage is only as great as the number of antennas you depoly.  Cell phones would be a much better target to track because more people have them and most of them speak bluetooth. It seems everything these days speaks WiFi so why not track that with existing WiFi antennas?  
+
+The media has taken this report and blown it out of proportion to scare consumers that they might be vulnerable because they have iPods (which it seems just about everyone has). I mean come on, "Tracked through your iPod?" as a headline? The thing being tracked here is the part that goes in your shoe. You could be tracked with that thing installed even without having your iPod anywhere with you. (Same thing applies to having a bluetooth headset on but leaving your phone somewhere else).  CNN claims the report mentions that the engineers that made the Nike+iPod should have used some form of encryption or something to make the device less trackable, but I disagree.  The researchers didn't manage to get any information from the Nike+iPod device, just it's name, and like I mentioned, devices having a name is required for communication where the device needs to be identified. Otherwise two people running next to eachother with Nike+iPod wouldn't be able to use them because their iPods wouldn't know which sensor to talk to. 
+
+So no, you can't be tracked by your iPod!  If this tracking possibility gets you worried, leave your laptop, cell phone, watch, palm pilot, bluetooth headset, Zune (it has built in wireless with a MAC address), etc at home. And don't even think of driving your car that talks bluetooth with devices for handsfree calling. You probably should get a new one of these every time you use it too, just so a tracker can't see you twice.
+

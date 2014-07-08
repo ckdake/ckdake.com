@@ -1,0 +1,202 @@
+---
+title: Velocity 2011
+created_at: 2011-06-29 16:57:21 -0400
+kind: article
+---
+<p>Last year <a href="http://ckdake.com/content/2010/velocity-and-devopsday-2010.html">I attended Velocity 2010</a> from the Operations side of things as an Operations Engineer at <a href="http://www.sugarcrm.com">SugarCRM</a>, this year, I attended as a Software Developer at <a href="http://www.highgroove.com">Highgroove Studios</a> which influenced my choice of sessions and my perspective.</p>
+
+<p>Outside of the sessions, there was almost too much going on to keep track of. A full job board, a full exhibit hall, and people from every company that is anybody in the internet space.  I got face time with people from Facebook, Yahoo, Google, Youtube, Heroku, Opscode, Dyn, Amazon Web Services, eBay, AOL, Github, VMware, and plenty of others.  Some were casual conversations about company culture between sessions or at a meal, others were detailed QA at their booths getting specific needs I had worked out. Specifically, I learned some things from developers at Amazon and Heroku that will help me write better applications, and I might be moving a bunch of things over to Dyn's services.  Steaks with Facebook's AppOpps guys were delicious, they know I'm not ready to move out to the bay, and the guy sitting next to me was part of a team that held the <a href="http://www.internet2.edu/lsr/">Internet2</a> Land Speed Record for a period of time as a grad student in Spain.</p>
+
+<p>The slides and videos are slowly being <a href="http://velocityconf.com/velocity2011/public/schedule/proceedings">posted</a> so head over there to see the full spread. This was going to be my recommendation for the things to watch/read, but it ended up being a short description of most of the sessions I went to, all of which are worth paying some attention to.</p>
+<!--break-->
+<h2>Sessions</h2>
+
+<h3>How to Scale Dirty and it's Influence on People - Philip Kromer (Infochimps), Dennis Yang (Infochimps)</h3>
+
+<p>These guys have some pretty good processes going on, and have the approach to scaling at a startup figured out. A few quotes from them:</p>
+
+<ul>
+  <li>"A startup is a tool to turn time and money into a validaiton of what the world wants"</li>
+  <li>"Only automate out of boredom or terror"</li>
+  <li>"Don't solve problems you'd like to have"</li>
+</ul>
+
+<p>Perhaps the most interesting part of their talk was introducing 'radical decoupling' which is reducing the critical path edges by splitting code into multiple non-dependent components that can be developed/tested/run individually. Specifically for Ruby on Rails, they recommend using Rails Engines to split things up.  2 separate codebases of 1000 lines of code each is much easier to develop/test/run than a single 2000 line codebase.</p>
+
+<h3>Advanced PostMortem Fu &amp; Human Error 101 - John Allspaw (Etsy)</h3>
+
+<p>Allspaw is no stranger to these conferences and is one of the "Rockstar" Operations guys out there.  He uses a lot of words and concepts from Human Factors and formal analysis of systems and errors that is pretty uncommon to the 'startup' scene, but they're extremely useful. (And he mentioned a favorite book of mine: <a href="http://www.amazon.com/gp/product/0691004129/ref=as_li_ss_tl?ie=UTF8&tag=ckdake-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=0691004129">Normal Accidents: Living with High-Risk Technologies</a><img src="http://www.assoc-amazon.com/e/ir?t=&l=as2&o=1&a=0691004129&camp=217145&creative=399369" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+.) Once the video of his talk gets posted, I highly recommend watching it. A few quotes:</p>
+
+<ul>
+  <li>"Human error is an effect, not a cause"</li>
+  <li>"There is no root cause"</li>
+  <li>"Any explanation is better than none"</li>
+  <li>"Peoples need to be right is stronger than their ability to be objective"</li>
+  <li>"Accountability = Responsibility + Requisite Authority"</li>
+  <li>"Reprimanding someone is like peeing your pants - first feels nice and warm, then its pretty uncomfortable."</li>
+</ul>
+
+<h3>CSS3 &amp; HTML5 - Beyond the Hype! - Nicole Sullivan (@stubbornella)</h3>
+
+<p>Lots of great knowledge in this talk with immediate practical applications. These slides/talk are worth reviewing for anyone writing client side markup.</p>
+
+<ul>
+  <li>Don't worry about degradations in IE6 for non-functional things (rounded corners, drop shadows, etc)</li>
+  <li>Use a CSS framework like <a href="https://github.com/stubbornella/oocss">oocss</a></li>
+  <li>Use classes/ids instead of descendants (faster lookups)</li>
+  <li>use .className instead of div.className (KISS and faster performance)</li>
+  <li>Avoid transparency calculations for anything involved in an effect (border-radius, box-shadow, rgba, etc)</li>
+  <li>use CSS3 to cut down on the number of images</li>
+  <li>Use border-radius for rounded borders and make sure to place it after the vendor prefixed properties</li>
+  <li>Really Cool <a href="http://leaverou.me/css3patterns/">CSS3 patterns</a></li>
+  <li><a href="http://csslint.net/">CSS Lint</a> open sourced during presentation! Use it to check your CSS for potential performance issues.</li>
+</ul>
+
+<h3>Why the Yahoo FrontPage Went Down and Why It Didn't Go Down For up to a Decade before That - Jake Loomis (Yahoo!)</h3>
+
+<p>This presentation is mainly interesting because they show some insight into a big company with lots of real traffic. Yahoo! peaks at 41,000 requests/second for their new page. They "error proof change" by treating staging as production, dark launching code,  running continuous integration, and forking in production traffic to staging to test things out. This presentation is worth watching to see how they can shuffle around traffic between properties and datacenters, and how they drop features to add capacity when needed. The two most interesting facts:</p>
+<ul>
+  <li>Yahoo runs metrics on all sites linked to from the front page. When any of them start experiencing performance degradations, Yahoo throttles back the traffic being sent to them by reducing or eliminating the number of users that see links to them. This prevents Yahoo from taking out smaller sites.</li>
+  <li>APC was the root cause of the Yahoo.com several-minute outage because it caused cascading server failures in multiple datacenters at the same time when additional language information was added to the cache. APC problems have caused me plenty of headaches, and it's nice to see that a big company has trouble with it too sometimes.</li>
+</ul>
+
+<h3>Oh, To Be Single Again - Building a Single Codebase in a Client-server World - Daniel Hunt (Yahoo!)</h3>
+
+<p>It turns out that the backend for the new Yahoo Mail is written in Node.js and with a one-line code change, they can have templates rendered either on the server or in the client. There are pros and cons for each, and depending on the needs of the moment (capacity typically) can be easily changed. It was really neat seeing how they built this, using a single codebase and MVC patterns in JavaScript.</p>
+
+<h3>Building for the Cloud: Lessons Learned at Heroku - Mark Imbriaco (Heroku)</h3>
+
+<p>Mark gave a good overview of how Heroku works, how they dealt with the Amazon EBS outage a few weeks ago, and some handy tips. Heres a few of the interesting tidbits:</p>
+
+<ul>
+  <li>"Yo dawg, I heard you like platforms so I put a platform on your platform" - Heroku is deploying all the infrastructure they use to manage Heroku... on Heroku. It makes boostrapping a little tricky but helps point out places where things are too tightly coupled.</li>
+  <li>Heroku is opinionated about decisions and does their best to force the Right Way on their users. Examples: Getting rid of Varnish and forcing customers to use CDNs for delivery of large static content, and not offering a persistent filesystem.</li>
+  <li>"Avoid the disk! EBS is tempting but don't do it. Keep everything in memory."</li>
+  <li>They are working towards a disposable compute model where any node can fail at any time. This leads to a very well understood failure domain which makes fixing problems easier (or automated). This is the Netflix "Chaos Monkey" strategy.</li>
+  <li>It's easier to throw away nodes with random problems than diagnosing every problem that comes up.</li>
+  <li><a href="https://github.com/ha/doozerd">Doozerd</a> is a consistent distributed data store for storing very important information. Use this or something like it for storing state like master server IPs in a stateless environment.</li>
+</ul>
+
+<h3>World IPv6 day - Ian Flynt (Yahoo!)</h3>
+
+<ul>
+  <li>"Monitoring isn't the same in a dual-stack [IPv4/IPv6] environemnt" - Yahoo's health checks didn't know about IPv6 on their first test, so they fell back to the default rotation which is US datacenters. This led to much slower traffic for customers in Europe and Asia during this test.</li>
+  <li>"Don't start something big and risky at a traffic inflection point"</li>
+  <li>"Always have more than one way to look at things." - If your monitoring server can't connect to your other datacenters, it may look like everything is down or underperforming when everything is actually going fine</li>
+</ul>
+
+<h3>Velocity Culture - Jon Jenkins (Amazon.com)</h3>
+
+<ul>
+  <li>Amazon averages a code deploy every 12s, averages 10k hosts receiving a deployment simultaneously, and as of November 10, 2010 every amazon.com web property is running on EC2.</li>
+  <li>The success of culture depends on linking it to the business. Doing things just because they are the Right Way won't sell to management, but if developers/operators/etc can show how decreased load time leads to increased conversions, everybody wins.</li>
+  <li>People focus on capacity planning which is really just a focus on spending money. It's better to do capacity optimization.</li>
+</ul>
+
+<h3>Artur on SSD's - Artur Bergman (Fastly)</h3>
+
+Short, sweet, and to the point. SSDs are not that expensive any more, they save massive amounts of power and time, and there is not really a reason not to use them.
+
+<h3>State of the Infrastructure - Rachel Chalmers (The 451 Group)</h3>
+
+<p>Rachel pointed out an interesting idea:  Science Fiction is appealing because of our obsession with tools, while Fantasy is appealing because of our obsession with symbols.  Her talk is worth watching as it's humerous and well informed, and I'll keep my summary to one more quote:</p>
+
+<li>About AWS: Amazon is "A bookstore selling crack out the back door"</li>
+
+<h3>Holistic Performance - John Resig (Mozilla Corporation)</h3>
+
+<p>John spoke about performance in the jQuery project. It's more than just wall time, also of concern are battery usage, parse time, number of requests, file size, etc. A few key tidbits:</p>
+
+<ul>
+  <li>You shouldn't drop browser support for performance gains in another, and you shouldn't do things like slow down IE just to make others faster</li>
+  <li>Any change to Javascript in the name of 'performance' should have proof of the positive impact of the change</li>
+  <li>Use <a href="http://jsperf.com">jsperf</a></li>
+  <li>It doesn't matter how much you unroll a loop if that loop is doing DOM manipulation. Anything that interacts with the DOM is expensive</li>
+  <li>Don't compromise code quality in exchange for performance improvements</li>
+  <li>It's very hard to create realistic test cases for performance</li>
+</ul>
+
+<li>"Don't compromise code quality in exchange for performance" - John Resig (Mozilla)</li>
+
+<h3> Lightning Demos Thursday - Michael Schneider (Google), Andreas Grabner (dynaTrace Software), Paul Irish (jQuery Developer Relations), Sergey Chernyshev (truTV)</h3>
+
+<p>Lots of short cool demos on cool technology. There's <a href="http://pagespeed.googlelabs.com">PageSpeed</a> which everyone should be using, <a href="http://ajax.dynatrace.com ">Dynatrace</a> which John Resig and Steve Sounders both like, but the biggest things to me were things now available in the <a href="http://code.google.com/chrome/devtools">Chrome Dev Tools</a>:</p>
+
+<ul>
+  <li>In the task manager -> right click to get more info on a process</li>
+  <li>`performance.timing` has timing information about the request in JS</li>
+  <li>`performance.memory` is added via --enable-memory-info to get memory usage info in JS</li>
+  <li>`window.onerror` - run some method to handle errors on the client, perhaps reporting to web server</li>
+  <li>`console.profile()`, do something, `console.profileEnd()`, then `console.profiles[]` - get sample based profiling information in the browser for any javascript</li>
+  <li>`console.markTimeline()` - Draw a vertical line on the resource timeline for events in your code</li>
+  <li>new extension support for audits (usable to maintain standards like no images above 80k)</li>
+  <li>heap profiler</li>
+  <li>remote debugging --remote-debugging port - lets you run most debug tools from a separate machine, super useful for mobile devices</li>
+</ul>
+
+<p>ShowSlow also got some updates to pull in custom metrics from GoogleAnalytics, order systems, etc,  and supports ability to send events to it via a web service.</li>
+
+<h3>Instrumenting the real-time web: Node.js, DTrace and the Robinson Projection - Bryan Cantrill (Joyent, Inc.)</h3>
+
+<p>This was a great talk on Node, both as an introduction and case study. Bryan, former Sun employee and author of drace is super sharp and a great speaker. This talk is worth watching the video of! First up: the three core ideas of Node are:</p>
+
+<ul>
+  <li>JavaScripts rich support for asynchrony (i.e. closures)</li>
+  <li>High-performance VMs</li>
+  <li>The system abstractions that God intended  "dynamic c"</li>
+</ul>
+
+<p>Joyent ran a Node programming contest "Node Knockout" and built a dashboard to track inbound connections and geolocate them to provide a 'leaderboard'. They used DTrace to instrument connections ("dtrace - something that is important for ass saving"), and while dtrace is in kernel and instruments the entire system, it's tough for high-level interpreted environments. Enter USDT "User-level statically defined tracing". Functions in javascript can insert probes into the C++ backend with USDT so everything can trickle through.</p>
+
+<blockquote>
+  "If you're hitting GC in node you have a memory leak; You're like a drug addict that has hit rock bottom. If I give you more memory it's going right in your arm."
+</blockquote>
+
+<p>Joyent uses OS level virtualization instead of hypervisor to allow introspection like dtrace from dom-0 when all the apps are in containers.  The code to run these traces is open source: <a href="http://github.com/bcantrill/node-libdtrace">node-libdtrace</a>.  Their leaderd/tickerd solution gave them 700ms latency from a connection to a competitors app to it appearing on the dashboard. So what map to use to display it? All projections are terrible, Robinson is the best but it's not actually a projection. Source for that:  <a href="http://github.com/silentrob/Robinson">Robinson</a></p>
+
+<p>The key take away: node.js is perfect for web-facing real-time systems that are hurt by long latency events and not CPU time, i.e. "Data Intensive Real Time" - DIRT</p>
+
+<h3>reddit.com War Stories: The mistakes we made and how you can avoid them. - Jeremy Edberg (reddit.com)</h3>
+
+<p>Jeremy gave some great insights into Reddit operations on mistakes they've made:</p>
+
+<ul>
+  <li>mistake: relying on a single cloud product and expecting it to work as advertised (avoid EBS for now, or RAID around it)</li>
+  <li>mistake: single EBS for a database, now: they use 13 disks now, 6 pairs spanned and a spare</li>
+  <li>mistake: not account for increased latency in virtualized environments</li>
+  <li>mistake: not using a service based architecture sooner</li>
+  <li>mistake: not using a consistent key hashing algorithm at first -> move to Cassandra (Dynamo model for consistent hashing)</li>
+  <li>mistake: using bleeding edge software in production (Cassandra 0.7)</li>
+  <li>mistake: not having enough monitoring and not having monitoring that is virtualization friendly (Use Ganglia, backed by RRD, not friendly to change)</li>
+  <li>they use londiste for replication which is great and flexible, but doesn't handle errors well like slow disk</li>
+</ul>
+
+<p>And some general pointers</p>
+<ul>
+  <li>users notice inconsistency and make comments about it (i.e. when replication is lagging and comments don't show up immediately)</li>
+  <li>plan for 3 or more than 3 whenever you are writing code: datacenters, servers, databases, job queues, etc</li>
+  <li>queues are your friend</li>
+  <li>treat logged out users as second class (i.e. serve all content as cached on cdn)</li>
+  <li>reddit is open source: <a href="http://github.com/reddit">github.com/reddit</a></li>
+</ul>
+
+<h3>Choose Your Own Adventure 2: Electric Boogaloo ;-) - Adam Jacob (Opscode), Jesse Robbins (Opscode)</h3>
+
+<p>The last session of the conference, is Adam talking about whatever people want him to.  The guy that kept asking him to 'talk about something random' but never had a question or topic never got what he was looking for except lots of laughs from everyone. The best tidbits:</p>
+
+<ul>
+  <li>How marketing works: Marketing brings in leads via campaigns, and sales nurtures them into qualified prospects. This is called 'prosecuting'</li>
+  <li>"No Assholes Rule"  - positive interactions must outnumber negative ones 5:1. There are three types of assholes:  withholders of effort,  affectively negative, and interpersonal deviants.</li>
+  <li>Things that should be automated: provisioning, DNS, server inventory, configuration management, identity management, version control, monitoring and trending, application deployment</li>
+  <li>Sysadmins are software developers with shitty languages. They should learn scheme.</li>
+  <li>Sysadmin to a developer:"You don't care that I got divorced because your crappy code woke me up." Developers must be on call, sysadmins should be escalated to. Ops are responsible for system availability and efficiency, not bugs in code.</li>
+  <li>Metrics should tie to money.</li>
+  <li>Ops should be saying 'yes' instead of no, but making people commit. "If you need 1000 servers racked, I'll rent a bus and we'll take your deparement to the datacenter to do it."</li>
+  <li>"People don't remember the tools used to build great things." Things can only be measured by the final solution. Your best skill is knowing systems and problems,  not a specific tool.</li>
+  <li>Open Source: We like to look at pretty cars, but we take the ugly ones home and work on it/fix it up/etc. You cannot leapfrog this stewardship process by just throwing an open source license on some code</li>
+  <li>Devops is not a job description. You can't 'be' a 'devops'.</li>
+  <li>Devops is all inclusive. If someone is not happy or exclusive, then someone is Doing It Wrong.</li>
+</ul>
+
+<p>Whew, thats a lot of words.  Velocity 2011 was great, perhaps more fun and useful than 2010, and hopefully I'll get the chance to apply a lot of this and make it out again next year!. Already in play are some Feature Flag implementations in a project I'm working on and some browser performance tuning on another, I'm looking forward to a need to use Node.js on something. and theres a handful of new books on my wishlist.</p>

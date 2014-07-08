@@ -1,0 +1,33 @@
+---
+title: Windows 7 64-bit on a MacBook Pro
+created_at: 2009-10-19 14:02:47 -0400
+kind: article
+---
+I have a MacBook Pro for work, and have Windows on it in a separate partition for the occasional thing that requires it.  I had to get it's logic board replaced and for various reasons it made more sense to reinstall OS X and Windows once everything was replaced and back to me.  Mac OS X was easy,  but Windows was a bit more of a pain because while I have several legal copies of XP, i've lost track of which license keys go with which ISOs and Microsoft wants to call me to activate things. Thankfully, this is a work computer and work as a Microsoft volume license plan so I grabbed a 64-bit Windows 7 Professional ISO and Key, and gave that a shot. First problem, the DVD wouldn't boot: it instead presented "Select CD-Rom Boot Type"  and 2 options, and the keyboard was unresponsive.
+
+After a bit of Googling around, the following is the way to get around this, assuming you have another Windows system or VM available:
+<ol>
+<li>Grab a copy of oscdimg.exe (<a href="http://sergiomcfly.googlepages.com/oscdimg.exe">heres one</a>) to somewhere like C:\</li>
+<li>Put the DVD you already burned into your Windows box</li>
+<li>Run:  <pre>oscdimg -n -m -bd:\boot\etfsboot.com d:\ c:\win7×64.iso</pre></li>
+<li>Burn this ISO to DVD</li>
+<li>If Needed, use Boot Camp Assistant in Mac OS X to partition your disk for Windows</li>
+<li>Boot up with this DVD (hold down C when booting, use the Boot Camp Assistant to start it up, etc) and Windows 7 will install!</li>
+</ol>
+
+Once it's up and running and you try and install the BootCamp drivers from a Snow Leopard DVD, you'll run into some more things that try and stop you. The fix for them is to manually run the 64-bit driver installer in Administrator mode.  One way to do this:
+
+<ol>
+<li>Open up an Admin mode console by right-clicking on "Command Prompt" in start -> all programs -> accessories, and clicking "Run as administrator"</li>
+<li>type in "cd d:/Drivers/Apple" to change to the Drivers/Apple folder on the DVD</li>
+<li>type in "msi.exe BootCamp64.msi"  to launch the 64-bit installer, and it will install and do it's thing</li>
+</ol>
+
+After those few steps and not too much time, you'll be up and running in Windows 7 on your shiny Mac laptop.  Some things I've noticed:
+<ul>
+<li>It's faster feeling than Windows XP</li>
+<li>It's prettier than Windows XP</li>
+<li>It feels like it wakes and sleeps faster than OS X</li>
+<li>Steam and Team Fortress 2 work and seem faster than Windows XP</li>
+<li>The Internet works.</li>
+</ul>

@@ -1,0 +1,10 @@
+---
+title: APC
+created_at: 2008-01-19 12:56:11 -0500
+kind: article
+---
+No, not American Power Conversion, but the <a href="http://pecl.php.net/package/APC">Alternative PHP Cache</a>. It's not real obvious as to what it does from the website, but if you're doing any serious PHP application stuff, you should take a look at them (and <a href="http://www.zend.com/en/">Zend</a> and <a href="http://eaccelerator.net/">eAccelerator</a>).  I was helping benchmark some things for work and it's amazing the difference in performance that these make compared to a standard PHP installation.
+
+Each of them is or has a PHP OpCode cache.  This means that instead of compiling the PHP from the source code on every page request, things get cached and the web server doesn't need to talk to disk as much. Just installing APC on my two larger web servers has made an amazing difference.  CPU utilization is down, memory usage is down, and average response times are up.  On Pudge which hosts a lot of sites running a lot of applications (including this site), there is over 150Mb of things in the cache.  Aurora just hosts <a href="http://fastermustache.org">Faster Mustache</a> which is only running <a href="http://gallery.menalto.com/">Gallery</a> and <a href="http://drupal.org/">Drupal</a>, and it's cache is around 45Mb.  
+
+Supposedly Gallery doesn't work quite right with APC, but I haven't had any problems with it, and the web server process on Aurora crashed once over the last few weeks after APC was installed, but I don't know if APC was the culprit or not.  I'm looking forward to setting up fastcgi with suexec and APC to see how well it does with lots of virtual hosts running, and hopefully there will be a new server in the mail in the next month or two for me to do that on..

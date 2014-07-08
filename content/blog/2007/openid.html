@@ -1,0 +1,15 @@
+---
+title: OpenID
+created_at: 2007-06-26 02:32:02 -0400
+kind: article
+---
+Another day at Google, another very neat tech talk. Today I went to a talk by <a href="http://simonwillison.net/about/">Simon Willison</a> about <a href="http://en.wikipedia.org/wiki/OpenID">OpenID</a>.  I had heard of OpenID before, and I knew that it was recently added into <a href="http://drupal.org">Drupal</a> by <a href="http://walkah.net/">James Walker</a> who wrote the Drupal-Gallery2 module that this site (and many many others) are using.  Cool!
+
+However, I didn't really "get it" and never spent the time to read up on things. That all changed today, and I've been convinced that OpenID is the way to go for several reasons:<ul>
+<li>One username and one password. No more remembering different things for different accounts, or using the same one everywhere and risking it getting compromised. You have one account with a trusted provider (hopefully eventually banks, etc, but for now everyone that has an AOL/AIM account has one, there are plenty of other OpenID servers out there, or you can run your own) and that's it.</li>
+<li>No more having to register on someone's blog just to post comments.  Log in with OpenID (Or just stay logged in with your browser), approve the site accessing your ID, and you're done! Logged in whenever you visit from now on. (This could cut down on comment spam once OpenID becomes more prevalent because a content owner could just require people to be authenticated by some OpenID before commenting)</li> 
+<li>No need to give MySpace/FaceBook/etc  your GMail/Yahoo/Hotmail account information so that it can get your contacts. You can use OpenID to let one of them into the other instead</li>
+<li>Did I mention it's one password for everything?  Alternatively, it could be a client SSL certificate, one time pad, out-of-band provided browser cookie, out-of-band code (via SMS/Jabber/etc), biometric, SmartCard, etc.</li>
+</ul>
+
+So I'm hooked, as much as I can be at least. I deleted my silly LiveJournal account that I only had so that I could read other peoples blogs that were friend only and replaced it with an OpenID one.  My OpenID points to ckdake.com (surprise surprise) which points to AOL as my OpenID provider.  This lets me use my AIM user/password to get into my LiveJournal account so it's one less account I have to remember. <a href="http://h0bbel.p0ggel.org/">Christian's blog</a> (one of the Gallery guys) will be the first one where I test out leaving a comment with it, once I have something useful to say at least.  Sadly, other than those two things, nothing else that I regularly use supports OpenID.  Once Drupal 6 is out, I'll upgrade this site and <a href="http://fastermustache.org/">Faster Mustache</a> to use them, (and <a href="http://corndogorama.com/">corndogorama.com</a> and a couple of other sites I manage,) and hopefully other sites will start to do the same.  AOL, Microsoft, and Sun are already behind this, so hopefully the ranks of FaceBook, Yahoo, and Google will follow!

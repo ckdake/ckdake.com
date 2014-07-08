@@ -1,0 +1,133 @@
+---
+title: Hairpinning with a Cisco ASA
+created_at: 2009-11-13 12:01:37 -0500
+kind: article
+---
+What a long battle with Cisco IOS this has been, but after quite a bit of tinkering I've gotten things working the way that I would like. Here's a technical description of the details in hope that this helps someone else.
+
+<h2>The Setup</h2>
+<ul>
+<li>Load balancers  with private IP address like 172.16.0.10 on a /24,  running  example.com</li>
+<li>Cisco ASA Firewalls running 7.2(1) or newer, that map public IP addresses (I'll use 192.168.0.193 on a /24 here instead of a real public IP)</li>
+<li>Internal DNS servers that map loadbalancer.private  to 172.16.0.10</li>
+<li>External DNS servers that map example.com to 192.168.0.193</li>
+<li>Random application server behind the firewall with no public IP address and a private IP of 172.16.0.20</li>
+</ul>
+
+<h2>The Problem</h2>
+
+Applications behind the firewall need to access other applications behind the firewall using the public DNS name (example.com) instead of the private one (loadbalancer.private).  
+
+<h2>Some possible solutions</h2>
+
+As an easy-to-set-up solution, we currently have the internal dns servers set up to map example.com to 172.16.0.10 which works fine, except it requires updating DNS records in multiple places. Our naming scheme slowly got a bit more complex, and I've had to add explicit relay rules to our DNS server configuration files to relay certain lookups from the internal DNS servers to the external DNS server's internal IP address.  Sending it to the DNS server's external IP address doesn't work because the Cisco ASA will not send traffic back out on the same interface that it came in on, even after network translations have been done. (For a different portion of our external IP space, I added some static routes to the core router but when we move those IPs behind this firewall, this ASA feature will break those routes as well)
+
+The current mapping of public IPs to private IPs looks like:
+<pre>static (inside,outside) 192.168.0.193 172.16.0.10 netmask 255.255.255.255</pre>
+One feature that Cisco suggests to solve our problem is using "DNS Doctoring"  which is just simply adding the 'dns' keyword to the end of the mapping like:
+<pre>static (inside,outside) 192.168.0.193 172.16.0.10 netmask 255.255.255.255 dns</pre>
+which modifies DNS queries going through the firewall from the inside interface to change the IP from 192.168.0.193 to 172.16.0.10.  This would great, if your DNS server is outside of the firewall, which ours is not. Our internal DNS queries never travel through the ASA so this didn't do anything for us.
+
+Up next was trying out 
+<pre>same-security-traffic permit intra-interface</pre>
+which "permits communication in and out of the same interface" which sounds like it's the exact right solution for the problem because that was the limitation that broke things. However, adding this in didn't seem to change anything and traffic still was not permitted in and out the same interface.  
+
+<h2>The Solution</h2>
+After a lot of troubleshooting, which involves an ASA 5510 and a 3524-XL on the floor under my desk, downloading and installing new versions of IOS, a lot of Googling, a lot of cursing, and a lot of sketching possible things out on paper, I finally figured out the missing piece: Hairpinning which is "the process by which traffic is sent back out the same interface on which it arrived." Here is the configuration that finally got traffic flowing from 172.16.0.10 to 192.168.0.193 on the ASA back out to 172.16.0.10 on the same interface it started on:
+
+<pre>
+!--- Output suppressed.
+!
+interface Ethernet0/0
+ nameif outside
+ security-level 0
+ ip address 192.168.0.192 255.255.255.0 
+!
+interface Ethernet0/1
+ nameif inside
+ security-level 100
+ ip address 172.16.0.1 255.255.0.0 
+! 
+!--- Output suppressed.
+!
+same-security-traffic permit intra-interface
+access-list outside_in extended permit icmp any any 
+access-list outside_in extended permit tcp any any 
+!
+!--- Output suppressed.
+!
+global (outside) 1 interface
+nat (inside) 1 172.16.0.0 255.255.0.0
+alias (inside) 192.168.0.193 172.16.0.10 255.255.255.255
+alias (inside) 10.0.0.20 172.16.0.20 255.255.255.255
+static (inside,outside) 192.168.0.193 172.16.0.10 netmask 255.255.255.255 
+access-group outside_in in interface outside
+!
+!--- Output suppressed.
+</pre>
+
+The trick here was, combined with "same-security-traffic permit intra-interface" to add the alias lines, the first one:
+<pre>alias (VLAN100) 192.168.0.193 172.16.0.10 255.255.255.255</pre>
+does something sensible and aliases 192.168.0.193 to 172.16.0.10 on the inside interface so any time traffic comes in here matching that IP, it gets rewritten.  The second line is also required but doesn't make as much sense:
+<pre>alias (inside) 10.0.0.20 172.16.0.20 255.255.255.255</pre>
+This line is telling the ASA to take any traffic coming in destined to 10.0.0.20 and map it to 172.16.0.20, however, we don't have any devices on 10.0.0.0/8 and there are no routes for this, so there will never be any traffic coming in to 10.0.0.20.  That said, this line has to exist so that there is a mapping back to 172.16.0.20 in the alias table so that the ASA knows it's alright to send traffic to it. Using a "real" public IP here would both use up our public IPs and perhaps pose some security risk, so it's safer to use these non-public IPs and add a rule to prevent incoming traffic from the outside from reaching them. If the alias command would work for an IP range instead of one host, this would be pretty much perfect. 
+
+<h2>The result</h2>
+Things finally work! Here is a trace of a ping from 172.16.0.20 to 192.168.0.193 (which works now!):
+<pre>
+ICMP echo request from VLAN100:172.16.0.20 to VLAN100:192.168.0.193 ID=12034 seq=0 len=56
+ICMP echo request translating VLAN100:172.16.0.20 to VLAN100:10.0.0.20
+ICMP echo request untranslating VLAN100:192.168.0.193 to VLAN100:172.16.0.10
+</pre>
+So the ASA is doing the translating the proper way and not doing anything with 10.0.0.20. This is good news because it means that our naming and routing architecture can be greatly simplififed:
+<ul>
+<li>All relay rules for external facing domains that have previously required this "split-horizion" DNS can be removed, returning the DNS server configurations to a generic state</li>
+<li>All crazy static routes for external IP addresses can be removed from our core router</li>
+<li>All external facing domain zones can be removed from the internal DNS servers, and updates when things are moved only have to be done in one place</li>
+</ul>
+The only penalty for this is adding in the alias lines to our ASA configuration for each existing static mapping that we have, as well as adding an alias line for each server that needs to communicate with the external IP addresses of things behind the same ASA which should be limited to the internal DNS servers and a few application servers.
+
+<h2>References</h2>
+<ul>
+<li><a href="http://www.cisco.com/en/US/docs/security/asa/asa72/configuration/guide/int5505.html#wp1043290">Configuring Interfaces for the Cisco ASA 5505 Adaptive Security Appliance</a> - cisco.com</li>
+<li><a href="http://www.cisco.com/en/US/docs/security/asa/asa72/command/reference/s1_72.html#wp1289167">same-security-traffic through show asdm sessions Commands</a> - cisco.com</li>  
+<li><a href="http://www.cisco.com/en/US/products/ps6120/products_configuration_example09186a00807968d1.shtml#solution2">PIX/ASA: Perform DNS Doctoring with the static Command and Two NAT Interfaces Configuration Example</a> - cisco.com</li>
+</ul>
+
+<h2>EDIT: Another way to do this</h2>
+After sharing this with some coworkers, it turns out that 'hairpinning' is definitely the key word and one of them stumbled across this article:
+
+<a href="http://nitec.biz/2009/04/06/setup-u-turn-hairpinning-on-cisco-asa/">Setup U-Turn (Hairpinning) on Cisco ASA</a>
+
+It solves the same issue with a slightly more graceful solution because no alias entries are needed for non-public services, in fact, no aliases are needed at all.  To have the exact same functionality as above, here is the working configuration for the problem above with this new methodology:
+
+<pre>
+!--- Output suppressed.
+!
+interface Ethernet0/0
+ nameif outside
+ security-level 0
+ ip address 192.168.0.192 255.255.255.0 
+!
+interface Ethernet0/1
+ nameif inside
+ security-level 100
+ ip address 172.16.0.1 255.255.0.0 
+! 
+!--- Output suppressed.
+!
+same-security-traffic permit intra-interface
+access-list outside_in extended permit icmp any any 
+access-list outside_in extended permit tcp any any 
+!
+!--- Output suppressed.
+!
+global (outside) 1 interface
+global (inside) 1 interface
+nat (inside) 1 172.16.0.0 255.255.0.0
+static (inside,outside) 192.168.0.193 172.16.0.10 netmask 255.255.255.255 
+static (inside,inside) 192.168.0.193 172.16.0.10 netmask 255.255.255.255 
+access-group outside_in in interface outside
+!
+!--- Output suppressed.
+</pre>

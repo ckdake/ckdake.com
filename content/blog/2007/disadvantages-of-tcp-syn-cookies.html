@@ -1,0 +1,14 @@
+---
+title: Disadvantages of TCP SYN cookies
+created_at: 2007-04-24 22:04:27 -0400
+kind: article
+---
+I was catching up on my backlog of magazines and while perusing the Cisco Internet Protocol Journal I noticed something interesting in the article on TCP SYN flood attacks (<a href="http://www.cisco.com/web/about/ac123/ac147/archived_issues/ipj_9-4/syn_flooding_attacks.html">article online</a>). First, some brief background. In the Linux kernel configuration, they are explained pretty well: 
+
+<em>Normal TCP/IP networking is open to an attack known as "SYN flooding". This denial-of-service attack prevents legitimate remote users from being able to connect to your computer during an ongoing attack and requires very little work from the attacker, who can operate from anywhere on the Internet. 
+
+SYN cookies provide protection against this type of attack. If you say Y here, the TCP/IP stack will use a cryptographic challenge protocol known as "SYN cookies" to enable legitimate users to continue to connect, even when your machine is under attack. Thereis no need for the legitimate users to change their TCP/IP software; SYN cookies work transparently to them. For technical information about SYN cookies, check out <a href="http://cr.yp.to/syncookies.html">http://cr.yp.to/syncookies.html</a>.</em>
+
+Sounds like a good idea to enable right? I enable them when configuring my server kernels because the disadvantages seemed pretty sparse.  From the kernel documentation: <em>"SYN cookies may prevent correct error reporting on clients when the server is really overloaded. If this happens frequently better turn them off."</em> and the <a href="http://en.wikipedia.org/wiki/SYN_cookie">Wikipedia Page on SYN Cookies</a> mentions ...<em>While [restrictions caused by SYN Cookies] necessarily lead to a sub-optimal experience, their effect is rarely noticed by client</em>...
+
+Sure. Still no so bad. But the article in the Cisco Journal points out much more specifically that <em>"The downside is that not all TCP data can fit into the 32-bit Sequence Number field, so some TCP options required for high performance might be disabled."</em>  This means that options such as selective ACKs and TCP Window Scaling won't work if you turn on SYN Cookies, even if your server isn't currently under attack. This doesn't matter too terribly much for most people but on a lossy high speed connection, or just a lossy connection in general could suffer. Maybe this has something to do with how awful my IMAP performance is when I'm checking my mail from someone's "borrowed" wireless?  Who knows. (I may tinker with this and report back.) This goes to show that one should research options in the Linux kernel that sound like a good idea _before_ enabling them. 

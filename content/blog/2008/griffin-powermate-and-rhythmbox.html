@@ -1,0 +1,54 @@
+---
+title: Griffin PowerMate and Rhythmbox
+created_at: 2008-06-03 18:25:49 -0400
+kind: article
+---
+I was going through some drawers and stumbled across my good old <a href="http://www.griffintechnology.com/products/powermate">Griffin PowerMate</a> that I got back before I started using Linux. It controlled iTunes in Mac OS 10.1 and was great because I could change volume and pause music without having to change programs or anything. These days I use <a href="http://www.gnome.org/projects/rhythmbox/">Rhythmbox</a> in Linux to listen to music and theres not a plugin for it. Yet!
+
+Rhythmbox supports <a href="http://live.gnome.org/RhythmboxPlugins/WritingGuide">plugins written in python</a>, <a href="http://sowerbutts.com/">a guy</a> has some <a href="http://sowerbutts.com/powermate/powermate.py">skeleton python code for talking to the powermate</a>, and that means something could work out!
+
+I got the powermate working by compiling and loading the powermate module for 2.6 linux kernels (In 2.6.23 it's in  Device Drivers -> Input device support -> Miscellaneous devices -> Griffin PowerMate and Contour Jog support), adding a udev.d entry:
+
+<pre style="margin:15px;">
+# /etc/udev/rules.d/45-powermate.rules
+KERNEL=="event*", SYSFS{product}=="Griffin PowerMate", NAME="powermate", GROUP="users", MODE="0660"
+</pre>
+
+I plugged it in, catted /dev/powermate, and with each twist or push it spit out garbage to the screen. Success!
+
+A quick glance through everything shows that Rhythmbox doesn't support threads and the python code here uses polling so I'd need to delve into the Rhythmbox docs to figure out the best way to do that, but Rhythmbox also exposes itself through DBus and there are some <a href="http://unmaintainable.wordpress.com/2006/12/10/controlling-rhythmbox-using-dbus/">examples of using this</a> around the internet. In a few minutes, I hacked together something dirty to cover the basics and perhaps later on I'll make something that works as a Rhythmbox module. Right now pushing the button is play/pause, turning it adjusts the volume, and the LED shows volume when playing and pulses slowly when paused. Here ya go:
+
+<pre style="margin:15px;">
+#!/usr/bin/python
+
+import powermate
+import dbus
+
+EVENT_BUTTON_PRESS = 1
+EVENT_RELATIVE_MOTION = 2
+
+DBUS_START_REPLY_SUCCESS = 1
+DBUS_START_REPLY_ALREADY_RUNNING = 2
+
+bus = dbus.SessionBus()
+(success, status) = bus.start_service_by_name('org.gnome.Rhythmbox')
+
+proxy_obj = bus.get_object('org.gnome.Rhythmbox', '/org/gnome/Rhythmbox/Player')
+         
+player = dbus.Interface(proxy_obj, 'org.gnome.Rhythmbox.Player')
+
+pm = powermate.PowerMate("/dev/powermate")
+while 1:
+	event = pm.WaitForEvent(-1)
+	if (event[2] == EVENT_BUTTON_PRESS and event[4] == 0):
+		player.playPause(1)
+		if player.getPlaying():
+			pm.SetLEDState((int)(player.getVolume() * 255), 0, 0, 0, 0)
+		else:
+			pm.SetLEDState(255, 252, 1, 1, 1);
+	elif (event[2] == EVENT_RELATIVE_MOTION and player.getPlaying()):
+		player.setVolumeRelative(event[4] * 0.02)
+		pm.SetLEDState((int)(player.getVolume() * 255), 0, 0, 0, 0)
+</pre>
+
+Download <a href="http://sowerbutts.com/powermate/powermate.py">powermate.py</a> and the code above, save the code above as whatever.py, run it, and you'll be able to control rhythmbox with your PowerMate in Linux! 

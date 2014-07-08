@@ -1,0 +1,119 @@
+---
+title: HOWTO (try to) setup a Samba PDC with a (local or) MySQL backend
+created_at: 2006-09-25 19:55:51 -0400
+kind: article
+---
+<h2>Table Of Contents</h2>
+<a href="#about">About</a>
+<a href="#purpose">Purpose</a>
+<a href="#prereqs">Prerequisites</a>
+<a href="#howto">What to Do</a>
+<a href="#withoutmysql">For Working without MySQL</a>
+<a href="#withmysql">For Working with MySQL</a>
+<a href="#testing">Making sure it all works</a>
+<a href="#clients">Configure your Windows XP Machines to join the domain</a>
+<a href="#problems">Problems</a>
+<a href="#resources">Resources Used</a>
+<a name="about"><h2>About</h2></a>
+Last Updated: September 10th, 2004
+Written By: Chris Kelly
+<a name="purpose"><h2>Purpose</h2></a>
+The purpose of this project was to set up a Samba PDC with a MySQL backend so that users, groups, and passwords are stored in a centralized place so that they can be accessed by other applications. LDAP was another possible solution, but using MySQL with pam should be a lot simpler to set up. (no configuring of an LDAP server or domain required)
+The original design was to have a machine running Samba as the PDC, and have several Windows XP machines log onto this domain. A SnapServer was to be used for shared documents and would authenticate agains the domain
+to assign access rights to users. Eventually, a server at a different location running IIS would authenticate users over a VPN to this PDC, and ideally that capability would be added to the billing software that we use.
+You must have system administrator (root) access to the machine to set this up, and all of the commands and file edits need to be done while logged in as root or using sudo.(<a href="http://www.siliconvalleyccie.com/linux-hn/sudo.htm">Quick HOWTO: Using Sudo</a>)
+<a name="prereqs"><h2>Prerequisites</h2></a>
+<ul>
+        <li>have MySQL installed and running 
+                (we used MySQL:  Ver 12.22 Distrib 4.0.20, for pc-linux (i686))</li>
+        <li>have Samba installed
+                (we used Samba Version 3.0.0-14.3E)</li>
+        <li>have PAM installed and configured, and have the pam_mysql module installed
+                (we used Linux-PAM 0.74 and pam_mysql Version 0.5  20/11/2002)</li>
+</ul>
+
+Feel free to use this or link to it, but please don't copy it anywhere without asking me first. If you find it helpful, a link back to my site is always nice too. Corrections and updates are always welcome, just email them to ckdake at ckdake dot com.
+<a name="howto"><h2>What to Do</h2></a>
+Before you touch it, backup your smb.conf file. <pre>cp /etc/samba/smb.conf /etc/samba/smb.conf.backup</pre>
+If you break something, you can run the following command later to get back to your original configuration: <pre>cp /etc/samba/smb.conf.backup /etc/samba/smb.conf</pre> Once you are all backed up, launch your favorite editor and edit /etc/samba/smb.conf
+<ul>
+        <li>Pick a name for your domain:<pre>workgroup = MYDOMAIN</pre></li>
+        <li>Make sure your auth type is set to "user"  ("domain" is for machines that are part of a domain and use the PDC to authenticate, while the PDC uses "user" because it authenticates locally). Search for the line containing: <pre>security = USER</pre>If it is set to something else, change it to "USER"</li>
+        <li>Enable the netlogin share by uncommenting it. Look for <pre>;[netlogin]</pre> Remove the ; from the beginning of this line and the lines that follow it. </li>
+        <li>"unix password sync" may seem like a good idea but do not  turn this on, it causes problems when trying to change passwords. make sure that somewhere in your config file,  either it is directly turned off: <pre>unix password sync = No</pre> or the entire section is commented out like: <pre>;  unix password sync = Yes
+;  passwd program = /usr/bin/passwd %u
+;  passwd chat = *New*UNIX*password* %n\n *ReType*new*UNIX*password* %n\n *$</pre></li>
+        <li>add the following inside of the [GLOBAL]  section:<pre>domain user map = /etc/samba/domainuser.map
+domain group map = /etc/samba/domaingroup.map
+#add these only if using MySQL, comment out for localdb
+encrypt passwords = No
+update encrypted = No
+allow trusted domains = Yes</pre></li>
+</ul>
+Add a file to map the UNIX users to the Domain users:<pre>echo root="Administrator" >> /etc/samba/domainuser.map</pre>Add a file to map the UNIX groups to the Domain groups:<pre>echo wheel="Domain Admin" \
+        users="Domain Users" >> /etc/samba/domaingroup.map</pre>
+<a name="withoutmysql"><h2>For Working without MySQL</h2></a>
+To work without mysql, add user accounts and machine accounts as needed, the following is how a machine account should be created. Replace "myworkstation" with the windows name of your machines, and make sure to include the $ sign where it is included in the examples. Add this line to the end of  your /etc/passwd file: <pre>myworkstation$:x:5000:5000::/dev/null:/bin/false</pre> Add this line to the end of your /etc/shadow file: <pre>myworkstation$:*:9797:0::::: </pre>Add the following line to the end of your /etc/group file:<pre>myworkstation::5000</pre> Add user accounts (not machine accounts) to Samba's password db with smbpasswd. These users must have local user accounts already, and the passwords can either be the same or different. Replace "myuser" with the username. <pre>smbpasswd -a myuser</pre>
+<a name="withmysql"><h2>To work with mysql</h2></a>
+Before you touch it, backup you <span class="path">/etc/pam.d/samba</span> file.<pre>cp /etc/pam.d/samba /etc/pam.d/samba.backup</pre>If you break something, you can run the following command later to get back to your original configuration:<pre>cp /etc/pam.d/samba.backup /etc/pam.d/samba</pre> Then, replace the contents of /etc/pam.d/samba with the following.  Make sure to replace "MYUSER" and "MYPASS" with the username and password that you will be using to access the mysql database. "crypt=1" tells PAM to use the default MySQL ENCRYPTION() method for hashing passwords and "sqllog=0" tells PAM to log to the system log instead of trying to log access into the database.<pre>#%PAM-1.0
+auth     required    pam_mysql.so   user=MYUSER passwd=MYPASS
+        db=authentication table=users usercolumn=login crypt=1 sqllog=0
+account  required    pam_mysql.so   user=MYUSER passwd=MYPASS
+        db=authentication table=users usercolumn=login crypt=1 sqllog=0
+password required    pam_mysql.so   user=MYUSER passwd=MYPASS
+        db=authentication table=users usercolumn=login crypt=1 sqllog=0
+session  required    pam_mysql.so   user=MYUSER passwd=MYPASS
+        db=authentication table=users usercolumn=login crypt=1 sqllog=0</pre> create a mysql db "authentication" and grant all privelages on it to MYUSER with the password MYPASSWORD. <pre>CREATE database authentication;
+GRANT ALL ON authentication.* to 'MYUSER'@localhost IDENTIFIED BY 'MYPASSWORD'; </pre> then run the following SQL commands: <pre>USE authentication;
+CREATE TABLE users (
+  uid int(6) NOT NULL auto_increment,
+  gid int(6) DEFAULT '0' NOT NULL,
+  last_name varchar(80) NOT NULL,
+  first_name varchar(80) NOT NULL,
+  login varchar(16) NOT NULL,
+  date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  password varchar(16) NOT NULL,
+  PRIMARY KEY (uid),
+  KEY uid (uid),
+  UNIQUE uid_2 (uid)
+);</pre> Then run this command as many times as needed to add each of your users to the database. Replace "mylastname, myfirstname, myusername, mypassword"</span> with the appropriate information for each user. <pre> INSERT INTO users VALUES('','','mylastname','myfirstname','myusername',NOW(),ENCRYPT('mypassword'));</pre> Machine accounts also need to be inserted with a username "mymachinename$", but this is where I ran into problems, more on this at the end. This is a password change script to let you easily change passwords for users in the database. I put it in /root/chgpasswd.sh, but you can put it whereever you like.<pre>#!/bin/bash
+#prompts for the name of the user to change the password of
+read -ep "username: " USER
+stty_orig=`stty -g`
+stty -echo
+#prompts for the root password for the mysql database
+read -ep "admin password: " ADMIN
+echo "";
+#prompts for the new password for the user
+read -ep "new password: " PASS
+echo "";
+#prompts to verify the new password for the user
+read -ep "verify: " PASS2
+stty $stty_orig
+
+#if the passwords match, update the password
+if [ $PASS == $PASS2 ]; then
+mysql -uroot -p$ADMIN -e"update authentication.users 
+        set password=ENCRYPT('$PASS') where login='$USER'";
+echo "Success!";
+else 
+   echo "Sorry! Passwords do not match";
+fi </pre>Then set the script to be executable and try it out, if you saved it in the same place as me:<pre>chmod +x /root/chgpasswd.sh
+/root/chgpasswd.sh</pre>
+<a name="testing"><h2>Making sure it all works</h2></a>
+Start up Samba on your machine and give it a try.  It should start up successfully and you should be able to browse the serivce. The more common ways to start a service are: <pre>/etc/init.d/smb start</pre> or: <pre>/etc/init.d/samba start</pre> But if neither of these work for you, consult your operating system documentation for instructions.
+To see if its working, try out: <pre>smbclient -L localhost -U <span class="placeholder">myusername</span></pre> (replace myusername with a user that has permissions to access the Samba shares and type in the password when prompted). This should list the shares available on the local machine.
+<a name="clients"><h2>Configure your Windows XP Machines to join the domain</h2></a>
+On your Windows machine, make the following changes to your registry and reboot:<pre>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters]
+"requiresignorseal"=dword:00000000
+"signsecurechannel"=dword:00000000</pre> Reboot the windows machine, Log in as "Administrator" and join the domain as using root as the username and your root password. Reboot again, and log on to the domain with any other username and password that you added to your database.
+<a name="problems"><h2>Problems</h2></a>
+Using the local authentication files, everything works properly and machines are able to join the domain. When using mysql, I think the problem is that Samba isn't reading the machine accounts from mysql. When trying to use mysql, windows clients say "Account not authorized to log in from this station" when trying to browse the Domain or access a share.
+<a name="resources"><h2>Resources Used</h2></a>
+<ul>
+<li><span class="doctitle">Samba authentication through PAM with MySQL</span> -
+        <a href="http://www.freebsddiary.org/samba-pam.php">http://www.freebsddiary.org/samba-pam.php</a></li>
+<li><span class="doctitle">Samba config file man page</span> - <span class="command">man smb.conf</span></li>
+<li><span class="doctitle">How to Configure Samba 2.2 as a Primary Domain Controller</span> -
+        <a href="http://us1.samba.org/samba/ftp/docs/htmldocs/Samba-PDC-HOWTO.html">http://us1.samba.org/samba/ftp/docs/htmldocs/Samba-PDC-HOWTO.html</a></li>
+</ul>

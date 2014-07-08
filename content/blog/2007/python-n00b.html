@@ -1,0 +1,33 @@
+---
+title: Python n00b
+created_at: 2007-05-22 00:02:53 -0400
+kind: article
+---
+Working at Google, I've had to start using Python. It's their scripting language of choice and even though all of my scripting experience is in Bash, Perl, and PHP, too bad!  Using a new language isn't too bad because languages are just languages and once you know a couple you know them all, and Python isn't really any exception. I've had to search around for the basics like string operators, objects, and so on, but it's not to bad. I've probably written about 500 lines so far and things are doing what they are supposed to do.  However, today I ran into something that stumped me for a while.
+
+My current project had me making a tree like data structure (below is an example of something similar).  Think boxes containing some number of smaller boxes which contained some number of smaller boxes, etc, which finally contain some number of tiny items in the smallest box.  I set up all the classes to do this as well as methods to build test ones of arbitrary size and run some algorithms on it, but something weird was going on. 
+
+<pre>class Box:
+  items = []
+
+a = Box()
+for b_label in range(2):
+  b = Box()
+  a.items.append(b)
+  for c_label in range(2):
+    c = Box()
+    b.items.append(c)
+    for d_label in range(2):
+      d = Box()
+      c.items.append(d)
+
+for each in a.items:
+  print '%s' % each</pre>
+
+I expected this to print out the addresses of the two boxes in box a, however, it prints a list of all 14 boxes. (further exploring the data structure created shows me that each of the boxes at each level of the tree has each other box in it, totaling 2744 boxes at the inner most level. Uhm... there should only be 14 boxes!  I tried all kinds of things, using a dictionary instead of an array for items, using __new__ and __init__ constructor code in the object, including a random string in the name of each object, including a random number in the constructor of the object that it stored to guarantee uniqueness, etc.  But nothing worked!  After spending too much time on this, I asked my Host (Google's word for the person interns work for) and she said it looked fine but to ask someone that knew Python better. Voila! The solution was so simple it would have been almost impossible to find searching for it.  My usage of items was as a class variable. Even though it was inside the class, it acted as a singleton variable across all instances of the box object and was thus shared in each box. Every time anything was added to any box, it was added to all boxes instead of just it's parent box. The solution: declare the items variable in the constructor instead of the class so it would be scoped to the instance of the object:
+
+<pre>class Box:
+  def __init__(self):
+    self._items = []</pre>
+
+Problem solved!  So if you're new to python and playing with things, make sure you scope everything properly! According to the guy that helped me out, he's pretty solid at python and still makes this mistake every now and then and it's very hard to track down.

@@ -1,0 +1,79 @@
+---
+title: OpenVZ, VLANs, Bridges, and Bonding
+created_at: 2010-04-27 15:53:03 -0400
+kind: article
+---
+At <a href="http://www.sugarcrm.com/crm/">SugarCRM</a> we use <a href="http://wiki.openvz.org/Main_Page">OpenVZ</a> on some beefy boxes to host a number of containers that take care of some things that we don't want to dedicate hardware to.  An article I wrote in 2008 describes our <a href="http://ckdake.com/content/2008/vlans-in-openvz.html">OpenVZ VLANd network setup</a>.
+
+I recently provisioned a new OpenVZ server but it seemed to be possessed by some sort of evil spirit because networking just wouldn't work quite right on the containers hosted on it all the time.  Most of the time things would be fine, but occasionally things would just stop working.  I re-imaged the physical server several times which didn't help at all. Today, we used up capacity on all the other OpenVZ servers and needed this one, so I set out to expunge the demons.  I set up a test vm and conveniently, networking was completely broken on it, so I set out to work.
+
+Up first were the basics:
+<ul>
+<li>the bridge, vzbr256 was up and running and tcpdump showed traffic in it</li>
+<li>the interface on the host, bond0.256 was up and running and tcpdump showed traffic in it</li>
+<li>the parent interface for the container, veth137.0, was up and running and tcpdump showed traffic</li>
+<li>iptables configuration vm2 was identical to all other OpenVZ servers</li>
+</ul>
+
+When vzbr256 was in discovery mode and passing all traffic,  veth137.0 could see traffic between other systems on it's subnet. Once the bridge figured out the topology and switched to forwarding mode, the only traffic goign to veth137.0 was the arp requests from the container side with no arp replies coming from the bridge. This was very strange because the bridge was still receiving the arp traffic and they weren't tagged with vlans or anything funky. Full packet dumps of the arp replies on vm2 showed that they were functionally identical to the ones on the other OpenVZ servers.
+
+Basically the container was asking "where can I find my gateway?" and the gateway was responding with a MAC address. This reply made it all the way back to the bridge, but not back to the container for some reason. If I pinged the container from some other system on the vlan, the container would see that arp request and send a response, and all traffic would start to flow normally.  
+
+This sounded a little similar to this <a href="http://forum.openvz.org/index.php?t=msg&goto=8201&">Problem with bonding, vlan, bridge, veth</a> but the patch that fixes this was already applied to the Linux kernel that we're running.  From this thread on <a href="http://forum.openvz.org/index.php?t=msg&goto=27608&">Complex routing and bridging with OpenVZ</a> it looked like some sysctl changes might be useful:
+
+<pre>
+echo 0 > /proc/sys/net/bridge/bridge-nf-call-arptables
+echo 0 > /proc/sys/net/bridge/bridge-nf-call-iptables
+echo 0 > /proc/sys/net/bridge/bridge-nf-filter-vlan-tagged
+</pre>
+
+A wiki article "<a href="http://wiki.openvz.org/Bridge_doesn't_forward_packets">Bridge doesn't forward packets</a>" suggested that this might help, and changing 'bridge-nf-filter-vlan-tagged' from 1 to 0 seemed to let that first arp packet through, but resetting everything with that set to 0 from system boot led to the same symptoms and toggling it (and the others) around in different settings didn't help.  Perhaps the first toggle was timed just right so it let through that one arp packet.
+
+I compared the configuration of bond0/eth0/eth1 on vm2 with other vm servers and noticed that the MAC addresses of all 3 were the same. On other vm servers, bon0 and eth0 were the same but eth1 was different. Perhaps this was the cause!  Our provisioning system using <a href="https://fedorahosted.org/cobbler/">Cobbler </a> continues to evolve and perhaps something changed.  I removed the MAC lines from /etc/sysconfig/conf.d/net.* files so that they now look like:
+
+<pre>
+#eth0
+DEVICE=eth0
+ONBOOT=yes
+SLAVE=yes
+MASTER=bond0
+HOTPLUG=no
+BOOTPROTO=none
+
+#eth1
+DEVICE=eth1
+ONBOOT=yes
+SLAVE=yes
+MASTER=bond0
+HOTPLUG=no
+BOOTPROTO=none
+
+#bond0
+DEVICE=bond0
+ONBOOT=yes
+BOOTPROTO=none
+USERCTL=no
+MODE=trunk
+</pre>
+
+and reset everything, but the mac addresses still showed up as the same.  Given all the information above, and that others were having problems combing bonding ("port channeling") with vlans with bridging, I decided to investigate how our bonding interfaces were set up.  vm2's interfaces on the switch were still set to 'spanning-tree portfast' for some reason so I disabled that which had no effect.  Digging a little deeper, the options that the bonding module was loaded into the kernel with in /etc/modprobe.conf were the culprit:
+
+<pre>
+alias bond0 bonding
+options bond0 mode=1
+</pre>
+
+vm2 was using mode 1 bonding (balance-rr) which does simple round-robin load balancing instead of mode 5 (balance-tlb) which does adaptive transmit load balancing.  I changed this on vm2 to:
+
+<pre>
+alias bond0 bonding
+options bond0 miimon=80 mode=5
+</pre>
+
+and rebooted.  Problem solved!
+
+I can't be sure of the exact root cause here without understand a bit more about kernel level networking than I do, but it seems that linux bridging doesn't know what to do with arp reply packets that arrive in a vlan on a bonding interface via a physical interface other than the one the arp request was sent from.  In mode 1 bonding,  both physical interfaces get the same MAC address so there is no way to ensure that replies will come in on the same interface they are sent on, but with mode 5 bonding, each card uses its own MAC and replies always come to the same physical interface that the request was sent from.
+
+After fixing this, I updated the provisioning system to configure all new systems with mode 5 bonding, and will be updating all existing systems to use mode 5 bonding the next time they reboot. Thankfully, our longest running system (at 1057 days and counting, last rebooted in mid 2007 before I was hired!) was set up manually before the provisioning system existed and was already using mode 5. 
+
+Long story short, if you're having networking problems with OpenVZ on top of a VLAN+bonding infrastructure, check out your bonding mode first and pick one that allows distinct MAC addresses for each physical interface and meets whatever needs you have for using bonding in the first place. 

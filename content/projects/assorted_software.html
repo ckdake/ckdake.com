@@ -1,0 +1,25 @@
+---
+title: Assorted Software
+created_at: 2006-09-25 20:01:18 -0400
+kind: article
+---
+<h2>Summary</h2>
+<p>I've written a good bit of software: things for school such as compilers, network protocols, games, applications, etc; things for fun like PHP/HTML/CSS/JS for web sites that talk to mysql and generate dynamic content.  Then there is all the bash scripts and configuration files that make my servers run, communicating with mysql to dynamically configure postfix and apache and pay attention to logs among other things. There is way too much code to ever put in one place, or ever really even find for that matter, but I'll try to put up some of the neat things here. Everything is provided under the GPL unless otherwise specified. Please let me know if you find something here useful or make any changes! A small subset of things that may be useful to others are over at <a href="http://github.com/ckdake" rel="me">my github account</a>.</p>
+<h2>IMStat</h2>
+<p>IMStat is a statistics package for Instant Messenger log files. Currently it supports Adium2 and Gaim log formats and it generates statistics in a text file or as a png image.  The requirements to run IMStat are simply having perl, and if you want the png output you will need the GD::Graph module installed.<br /> Example that was generated in 2007:<br /> <img src="/files/ckdake.png" /><br />
+<a href="/files/imstat.pl">imstat.pl</a> is available as is. Please let me know if you use it or find it useful. Any changes or suggestions are welcome, but I likely won't be implementing requested features. To learn some python, I started over and wrote <a href="/portfolio/software/imusage.html">imusage</a>.</p>
+<h2>pam_password_limit</h2>
+<p>Written as a project for work, this is a module for pam to perform complexity checks on a password before allowing the user to change it.  This module is highly configurable and customizable: all limits are specified in one of the /etc/pam.d/* files and instructions provided for adding new capabilities are included and very straightforward. Code is proprietary.</p>
+<h2>adreset</h2>
+<p>Written as a project for work, this is a Windows Server 2003 daemon to manage password resets from other applications. It uses .NET Remoting to allow trusted applications to reset passwords on a Domain Controller without having administrative access to the domain. Code is proprietary.</p>
+<h2>Useful Shell Scripts</h2>
+<ul>
+<li><a href="/files/apple2moz.sh.txt">apple2moz.sh</a> - Convert from Apple Mail to Mozilla Thundirbird folder structures.</li>
+<li><a href="/files/dudir.sh.txt">dudir.sh</a> - List the total sizes of each directory inside another directory in linux.</li>
+<li><a href="/files/getsubnet.sh.txt">getsubnet.sh</a> - Gives access to the local ip, subnet mask, and CIDR notation of the machine for other scripts to use.</li>
+</ul>
+<h2>Games</h2>
+<ul>
+<li><a href="/files/trailblazer.jar">TrailBlazer</a>(5.1M) - Java version of Oregon Trail written as part of a group project for CS2335 in 2003. Me, Chris Sidi, Jason Fletcher, and Benjamin Donahue</li>
+<li><a href="/files/SpaceInvaders.jar">Space Invaders</a>(44K) - Java version of Space Invaders written as part of a group project for CS2335 in 2003. Me and Jason Fletcher</li>
+</ul>

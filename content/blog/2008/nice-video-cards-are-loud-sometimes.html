@@ -1,0 +1,36 @@
+---
+title: nice video cards are loud. sometimes.
+created_at: 2008-02-05 17:05:17 -0500
+kind: article
+---
+Last summer while in California I ordered a Dell Precision 390 workstation with a  nVidia QuadroFX 3450because I wanted to be able to run 2 24" monitors on DVI (which is my current work setup at home). It's always been a little loud but I figured I would worry about it when getting back to Atlanta. School was busy and I never got around to it, but a few weeks ago when all was quiet in my new house, I could hear the frigging thing running.  I tinkered with things and turns out the culprit was the fan on the video card. Lame!
+
+I tried changing versions of the nvidia-drivers I'm using in Linux because there was some bug with a newer version that pegs the fanspeed on the card to 100%, but nothing helped.  Then I stumbled across <a href="http://www.linuxhardware.org/nvclock/">nvclock</a>. Trying to set my fanspeed to auto resulted in "Error: This card doesn't support automatic fanspeed adjustments." Doh!  It ran much quieter at 20% fan speed, but I didn't want to damage my video card if I was using it heavily for something.  Enter a little bash scripting and problem is solved. Cron runs the following script every minute and adjusts the fan speed to keep the temperature below a certain threshold. It's not perfect, but I think it's good enough and it sure beats the fan running at 50% all the time!
+
+With this, my fan speed bounces between 20 and 30 with a target temp of 57C which seems about right? I think I could run it a few degrees hotter with no problem but couldn't find any documentation on the card limits.
+
+<pre>
+#!/bin/bash
+
+target=57
+minspeed=19
+
+temp=`nvclock -i | grep "GPU temp" | cut -d':' -f2`
+temp=${temp/C/ }
+
+fanspeed=`nvclock -i | grep "Fanspeed" | cut -d':' -f2`
+fanspeed=${fanspeed/\%/ }
+fanspeed=`echo $fanspeed | sed -n 's/^\(..\).*/\1/p'`
+
+if [ $temp -gt $target ]; then
+        if [ $fanspeed -lt 91 ]; then
+                nvclock -f -F +10 > /dev/null
+        fi
+elif [ $temp -lt $target ]; then
+        if [ $fanspeed -gt $minspeed ]; then
+                nvclock -f -F -10 > /dev/null
+        fi
+fi
+</pre>
+
+Note: As of time of writing, you will need to get a snapshot of nvclock other than the latest release for it to work with these flags and this video card.  If you're using Gentoo, this means using ~x86.

@@ -1,0 +1,18 @@
+---
+title: Growing a Software RAID Array in Linux
+created_at: 2009-07-06 12:08:24 -0400
+kind: article
+---
+<p>I've been burned too many times by hardware failures, so I keep all of my data on a pair of hard drives in my desktop mirrored with RAID-1. (Note that I'm not relying on this for backup, I have backups onsite and off, but it takes a long time to restore 100s of GB of data. This mirror is to prevent downtime when hard drives fail.)  I started off with 2 300G drives several years ago, and set up a new mirror around 3 years ago with 2 750G drives, but the photos I take and videos I record add up pretty quickly. It was almost time to scale up some more when I stumbled across a great deal online and got 2 1.5T drives for about $160.  Sunday, I finally got around to migrating things over and instead of building a new array and copying everything over, I tried something a little different that worked pretty well.</p>
+
+<ol>
+<li>Shut down the machine and pull out one of the 750G drives and replace it with a 1.5T drive and turn things back on. Alternatively, if you have the space, you can put all of the drives in a machine to avoid a reboot or two.</li>
+<li>Format the new drive using fdisk and use mdadm to add the new drive to the array. Replace "sdf1" with whatever the name of your new partition is and "md0" with whatever the name of your raid device is.  <pre># mdadm /dev/md0 --add /dev/sdf1</pre> If you have all the drives in the system, you'll need to fail out and remove an existing one first with something like <pre># mdadm /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1</pre></li>
+<li>Run <pre># watch cat /proc/mdstat</pre> so you can see when the array is finished rebuilding. (this took ~4 hours on my machine)</li>
+<li>Repeat the same process, replacing the other 750G with the other 1.5T drive</li>
+<li>Once both 1.5T drives are in the array and it's completely rebuilt (another 4 hours), it will still show up as a 750G RAID-1.  Next, bump up the size of the array to the max size of the drives with: <pre># mdadm --grow /dev/md0 --size=max</pre></li>
+<li>Again, run <pre># watch cat /proc/mdstat</pre> until the array is finished growing. (another 4 hours)</li>
+<li>Finally, it's time to resize the filesystem. This may be different if you're using an old version of Linux or a filesystem other than ext3, but on ext3 it's very straightforward and the filesystem can actually be resized while it is mounted and in use: <pre># resize2fs -p /dev/md0</pre>  That will grow the filesystem to fill the whole array and when this finishes in about 15 minutes you'll have a shiny new RAID-1 with a lot more space: <pre># df -h /dev/md0
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/md0              1.4T  607G  699G  47% /mnt/storage</pre></li>
+</ol>

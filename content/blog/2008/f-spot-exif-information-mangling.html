@@ -1,0 +1,39 @@
+---
+title: F-Spot EXIF information mangling
+created_at: 2008-05-13 10:56:34 -0400
+kind: article
+---
+I use <a href="http://f-spot.org/Main_Page">F-Spot</a> to manage my photographs. It's fast, clean, simple, and does everything in my current workflow which is JPG on camera -> YYYY/MM/DD folders -> Gallery on my website.  Once I start shooting RAW it will get a little more complicated, but F-Spot keeps moving forward so hopefully they'll come up with a plan for that. 
+
+When uploading images to Gallery, I noticed that my photo timestamps were off. Conveniently, there was a discussion about this on the F-Spot mailing list at the same time and it turns out that every time you import an image in F-Spot, it adjusts the EXIF Timestamp information based on your timezone. Basically, if you're 5 hours away from GMT, on import F-Spot writes to the file that the image was taken 5 hours later than it actually was.  Not only does it do this once, but if you re-import images into F-Spot for whatever reason it does this again, again, and again.  
+
+This was a bit of a surprise because EXIF information written by the camera shouldn't be changed by an import program!  I thought I'd lost all the actual capture date/times of my ~30,000 photos, and was getting pretty upset that software would do this, but after digging through EXIF headers from all the cameras I've had, it turns out that the "DateTimeOriginal" was still good!  I disabled F-Spots ability to write metadata to files (which means I'll have to stop tagging images until this is all resolved upstream) and wrote a little script to fix my files. If you've run into this and would like your original EXIF information back so that photos taken on New Years Eve as the year ticks over aren't at some hour after sunrise on Jan 1st, use this! Just replace $directory with the path to your photo library, store it to a file named "fixer.pl" and run "perl fixer.pl". Note that you'll need find and jhead installed.
+
+EDIT: Note! I looked at this again with my 40D and new version of f-spot. It seems that now the correct EXIF header is "DateTimeDigitized" and _NOT_ "DateTimeOriginal".  Please verify things on your setup before running this random script you found on the internet!
+
+<pre style="margin:15px;">
+#!/usr/bin/perl -w 
+
+use strict;
+
+my $directory = "/media/photos/";
+
+my %opts;
+my @files;
+
+@files = `find $directory -type f -iregex \'.*\\.\\(jpg\\|jpeg\\)\'`;
+
+foreach my $file (@files) {
+        chomp $file;
+        my $dateline = `jhead -v "$file" | grep DateTimeOriginal`;
+        if (defined($dateline)) {
+                $dateline =~ /.*\"(.*)\".*/;
+                my $date = $1;
+                if (defined($date)) {
+                        $date =~ s/ /-/g;
+                        system("jhead -ts$date \"$file\"");
+                        system("jhead -ft \"$file\"");
+                }
+        }
+}
+</pre>

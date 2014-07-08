@@ -1,0 +1,91 @@
+---
+title: CS8803DA - Shortest Path
+created_at: 2006-11-09 13:13:56 -0500
+kind: article
+---
+<a href="http://www.dis.uniroma1.it/~challenge9/">http://www.dis.uniroma1.it/~challenge9/</a>
+
+<h2>The Assignment</h2>
+The inputs to this problem are three data files in "challenge9" format as specified in the website listed above.  The files are:<ul>
+<li>USA-road-d.USA.gr - a list of arcs and their weights connecting points in the graph</li>
+<li>USA-road-d.USA.co - a list of points on the graphs with latitude and longitude for each point</li>
+<li>USA-road-d.USA.p2p - a list of pairs of points to find paths between</li>
+</ul>
+Our assignment was to implement a tool to process the graph to find the length of the shortest path between all pairs of paths in the p2p file. A reference implementation was given on the challenge9 website, but we chose to start from scratch with some preprocessing to compute adjacency lists and XY coordinates for weights and then use these as inputs to the <a href="http://en.wikipedia.org/wiki/A*">A* algorithm</a> with the XY coordinates as the constraint. I was responsible for precomputation and parsing the data into C structures, while Jason was responsible for implementing A*.
+
+For running the code, I acquired access to a machine in the PACE cluster in OIT at Georgia Tech. We got to use pace7.pace.gatech.edu which is a Quad Dual Core AMD Opteron 880 @ 2GHz with 16GB of RAM. Software used included perl (v5.8.5 built for x86_64-linux-thread-multi) and C.
+
+<h2>Precomputation</h2>
+
+All precomputation was done by me and written in perl.
+
+<h3>Stage 1</h3>
+Stage 1 consisted of loading in all of the arcs, sorting them by source, outputting a file, and sorting them by destination and outputting a file. The most computationally expensive part of this was sorting the data, but it wasn't unreasonably expensive. The most recent versions of perl (5.8 and newer) use mergesort and some time has been spent making them effective. The built in mergesort algorithm is not multithreaded, but the extra few minutes of computation time did not warrant writing a parallel sort to take full advantage of the hardware we were using. (This is only precomputation after all). Initially, all of the arcs did not fit in to memory but by interpreting the arcs as bidirectional and only reading every other line of the arc file, the entire list of arcs was able to fit into less than 16gb of RAM.
+ 
+
+in: USA-road-d.USA.gr (1.3G,58333351 lines, 29166672 arcs)
+out: stage1-sorted-source, stage1-sorted-target
+
+(used ~15GB of ram)
+
+runtime:
+real    11m11.285s
+user    10m43.142s
+sys     0m22.198s
+
+<h3>Stage 2</h3>
+Stage 2 is essentially just file IO. The sorted arc lists were merged preserving order. File IO was the expensive part of the operation. Hardly any RAM was used.
+
+in: stage1-sorted-source, stage1-sorted-target (both 606M, 29166672 lines)
+out: stage2-mergedarcs
+
+runtime:
+real    6m23.989s
+user    6m16.090s
+sys     0m4.441s
+
+<h3>Stage 3</h3>
+Stage 3 was the most complex stage of preprocessing aside from sorting. It goes through the list of arcs and turns it into a list of nodes with a list of adjacent arcs and their weights, avoiding duplicates. Initially, I was creating an array each time a line was read in to check if it was in the existing set for the current node, but this repetitive memory allocation turned out to be very expensive and this stage was projected to take 14 hours to complete. I changed the way of checking what was in the list to not require memory allocation, and it finished much more quickly.
+
+in: stage2-mergedarcs (1.2G, 58244094 lines)
+out: stage3-condensedlist
+
+runtime:
+
+real    8m42.798s
+user    8m37.986s
+sys     0m3.814s
+
+<h3>Stage 4</h3>
+Stage 4 simpley merged the adjacency list file with the node file and converted positions from latitude and longitude to X and Y coordinates in meters. The output of this file is the final file which is later read in to the processing program.
+
+in: stage3-condensedlist (1.2G, 23947346 lines), USA-road-d.USA.co (681M, 23947354 lines)
+out: USA-road-d.USA.wn (2G, 23947347 lines)
+
+runtime:
+real    6m2.933s
+user    5m56.008s
+sys     0m5.840
+
+<h2>Computation</h2>
+
+I was responsible for implementing the loading code, while Jason was responsible for the searching code. All of this code was written in C.
+
+<h3>Loading</h3>
+First, the processor loads in the .wn file generated above into C structs (node**). Then, it loads in the .p2p file of queries to run into C structs (queries**). For each query, the node** is converted into an arry of nodes indexed by the node id (all as a node*) as this allowed for faster searching. (Looking at a specific place in an array is much faster than searching through it, and this array has millions of elements). Once loaded, this took up a little over 2GB of RAM.
+
+<h3>Searching</h3>
+A* was implemented using data from both the graph and coordinate data sets. Nodes were stored in data structures containing their x/y coordinates as well as a list of adjacent nodes.  The weights of the arcs were stored in a separate data structure which was referenced when necessary.
+
+The A* algorithm uses two different measures to determine a node's place in the queue.  First is the total distance traveled to reach that node, known by summing the distance of the arcs traveled already.  The second is a heuristic function which approximates this node's distance to the goal.  The linear distance on a plane was chosen for two reasons.  The first is simplicity.  The second is that given the relatively small distance between nodes computing the distance via a planar projection as opposed to spherical distance will not cause a significant error.  Because the weights were stored as distance and the x/y coordinates stored as longitude and latitude the coordinates needed to be translated via preprocessing.  They were projected onto a plane centering on the Prime Meridian.
+
+<h2>Performance Considerations aka Lessons Learned</h2>
+<ul>
+<li>Memory allocation takes time. It is better to allocate large chunks and reuse them (making sure to bzero them so that we don't accidentally use any old data). This led to a speed up in stage3 by several orders of magnitude and sped up the loading code in C by several orders of magnitude.</li>
+<li>Sometimes its cheaper to load in data and then reformat it. The C loading code creats an array of pointers to node structs and then converts it into an array of structs for processing which was more effective than continually reallocating a large piece of memory.</li>
+<li>FileIO could be slower: it is fine to use line by line file parsing when it means loading less into memory. This is why there are 4 stages of preprocessing because fitting the entire problem in memory would require more RAM than we had available.</li>
+<li>Problems can be simplified to use less memory. Given that the graph was bidirectional, we didn't need to preserve the directionality of edges when reading in the files as long as the final file for input to the processer had complete adjacency lists.  This let stage1 fit in half the ram it could have because we threw away duplicate arcs at this stage of processing.</li>
+</ul>
+
+<h2>Conclusions</h2>
+While our final code couldn't successfully find a path in the full graph of the United States road system, it seemd to work quickly and effectively for graphs of individual states.  We did not have time to figure out exactally the reason for this is, other than the graph of the entire US is just huge! We both rewrote code several times after finding that slight missteps (like memory allocation on every iteration of a loop) could cause massive consequences on a large scale even though they seemed to work fine on test graphs, and overall feel that we got a lot out of doing this project.

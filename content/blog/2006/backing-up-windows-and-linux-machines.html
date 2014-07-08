@@ -1,0 +1,127 @@
+---
+title: Backing up Windows and Linux Machines
+created_at: 2006-09-25 19:53:14 -0400
+kind: article
+---
+<div class="item">
+Preparation
+<ul>
+        <li>Install Cygwin on a Windows 2003 Domain Controller (<a href="http://www.gaztronics.net/rsync.php">http://www.gaztronics.net/rsync.php</a>) or use windows backup (<a href="http://www.ilopia.com/Articles/WindowsServer2003/Backup.aspx">http://www.ilopia.com/Articles/WindowsServer2003/Backup.aspx</a>)</li>
+        <li>Setup rsyncd on a Linux box with Samba running</li>
+        <li>Utilize an external hard drive on the Linux box and a network
+                storage device for storing backups.</li>
+</ul>
+The backup
+<ul>
+        <li>The win2k3 machine uses rsync or backup via Samba to copy its
+                docs to the external hard drive on the linux box</li>
+        <li>The Windows client machines run a batch file when they
+                log in that copys their files to a backup share (the
+                external hard drive) in Samba on the Linux box.</li>
+        <li>The Linux box uses rsync locally to back itself up to
+                the external hard drive.</li>
+        <li>Lastly, the Linux machine uses rsync locally to copy from
+                the external hard drive to the network storage device
+                mounted locally as a file system.</li>
+</ul>
+What to backup
+<ul>
+        <li>Ideally everything to get all of the machines up and running
+                after a total failure.</li>
+        <li>All documents from the network storage device, documents from
+                users machines, and documents from shares on the win3k server</li>
+        <li>All settings and conf files needed to restore the machines to
+                current working order after a full system reinstall</li>
+</ul>
+Misc. Links
+<ul>
+        <li><a href="http://www.linux-backup.net/">http://www.linux-backup.net/</a></li>
+        <li><a href="http://techrepublic.com.com/5100-6261-1055900.html">http://techrepublic.com.com/5100-6261-1055900.html</a></li>
+</ul>
+</div>
+
+<h2>Configuring the Linux backup server</h2>
+<div class="item">
+<p>The Linux backup server will handle the backups of the entire network. All
+                other machines will back up their files to this one, and it will
+                take care of ensuring that there are multiple copies of their
+                files.  This server will also be responsible for backing up itself
+                as well as a network attached storage (NAS) device.</p>
+        <h3>Choose storage locations</h3>
+        <p>This server will have a local filesystem dedicated to receiving
+                backups from other machines, and will pass these backups on to
+                the NAS as well as an external hard drive. The contents of the
+                NAS will also be copied to the external hard drive.</p>
+        <h3>Choose type of backup</h3>
+        <p>This backups run on this machine will be complete backups.  No incremental
+                backups will be used because the majority of the files being backed
+                up will be system images, and a snapshot of the files on the file server
+                as well as an image of this machine.</p>
+        <h3>Choose frequency of backup</h3>
+        <p>The documents on the file server will be backed up every night, all other
+                backup operations will be once a week. Depending on need, backups may
+                be done more often in the future using more storage devices. 7 days of daily
+                backups will be stored on the backup server, and 3 weeks of weekly backups
+                will be maintained on the NAS.</p>
+        <h3>Set up the file system and backup scripts</h3>
+        <p>Several mount points will need to be created to work with all of the backup tasks</p>
+        <ul>
+                <li>/mnt/backups/ - folder for all backup related mount points</li>
+                <li>/mnt/backups/clients/ - mountpoint for clients to write to, contains
+                        a folder for the hostname of each machine</li>
+                <li>/mnt/backups/nas/ - root share on the NAS device, used to copy those
+                        documents locally, as well as to copy backups of other machines
+                        to it.</li>
+                <li>/mnt/backups/external/ - external hard drive (if more are used later,
+                        there will be shares "external1", "external2", etc)</li>
+        </ul>
+        <p>In addition to the mount points, several scripts are needed that will be run at the
+                intervals mentioned above. All backups will have their format as:
+                YYYYMMDDHH_[daily|weekly]_systemname</p>
+        <ul>
+                <li>backup_machine.sh - backs up this server machine to /mnt/backups/clients/backupserver/
+                        once a week, deletes backups that are over 3 weeks old.</li>
+                <li>nightly_backup.sh - backs up the documents on the NAS (except the backup folder)
+                        to /mnt/backups/clients/nas/ once every night. deletes any backups that are
+                        older than 7 days. Also copies all backups to /mnt/backups/external/</li>
+                <li>weekly_backup.sh - backs up everything in /mnt/backups/clients/ to /mnt/backups/nas/
+                        once a week, deleting backups that are over 3 weeks old.</li>
+        </ul>
+        <h3>Install and configure Samba to talk to Windows machines</h3>
+        <p>the /mnt/backups/clients/ folder will be shared for Windows machines to write to when they
+                perform a backup.</p>
+        <h3>Install and configure Rsync to talk to Linux machines</h3>
+        <p>the /mnt/backups/clients/ folder will be shared for Linux machines to write to when they
+                perform a backup.</p>
+</div>
+<h2>Backing up Linux machines</h2>
+<div class="item">
+Linux machines will use Rsync to copy any files they need to be backed up to the backup server. This can
+be just documents, just config files, or a full system image. Everything should be copied to a folder on
+the backup share on the server with the format machinename/YYYYMMDDHH_[daily|weekly]_machinename/
+Clients don't need to worry about making sure old backups are erased. Documents should be backed up daily,
+and system configuration and recovery information should be backed up once a week.
+</div>
+<h2>Backing up the Windows Domain Controller</h2>
+<div class="item">
+The domain controller shouldn't be storing anything that changes very often. A full system restore image
+should be copied to the backup server once a week using Windows Backup.
+</div>
+<h2>Backing up Windows machines</h2>
+<div class="item">
+Windows machines should store a full system restore image on the backup server once a week using Windows
+Backup, and should store users documents folders once a day.
+</div>
+<h2>Restoring Linux machines</h2>
+<div class="item">
+re-install linux, overwrite config files after the install with the ones on the server
+</div>
+<h2>Restoring the Windows Domain Controller</h2>
+<div class="item">
+Use windows backup to restore the image.
+</div>
+<h2>Restoring Windows machines</h2>
+<div class="item">
+Use windows backup to restore the image after a totaly system failure, otherwise, just access the share
+on the NAS to recover individual files.
+</div>

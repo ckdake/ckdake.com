@@ -1,0 +1,449 @@
+---
+title: FM Race Tracker
+created_at: 2007-09-13 11:27:29 -0400
+kind: article
+---
+<h1>
+  FM.24.07 Lap Tracking System
+</h1>
+<h2>
+  Faster Mustache and FM.24.07
+</h2>
+Faster Mustache is a progressive organization made up of a diverse group of Atlanta residents with one thing in common: riding bicycles. We believe in the power of cyclists to change our communities and our world through ongoing discussion, entertaining events, and positive action. Online and on the road, at work or at play, we challenge everyone to use a bike. It doesn't matter what
+type: fixed, free, geared, single, cruiser, chopper, racer, or clunker. No two
+bikes are the same and certainly no two riders are the same, but in the
+auto-centric city of Atlanta, we have fun sticking together. Simply put, we
+invite everyone to bike everywhere with us.<br/>
+<br/>
+FM.24.07 is a 24 hour relay through the streets of Atlanta. Teams of 4-6 riders
+passed the baton through grueling traffic, up insane hills, and through dark
+alleys to complete laps for prizes. Faster Mustache, in conjunction with
+Johnny's Pizza and a host of sponsors, offered the most exciting weekend of
+urban cycling of the year and the chance to be crowned the king or queen of the
+streets! This was the third year that Faster Mustache has organized a 24 hour
+race and certainly won't be the last.<br/>
+<h2>
+  Why build a tracking system?
+</h2>
+A 24 hour urban race is something out of the ordinary: 200+ people competing, a
+14+ mile course through city streets, and 24 hours of racing!&nbsp; This meant
+that some rider would pass any spot on the course once every few minutes for an
+entire day. Staffing checkpoints requires getting people to and from them and
+hopefully placing them where the volunteer has access to a bathroom and won't
+likely be bothered or distracted in any way. In the woods this isn't much of a
+problem (the woods is a bathroom, there are no people in the woods), but in the
+city it is a different beast.&nbsp; Additionally, in a mountain bike race, there
+is typically one trail and no easy way to take shortcuts so simply checking
+riders at one or two places on the course works to make sure everyone is doing a
+full lap, but in the city it can be a bit more difficult.&nbsp; We chose to go
+with 4 checkpoints and a suggested route between them. Knowing that some people
+would try to make a faster route given the number of options, we tried to make
+the suggested route the best that we could and simply required that people visit
+the checkpoints in order. The in order criteria was to keep things in the spirit
+of the race with the first part being fairly easy and the last part being the
+hardest part, with the middle segment requiring dealing with crowded and busy
+parts of Atlanta.&nbsp; Because we required the checkpoints to be in order, we
+somehow needed to track this.<br/>
+<h3>
+  2005
+</h3>
+In 2005,&nbsp; the first year of FM.24,&nbsp; we discussed many options but
+settled on a fairly unique tracking scheme. Around the course, unmarked
+newspaper boxes were distributed and locked. Each team was given a key that
+unlocked the boxes, and inside the boxes there were different colored spools of
+carnival tickets.&nbsp; To complete a lap, a team had to visit each box and get
+one ticket.&nbsp; At the end of their lap, the team name, rider name, and the
+unique number on each ticket was entered into a spreadsheet. In theory, we could
+make sure that tickets were retrieved in order and only once per lap, and that
+any inconsistencies could be worked out by hand after the race, but this had a
+few major problems:<br/>
+<ul>
+  <li>
+    The police didn't like these locked, unmarked, boxes in public areas. At
+    least one was removed by police during the race after neighborhood residents
+    called in a complaint.
+  </li>
+  <li>
+    The spools of tickets got unwound and torn up, leading to confusion as to
+    which ticket to take.
+  </li>
+  <li>
+    People cut themselves on sharp edges of the boxes in the rush to open them.
+  </li>
+  <li>
+    If more than one rider showed up at a box, only one of them had to unlock
+    it, giving the person behind them an advantage.<br/>
+  </li>
+  <li>
+    The tracking table at the main checkpoint was the bottleneck of the race.
+    There were often lines, and lap times may not have been accurate due to the
+    fact that manual entry of each lap was required.<br/>
+  </li>
+  <li>
+    We didn't verify any laps afterwards because of the massive failure of the
+    system. The winners were fairly obvious, and the spreadsheet agreed with us,
+    but it was a mess.<br/>
+  </li>
+</ul>
+<h3>
+  2006
+</h3>
+We learned a lot about tracking a race for our second try and took things into
+consideration.&nbsp; In 2006, we again discussed many options and again settled
+on something pretty unique.&nbsp; Each checkpoint was a very unique hole puncher
+permanently attached to a telephone pole at a major intersection.&nbsp; Teams
+were given numbered cards for each lap that we recorded the number and color of,
+and they had to visit each checkpoint and punch a hole in their card. (We gave
+up on the in order requirement this year due to late planning of the tracking
+system.) At the end of a lap, a rider one again turned in their card for manual
+entry into a spreadsheet.&nbsp; This worked a lot better than last year, but had
+it's own, smaller, set of issues:<br/>
+<ul>
+  <li>
+    Stamped numbers on the cards where difficult to read.
+  </li>
+  <li>
+    Some people were very slow using the hole punchers which created a
+    bottleneck at each checkpoint.
+  </li>
+  <li>
+    Once again, lots of time was spent at the final checkpoint typing things in,
+    another major bottleneck.<br/>
+  </li>
+  <li>
+    Due to the way the spreadsheet was structured (and the fact that we had
+    serious solo racers), man lap times were inaccurately recorded. (They were
+    the time duration from the end of the last lap to the end of the lap that
+    just finished.)<br/>
+  </li>
+</ul>
+<h3>
+  We wanted to do 2007 right!
+</h3>
+2005 and 2006 worked out fine, but there were a few trends of problems that we
+wanted to work around for the system for 2007:<br/>
+<ul>
+  <li>
+    Riders don't have to wait in line to get their time recorded at the final
+    checkpoint.
+  </li>
+  <li>
+    Checkpoints have to be very easy and very fast.
+  </li>
+  <li>
+    Lap verification (visiting checkpoints in order) should be possible.<br/>
+  </li>
+  <li>
+    Spreadsheets and manual entry are bad!
+  </li>
+</ul>
+<br/>
+These gave us a few possible ideas:<br/>
+<ul>
+  <li>
+    Build something based on the previous 2 systems.&nbsp; (Not a good way to do
+    this.)<br/>
+  </li>
+  <li>
+    Use GPS trackers (aka GPS enabled cell phones) for each team and either
+    uplink them in real time, at the end of the race, or after each lap. (Too
+    expensive. We wanted to keep registration fees low.)<br/>
+  </li>
+  <li>
+    Use one of the tracking systems developed for other endurance races. (Tough
+    to get in contact with people, based on proprietary closed-source systems,
+    and usually cost prohibitive.)<br/>
+  </li>
+  <li>
+    Have less checkpoints and station a person at each one of them. (Still a
+    human bottleneck, and more logistics than we wanted to deal with, plus
+    having a person man a check point for 24 hours is very unrealistic)<br/>
+  </li>
+</ul>
+<br/>
+<h2>
+  The 2007 Solution<br/>
+</h2>
+<p>
+  So for 2007, we decided to go with a home grown RFID based solution. Each team
+  would be given an RFID card which they would need to swipe/tap at each
+  checkpoint.&nbsp; The registration table would have a "start" and "finish"
+  reader so that exact lap times could be appropriately recorded. This would
+  require a network uplink from each checkpoint, as well as software for turning
+  all these swipes into laps (after a lap, telling a race official your team
+  name and name so that the lap could be associated with you, and a verify
+  button), and the details of this follow. This method has a few extra benefits:
+</p>
+<ul>
+  <li>
+    Possibility to track riders in real time online.
+  </li>
+  <li>
+    Ability to provide results the instant the race ends.
+  </li>
+</ul>
+<br/>
+But comes with some very real things that could fail:<br/>
+<ul>
+  <li>
+    RFID software could malfunction.
+  </li>
+  <li>
+    Server side software could malfunction.
+  </li>
+  <li>
+    Administrative software could malfunction.
+  </li>
+  <li>
+    Network connectivity could be unreliable.
+  </li>
+  <li>
+    Possibility of people breaking into the system to alter results.
+  </li>
+</ul>
+<h2>
+  Lap Tracking System Design
+</h2>
+Several components were required for this tracking system work work and each of
+them needed to be easy to use and reliable:<br/>
+<ul>
+  <li>
+    RFID Cards
+  </li>
+  <li>
+    RFID Readers
+  </li>
+  <li>
+    Client software to record swipes
+  </li>
+  <li>
+    Network connectivity for clients
+  </li>
+  <li>
+    Protocol for reporting swipes to the server
+  </li>
+  <li>
+    Server side software for analyzing swipes and creating laps
+  </li>
+  <li>
+    Administrative software for adding teams, riders, and associating them with
+    cards and laps
+  </li>
+  <li>
+    Real-time tracking software for people to view the race (including a cell
+    phone version)
+  </li>
+</ul>
+<h3>
+  RFID and Swipe Reporting<br/>
+</h3>
+None of the race organizers had any experience with RFID so we had to do a bit
+of research on this.&nbsp; After considering varying active and passive
+solutions, as well as different types of cards, we chose a cost effective
+solution.<br/>
+<br/>
+  An open source, off the shelf hardware solution was chosen for two simple
+  reasons: cost and ease of programming of the software interface.&nbsp; The
+  system chosen was the <a href="www.phidgets.com">Phidgets USB RFID kit</a>.&nbsp; The
+  system uses an industry standard <a href="http://www.emmicroelectronic.com/Products.asp?IdProduct=5">EM4102 format</a>. &nbsp; The tags
+  themselves are cheap (less than one US dollar each) and are read only (useful
+  to prevent counterfeiting of tags).&nbsp; Each tag has a unique 40 bit ID
+  (64bit total EEPROM capacity).&nbsp; No external power or signal conversion
+  was needed for the readers as well due to the USB interface.&nbsp; The only
+  drawback to the hardware is the limitation of USB 2.0 cable length (currently
+  5 meters).<br/>
+  <br/>
+  The RFID tag ID capturing software was written using C++ and the hardware
+  driver provided by Phidgets.&nbsp; Each tag is read singularly, multiple tag
+  reads are not supported.&nbsp; The SW interfaces the hardware.&nbsp; When the
+  tag comes with in reading distance the ID is read and written to a data file
+  along with a UNIX timestamp, the checkpoint ID, and a status marker to be used
+  by the batch upload script.&nbsp; The data is written to the file in a colon
+  delineated format to allow for easier processing.&nbsp; The rider receives
+  confirmation of the tag read via an LED lighting up.<br/>
+  <br/>
+  The tag reads are then uploaded a batch uploading script written using the
+  Bash scripting language and common UNIX command line tools (sed, base64, and
+  wget).&nbsp; This method was chosen in case of uplink failure.&nbsp; In the
+  event of uplink failure, the script would mark each recorded swipe as still
+  pending and then upon return of a good uplink, the swipes would be uploaded to
+  the back end in turn.&nbsp; The script parses the data files and parses out
+  the swipes with a status of either 'PENDING' or 'BAD' and encodes them to a
+  hash using base64 (used merely for abstraction) and then appends the hash to a
+  URL and then feeds the URL to wget.&nbsp; The backend server then returns a
+  status which is then appended to the swipe in the data file.&nbsp; The script
+  is called from a cron tab that is run every minute and the output of the
+  upload script is outputted to a log file.<br/>
+  <br/>
+  The uplink technology chosen was standard ethernet to a some manner of
+  broadband technology (either DSL, Cable, or WiFi).&nbsp; One checkpoint was
+  chosen to have a cellular uplink as a backup measure (the only checkpoint that
+  used WiFi).&nbsp; This proved troublesome due to the requirement of having to
+  run MS Windows.&nbsp; The checkpoint was switched over to Linux shortly after
+  the beginning of the race.<br/>
+<h3>
+  Swipe Processing and Lap Creation-Server listener for reports (URL GET)
+</h3>
+All team, rider, swipe, and lap data were stored in a MySQL database.&nbsp; To
+prevent any irregularities in the data, the administrative interface had no
+write access to the swipes and the only write access to the lap table was
+through the administrative page.&nbsp; The process works as follows:<br/>
+<ol>
+  <li>
+    Swipe data is recorded at each checkpoint as a rider visits a checkpoint and
+    waves their card in front of the RFID reader (attacked to the inside of a
+    window at each location inside of a tupperware container) This blinks a
+    bright red LED to confirm the read to the rider.<br/>
+  </li>
+  <li>
+    When a rider finishes a lap, they swipe out at the final checkpoint.
+  </li>
+  <li>
+    In the next hour, they must stop by the registration table and mention that
+    they completed a lap.
+  </li>
+  <li>
+    The volunteer working at the table clicks a "rider in" button which scans
+    the swipe and lap tables to see if a new lap has been completed (all
+    checkpoints in order) that isn't in the lap table yet (the 1st swipe is
+    after the completion time of the last completed lap).
+  </li>
+  <li>
+    An entry shows up in the completed lap table for the riders team.
+  </li>
+  <li>
+    The volunteer selects the riders name from a drop-down box, and click
+    validate.
+  </li>
+  <li>
+    After an hour, a completed lap is removed from this table so that it can no
+    longer be changed.
+  </li>
+</ol>
+<br/>
+This worked out very well and enabled quick training of new volunteers.&nbsp; We
+planned for tracking system failure two ways.&nbsp; Firstly, if a reader failed,
+the tracking system admin could edit a file that would allow the "rider in"
+algorithm to skip over a certain checkpoint. If this happened, we would not
+inform the racers so they would be less likely to purposely skip that
+checkpoint. Secondly, a manual "add lap" button was in the interface.&nbsp; When
+clicked, the volunteer would select a persons name and a lap would be added to
+the system with the start time being that rider's team's last completed lap end
+time, and the end time being the time the add lap button was pressed. If all of
+the readers were to fail, this would allow us to still track the race, but we
+did not end up needing to do this. Once the race was live, the interface
+disabled the ability to delete teams, cards, or people, but a volunteer could
+still do things like add a replacement card if a team lost their original
+one.&nbsp; (The "rider in" only checks for laps using the teams most recent
+card.)<br/>
+<br/>
+All client side components of the administrative interface were built using the
+YUI toolkit, mostly for asynchronous requests for data (adding/modifying
+teams/riders/cards, rider in and setting rider names and validating). YUI was
+also used for all of the dialog boxes and the tab view of the administrative
+page. PHP was used for the entire backend including the page that received swipe
+reports from the readers.&nbsp; Total lines of code for the entire server
+component was less than 1000.<br/>
+<h3>
+  Race Tracking
+</h3>
+The most exciting part of the tracking system for the riders was being able to
+track the race in real time. For this, several options were created and made
+available:<br/>
+<ul>
+  <li>
+    Real time "tracker" website: This was available through a web browesr and
+    contained top 5 stats for each category, recently completed laps, and a
+    Google Maps mashup that showed the estimated location of every team on the
+    course.
+  </li>
+  <li>
+    Mobile tracker: Through their cell phones, anyone could access a stripped
+    down version of the tracker to see stats for each category as well as
+    recently completed laps.
+  </li>
+  <li>
+    KML file:&nbsp; Used in the real time tracker website, users could also load
+    this KML file into Google Earth and watch the race progress in real time
+    with markers automatically updating team positions every 30 seconds. Team
+    positions were calculated based on average lap time for that team combined
+    with their last swipe location.
+  </li>
+</ul>
+<h2>
+  How it worked in the race
+</h2>
+The tracking system worked surprisingly well. We tried to test most things
+beforehand but a few gotchas did come up at the last minute:<br/>
+<ul>
+  <li>
+    One reader box was running Windows so that it could use the cellular modem
+    if it's wireless link failed.&nbsp; (We couldn't get the cellular cards
+    working properly in Linux.)&nbsp; Due to some newline encoding issues,
+    swipes were not reported for the first hour or so of the race.&nbsp; For
+    this, we disabled looking at that checkpoint while the box was re-imaged
+    with Linux and we crossed our fingers that it's network connection would
+    stay up. This worked fine and after hour 2 of the race, we turned back on
+    looking at that checkpoint in "rider in" and it worked flawlessly for the
+    remainder of the race.
+  </li>
+  <li>
+    Several minor issues like date formatting from MySQL to PHP and ordering of
+    teams that had completed the same number of laps but at different times came
+    up but were mostly resolved in the first few hours of the race.
+  </li>
+</ul>
+<br/>
+Overall, we were very happy with the tracking system and received a lot of
+positive feedback about it during and after the race. Many people were checking
+the stats on the web and on their cellphones, and 100k/s of bandwidth and 20
+database queries a second was used by the server on the race tracker for the
+duration of the race.&nbsp; This was definitely orders of magnitude better than
+the previous two years, and we were told by people that often participate in
+slightly more official races that this was the best tracking system that they
+had ever seen in a race.&nbsp; It worked smoothly and flawlessy, and we look
+forward to improving it for next year.<br/>
+<h2>
+  Plans for FM.24.08 and beyond<br/>
+</h2>
+We have several ideas for next years race, many of which likely will be
+implemented:<br/>
+<ul>
+  <li>
+    Inductive loops and/or active RFID:&nbsp; either of these will allow for
+    faster swipe recording and swiping from a further distance, however this
+    presents the problem of more expensive hardware and it's harder to provide
+    riders with a confirmation that their swipe was recorded.&nbsp;
+  </li>
+  <li>
+    Making the readers more like embedded systems: Using entire computers for
+    the readers was certainly overkill.&nbsp; A smaller compact single board
+    computer such as Soekris or PC Wrap systems would do the job, and they could
+    be easily mated with RFID readers and network connectivity. These would use
+    less power and could be placed in more locations, and would allow for more
+    checkpoints if we wanted.
+  </li>
+  <li>
+    Swipe status via an LCD:&nbsp; to confirm swipes, it would be useful to show
+    the team name on an LCD at each checkpoint. As a rider rides up, the tag is
+    read and the name shows up.
+  </li>
+  <li>
+    Enhancements to tracking software: The ability to track a single team,
+    receive text message alerts of swipes, etc, would all be neat to have (and
+    were requested by teams this year).
+  </li>
+</ul>
+<h1>
+  Credits
+</h1>
+Seth Kingry was responsible for all "client" aspects of the system including the
+OS load, acquiring the RFID hardware, and network connectivity of the readers.
+<a href="http://ckdake.com/">Chris Kelly</a> was responsible for the "server" aspects of the system including
+swipe report recording, lap generation, and administrative and tracking
+tools.&nbsp; <a href="http://www.mobilesphere.gatech.edu/">GT Mobilesphere</a> provided us with 6 <a href="http://wireless.att.com/">AT&amp;T</a> SIM cards and 6 PCMCIA
+3G cellular uplink cards.&nbsp; <a href="www.oit.gatech.edu">Georgia Tech's Office of Information Technology</a>
+provided us with 6 computers to use at each tracking station. <a href="http://fastermustache.org/">Faster Mustache</a>
+purchased the RFID readers, cards, and other small things required for the
+system to function.<br/>
+<br/>

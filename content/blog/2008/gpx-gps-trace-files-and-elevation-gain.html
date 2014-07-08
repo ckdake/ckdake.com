@@ -1,0 +1,46 @@
+---
+title: GPX GPS trace files and elevation gain
+created_at: 2008-06-23 13:07:23 -0400
+kind: article
+---
+I carry a GPS with me on long bike rides and pull the resulting trace into Google Earth and Garmin's MapSource software.  Google Earth is nice for looking at, but doesn't provide much useful information, and MapSource is pretty awful to look at (and will only run in Windows so I have to boot up VMware) but does provide elevation maps (as well as the ability to load maps). I recently started using a bike computer with cadence, and a heart rate monitor, and the last missing piece of information was total elevation gain over a ride. This information is nowhere in MapSource or Google Earth.
+
+I can get GPX format (The standard interchangable format for GPS information) files out of MapSource and it's just XML, so after trying several tools online and several programs I downloaded that didn't work, I wrote a quick python script to get me the info I want. Hopefully this will help someone else:
+
+<pre>
+from xml.dom import minidom
+
+file = minidom.parse('./file.gpx')
+
+min = 1000000
+max = 0
+gain = 0
+loss = 0
+last = 0
+
+for node in file.getElementsByTagName("ele"):
+        cur = float(node.childNodes[0].data)
+        if (cur > max):
+                max = cur
+        if (cur < min):
+                min = cur
+        if (last != 0):
+                if (cur > last):
+                        gain = gain + (cur - last)
+                elif (cur < last):
+                        loss = loss + (last - cur)
+        last = cur
+
+print "max: %.2fft" % (float(max * 3.2808399))
+print "min: %.2fft" %  (float(min * 3.2808399))
+print "gain: %.2fft" % (float(gain * 3.2808399))
+print "loss: %.2fft" % (float(loss * 3.2808399))
+</pre>
+
+So for my 43 mile ride on sunday: 
+max: 1110.63ft
+min: 773.16ft
+gain: 3328.98ft
+loss: 3232.78ft
+
+Getting those numbers were a lot harder than it should have been! Good ride though..
