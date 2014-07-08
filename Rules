@@ -13,6 +13,11 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
+compile '/blog/*' do
+  filter :kramdown
+  layout 'post'
+end
+
 compile '*' do
   if item[:extension] == 'md'
     filter :kramdown
@@ -25,6 +30,12 @@ compile '*' do
     filter :erb
     layout 'default'
   end
+end
+
+route '/blog/*' do
+  puts item.identifier
+  y,slug = /([0-9]+)(.+)/.match(item.identifier).captures
+  "/content/#{y}#{slug[0..-2]}.html"
 end
 
 route '*' do
