@@ -35,8 +35,13 @@ route '*' do
     # Write item with identifier /foo/ to /foo.ext
     item.identifier.chop + '.' + item[:extension]
   else
+    if item.identifier == "/"
+      '/index.html'
+    else
+      item.identifier[0..-2] + '.html'
+    end
     # Write item with identifier /foo/ to /foo/index.html
-    item.identifier + 'index.html'
+    # item.identifier + '.html'
   end
 end
 
