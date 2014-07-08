@@ -1,0 +1,10 @@
+---
+title: me
+created_at: 2009-01-25 17:20:29 -0500
+kind: page
+---
+<ul>
+  <% sorted_articles.each do |post| %>
+    <li><%= post[:created_at] %> - <%= link_to(post[:title], post.path, :title => post[:title]) %></li>
+  <% end %>
+</ul>

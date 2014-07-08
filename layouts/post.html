@@ -4,6 +4,8 @@
     <aside>Posted at: <%= item[:created_at] %></aside>
     <article>
       <%= yield %>
+      <p class="prev"><%= previous_link %></p>
+      <p class="next"><%= next_link %></p>
     </article>
     <div id="disqus_thread"></div>
     <script type="text/javascript">

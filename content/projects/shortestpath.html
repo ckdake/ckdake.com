@@ -1,7 +1,7 @@
 ---
 title: CS8803DA - Shortest Path
 created_at: 2006-11-09 13:13:56 -0500
-kind: article
+kind: page
 ---
 <a href="http://www.dis.uniroma1.it/~challenge9/">http://www.dis.uniroma1.it/~challenge9/</a>
 
@@ -21,7 +21,7 @@ All precomputation was done by me and written in perl.
 
 <h3>Stage 1</h3>
 Stage 1 consisted of loading in all of the arcs, sorting them by source, outputting a file, and sorting them by destination and outputting a file. The most computationally expensive part of this was sorting the data, but it wasn't unreasonably expensive. The most recent versions of perl (5.8 and newer) use mergesort and some time has been spent making them effective. The built in mergesort algorithm is not multithreaded, but the extra few minutes of computation time did not warrant writing a parallel sort to take full advantage of the hardware we were using. (This is only precomputation after all). Initially, all of the arcs did not fit in to memory but by interpreting the arcs as bidirectional and only reading every other line of the arc file, the entire list of arcs was able to fit into less than 16gb of RAM.
- 
+
 
 in: USA-road-d.USA.gr (1.3G,58333351 lines, 29166672 arcs)
 out: stage1-sorted-source, stage1-sorted-target

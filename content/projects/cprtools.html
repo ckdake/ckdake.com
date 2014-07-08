@@ -1,7 +1,7 @@
 ---
 title: cpr tools
 created_at: 2007-04-23 13:01:58 -0400
-kind: article
+kind: page
 ---
 Brief overview of some of the the tools I've written to work with CPR.
 
@@ -66,11 +66,11 @@ As shown above, cpradmin is fairly versatile. Below are list of some of the opti
     <li>get commands for the whole network can be: hosts, or any command that is valid for a single host</li>
 </ul></li>
 </ul>
-    
+
 <h3>Building a map of the current network topology</h3>
 The topobuilder script is still not finished but it generally works for the most part. First of all, a file for each router that lists it's interfaces needs to be in the ~cpr/topology/ folder. The north interconnect router would have the filename ni-rtr.gatech.edu.INTERFACES and the contents of the file should be a \n separated list of ip addresses on that router. It is fine for the file to be the output of "sho ip int brief" on the router because topobuilder only looks for IP addresses in the file and as long as there are 0 or 1 IP addresses on each line, everything works out.
 
-To run topobuilder, pick a network to run on.  There are other options for level (later on this will allow doing a layer 2 traceroute using the Book Of Knowledge database), and a file to read from (later on manual traceroutes can be put into a file and used instead of having topobuilder do the traceroutes), but neither of these does anything yet. 
+To run topobuilder, pick a network to run on.  There are other options for level (later on this will allow doing a layer 2 traceroute using the Book Of Knowledge database), and a file to read from (later on manual traceroutes can be put into a file and used instead of having topobuilder do the traceroutes), but neither of these does anything yet.
 
 Topobuilder must be run on cpr-northcentral currently, as it uses threading which is not available on cpr-central.
 

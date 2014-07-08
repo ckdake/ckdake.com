@@ -13,9 +13,13 @@
       <%= yield %>
     </div>
     <div id="sidebar">
-      <img src="/files/ck2012.jpg" style="border-radius: 15px; width: 152px; height: 152px;"/>
+      <a href="/"><img src="/files/ck2012.jpg" style="border-radius: 15px; width: 152px; height: 152px;"/>
       <h2><img src="/files/logo.png" style="display: inline; width: 16px; height: 16px; margin-right: 8px;">Chris Kelly</h2>
-      Instigator and Problem Solver
+      Instigator and Problem Solver</a>
+      <h2>Navigation</h2>
+      <ul>
+        <li><a href="/sitemap.html">All Posts</a></li>
+      </ul>
       <h2>Some TODOs</h2>
       <ul>
         <li>Customize Theme</li>
@@ -31,9 +35,10 @@
       </ul>
       <h2>Recent Posts</h2>
       <ul>
-      <% sorted_articles[0..9].each do |post| %>
-        <li><%= link_to post[:title], post.path %></h1>
-      <% end %>
+        <% sorted_articles[0..9].each do |post| %>
+          <li><%= link_to post[:title], post.path %></li>
+        <% end %>
+      </ul>
       <h2>Advertisements</h2>
       <script type="text/javascript"><!--
         google_ad_client = "pub-7424018245102468";google_ad_slot = "2779502010";google_ad_width = 120;google_ad_height = 600;
