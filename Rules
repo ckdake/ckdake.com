@@ -13,11 +13,11 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
-compile 'blog/feed' do
+compile '/blog/feed' do
   filter :erb
 end
 
-route 'blog/feed' do
+route '/blog/feed' do
   '/rss.xml'
 end
 
@@ -33,6 +33,14 @@ end
 route '/blog/*' do
   y,slug = /([0-9]+)(.+)/.match(item.identifier).captures
   "/content/#{y}#{slug[0..-2]}.html"
+end
+
+compile '/files/*' do
+end
+
+route '/files/*' do
+  item[:extension] ||= ''
+  item.identifier.chop + '.' + item[:extension]
 end
 
 compile '*' do
