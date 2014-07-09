@@ -3,9 +3,11 @@ GEM
   specs:
     adsf (1.2.0)
       rack (>= 1.0.0)
+    builder (3.1.4)
     colored (1.2)
     cri (2.6.1)
       colored (~> 1.2)
+    flickraw (0.9.8)
     kramdown (1.4.0)
     nanoc (3.7.1)
       cri (~> 2.3)
@@ -16,5 +18,7 @@ PLATFORMS
 
 DEPENDENCIES
   adsf
+  builder
+  flickraw
   kramdown
   nanoc

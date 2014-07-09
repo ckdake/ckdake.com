@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>ckdake.com - <%= @item[:title] %></title>
     <link rel="stylesheet" href="<%= @items['/stylesheet/'].path %>">
-
-    <!-- you don't need to keep this, but it's cool for stats! -->
+    <link rel="alternate" type="application/rss+xml" title="ckdake.com" href="/rss.xml">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <meta name="generator" content="nanoc <%= Nanoc::VERSION %>">
   </head>
   <body>
@@ -15,22 +15,47 @@
     <div id="sidebar">
       <a href="/"><img src="/files/ck2012.jpg" style="border-radius: 15px; width: 152px; height: 152px;"/>
       <h2><img src="/files/logo.png" style="display: inline; width: 16px; height: 16px; margin-right: 8px;">Chris Kelly</h2>
-      Instigator and Problem Solver</a>
-      <h2>Navigation</h2>
+      Instigator. Problem Solver</a>
+      <div id="serviceicons" style="margin-top: 10px;">
+        <a href="https://www.flickr.com/photos/ckdake/sets/" rel="me"><img src="/img/icons/flickr.png"></a>
+        <a href="http://vimeo.com/ckdake" rel="me"><img src="/img/icons/vimeo.png"></a>
+        <a href="http://twitter.com/ckdake" rel="me"><img src="/img/icons/twitter.png"></a>
+        <a href="http://github.com/ckdake" rel="me"><img src="/img/icons/github.png" width="16" height="16"></a>
+        <a href="http://www.linkedin.com/in/ckdake" rel="me"><img src="/img/icons/linkedin.png"></a>
+        <a href="http://youtube.com/ckdake" rel="me"><img src="/img/icons/youtube.png"></a>
+        <a href="http://www.google.com/profiles/ckdake.com" rel="me"><img src="/img/icons/google.png"></a>
+        <a href="http://last.fm/ckdake" rel="me"><img src="/img/icons/lastfm.png"></a>
+        <a href="http://facebook.com/ckdake" rel="me"><img src="/img/icons/facebook.png"></a>
+        <a href="/rss.xml" rel="me"><img src="/img/icons/blog.png"></a>
+      </div>
+      <h2 style="margin-top: 10px;">Pages</h2>
       <ul>
+        <li><a href="/me.html">About Me</a></li>
+        <li><a href="/me/timeline.html">Timeline</a></li>
+        <li><a href="/bikes.html">Bikes</a></li>
+        <li><a href="/bikes/raceresults.html">Race Results</a></li>
         <li><a href="/sitemap.html">All Posts</a></li>
+      </ul>
+      <h2>Projects</h2>
+      <ul>
+        <li><a href="/projects/assorted_software.html">Assorted Software</a></li>
+        <li><a href="/projects/computers.html">Computers</a></li>
+        <li><a href="/projects/cprtools.html">CPRtools</a></li>
+        <li><a href="/projects/fmracetracker.html">fmracetracker</a></li>
+        <li><a href="/projects/imusage.html">imusage</a></li>
+        <li><a href="/projects/media.html">media</a></li>
+        <li><a href="/projects/photography.html">photography</a></li>
+        <li><a href="/projects/shortestpath.html">shortestpath</a></li>
+        <li><a href="/projects/tfstat.html">tfstat</a></li>
+        <li><a href="/projects/websites.html">websites</a></li>
+        <li><a href="/projects/zacc.html">zacc</a></li>
       </ul>
       <h2>Some TODOs</h2>
       <ul>
         <li>Customize Theme</li>
         <li>Timeline using <a href="http://timeline.knightlab.com">this</a></li>
         <li>Xtrack statically generated?</li>
-        <li>Search</li>
         <li>Something awesome with Flickr</li>
-        <li>Nav for pages</li>
-        <li>Bikes page</li>
-        <li>Race results</li>
-        <li>Projects and all subpages</li>
         <li>Quotes?</li>
       </ul>
       <h2>Recent Posts</h2>
@@ -39,6 +64,20 @@
           <li><%= link_to post[:title], post.path %></li>
         <% end %>
       </ul>
+      <h2>Search</h2>
+      <script>
+        (function() {
+          var cx = '018178449386979284272:agezxhbkxea';
+          var gcse = document.createElement('script');
+          gcse.type = 'text/javascript';
+          gcse.async = true;
+          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+              '//www.google.com/cse/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(gcse, s);
+        })();
+      </script>
+      <gcse:search></gcse:search>
       <h2>Advertisements</h2>
       <script type="text/javascript"><!--
         google_ad_client = "pub-7424018245102468";google_ad_slot = "2779502010";google_ad_width = 120;google_ad_height = 600;
