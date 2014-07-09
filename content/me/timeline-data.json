@@ -20,12 +20,6 @@
               }
             },
             {
-              "startDate":"1994,01,01",
-              "headline": "Joined MENSA",
-              "text":"<p></p>",
-              "tag":"#personal"
-            },
-            {
               "startDate":"2001,01,01",
               "headline": "Senior Patrol Leader and Eagle Scout at BSA 232",
               "text":"<p></p>",
@@ -90,7 +84,7 @@
               "text":"<p>RA/Peer Leader for a hall of rowdy freshmen</p>",
               "tag":"#work",
               "asset": {
-                "media":"https://www.flickr.com/photos/ckdake/14545165811"
+                "media":""
               }
             }
         ],

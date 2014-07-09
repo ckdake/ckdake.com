@@ -11,25 +11,25 @@ To get warmed up we rode pretty close to our rental house, realizing in person j
 
 <iframe src="//player.vimeo.com/video/75550629?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-Day 2 - Tour de Suds/Mid-Mountain - <a href="http://www.strava.com/activities/85144720">GPS trace</a> - <a href="http://ckdake.com/gallery/2013/park-city-mountain-biking/day2-mid-mountain/">photos</a> - Chris/Paul/Marc/Brian/Bob/Jim
+Day 2 - Tour de Suds/Mid-Mountain - <a href="http://www.strava.com/activities/85144720">GPS trace</a> - <a href="https://www.flickr.com/photos/ckdake/sets/72157645386477325/">photos</a> - Chris/Paul/Marc/Brian/Bob/Jim
 
 With Bob and Jim in town, we headed off in the snow to ride the Mid-Mountain trail, one of the 'must-do' trails in Park City. Once at elevation, it stays about halfway up the mountains, weaving through all of the ski resorts on very well manicured trail. This was an even colder day, hovering in the mid-30s to low-40s, but the views and trails made up for it. Things got a little sloppy towards the end, requiring the first of several bike washes of the trip.
 
 <iframe src="//player.vimeo.com/video/75595217?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-Day 3 - Armstrong/Spiro/Flow/CMG - <a href="http://www.strava.com/activities/85340509">GPS trace</a> - <a href="http://ckdake.com/gallery/2013/park-city-mountain-biking/day3/">photos</a> - Chris/Paul/Marc/Brian/Bob/Scott
+Day 3 - Armstrong/Spiro/Flow/CMG - <a href="http://www.strava.com/activities/85340509">GPS trace</a> - <a href="https://www.flickr.com/photos/ckdake/sets/72157644972667120/">photos</a> - Chris/Paul/Marc/Brian/Bob/Scott
 
 We took it a little easy agin on Day 3, riding some close-to-home stuff and staying away from the upper elevations.  After a short day on bikes we headed down the road to the closest movie theatre to see 'Rush'. Turns out it was a movie about car racing and not a band. Nice!
 
 <iframe src="//player.vimeo.com/video/75637075?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-Day 4 - Armstrong/Pinecone/Wasatch Crest - <a href="http://www.strava.com/activities/85599551">GPS trace</a> - <a href="http://ckdake.com/gallery/2013/park-city-mountain-biking/day4-wasatch-crest/">photos</a> - Chris/Paul/Marc/Brian/Bob/Scott/Jim
+Day 4 - Armstrong/Pinecone/Wasatch Crest - <a href="http://www.strava.com/activities/85599551">GPS trace</a> - <a href="https://www.flickr.com/photos/ckdake/sets/72157645331288126/">photos</a> - Chris/Paul/Marc/Brian/Bob/Scott/Jim
 
 Our longest initial climb too us 3000+ vertical feet up to the top of the mountain and the start of the Wasatch Crest trail, another must-do trail. The last 1/3 of the climb was in a significant amount of snow on the ground, and was pretty slow going. The view from the top was pretty great, and we broke into small groups to being our slushy descent. Parts of the downhill were pretty nice, but others were in muddy snowmelt with no other way to get down.  At the last major turn of the day,  Jim/Bob made a slight miscalculation and ended up in Salt Lake City, then a shuttle, then the hot tub.
 
 <iframe src="//player.vimeo.com/video/75683323?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-Day 5 - Flying Dog - <a href="http://www.strava.com/activities/85866971">GPS trace</a> - <a href="http://ckdake.com/gallery/2013/park-city-mountain-biking/day5-flying-dog/">photos</a> - Chris/Marc/Brian/Scott
+Day 5 - Flying Dog - <a href="http://www.strava.com/activities/85866971">GPS trace</a> - <a href="https://www.flickr.com/photos/ckdake/sets/72157645427716603/">photos</a> - Chris/Marc/Brian/Scott
 
 A long ride to the trailhead via bike paths was a great warmup for perfect weather and a climb to the top of the Flying Dog loop. Not as remote or crazy as some of the further out trails, the views were not as epic but the trails were in much better shape. This day was the only day with weather the way we had expected it to be, so it was a good ride to bring the trip to a close. We ate a pizza at a bustling pizza place at the trail head, and set off to return our bicycles.
 

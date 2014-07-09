@@ -1,0 +1,17 @@
+---
+title: home
+---
+
+<h1>Hello!</h1>
+
+<blockquote>This site is new. <a href="http://nanoc.ws">nanoc</a> powers things instead of Drupal. Photos are over on <a href="https://www.flickr.com/photos/ckdake/">flickr</a> instead of in Gallery. Everything is going to be a little crazy for a bit.</blockquote>
+
+<h2>Some Recent Flickr Albums</h2>
+<%= recent_flickr_sets_html(12) %>
+
+<h2>Some Recent Blog Posts</h2>
+<ul>
+  <% sorted_articles[0..9].each do |post| %>
+    <li><%= post[:created_at] %> - <%= link_to(post[:title], post.path, :title => post[:title]) %></li>
+  <% end %>
+</ul>
