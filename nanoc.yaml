@@ -1,4 +1,4 @@
-base_url: 'http://ckdake.com/'
+base_url: 'http://ckdake.com'
 deploy:
   default:
     kind: rsync
