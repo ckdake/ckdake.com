@@ -1,0 +1,115 @@
+{
+    "timeline":
+    {
+        "headline":"A Timeline",
+        "type":"default",
+        "text":"<p>A chronological list of a whole bunch of things. It's like a Resume but far too verbose.</p>",
+        "asset": {
+            "media":"/files/ck2012.jpg",
+            "credit":"Chris Kelly",
+            "caption":"Thats Me"
+        },
+        "date": [
+            {
+              "startDate":"2012,07,20",
+              "headline": "Got Engaged to San Smith",
+              "text":"<p></p>",
+              "tag":"#personal",
+              "asset": {
+                "media":"https://www.flickr.com/photos/sanasaurus/14283288428"
+              }
+            },
+            {
+              "startDate":"1994,01,01",
+              "headline": "Joined MENSA",
+              "text":"<p></p>",
+              "tag":"#personal"
+            },
+            {
+              "startDate":"2001,01,01",
+              "headline": "Senior Patrol Leader and Eagle Scout at BSA 232",
+              "text":"<p></p>",
+              "tag":"#personal"
+            },
+            {
+              "startDate":"2001,05,01",
+              "headline": "Dropped out of North Atlanta Highschool",
+              "text":"<p>Then I started Georgia Tech a year early via Early Admission</p>",
+              "tag":"#personal"
+            },
+            {
+              "startDate":"2003,07,01",
+              "headline": "Tried out Linux for the first time.",
+              "text":"<p>Got hooked.</p>",
+              "tag":"#personal"
+            },
+            {
+              "startDate":"2012,11,01",
+              "endDate":"2014,12,31",
+              "headline": "Big Nerd Ranch",
+              "text":"<p>Operations</p>",
+              "tag":"#work",
+              "asset": {
+                "media":"https://twitter.com/ckdake/status/268870064902639616"
+              }
+            },
+            {
+                "startDate":"2010,07,16",
+                "endDate":"2012,11,01",
+                "headline":"Highgroove Studios",
+                "text":"<p>Ruby on Rails Developer and Methodologist</p>",
+                "tag":"#work",
+                "asset": {
+                    "media":"https://www.flickr.com/photos/ckdake/14559949265"
+                }
+            },
+            {
+              "startDate":"2008,12,21",
+              "endDate":"2010,07,16",
+              "headline": "SugarCRM",
+              "text":"<p>Datacenter Operations</p>",
+              "tag":"#work",
+              "asset": {
+                "media":"https://www.flickr.com/photos/ckdake/14556937345"
+              }
+            },
+            {
+              "startDate":"2007,08,15",
+              "endDate":"2007,05,15",
+              "headline": "Google",
+              "text":"<p>Platforms Networking Intern</p>",
+              "tag":"#work",
+              "asset": {
+                "media":"https://www.flickr.com/photos/ckdake/14545165811"
+              }
+            },
+            {
+              "startDate":"2002,08,01",
+              "endDate":"2003,05,30",
+              "headline": "Georgia Tech Housing",
+              "text":"<p>RA/Peer Leader for a hall of rowdy freshmen</p>",
+              "tag":"#work",
+              "asset": {
+                "media":"https://www.flickr.com/photos/ckdake/14545165811"
+              }
+            }
+        ],
+        "era": [
+            {
+                "startDate":"2007,12,15",
+                "endDate":"2014,12,31",
+                "headline":"Career Beginnings"
+            },
+            {
+                "startDate":"2002,07,02",
+                "endDate":"2007,12,15",
+                "headline":"Georgia Tech"
+            },
+            {
+                "startDate":"1984,07,02",
+                "endDate":"2002,07,02",
+                "headline":"The First 18"
+            }
+        ]
+    }
+}

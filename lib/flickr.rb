@@ -20,19 +20,21 @@ flickr.access_secret=ENV['FLICKR_ACCESS_SECRET']
 #   puts "Authentication failed : #{e.msg}"
 # end
 
-def recent_flickr_sets_html
+$photosets = nil
+
+def recent_flickr_sets_html(count)
   html = ''
-  photosets = flickr.photosets.getList
-  (0..19).each do |i|
-    if photosets[i]['visibility_can_see_set'] == 1
+  $photosets ||= flickr.photosets.getList
+  (0..(count.to_i - 1)).each do |i|
+    if $photosets[i]['visibility_can_see_set'] == 1
       html = html + flickr_set_to_html(
         {
-          title: photosets[i]['title'],
-          id: photosets[i]['id'],
-          primary: photosets[i]['primary'],
-          secret: photosets[i]['secret'],
-          server: photosets[i]['server'],
-          farm: photosets[i]['farm'],
+          title: $photosets[i]['title'],
+          id: $photosets[i]['id'],
+          primary: $photosets[i]['primary'],
+          secret: $photosets[i]['secret'],
+          server: $photosets[i]['server'],
+          farm: $photosets[i]['farm'],
         }
       )
     end
