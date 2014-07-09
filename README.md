@@ -1,8 +1,6 @@
 Running ckdake.com
 ==================
 
-# gem install nanoc
-# gem install adsf
-# gem install kramdown
+# gem install bundler && bundle
 # nanoc compile
 # nanoc view
