@@ -1,0 +1,98 @@
+body {
+  background-color: #eebb00;
+  color: #000000;
+  font-family: arial;
+}
+
+td {
+  background-color: #eebb00;
+  color: #000000;
+}
+
+h1  {
+  font-size : x-large;
+}
+
+h2, h3 {
+  font-size : large;
+}
+
+.title {
+  font-size : small;
+  font-weight: bold;
+}
+
+.top {
+  font-size : small;
+  font-weight: bold;
+  font-style: italic;
+}
+
+hr {
+   color: #000000;
+}
+
+li,p {
+  font-size: small;
+}
+	
+a {
+  color : #ffffff;
+  font-size : small;
+  font-weight : bold;
+  text-decoration : none;
+}
+
+a:hover {
+  color : #000000;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+  width: 500px;
+  font-size: small;
+}
+
+.headline {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 4px;
+  background: #AAAAAA;
+  color: #000000;
+  border: 1px solid #000000;
+}
+
+
+.item {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+	border: 1px dashed #000000;
+}
+
+.itemtitle {
+	align: center;
+	font-size: small;
+	font-weight: bold;
+	background: #999999;
+	color: #000000;
+	border: 1px solid #000000;
+	padding: 3px;
+	margin: 3px;
+}
+
+.itemtext {
+	padding: 3px;
+}

@@ -1,0 +1,129 @@
+#!/bin/bash
+# apple2moz.sh
+# migrate files from apple mail to thunderbird
+#
+# No warranties. Released under the GPL.
+# released: 2003.12.11
+# version: 1.0
+# author:  Chris Kelly ckdake@yahoo.com
+#
+# Apple Mail Structure:
+# |---folder
+# |    |---folder1.mbox (folder)
+# |    |    |----mbox (the actual unix mbox file)
+# |    |---folder2.mbox (folder)
+# |    |    |----mbox (the actual unix mbox file)
+# |---folderx
+# |    |---nestedfolder
+# |    |    |---folder1.mbox
+# |    |    |    |----mbox (the actual unix mbox file) 
+#
+# A folder can have any number of .mbox folders in it, 
+# but each .mbox folder only has one mbox file in it, 
+# And folders can be nested as deeply as they want to be
+#
+# Thunderbird Structure
+# |---folder (the mbox file for folder.sbd, empty if only subfolders)
+# |---folder.sbd (the folder)
+# |    |---folder1 (the actual unix mbox file)
+# |    |---folder2 (the actual unix mbox file)
+# |---folderx (the mbox file for folderx.sbd, empty if only subfolders)
+# |---folderx.sbd
+# |    |---nestedfolder (the mbox file for the nexted folder)
+# |    |---nestedfolder.sbd
+# |    |    |---folder1 (the actual unix mbox file) 
+
+E_NOARGS=65
+
+#set verbose to "yes" for verbose output when running
+VERBOSE="no"
+
+NOMBOXERRORS="no"
+
+function process_directory() {
+    # $1 the apple mail directory we are accessing
+    # $2 the folder for moz
+
+    # for mbox folders
+    for directory in `ls -1 $1 | sed -n /.mbox/p | sed s/.mbox//g`
+    do
+        if [ -x "$directory" ]
+            then
+                echo "... mbox folder $directory is empty!"
+            else
+            if [ "$VERBOSE" == "yes" ]; then
+                echo "... processing mbox folder: $directory"
+            fi
+                if [ -e "$1/$directory.mbox/mbox" ]; then
+                    cp "$1/$directory.mbox/mbox" "$2/$directory"
+                else 
+                    echo "... no mbox folder for $directory. This is OK"
+                    NOMBOXERRORS="yes"
+                    touch "$2/$directory"
+                fi
+        fi
+    done
+  
+    # for non mbox folders (storage folders)
+    for directory in `ls -F1 $1 | grep \/ | sed s/[/]//g | sed /.mbox/d`
+    do
+        if [ -z "$directory" ] 
+            then
+                echo "... directory $directory is empty!"
+            else
+            if [ "$VERBOSE" == "yes" ]; then
+                echo "... processing storage folder: $directory"
+            fi
+            mkdir "$2/$directory.sbd"
+            touch "$2/$directory"
+            process_directory "$1/$directory" "$2/$directory.sbd"
+        fi
+    done
+}
+
+function remove_spaces() {
+    #$1 is the directory to remove the spaces in;
+
+    find "$1" -name '* *' -depth | while read i
+    do 
+        f=${i##*/} d=${i%$f} fx=${f// /_}
+        mv "$d$f" "$d$fx"
+            if [ "$VERBOSE" == "yes" ]; then
+                echo "...renamed \"$d$f\" to \"$d$fx\""
+            fi
+    done    
+}
+
+
+if [ -z "$1" ] || [ -z "$2" ] # exit if no args given
+then
+    echo "Usage: '$0 path-to-apple-mail path-to-thunderbird-mail'"
+    echo "Example: $0 /Users/ckdake/Library/Mail"
+    echo "    /Users/ckdake/Library/Thunderbird/Profiles/default/8asd9f87.slt/Mail/Local\ Folders"
+    exit $E_NOARGS
+fi
+echo "---------------------------------------"
+echo "initializing migrate.sh..."
+echo "creating temp folder..."
+mkdir -p "/tmp/migratesh$1"
+cp -R "$1/" "/tmp/migratesh$1"
+echo "removing spaces in file names..."
+remove_spaces /tmp/migratesh$1/
+echo "-----------------------------"
+echo "converting..."
+mkdir -p "$2/imported.sbd"
+touch "$2/imported"
+process_directory "/tmp/migratesh$1" "$2/imported.sbd/"
+echo "-----------------------------"
+echo "cleaning up..."
+rm -rf "/tmp/migratesh$1"
+if [ "$NOMBOXERRORS" == "yes" ]; then
+    echo "-----------------------------"
+    echo "a no mbox error mean that you have a folder in your email database" 
+    echo "with no emails in it. This is perfectly normal and perfectly "
+    echo "healthy and there is no need to worry about it at all"
+fi
+echo "---------------------------------------"
+echo "done!"
+
+exit 0

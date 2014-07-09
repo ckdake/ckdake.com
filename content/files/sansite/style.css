@@ -1,0 +1,78 @@
+body {
+	margin: 10px;
+	font-family: sans-serif;
+	background-image: url("images/stripes.jpg");
+}
+
+div, span, p {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	border: 0;
+}
+
+
+#content {
+	margin: auto;
+	width: 728px;
+}
+
+#main {
+	width: 728px;
+	height: 561px;
+	position: relative;
+}
+
+#front #main img {
+	position: absolute;
+	top: 6px;
+	left: 8px;
+}
+
+#front #main, #gallery #main, #resume #main, #random #main, #about #main {
+        background-image: url("images/defaultbase.gif");
+}
+
+#gallery #main #inside, #resume #main #inside, #random #main #inside, #about #main #inside {
+	position: absolute;
+	overflow: auto;
+	top: 35px;
+	left: 100px;
+	width: 528px;
+	height: 491px;
+
+}
+
+#gallery-item #main {
+	background-image: url("images/galsingle.gif");
+}
+
+#gallery-item #image {
+	overflow: auto;
+	position: absolute;
+	text-align: center;
+	top: 35px;
+	left: 100px;
+	width: 330px;
+	height: 491px;
+}
+
+#gallery-item #description {
+	overflow: auto;
+	position: absolute;
+	text-align: center;
+	top: 130px;
+	left: 485px;
+	width: 190px;
+	height: 300px;
+}
+
+#links div {
+	display: inline;
+	margin: 0;
+	height: 47px;
+	width: 116px;
+}
+	

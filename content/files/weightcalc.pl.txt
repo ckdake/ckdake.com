@@ -1,0 +1,127 @@
+#!/usr/bin/perl -w
+
+use strict;
+use XML::Simple;
+use DBI;
+
+my $DESIREDDAYSTOEQUAL = 31;
+
+my %servers;
+my %counts;
+my $totalcount = 0;
+my %days;
+my $totaldays = 0;
+
+my $database = "campus";
+my $table = "SmokepingData";
+
+my $xml = new XML::Simple (KeyAttr=>[]);
+my $confdata = $xml->XMLin("./servers.xml");
+
+my $numhosts = 0;
+
+foreach my $s (@{$confdata->{'server'}}) {
+
+        my $db_handle = DBI->connect("dbi:".$s->{'dbengine'}.
+                        ":host=".$s->{'hostname'}.
+                        ";database=".$database.
+                        ";user=".$s->{'user'}.
+                        ";password=".$s->{'password'})
+                or die("Couldn't connect to database: $DBI::errstr\n");
+
+        my $statement = $db_handle->prepare("SELECT COUNT(*) AS count, DATEDIFF(NOW(),MAX(timestamp)) AS days FROM ".$table)
+                or die("Couldn't prepare query: $DBI::errstr\n");
+        $statement->execute()
+                or die("Couldn't execute query: $DBI::errstr\n");
+        my ($count,$days);
+        $statement->bind_columns( \$count, \$days );
+        $statement->fetch();
+
+        $servers{$s->{'hostname'}} = $s;
+        $counts{$s->{'hostname'}} = $count;
+        $totalcount += $count;
+	
+	if ($days == 0) {
+		$days++;
+	}
+	$days{$s->{'hostname'}} = $days;
+	$totaldays += $days;
+	$numhosts++;
+}
+
+print("Done getting information from db servers!\n");
+
+my $averageinsertionrate = $totalcount/$totaldays;
+
+my %weights;
+
+
+my $insertsremaining = $DESIREDDAYSTOEQUAL * $averageinsertionrate;
+my $minperhost = int(($insertsremaining / $numhosts) / 5);
+my $insertamount = $minperhost/2;
+
+for my $hostname (keys %servers ){
+        #print($hostname."-".$counts{$hostname}."-".$days{$hostname}."\n");
+	$weights{$hostname} = $minperhost;
+	$insertsremaining -= $minperhost;
+}
+
+
+while ($insertsremaining > $insertamount) {
+	#build a list of hosts with the smallest size
+	#keep track of second smallest size
+	my $minhostcount;
+	my $secondminhostcount;
+	my %minhosts;
+	for my $hostname ( keys %servers ) {	
+		if (!(defined($minhostcount))) {
+			$minhostcount = $counts{$hostname};
+			$minhosts{$hostname} = 1;
+		} elsif ($minhostcount == $counts{$hostname}) {
+			$minhosts{$hostname} = 1;
+		} elsif ($minhostcount > $counts{$hostname}) {
+			%minhosts = ();
+			$secondminhostcount = $minhostcount;
+			$minhostcount = $counts{$hostname};
+			$minhosts{$hostname} = 1;
+		}
+	}
+	#if second smallest size is empty
+	if (!defined($secondminhostcount) {
+		# divide up insertsremaining by numhosts and add to ech one
+		for my $hostname ( keys %servers ) {
+			$weights{$hostname} += ($insertsremaining/$numhosts)
+		}
+	} else {
+		# put difference of smallest and second smallest into the smallest ones
+		for my $hostname ( keys %minhosts ) {
+			$insertsremaining -= ($secondminhostcount - $minhosts{$hostname});
+			$weights{$hostname} += ($secondminhostcount - $minhosts{$hostname});
+		}
+		# if there is almost enough to do this, do this..
+		if ($insertsremaining > ($numhosts/2 * $insertamount)) {
+			# put insertamount into each host
+			for my $hostname ( keys %servers ) {
+				$insertsremaining -= $insertamount;
+				$weights{$hostname} += $insertamount;
+			}
+		}
+	}
+}
+
+# get the minimum weight of all the hosts
+my $minweight;
+for my $hostname ( keys %servers ) {
+	if (!(defined($minweight) && ($minweight < $weights{$hostname}))) {
+		$minweight = $weights{$hostname};
+	}
+}
+
+# use the minweight to figure out the total weight for each host
+for my $hostname ( keys %servers ) {
+	$weights{$hostname} = int($weights{$hostname} / $minweight);
+	print($hostname."-".$counts{$hostname}."-".$days{$hostname}."suggested weight: ".$weights{$hostname}."\n");
+}
+
+
+

@@ -1,0 +1,129 @@
+#!/bin/bash
+
+dec_to_bin() {
+  local remainder=''
+  local string=''
+  local number=$1
+  while [ 1 ]
+  do
+    let "remainder = $number % 2"
+    let "result = ($number / 2)"
+    number=$result
+    string=$remainder$string
+    if [ "$result" == 0 ]
+      then
+      break
+    fi
+  done
+  echo $string
+}
+
+bin_to_dec() {
+  local toprocess=$1
+  local result=0
+  while [ 1 ]
+  do
+    let "result = ($result*2)+${toprocess:0:1}"
+    toprocess=${toprocess:1}
+    if [ "$toprocess" == "" ]
+    then
+      break
+    fi
+  done
+  echo $result
+}
+
+ip_octet_to_bin() {
+  local oct=`dec_to_bin $1`
+  while [ ${#oct} -lt 8 ] ; do
+    oct=0$oct
+  done
+  echo $oct
+}
+
+ip_to_bin() {
+  local ip=$1
+  local first=`echo $ip | cut -d. -f1 | awk '{print $1}'`
+  local second=`echo $ip | cut -d. -f2 | awk '{print $1}'`
+  local third=`echo $ip | cut -d. -f3 | awk '{print $1}'` 
+  local fourth=`echo $ip | cut -d. -f4 | awk '{print $1}'`
+
+  first=`ip_octet_to_bin $first`
+  second=`ip_octet_to_bin $second`
+  third=`ip_octet_to_bin $third`
+  fourth=`ip_octet_to_bin $fourth`
+
+  echo $first$second$third$fourth
+}
+
+bin_to_ip() {
+  local first=${1:0:8}
+  local second=${1:8:8}
+  local third=${1:16:8}
+  local fourth=${1:24:8}
+ 
+  first=`bin_to_dec $first`
+  second=`bin_to_dec $second`
+  third=`bin_to_dec $third`
+  fourth=`bin_to_dec $fourth`
+  
+  echo $first.$second.$third.$fourth
+}
+
+bit_and() {
+  local in1=$1
+  local in2=$2
+  local out=''
+
+  while [ 1 ] ; do
+    local toadd=0
+    if [ "${in1:0:1}" == 1 ] ; then
+      if [ "${in2:0:1}" == 1 ] ; then
+        toadd=1
+      fi
+    fi
+    out=$out$toadd
+    in1=${in1:1}
+    in2=${in2:1}
+    if [ ${#in1} == 0 ] ; then
+      break
+    fi
+  done
+
+  echo $out;
+}
+
+
+get_subnet() {
+  local ip=`/sbin/ifconfig $1  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
+  local mask=`/sbin/ifconfig $1 | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f4 | awk '{ print $1}'`
+
+  echo local ip:   $ip
+  echo local mask: $mask
+ 
+  ip=`ip_to_bin $ip`
+  mask=`ip_to_bin $mask`
+
+  local subnet=`bit_and $ip $mask`
+
+  local counter=0
+  local todo=$mask
+  while [ 1 ] ; do
+    if [ "${todo:0:1}" == 1 ] ; then
+       let "counter = $counter + 1"
+    fi
+    todo=${todo:1}
+    if [ "${#todo}" == 0 ] ; then
+      break
+    fi
+  done
+
+  subnet=`bin_to_ip $subnet`
+ 
+  subnet=$subnet/$counter
+
+  echo calculated mask: $subnet
+}
+
+get_subnet eth0
+

@@ -4,9 +4,9 @@ created_at: 2014-07-09 14:14:37 -0400
 kind: article
 ---
 
-It's been 8 years since I last switched web platforms for ckdake.com, and it was time for a change. We are <a href="http://galleryproject.org/time-to-hibernate">putting Gallery into hibernation</a>, Drupal 6 is not going to get any more security updates once Drupal 8 is out (which should be soon), and the ongoing server/backup costs of keeping 130GB of photos on my site is not cheap.
+It's been over 8 years since I last switched web platforms for ckdake.com, and it was time for a change. We are <a href="http://galleryproject.org/time-to-hibernate">putting Gallery into hibernation</a>, Drupal 6 is not going to get any more security updates once Drupal 8 is out (which should be soon), and the ongoing server/backup costs of keeping 130GB of photos on my site is not cheap.
 
-We recently launched a new <a href="http://www.bignerdranch.com/">bignerdranch.com</a> at work, and my team did a fantastic job of building it as a 'static' site using <a href="http://jekyllrb.com">jekyll</a> that included migrating a bunch of legacy Python, PHP, and Ruby code including an old Wordpress site.
+At work, we recently launched a new <a href="http://www.bignerdranch.com/">bignerdranch.com</a>, and my team did a fantastic job of building it as a 'static' site using <a href="http://jekyllrb.com">jekyll</a>. This included migrating a bunch of legacy Python, PHP, and Ruby code and an old Wordpress site.
 
 With fantastic services like Flickr for photos and Vimeo for video, I set out to migrate my photos to Flickr and build a simple and fast 'static' site for ckdake.com. Here it is! The theme still needs a lot of work which is fine, and <a href="http://nanoc.ws">nanoc</a> has been a lot of fun to get up and running.
 
@@ -35,3 +35,7 @@ Getting content out of Drupal was a little bit more involved, and I didn't spend
 And here is the full 'Rules' file for nanoc that keeps around my old blog and page URLs. Note that nanoc by default does things like '/folder/page/index.html' so I've configured it to do '/folder/page.html' instead.
 
 <script src="https://gist.github.com/ckdake/37562c058673e74d5874.js?file=Rules.rb"></script>
+
+# Onward
+
+There is a mess of a UI to clean up, a pile of files to sort through, broken links to fix, etc. There are some PHP things that I need to figure out what to do with, and some shiny JavaScript libraries I want to play with. The 'Projects' section here is going to get some link-breaking cleanup as well, so stay tuned.
