@@ -13,6 +13,7 @@ GEM
     colored (1.2)
     cri (2.6.1)
       colored (~> 1.2)
+    excon (0.37.0)
     flickraw (0.9.8)
     goodreads (0.3.0)
       activesupport (>= 3)
@@ -26,6 +27,8 @@ GEM
       multi_xml (>= 0.5.2)
     httpclient (2.4.0)
     i18n (0.6.11)
+    jeff (1.0.1)
+      excon (>= 0.22.1)
     json (1.8.1)
     kramdown (1.4.0)
     mime-types (2.3)
@@ -43,6 +46,9 @@ GEM
     thread_safe (0.3.4)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
+    vacuum (1.1.1)
+      jeff (~> 1.0)
+      multi_xml (~> 0.5.0)
     vimeo (1.5.4)
       httparty (>= 0.4.5)
       httpclient (>= 2.1.5.2)
@@ -60,4 +66,5 @@ DEPENDENCIES
   goodreads
   kramdown
   nanoc
+  vacuum
   vimeo
