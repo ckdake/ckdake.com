@@ -11,9 +11,15 @@ $shelf = client.shelf('17714914', 'read', per_page: 200, sort: 'date_read')
 
 $books = nil
 
+def update_books
+  $books ||= cache_fetch 'goodreads-books' do
+    $shelf.books
+  end
+end
+
 def recent_books_html(count = 500)
   html = ''
-  $books ||= $shelf.books
+  update_books
   (0..(count.to_i - 1)).each do |i|
     if $books[i]
       html = html + amazon_book_to_html(

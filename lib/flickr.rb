@@ -22,9 +22,15 @@ flickr.access_secret=ENV['FLICKR_ACCESS_SECRET']
 
 $photosets = nil
 
+def update_photosets
+  $photosets ||= cache_fetch 'flickrphotosets' do
+    flickr.photosets.getList
+  end
+end
+
 def recent_flickr_sets_html(count)
   html = ''
-  $photosets ||= flickr.photosets.getList
+  update_photosets
   (0..(count.to_i - 1)).each do |i|
     if $photosets[i]['visibility_can_see_set'] == 1
       html = html + flickr_set_to_html(
@@ -43,5 +49,5 @@ def recent_flickr_sets_html(count)
 end
 
 def flickr_set_to_html(set)
-  "<a href='https://www.flickr.com/photos/ckdake/sets/#{set[:id]}'><img src='https://farm#{set[:farm]}.staticflickr.com/#{set[:server]}/#{set[:primary]}_#{set[:secret]}_q.jpg' /></a>"
+  "<a href='https://www.flickr.com/photos/ckdake/sets/#{set[:id]}'><img class='flickr_image'src='https://farm#{set[:farm]}.staticflickr.com/#{set[:server]}/#{set[:primary]}_#{set[:secret]}_q.jpg' /></a>"
 end

@@ -1,10 +1,17 @@
+require_relative 'cache'
 require 'vimeo'
 
 $videos = nil
 
+def update_videos
+  $videos ||= cache_fetch 'vimeo-videos' do
+    Vimeo::Simple::User.videos("ckdake").to_a
+  end
+end
+
 def recent_vimeo_videos_embed_html(count)
   html = ''
-  $videos ||= Vimeo::Simple::User.videos("ckdake")
+  update_videos
   (0..(count.to_i - 1)).each do |i|
     html = html + vimeo_video_to_embed_html(
       {
@@ -19,7 +26,7 @@ end
 
 def recent_vimeo_videos_link_html(count)
   html = ''
-  $videos ||= Vimeo::Simple::User.videos("ckdake")
+  update_videos
   (0..(count.to_i - 1)).each do |i|
     html = html + vimeo_video_to_link_html(
       {

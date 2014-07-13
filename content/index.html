@@ -4,12 +4,12 @@ title: Chris Kelly
 
 <h1>Hello!</h1>
 
-<p>This site is new and powered by <a href="http://nanoc.ws">nanoc</a>. PHotos are over on <a href="https://www.flickr.com/photos/ckdake/">Flickr</a> now. Everything is going to be a little crazy for a bit.</p>
+<p>This site is new. Everything is going to be a little crazy for a bit.  Photos are over on <a href="https://www.flickr.com/photos/ckdake/">Flickr</a> now.</p>
 
-<em>Most Recent Blog post: <%= sorted_articles[0][:created_at] %> - <%= link_to(sorted_articles[0][:title], sorted_articles[0].path, :title => sorted_articles[0][:title]) %></em>
+<em>Most Recent Blog post: <%= link_to(sorted_articles[0][:title], sorted_articles[0].path, :title => sorted_articles[0][:title]) %> at <%= sorted_articles[0][:created_at] %></em>
 
-<h2>Some Recent Flickr Albums</h2>
-<%= recent_flickr_sets_html(8) %>
+<h2>Recent Photo Albums</h2>
+<%= recent_flickr_sets_html(9) %>
 
-<h2>Some Recent Videos</h2>
-<%= recent_vimeo_videos_embed_html(2) %>
+<h2>Recent Videos</h2>
+<%= recent_vimeo_videos_embed_html(3) %>

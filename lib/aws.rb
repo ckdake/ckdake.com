@@ -1,8 +1,8 @@
 require 'vacuum'
-require 'pp'
+require 'digest/md5'
 
 # API is throttled to 1 per second :(
-# TODO: spreadsheet of Year, ASIN
+# TODO: spreadsheet of Year, ASIN from Goodreads
 
 $req = Vacuum.new('US', true)
 $req.configure(
@@ -12,18 +12,21 @@ $req.configure(
 )
 
 def amazon_book_to_html(params)
-  sleep 1
   url = params[:link]
   image = params[:image_url]
 
-  params = {
-    'SearchIndex' => 'Books',
-    'Author' => params[:author],
-    'Title' => params[:title],
-    'ResponseGroup' => 'ItemAttributes,Images',
-  }
+  response = cache_fetch Digest::MD5.hexdigest(params.to_s) do
+    sleep 1
 
-  response = $req.item_search(query: params).to_h
+    params = {
+      'SearchIndex' => 'Books',
+      'Author' => params[:author],
+      'Title' => params[:title],
+      'ResponseGroup' => 'ItemAttributes,Images',
+    }
+
+    $req.item_search(query: params).to_h
+  end
 
   if (response['ItemSearchResponse'] &&
       response['ItemSearchResponse']['Items'] &&
