@@ -22,7 +22,7 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 <li><a href="http://www.strava.com/athletes/ckdake" rel="me">me on Strava</a></li>
 <li><a href="http://www.singletracks.com/profile.php?u=480" rel="me">Me on Singletracks</a></li>
 <li><a href="http://connect.garmin.com/profile/ckdake" rel="me">me on Garmin Connect</a></li>
-<li><a href="http://ckdake.com/xtrack/" rel="me">me on XTrack</a></li>
+<li><a href="http://xtrack.ckdake.com/" rel="me">me on XTrack</a></li>
 <li><a href="http://ckdake.com/bikes/raceresults.html">Race Results and Records</a></li>
 </ul>
 
