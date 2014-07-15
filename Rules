@@ -35,6 +35,7 @@ compile '/blog/*' do
   else
     filter :erb
   end
+  filter :colorize_syntax
   layout 'post'
 end
 

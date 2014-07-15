@@ -5,6 +5,9 @@ gem 'adsf'
 gem 'kramdown'
 gem 'builder'
 
+gem 'nokogiri'
+gem 'coderay'
+
 gem 'flickraw'
 gem 'vimeo'
 gem 'goodreads'
