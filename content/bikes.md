@@ -77,7 +77,7 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 <h3>SOLD: 2005 Fuji Track Pro frame</h3>
 <a href="https://www.flickr.com/photos/ckdake/14566105015" title="Fuji Track Pro by Chris Kelly, on Flickr"><img src="https://farm4.staticflickr.com/3906/14566105015_f50c45ddbd_m.jpg" width="240" height="160" alt="Fuji Track Pro"></a>
 <p>Kazane carbon race wheels with Continental Sprinter tubular tires, Sugino 75 Cranks, Crank Brothers Quattro pedals, Deda bars, Thompson Masterpiece seatpost, Thompson Elite stem, Phil Wood bottom bracket, Selle saddle.(15.7lb)</p>
-<p>Track Racing at <a href="http://www.dicklanevelodrome.com/">Dick Lane Velodrome</a>. Bought March 2007 as a first track bike. Raced for 3 seasons and likely looking for a new home now.(<a href="http://www.bikepedia.com/QuickBike/BikeSpecs.aspx?Year=2005&Brand=Fuji&Model=Track+Pro&Type=bike">specs</a>- frame only)</p>
+<p>Track Racing at <a href="http://www.dicklanevelodrome.com/">Dick Lane Velodrome</a>. Bought March 2007 as a first track bike. Raced for 3 seasons and then parted out/sold.(<a href="http://www.bikepedia.com/QuickBike/BikeSpecs.aspx?Year=2005&Brand=Fuji&Model=Track+Pro&Type=bike">specs</a>- frame only)</p>
 
 <h3>SOLD: 2005 Gary Fisher Cake 4 DLX</h3>
 <a href="https://www.flickr.com/photos/ckdake/14543000246" title="img_9931 by Chris Kelly, on Flickr"><img src="https://farm6.staticflickr.com/5596/14543000246_d899a3893a_m.jpg" width="240" height="160" alt="img_9931"></a>
@@ -87,7 +87,7 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 <h3>IN PIECES: 1997 highly modified Gary Fisher Tassajara</h3>
 <a href="https://www.flickr.com/photos/ckdake/14564411964" title="img_9930 by Chris Kelly, on Flickr"><img src="https://farm6.staticflickr.com/5569/14564411964_6de04ecfa3_m.jpg" width="240" height="160" alt="img_9930"></a>
 <p>Avid Shorty 7 brakes, Phil Wood hubs laced to Rino Lite rims, lock on grips, Shimano cranks.</p>
-<p>The guest bike. Got some time in middle school a long time ago.(<a href="http://www.bikepedia.com/QuickBike/BikeSpecs.aspx?Year=1997&Brand=Gary%20Fisher&Model=Tassajara&Type=bike">specs</a>)</p>
+<p>My first 'real' mountain bike. Got some time in middle school a long time ago.(<a href="http://www.bikepedia.com/QuickBike/BikeSpecs.aspx?Year=1997&Brand=Gary%20Fisher&Model=Tassajara&Type=bike">specs</a>)</p>
 
 <h3>SOLD: 2000 KHS Flite 300</h3>
 <a href="https://www.flickr.com/photos/ckdake/14562728131" title="IMG_7769 by Chris Kelly, on Flickr"><img src="https://farm4.staticflickr.com/3877/14562728131_db81d1f381_m.jpg" width="240" height="160" alt="IMG_7769"></a>
