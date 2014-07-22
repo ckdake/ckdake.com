@@ -1,10 +1,10 @@
 ---
-title: me
+title: Resume
 created_at: 2014-07-22 08:20:29 -0500
 kind: page
 ---
 
-# Instigator. Problem Solver.
+# Resume
 
 ## Profile
 
