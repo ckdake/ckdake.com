@@ -45,6 +45,10 @@ aside {
   text-align: right;
 }
 
+pre {
+  white-space: pre-wrap;
+}
+
 .floater {
   float: left;
 }
