@@ -2,92 +2,161 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="generator" content="nanoc <%= Nanoc::VERSION %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ckdake.com - <%= @item[:title] %></title>
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Handlee' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="<%= @items['/stylesheet/'].path %>">
     <link rel="alternate" type="application/rss+xml" title="ckdake.com" href="/rss.xml">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <meta name="generator" content="nanoc <%= Nanoc::VERSION %>">
   </head>
   <body>
-    <div id="main">
-      <%= yield %>
-    </div>
     <div id="sidebar">
-      <a href="/"><img src="/files/ck2012.jpg" style="border-radius: 15px; width: 152px; height: 152px;"/>
-      <h2><img src="/files/logo.png" style="display: inline; width: 16px; height: 16px; margin-right: 8px;">Chris Kelly</h2>
-      Instigator. Problem Solver</a>
-      <div id="serviceicons" style="margin-top: 10px;">
-        <a href="https://www.flickr.com/photos/ckdake/sets/" rel="me"><img src="/img/icons/flickr.png"></a>
-        <a href="http://vimeo.com/ckdake" rel="me"><img src="/img/icons/vimeo.png"></a>
-        <a href="http://twitter.com/ckdake" rel="me"><img src="/img/icons/twitter.png"></a>
-        <a href="http://github.com/ckdake" rel="me"><img src="/img/icons/github.png" width="16" height="16"></a>
-        <a href="http://www.linkedin.com/in/ckdake" rel="me"><img src="/img/icons/linkedin.png"></a>
-        <a href="http://youtube.com/ckdake" rel="me"><img src="/img/icons/youtube.png"></a>
-        <a href="http://www.google.com/profiles/ckdake.com" rel="me"><img src="/img/icons/google.png"></a>
-        <a href="http://last.fm/ckdake" rel="me"><img src="/img/icons/lastfm.png"></a>
-        <a href="http://facebook.com/ckdake" rel="me"><img src="/img/icons/facebook.png"></a>
-        <a href="/rss.xml" rel="me"><img src="/img/icons/blog.png"></a>
+      <div id="headline">
+        <a class="only-show-small" href="#content">jump to content</a>
+        <header>
+          <a href="/"><img src="/files/ck2012.jpg"/></a>
+          <h2><img src="/files/logo.png" style="display: inline; width: 16px !important; height: 16px !important; margin-right: 8px; border-radius: 0 !important;">Chris Kelly</h2>
+          <p>Instigator. Problem Solver</p>
+        </header>
+        <div id="serviceicons">
+          <ul>
+            <li><a href="https://www.flickr.com/photos/ckdake/sets/" rel="me"><img src="/img/icons/flickr.png"></a></li>
+            <li><a href="http://vimeo.com/ckdake" rel="me"><img src="/img/icons/vimeo.png"></a></li>
+            <li><a href="http://twitter.com/ckdake" rel="me"><img src="/img/icons/twitter.png"></a></li>
+            <li><a href="http://github.com/ckdake" rel="me"><img src="/img/icons/github.png" width="16" height="16"></a></li>
+            <li><a href="http://www.linkedin.com/in/ckdake" rel="me"><img src="/img/icons/linkedin.png"></a></li>
+            <li><a href="http://youtube.com/ckdake" rel="me"><img src="/img/icons/youtube.png"></a></li>
+            <li><a href="http://www.google.com/profiles/ckdake.com" rel="me"><img src="/img/icons/google.png"></a></li>
+            <li><a href="http://last.fm/ckdake" rel="me"><img src="/img/icons/lastfm.png"></a></li>
+            <li><a href="http://facebook.com/ckdake" rel="me"><img src="/img/icons/facebook.png"></a></li>
+            <li><a href="/rss.xml" rel="me"><img src="/img/icons/blog.png"></a></li>
+          </ul>
+        </div>
       </div>
-      <h2>Pages</h2>
-      <ul>
-        <li><a href="/me.html">About Me</a></li>
-        <li><a href="/me/timeline.html">Timeline</a></li>
-        <li><a href="/bikes.html">Bikes</a></li>
-        <li><a href="/books.html">Books</a></li>
-        <li><a href="/bikes/raceresults.html">Race Results</a></li>
-        <li><a href="/allposts.html">All Posts</a></li>
-      </ul>
-      <h2>Newest Album</h2>
-      <p style="margin-top: 10px; margin-bottom: 10px;">
-        <%= recent_flickr_sets_html(1) %>
-      </p>
-      <h2>Projects</h2>
-      <ul>
-        <li><a href="/projects/assorted_software.html">Assorted Software</a></li>
-        <li><a href="/projects/computers.html">Computers</a></li>
-        <li><a href="/projects/cprtools.html">CPRtools</a></li>
-        <li><a href="/projects/fmracetracker.html">fmracetracker</a></li>
-        <li><a href="/projects/imusage.html">imusage</a></li>
-        <li><a href="/projects/media.html">media</a></li>
-        <li><a href="/projects/photography.html">photography</a></li>
-        <li><a href="/projects/shortestpath.html">shortestpath</a></li>
-        <li><a href="/projects/tfstat.html">tfstat</a></li>
-        <li><a href="/projects/websites.html">websites</a></li>
-        <li><a href="/projects/zcc.html">zcc</a></li>
-      </ul>
-      <h2>Recent Posts</h2>
-      <ul>
-        <% sorted_articles[0..9].each do |post| %>
-          <li><%= link_to post[:title], post.path %></li>
-        <% end %>
-      </ul>
-      <h2>Search</h2>
-      <script>
-        (function() {
-          var cx = '018178449386979284272:agezxhbkxea';
-          var gcse = document.createElement('script');
-          gcse.type = 'text/javascript';
-          gcse.async = true;
-          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-              '//www.google.com/cse/cse.js?cx=' + cx;
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(gcse, s);
-        })();
-      </script>
-      <gcse:search></gcse:search>
-      <h2>Powered By</h2>
-      <ul>
-        <li><a href="http://nanoc.ws">nanoc</a></li>
-        <li><a href="http://ithought.org">ithought</a></li>
-      </ul>
-      <h2>Advertisements</h2>
-      <script type="text/javascript"><!--
-        google_ad_client = "pub-7424018245102468";google_ad_slot = "2779502010";google_ad_width = 120;google_ad_height = 600;
-      //-->
-      </script>
-      <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-      </script>
+      <div id="pages-section">
+        <div class="container">
+          <h2>Pages</h2>
+          <nav class="nav">
+            <ul>
+              <li><a href="/me.html">About Me</a></li>
+              <li><a href="/me/timeline.html">Timeline</a></li>
+              <li><a href="/bikes.html">Bikes</a></li>
+              <li><a href="/books.html">Books</a></li>
+              <li><a href="/bikes/raceresults.html">Race Results</a></li>
+              <li><a href="/allposts.html">All Posts</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div id="flickr-secion">
+        <div class="container">
+          <h2>Newest Album</h2>
+          <div class="small-center-big-right">
+            <%= recent_flickr_sets_html(1) %>
+          </div>
+        </div>
+      </div>
+      <div id="projects-section">
+        <div class="container">
+          <h2>Projects</h2>
+          <nav class="nav">
+            <ul>
+              <li><a href="/projects/assorted_software.html">Assorted Software</a></li>
+              <li><a href="/projects/computers.html">Computers</a></li>
+              <li><a href="/projects/cprtools.html">CPRtools</a></li>
+              <li><a href="/projects/fmracetracker.html">fmracetracker</a></li>
+              <li><a href="/projects/imusage.html">imusage</a></li>
+              <li><a href="/projects/media.html">media</a></li>
+              <li><a href="/projects/photography.html">photography</a></li>
+              <li><a href="/projects/shortestpath.html">shortestpath</a></li>
+              <li><a href="/projects/tfstat.html">tfstat</a></li>
+              <li><a href="/projects/websites.html">websites</a></li>
+              <li><a href="/projects/zcc.html">zcc</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div id="posts-section">
+        <div class="container">
+          <h2>Recent Posts</h2>
+          <nav class="nav">
+            <ul>
+              <% sorted_articles[0..9].each do |post| %>
+                <li><%= link_to post[:title], post.path %></li>
+              <% end %>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div id="search-section">
+        <div class="container">
+          <h2>Search</h2>
+          <script>
+            (function() {
+              var cx = '018178449386979284272:agezxhbkxea';
+              var gcse = document.createElement('script');
+              gcse.type = 'text/javascript';
+              gcse.async = true;
+              gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                  '//www.google.com/cse/cse.js?cx=' + cx;
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(gcse, s);
+            })();
+          </script>
+          <gcse:search></gcse:search>
+        </div>
+      </div>
+      <div id="poweredby-section">
+        <div class="container">
+          <h2>Powered By</h2>
+          <nav class="nav">
+            <ul>
+              <li><a href="http://nanoc.ws">nanoc</a></li>
+              <li><a href="http://ithought.org">ithought</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div id="advertisements-section">
+        <div class="container">
+          <h2>Advertisements</h2>
+          <div class="small-center-big-right">
+            <div class="ad-skyscraper">
+              <script type="text/javascript"><!--
+              google_ad_client = "ca-pub-7424018245102468";
+              /* 120x600, created 6/8/08 */
+              google_ad_slot = "2779502010";
+              google_ad_width = 120;
+              google_ad_height = 600;
+              //-->
+              </script>
+              <script type="text/javascript"
+              src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+              </script>
+            </div>
+            <div class="ad-rectangle">
+              <script type="text/javascript"><!--
+              google_ad_client = "ca-pub-7424018245102468";
+              /* ckdake square */
+              google_ad_slot = "1361204379";
+              google_ad_width = 300;
+              google_ad_height = 250;
+              //-->
+              </script>
+              <script type="text/javascript"
+              src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="content">
+      <a name="content"></a>
+      <div class="container">
+        <%= yield %>
+      </div>
     </div>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -97,7 +166,6 @@
       ga('create', 'UA-66854-1', 'auto');
       ga('send', 'pageview');
     </script>
-    <!-- Start Quantcast tag -->
     <script type="text/javascript">
       _qoptions={
       qacct:"p-84WZLopPH5yXA"
@@ -107,6 +175,5 @@
     <noscript>
       <img src="//pixel.quantserve.com/pixel/p-84WZLopPH5yXA.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
     </noscript>
-    <!-- End Quantcast tag -->
   </body>
 </html>

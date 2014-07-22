@@ -1,6 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
+/* this block is used everywhere */
+h1,h2,h3,blockquote,em {
+  font-family: 'Handlee', cursive;
 }
 
 body {
@@ -19,77 +19,6 @@ a:visited {
 
 a:hover {
   color: #0bf;
-}
-
-h1,h2,h3,blockquote,em {
-  font-family: 'Handlee', cursive;
-}
-
-#main {
-  position: absolute;
-  top: 40px;
-  left: 280px;
-  width: 620px;
-}
-
-#main h1 {
-  font-size: 40px;
-  font-weight: normal;
-  line-height: 40px;
-  letter-spacing: -1px;
-  margin: 20px 0;
-}
-
-#main h2 {
-  margin: 20px 0;
-}
-
-#main p {
-  margin: 20px 0;
-  font-size: 15px;
-  line-height: 20px;
-}
-
-#main ul, #main ol {
-  margin: 20px;
-}
-
-#main li {
-  font-size: 15px;
-  line-height: 20px;
-}
-
-#main ul li {
-  list-style-type: square;
-}
-
-#sidebar {
-  position: absolute;
-  top: 40px;
-  left: 20px;
-  width: 200px;
-  padding: 20px 20px 0 0;
-  border-right: 1px solid #ccc;
-  text-align: right;
-}
-
-#sidebar h2 {
-  text-transform: uppercase;
-  font-size: 13px;
-  color: #333;
-  letter-spacing: 1px;
-  line-height: 20px;
-  margin: 10px 0;
-}
-
-#sidebar ul {
-  list-style-type: none;
-  margin: 10px 0;
-}
-
-#sidebar li {
-  font-size: 14px;
-  line-height: 20px;
 }
 
 div.gist {
@@ -115,6 +44,173 @@ img.flickr_image {
 aside {
   text-align: right;
 }
+
+#content h1 {
+  font-size: 40px;
+  font-weight: normal;
+  line-height: 40px;
+  letter-spacing: -1px;
+  margin: 20px 0;
+}
+
+#content h2 {
+  margin: 20px 0;
+}
+
+#content p {
+  margin: 20px 0;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+#content ul, #main ol {
+  margin: 20px;
+}
+
+#content li {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+#content ul li {
+  list-style-type: square;
+}
+
+#sidebar h2 {
+  text-transform: uppercase;
+  font-size: 13px;
+  color: #333;
+  letter-spacing: 1px;
+  line-height: 20px;
+  margin: 10px 0;
+}
+
+#sidebar ul {
+  list-style-type: none;
+  margin: 10px 0;
+}
+
+#sidebar li {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* this block is used for small screens */
+
+#sidebar {
+  float: left;
+  text-align: center;
+}
+
+#content {
+  float: left;
+  margin: 10px;
+  display: block;
+}
+
+#headline {
+  margin: auto;
+  text-align: center;
+}
+
+#serviceicons ul {
+  padding: 0;
+}
+#serviceicons ul li {
+  display: inline;
+}
+
+nav ul {
+  list-style: none;
+}
+
+header img {
+  width: 50%;
+}
+
+.small-center-big-right {
+  text-align: center;
+}
+.small-center-big-right {
+  text-align: center;
+}
+
+.ad-skyscraper {
+  display: none;
+}
+.ad-rectangle {
+  display: block;
+  margin: auto;
+}
+
+iframe {
+  max-width: 100%;
+}
+
+/* this block is used for big screens */
+@media (min-width: 600px) {
+  .container {
+    max-width: 620px;
+  }
+
+  .only-show-small {
+    display: none;
+  }
+
+  header img {
+    width: 152px !important;
+    height: 152px !important;
+    border-radius: 15px;
+  }
+
+  #headline {
+    text-align: right;
+  }
+
+  #sidebar {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    width: 200px;
+    padding: 20px 20px 0 0;
+    border-right: 1px solid #ccc;
+    text-align: right;
+  }
+
+  #content {
+    position: absolute;
+    top: 40px;
+    left: 280px;
+    margin: 0;
+    text-align: left;
+  }
+
+  br {
+    clear; both;
+  }
+
+  .ad-skyscraper {
+    display: block;
+    margin: auto;
+  }
+  .ad-rectangle {
+    display: none;
+  }
+
+  .small-center-big-right {
+    text-align: right;
+  }
+  .small-center-big-left {
+    text-align: left;
+  }
+}
+
+
 
 .CodeRay {
   font-family: monospace;

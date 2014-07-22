@@ -9,7 +9,13 @@ title: Chris Kelly
 <em>Most Recent Blog post: <%= link_to(sorted_articles[0][:title], sorted_articles[0].path, :title => sorted_articles[0][:title]) %> at <%= sorted_articles[0][:created_at] %></em>
 
 <h2>Recent Photo Albums</h2>
-<%= recent_flickr_sets_html(9) %>
+
+<div class="small-center-big-left">
+  <%= recent_flickr_sets_html(9) %>
+</div>
 
 <h2>Recent Videos</h2>
-<%= recent_vimeo_videos_embed_html(3) %>
+
+<div class="small-center-big-left">
+  <%= recent_vimeo_videos_embed_html(3) %>
+</div>
