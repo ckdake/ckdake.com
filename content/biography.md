@@ -16,7 +16,7 @@ More details are on [my resume](/resume.html) and on [my timeline](/me/timeline.
 
 ## Endorphins and Neurogenesis
 
-I've ridden bicycles since I was a little kid, and there are not many things I would rather do than go for a long bike. Mountain biking is my favorite, and other things that improve my fitness like running and road biking make mountain biking that much more enjoyable. More about this over on [bikes](/bikes.html), come join me for a ride or a run sometime.
+I've ridden bicycles since I was a little kid, and there are not many things I would rather do than go for a long ride. Mountain biking is my favorite, and other things that improve my fitness like running and road biking make mountain biking that much more enjoyable. More about this over on [bikes](/bikes.html), come join me for a ride or a run sometime.
 
 ## Sounds and Sights
 
@@ -47,13 +47,9 @@ I am very deliberate in how I go about doing things. My full-blown project about
 
 While most of the things in Feedly don't really count, I spend a bit of time reading. I have a list of [books](/books.html) I've read. I subscribe to and highly recommend these periodicals:
 
-<a href="http://www.amazon.com/gp/product/B001AHPAX4/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B001AHPAX4&linkCode=as2&tag=ckdake-20&linkId=26O65776A75OELOQ"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B001AHPAX4&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=ckdake-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=ckdake-20&l=as2&o=1&a=B001AHPAX4" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-
-<a href="http://www.amazon.com/gp/product/B0000C4CU9/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B0000C4CU9&linkCode=as2&tag=ckdake-20&linkId=YMNFMRWDQPD22ALJ"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0000C4CU9&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=ckdake-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=ckdake-20&l=as2&o=1&a=B0000C4CU9" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-
-<a href="http://www.cisco.com/web/about/ac123/ac147/about_cisco_the_internet_protocol_journal.html"><img border="0" src="http://www.cisco.com/web/about/ac123/ac147/images/ipj/ipj_cover_155x200.jpg" style="float: left; margin: 10px;"></a>
-
-<a href="http://www.mountainflyermagazine.com/store/product/subscribe-to-mountain-flyer-magazine/">Mountain Flyer</a>
+<div class="floater"><a href="http://www.amazon.com/gp/product/B001AHPAX4/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B001AHPAX4&linkCode=as2&tag=ckdake-20&linkId=26O65776A75OELOQ"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B001AHPAX4&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=ckdake-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=ckdake-20&l=as2&o=1&a=B001AHPAX4" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div>
+<div class="floater"><a href="http://www.amazon.com/gp/product/B0000C4CU9/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B0000C4CU9&linkCode=as2&tag=ckdake-20&linkId=YMNFMRWDQPD22ALJ"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0000C4CU9&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=ckdake-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=ckdake-20&l=as2&o=1&a=B0000C4CU9" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div>
+<div class="floater"><a href="http://www.mountainflyermagazine.com/store/product/subscribe-to-mountain-flyer-magazine/"><img src="http://cdn.firstendurance.com/wp-content/uploads/2008/10/mountainflyer08.jpg" width="195" height="250"/></a></div>
 
 <br style="clear: both;" />
 

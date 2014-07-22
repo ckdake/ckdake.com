@@ -45,6 +45,10 @@ aside {
   text-align: right;
 }
 
+.floater {
+  float: left;
+}
+
 #content h1 {
   font-size: 40px;
   font-weight: normal;
