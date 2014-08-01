@@ -45,6 +45,10 @@ aside {
   text-align: right;
 }
 
+#social {
+  clear: both;
+}
+
 pre {
   white-space: pre-wrap !important;
 }
