@@ -17,7 +17,7 @@ def update_books
   end
 end
 
-def recent_books_html(count = 500)
+def recent_books_html(count = 10)
   html = ''
   update_books
   (0..(count.to_i - 1)).each do |i|
