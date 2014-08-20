@@ -40,7 +40,7 @@ Thanks to his wreck, Marc skipped out on day two. With our weird mix of thru-axe
 * [Goodman, Sawtooth, Hardesty route on Strava](http://www.strava.com/activities/177059179)
 * [Goodman, Sawtooth, Hardesty photos on Flickr](https://www.flickr.com/photos/ckdake/sets/72157645855433199/)
 
-Next up on the top-rated restaurants on Oakridge, we had some great Chinese food at [Lee's Chinese Cuisine](http://www.yelp.com/biz/lees-chinese-cuisine-oakridge
+Next up on the top-rated restaurants on Oakridge, we had some great Chinese food at [Lee's Chinese Cuisine](http://www.yelp.com/biz/lees-chinese-cuisine-oakridge)
 
 ## 08/08/2014 Day 3: Alpine. 26 Miles, 3288 feet up, 6603 feet down.
 
@@ -50,7 +50,9 @@ Next up on the top-rated restaurants on Oakridge, we had some great Chinese food
 
 <iframe src="//player.vimeo.com/video/103039550?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/103039550">Oakridge, OR Day 3: Alpline</a> from <a href="http://vimeo.com/ckdake">Chris Kelly</a> on <a href="https://vimeo.com">Vimeo</a>.</p> <p></p>
 
-As a mid-trip break, we piled into a shuttle (with Marc again!) to the top of Alpine. This saved us a few hours of grindy climbing from 1000ft to 5000ft, and let us spend most of the day flying downhill. We first looped on 'Chrome Toilet' which I suspect, contrary to local opinions otherwise, doesn't actually conceal a chrome toilet in the woods. A short climb afterwards, and we were back to the top of Alpine for 12-mile 5200ft descent.
+As a mid-trip break, we piled into a shuttle (with Marc again!) to the top of Alpine. This saved us a few hours of grindy climbing from 1000ft to 5000ft, and let us spend most of the day flying downhill. We first looped on 'Chrome Toilet' which I suspect, contrary to local opinions otherwise, doesn't actually conceal a chrome toilet in the woods. A short climb afterwards, and we were back to the top of Alpine for 12-mile 5200ft descent. We also ran into a guy with a flat tire, no repair kit, and no idea how to fix a flat. Paul gave him a lesson in tire changing and we finished flying downhill to the end of the trail.
+
+<a href="https://www.flickr.com/photos/ckdake/14882448073" title="Just chillin in the woods with some trees on the Alpine trail by Chris Kelly, on Flickr"><img src="https://farm6.staticflickr.com/5575/14882448073_03ccbdb9f6.jpg" width="500" height="500" alt="Just chillin in the woods with some trees on the Alpine trail"></a>
 
 * [Alpine route on Strava](http://www.strava.com/activities/177458647)
 * [Alpine photos on Flickr](https://www.flickr.com/photos/ckdake/sets/72157645884858729/)
@@ -71,9 +73,7 @@ Dinner was early, with a pile of delicious and artery clogging food at [Stewart'
 
 <iframe src="//player.vimeo.com/video/103039551?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/103039551">Oakridge, OR Day 4: Lower Bunchgrass, Heckletooth</a> from <a href="http://vimeo.com/ckdake">Chris Kelly</a> on <a href="https://vimeo.com">Vimeo</a>.</p> <p></p>
 
-The bike shop informed up that most of Bunchgrass (One of the 'signature rides' in Oakridge) was interrupted by lots of downed trees, and showed us a loop we could do instead that takes a cut in from a forest service road that did not appear on our maps. We climbed all morning, passed what ended up being the cut-in for a few hundred more feet of climbing, stopped to eat sandwiches, and began our descent. This descent included the most technical bits of the trip, and I did my share of walking down exposed rooty/rocky tight switchbacks. We also ran into a guy with a flat tire, no repair kit, and no idea how to fix a flat. Paul gave him a lesson in tire changing and we finished flying downhill to the end of the trail.
-
-<a href="https://www.flickr.com/photos/ckdake/14882448073" title="Just chillin in the woods with some trees on the Alpine trail by Chris Kelly, on Flickr"><img src="https://farm6.staticflickr.com/5575/14882448073_03ccbdb9f6.jpg" width="500" height="500" alt="Just chillin in the woods with some trees on the Alpine trail"></a>
+The bike shop informed up that most of Bunchgrass (One of the 'signature rides' in Oakridge) was interrupted by lots of downed trees, and showed us a loop we could do instead that takes a cut in from a forest service road that did not appear on our maps. We climbed all morning, passed what ended up being the cut-in for a few hundred more feet of climbing, stopped to eat sandwiches, and began our descent. This descent included the most technical bits of the trip, and I did my share of walking down exposed rooty/rocky tight switchbacks.
 
 * [Lower Bunchgrass, Heckletooth route on Strava](http://www.strava.com/activities/177991603)
 * [Lower Bunchgrass, Heckletooth photos on Flickr](https://www.flickr.com/photos/ckdake/sets/72157646319624435/)
