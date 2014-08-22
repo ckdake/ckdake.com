@@ -10,7 +10,7 @@ At work, we recently launched a new <a href="http://www.bignerdranch.com/">bigne
 
 With fantastic services like Flickr for photos and Vimeo for video, I set out to migrate my photos to Flickr and build a simple and fast 'static' site for ckdake.com. Here it is! The theme still needs a lot of work which is fine, and <a href="http://nanoc.ws">nanoc</a> has been a lot of fun to get up and running.
 
-# Migrating Photos to Flickr
+## Migrating Photos to Flickr
 
 Flickr has a pretty straightforward API, and the <a href="https://github.com/hanklords/flickraw">Flickraw</a> gem makes writing ruby code to talk to Flickr pretty easily. A few weeks ago I started on this and published the script that migrated my ~25,000 photos to Flickr here: <a href="https://gist.github.com/ckdake/612bdaa1a8333ac37b17">gallery2flickr.rb</a>.
 
@@ -20,13 +20,13 @@ Getting Flickr Photos displayed here was a pretty straightforward block of Ruby 
 
 <script src="https://gist.github.com/ckdake/37562c058673e74d5874.js?file=flickr.rb"></script>
 
-# Pulling in Vimeo
+## Pulling in Vimeo
 
 Vimeo was really easy to pull in to, and the end result looks much better than the JavaScript widget I was using. It's Ruby:
 
 <script src="https://gist.github.com/ckdake/37562c058673e74d5874.js?file=vimeo.rb"></script>
 
-# Preserving content and URLs
+## Preserving content and URLs
 
 Getting content out of Drupal was a little bit more involved, and I didn't spend the time to match up the 'format' of blog posts with file extensions or a content formatter. That might be nice, but I'm ok just fixing HTML files by hand when I notice something wonky. This script pulled out my content:
 
@@ -36,6 +36,6 @@ And here is the full 'Rules' file for nanoc that keeps around my old blog and pa
 
 <script src="https://gist.github.com/ckdake/37562c058673e74d5874.js?file=Rules.rb"></script>
 
-# Onward
+## Onward
 
 There is a mess of a UI to clean up, a pile of files to sort through, broken links to fix, etc. There are some PHP things that I need to figure out what to do with, and some shiny JavaScript libraries I want to play with. The 'Projects' section here is going to get some link-breaking cleanup as well, so stay tuned.
