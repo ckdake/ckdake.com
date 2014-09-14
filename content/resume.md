@@ -14,11 +14,16 @@ I’m a technical polyglot with demonstrated knowledge in a wide range of techno
 
 ### Director of Internal Operations, Big Nerd Ranch 2012-2014
 
-Highgroove merged with Big Nerd Ranch to form an 85 person company in late 2012. I acted as Chief Operations Officer for the first 3 months of the merger to accelerate coalescing of processes and cultures. Currently, I manage the team of developers that work on internal tools that enable us to run our business from custom software to IT, and work with the Leadership Team to figure out the direction these tools should take. We are up to ~120 people currently.
+Highgroove merged with Big Nerd Ranch to form an 85 person company in late 2012. I acted as Chief Operations Officer for the first 3 months of the merger to accelerate coalescing of processes and cultures. Currently, I manage the team of developers that work on internal tools that enable us to run our business from custom software to IT, and I work with the Leadership Team to figure out the direction these tools should take. We are up to ~120 people currently. My team:
+
+* rebuilt and manages bignerdranch.com, which doubled our traffic from 75k unique monthly sessions to 150k.
+* built and manages training.bignerdranch.com which has directly processed $2M+ of open enrollment student registrations and $6M+ of corporate training classes.
+* built and manages nerdassociation.org which has provided classroom logistics and discussion for over 10k students in over 1000 classes.
+* built and manages Stable, our internal ERP system which has tracked over 10k 'results' for over 150 employees.
 
 ### Developer and Methodologist, Highgroove Studios 2010-2012
 
-Hired with no Ruby on Rails experience as a Ruby on Rails developer, I quickly mastered the technology to build a bunch of great (and profitable) applications for our clients. As we grew from 5 towards 30 people, my role morphed into a ‘Methodologist’ where I helped other developers and our clients work together and effectively do Agile development. I taught several classes on Agile Development at both startups and Fortune 100 companies.
+Hired with no Ruby on Rails experience as a Ruby on Rails developer, I quickly mastered the technology to build a bunch of functional and profitable applications for our clients. I was instrumental in growing our team from 5 to 30 people including finding new hires, organizing our first go at 'teams', writing our consulting playbook, mentoring other developers, and on-boarding clients. I taught several classes on Agile Development at both startups and Fortune 100 companies.
 
 ### NOC Manager and Operations Engineer, SugarCRM 2008-2010
 
