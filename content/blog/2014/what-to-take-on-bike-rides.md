@@ -28,6 +28,7 @@ I have a pretty usual weekly routine for doing things outside, and even though I
     * CO2 nozzle and 2 CO2 cartridges
     * Patch kit
     * quick-links
+    * 1-2 Grease Monkey wipes for cleaning hands after fixing something
 * Any cold weather gear required, [Bicyling.com's What To Wear](http://www.bicycling.com/whattowear) is pretty solid.
 
 ### Driving to Start
@@ -63,6 +64,7 @@ Sometimes I'll bring along my GoPro or Canon EOS M, but that's usually just spec
     * Leatherman Skeletool
     * Custom first aid kit
     * 2 spare tubes
+    * 2-3 Grease Monkey wipes for cleaning hands after fixing something
 * Any cold weather gear required
 
 ### Epic
