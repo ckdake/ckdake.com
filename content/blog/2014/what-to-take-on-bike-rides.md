@@ -53,6 +53,7 @@ Sometimes I'll bring along my GoPro or Canon EOS M, but that's usually just spec
 * Helmet
 * Garmin + HRM Strap
 * Camelbak with 3L of water
+    * Garmin 60CSx with route data about where we are going and/or paper map and compass
     * Topeak Mountain Morph pump
     * [Topeak Survival Gear Box](http://www.amazon.com/Topeak-Update-Survival-Holding-Clamp/dp/B004GLHZZC/)
     * patch kit
