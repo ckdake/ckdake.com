@@ -53,6 +53,10 @@ pre {
   white-space: pre-wrap !important;
 }
 
+td {
+  border-top: 1px solid #ccc;
+}
+
 .floater {
   float: left;
 }
