@@ -16,7 +16,7 @@ kind: page
   <li>Any other day, any other time, if you want to ride or run ping me (@ckdake on twitter is easiest)</li>
 </ul>
 
-I bike to work on a single speed, ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and currently are mostly focused on our race team <a href="http://fastermustache.org/race">FM:Race</a> which I am a part of. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I will took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cylcocross races were rode, and 2012 was a the year of running races and mountain biking adventures. 2013 brings bigger bike adventures, and running with a bigger crowd.
+I bike to work on a single speed, ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and currently are mostly focused on our race team <a href="http://fastermustache.org/race">FM:Race</a> which I am a part of. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I will took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cylcocross races were rode, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd.
 
 <ul>
   <li><a href="http://www.strava.com/athletes/ckdake" rel="me">me on Strava</a></li>
@@ -42,6 +42,7 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
   <li>2011.11.27 - <a href="http://ckdake.com/content/2011/riding-bikes-in-2011.html">Strava Turkey Takeoff (and other 2011 riding)</a> - 250 miles in 4 days</li>
   <li>2012.06.20 - <a href="http://ckdake.com/content/2012/2012-mountain-bike-trip-sun-valley.html">Mountain Biking in Sun Valley, Idaho</a> - 7 dudes, 150 miles and 19,000ft in 6 days</li>
   <li>2013.10.06 - <a href="http://ckdake.com/content/2013/mtb-2k13-park-city.html">Mountain Biking in Park City, Utah</a> - 7 dudes, 128 miles, and 16,000ft in 5 days</li>
+  <li>2014.08.19 - <a href="http://ckdake.com/content/2014/mountain-biking-in-oakridge-oregon.html">Mountain Biking in Oakridge, OR</a> - 4 dudes, 1 gal, 130 miles and 25,000ft in 5 days</li>
 </ul>
 
 <h2>The Garage</h2>
