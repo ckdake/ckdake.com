@@ -3,7 +3,7 @@ title: "2012 Mountain Bike Trip: Sun Valley"
 created_at: 2012-06-20 16:03:31 -0400
 kind: article
 ---
-Another year, another awesome bike trip.  What started in 2009 as just <a href="http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html">me and a rental bike in Santa Fe, NM</a> turned into a party of 7 riding epic trails for a week in Sun Valley, Idaho.  Austin and Paul (who made appearances in <a href="http://ckdake.com/content/2010/road-biking-in-portland-or.html">bike trip 2010 in Portland</a>) drove in from Portland,  Jason (my riding buddy for <a href="http://ckdake.com/content/2011/mountain-biking-in-colorado.html ">last year's week of riding in Colorado</a>) flew in from Pittsburgh, and Bob/Jim/Charles flew in from Atlanta for a few days.
+Another year, another awesome bike trip.  What started in 2009 as just <a href="http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html">me and a rental bike in Santa Fe, NM</a> turned into a party of 7 riding epic trails for a week in Sun Valley, Idaho.  Austin and Paul (who made appearances in <a href="http://ckdake.com/content/2010/road-biking-in-portland-or.html">bike trip 2010 in Portland</a>) drove in from Portland,  Jason (my riding buddy for <a href="http://ckdake.com/content/2011/mountain-biking-in-colorado.html">last year's week of riding in Colorado</a>) flew in from Pittsburgh, and Bob/Jim/Charles flew in from Atlanta for a few days.
 
 <a href="https://www.flickr.com/photos/ckdake/14584146173" title="IMG_9395 by Chris Kelly, on Flickr"><img src="https://farm4.staticflickr.com/3851/14584146173_8aef8c6855_c.jpg" width="800" height="600" alt="IMG_9395"></a>
 

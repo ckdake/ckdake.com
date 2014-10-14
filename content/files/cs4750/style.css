@@ -1,35 +1,0 @@
-table {
-	border: 2px solid #000000;
-	width: 410px;
-	height: 524px;
-}
-
-.inner {
-	border: none;
-	width: 100%;
-	height: 100%;
-}
-
-td {
-	text-align: center;
-	vertical-align: middle;
-	font-size: large;
-	font-family: sans-serif;
-	font-weight: bold;	
-}
-
-.store {
-	border: 2px solid #eeeeee;
-}
-
-.cbutton {
-	width: 50%;
-	height: 25%;
-	cursor: pointer;
-	border: 2px solid #eeeeee;}
-
-.color1 {	background: #ff0000;}.color2 {
-	background: #ff6600;}.color3 {	background: #3344ff;}.color4 {
-	background: #00cc00;}.color5 {
-	background: #ffcc00;}.color6 {
-	background: #7700ff;}.color7 {	background: #aaaaaa;}

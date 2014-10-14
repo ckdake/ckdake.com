@@ -52,6 +52,15 @@ route '/files/*' do
   item.identifier.chop + '.' + item[:extension]
 end
 
+compile '/htaccess*' do
+  filter :erb
+  '.htaccess'
+end
+
+route '/htaccess*' do
+  '/.htaccess'
+end
+
 compile '*' do
   if item[:extension] == 'md'
     filter :kramdown
