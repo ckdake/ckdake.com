@@ -25,7 +25,7 @@ function conditionFromConditionCode(code) {
 function updateWithLocation(userLocation) {
   weatherURL = "http://api.openweathermap.org/data/2.5/weather/?lat="+userLocation[0]+"&lon="+userLocation[1]+"&units=imperial";
   $.getJSON(weatherURL, function (data) {
-    $( "#userLocation" ).html(data['name']);
+    $( "#userLocation" ).html('(Defaults based on weather in '+data['name']+'.)');
     $( "#temperature" ).slider( "option", "value", data['main']['temp'] );
     $( "#wind" ).slider( "option", "value", data['wind']['speed'] );
     $( "#conditions" ).slider( "option", "value", conditionFromConditionCode(data['weather'][0]['id']) );
@@ -62,7 +62,7 @@ function wouldliketofeelEffectOnTemperature() {
 }
 
 function typeofrideEffectOnTemperature() {
-  return 4 * $( "#typeofride" ).slider( "value");
+  return 3 * $( "#typeofride" ).slider( "value");
 }
 
 function levelofexertionEffectOnTemperature() {
@@ -207,10 +207,10 @@ $(function() {
 </script>
 
 <p class="ui-state-default ui-corner-all ui-helper-clearfix" style="padding:4px;">
-  <span class="ui-icon ui-icon-pencil" style="float:left; margin:-2px 5px 0 0;"></span>
-  BETA: What To Wear When Riding Bikes! (Based on weather in <span id="userLocation"></span>). e-mail ckdake at ckdake dot com any suggestions.
+  BETA: What To Wear When Riding Bikes! <span id="userLocation"></span>
 </p>
 
+<h2>How is it out there?</h2>
 <p>What is the ambient temperature in F? Don't take into account wind-chill or heat index</p>
 <div class="slider" id="temperature"></div>
 <input type="text" id="the_temperature" readonly style="border:0; color:#f6931f; font-weight:bold;" />
@@ -235,6 +235,8 @@ $(function() {
 <div class="slider" id="levelofexertion"></div>
 <input type="text" id="the_levelofexertion" readonly style="border:0; color:#f6931f; font-weight:bold;" />
 
+<h2>Wear These Things</h2>
+<p>e-mail ckdake at ckdake dot com if you disagree and why</p>
 <ul>
   <li>Head: <b><em><span id="head"></span></b></em></li>
   <li>Top-half: <b><em><span id="top_half"></span></b></em></li>
