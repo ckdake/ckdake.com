@@ -1,0 +1,240 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script>
+
+var CONDITIONS = ['Sunny', 'Overcast', 'Raining', 'Wintery Precipitation'];
+var WOULDLIKETOFEELS = ['Cool', 'Neutral', 'Warm' ];
+var TYPEOFRIDES = ['Commute', 'Mountain', 'Road'];
+var LEVELOFEXERTIONS = ['Easy', 'Medium', 'Hard'];
+
+function conditionFromConditionCode(code) {
+  // see http://openweathermap.org/weather-conditions
+  if ($.inArray(code, [800, 801]) >= 0) { return 0; }
+  else if ($.inArray(code, [802, 803, 804, 701, 711, 721, 731, 741, 751, 761, 762, 771, 781]) >= 0) { return 1; }
+  else if ($.inArray(code, [200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 300, 301, 302, 310, 311, 312, 313, 314, 321, 500, 501, 502, 503, 504, 511, 520, 521, 522, 531, 900, 901, 902]) >= 0) { return 2; }
+  else if ($.inArray(code, [600, 601, 602, 611, 612, 615, 616, 620, 621, 622]) >= 0) { return 3; }
+  else { return 0 };
+}
+
+function updateWithLocation(userLocation) {
+  weatherURL = "http://api.openweathermap.org/data/2.5/weather/?lat="+userLocation[0]+"&lon="+userLocation[1]+"&units=imperial";
+  $.getJSON(weatherURL, function (data) {
+    $( "#userLocation" ).html(data['name']);
+    $( "#temperature" ).slider( "option", "value", data['main']['temp'] );
+    $( "#wind" ).slider( "option", "value", data['wind']['speed'] );
+    $( "#conditions" ).slider( "option", "value", conditionFromConditionCode(data['weather'][0]['id']) );
+  });
+}
+
+if (navigator.geolocation) {
+  var userLocation = null;
+  navigator.geolocation.getCurrentPosition(
+    function( position ) {
+      if (userLocation) {
+        return;
+      }
+      userLocation = [position.coords.latitude, position.coords.longitude];
+      updateWithLocation(userLocation);
+    }
+  )
+}
+
+function wallTemperature() {
+  return $( "#temperature" ).slider( "value" );
+}
+
+function windEffectOnTemperature() {
+  return -0.25 * $( "#wind" ).slider( "value");
+}
+
+function conditionsEffectOnTemperature() {
+  return -6 * $( "#conditions" ).slider( "value");
+}
+
+function wouldliketofeelEffectOnTemperature() {
+  return -6 * $( "#wouldliketofeel" ).slider( "value");
+}
+
+function typeofrideEffectOnTemperature() {
+  return 4 * $( "#typeofride" ).slider( "value");
+}
+
+function levelofexertionEffectOnTemperature() {
+  return 6 * $( "#levelofexertion" ).slider( "value");
+}
+
+function effectiveTemperature() {
+  return wallTemperature() + windEffectOnTemperature() + conditionsEffectOnTemperature() +
+  wouldliketofeelEffectOnTemperature() +
+  typeofrideEffectOnTemperature() +
+  levelofexertionEffectOnTemperature()
+}
+
+function updateSliderLabels() {
+  $( "#the_temperature" ).val($( "#temperature" ).slider( "value") + " F" );
+  $( "#the_wind" ).val($( "#wind" ).slider( "value") + " MPH" );
+  $( "#the_conditions" ).val( CONDITIONS[$( "#conditions" ).slider( "value")] );
+  $( "#the_wouldliketofeel" ).val( WOULDLIKETOFEELS[$( "#wouldliketofeel" ).slider( "value")] );
+  $( "#the_typeofride" ).val( TYPEOFRIDES[$( "#typeofride" ).slider( "value")] );
+  $( "#the_levelofexertion" ).val( LEVELOFEXERTIONS[$( "#levelofexertion" ).slider( "value")] );
+}
+
+function updateHead() {
+  toWear = 'Helmet and Red Lens glasses and maybe a cycling cap';
+  if (effectiveTemperature() <= 50) { toWear = 'Helmet and Red Lens glasses and a thin fleece/windstop beanie' };
+  $( "#head" ).html( toWear );
+}
+
+function updateTopHalf() {
+  toWear = 'Short Sleeve Jersey, maybe some sunscreen';
+  if (effectiveTemperature() <= 55) { toWear = 'Short Sleeve Jersey with a light baselayer or a wind vest' };
+  if (effectiveTemperature() <= 43) { toWear = 'Short Sleeve Jersey with a light baselayer and light jacket '};
+  if (effectiveTemperature() <= 33) { toWear = 'Short Sleeve Jersey with a light baselayer and insulated jacket '};
+  $( "#top_half" ).html( toWear );
+}
+
+function updateArms() {
+  toWear = '';
+  if (effectiveTemperature() <= 60) { toWear = 'Arm Warmers' };
+  if (effectiveTemperature() <= 35) { toWear = 'Arm Warmers, and another layer from your top' };
+  $( "#arms" ).html( toWear );
+}
+
+function updateHands() {
+  toWear = 'Lightweight fingerless gloves if you want';
+  if (effectiveTemperature() <= 60) { toWear = 'Lightweight Gloves' };
+  if (effectiveTemperature() <= 50) { toWear = 'Warm Gloves' };
+  if (effectiveTemperature() <= 32) { toWear = 'Windstop Gloves with Wool Glove Liners' };
+  if (effectiveTemperature() <= 15) { toWear = 'Your crazy Lobster Glove setup' };
+  $( "#hands" ).html( toWear );
+}
+
+function updateBottomHalf() {
+  toWear = 'Bib Shorts';
+  if (effectiveTemperature() <= 55) { toWear = 'Cover your knees. Bib-shorts w/knee warmers, Bib-knickers, etc' };
+  if (effectiveTemperature() <= 43) { toWear = 'Cover your legs. Bib-shorts w/leg warmers, Bib-tights, Mad Embro, etc' };
+  if (effectiveTemperature() <= 32) { toWear = 'Cover your legs with warm. Bib-shorts w/tights over them, maybe windblocking tights' };
+  $( "#bottom_half" ).html( toWear );
+}
+
+function updateFeet() {
+  toWear = 'Wool socks and cycling shoes';
+  if (effectiveTemperature() >= 70) { toWear = 'Thin wool socks and cycling shoes' };
+  if (effectiveTemperature() <= 50) { toWear = 'Wool socks and cycling shoes, maybe toe covers' };
+  if (effectiveTemperature() <= 40) { toWear = 'Wool socks and cycling shoes, toe covers' };
+  if (effectiveTemperature() <= 30) { toWear = 'Wool socks and cycling shoes, shoe covers' };
+  $( "#feet" ).html( toWear );
+}
+
+function updateWhatToWear() {
+  updateHead();
+  updateTopHalf();
+  updateArms();
+  updateHands();
+  updateBottomHalf();
+  updateFeet();
+}
+
+function refreshRecommendations() {
+  updateSliderLabels();
+  updateWhatToWear();
+  $( "#effective_temperature" ).val( effectiveTemperature() + " F" );
+}
+
+$(function() {
+  $( "#temperature" ).slider({
+    orientation: "horizontal",
+    range: "min",
+    min: -5,
+    max: 125,
+    value: 75,
+    slide: refreshRecommendations,
+    change: refreshRecommendations
+  });
+  $( "#wind" ).slider({
+    orientation: "horizontal",
+    range: "min",
+    min: 0,
+    max: 30,
+    value: 5,
+    slide: refreshRecommendations,
+    change: refreshRecommendations
+  });
+  $( "#conditions" ).slider({
+    orientation: "horizontal",
+    range: "min",
+    min: 0,
+    max: 3,
+    value: 0,
+    slide: refreshRecommendations,
+    change: refreshRecommendations
+  });
+  $( "#wouldliketofeel" ).slider({
+    orientation: "horizontal",
+    range: "min",
+    min: 0,
+    max: 2,
+    value: 1,
+    slide: refreshRecommendations,
+    change: refreshRecommendations
+  });
+  $( "#typeofride" ).slider({
+    orientation: "horizontal",
+    range: "min",
+    min: 0,
+    max: 2,
+    value: 0,
+    slide: refreshRecommendations,
+    change: refreshRecommendations
+  });
+  $( "#levelofexertion" ).slider({
+    orientation: "horizontal",
+    range: "min",
+    min: 0,
+    max: 2,
+    value: 0,
+    slide: refreshRecommendations,
+    change: refreshRecommendations
+  });
+  refreshRecommendations();
+});
+</script>
+
+<p class="ui-state-default ui-corner-all ui-helper-clearfix" style="padding:4px;">
+  <span class="ui-icon ui-icon-pencil" style="float:left; margin:-2px 5px 0 0;"></span>
+  BETA: What To Wear When Riding Bikes! (Based on weather in <span id="userLocation"></span>). e-mail ckdake at ckdake dot com any suggestions.
+</p>
+
+<p>What is the ambient temperature in F? Don't take into account wind-chill or heat index</p>
+<div class="slider" id="temperature"></div>
+<input type="text" id="the_temperature" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+
+<p>How fast is the window blowing in MPH?</p>
+<div class="slider" id="wind"></div>
+<input type="text" id="the_wind" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+
+<p>Is it Sunny, overcast, raining, or wintery precipitation?</p>
+<div class="slider" id="conditions"></div>
+<input type="text" id="the_conditions" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+
+<p>What temperature do you like to feel when you are riding?</p>
+<div class="slider" id="wouldliketofeel"></div>
+<input type="text" id="the_wouldliketofeel" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+
+<p>What type of ride are you going on?</p>
+<div class="slider" id="typeofride"></div>
+<input type="text" id="the_typeofride" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+
+<p>How hard will you be working on this ride?</p>
+<div class="slider" id="levelofexertion"></div>
+<input type="text" id="the_levelofexertion" readonly style="border:0; color:#f6931f; font-weight:bold;" />
+
+<ul>
+  <li>Head: <b><em><span id="head"></span></b></em></li>
+  <li>Top-half: <b><em><span id="top_half"></span></b></em></li>
+  <li>Arms: <b><em><span id="arms"></span></b></em></li>
+  <li>Hands: <b><em><span id="hands"></span></b></em></li>
+  <li>Bottom-half: <b><em><span id="bottom_half"></span></b></em></li>
+  <li>Feet: <b><em><span id="feet"></span></b></em></li>
+</ul>
