@@ -54,7 +54,7 @@ function windEffectOnTemperature() {
 }
 
 function conditionsEffectOnTemperature() {
-  return -6 * $( "#conditions" ).slider( "value");
+  return -5 * $( "#conditions" ).slider( "value");
 }
 
 function wouldliketofeelEffectOnTemperature() {
@@ -63,6 +63,17 @@ function wouldliketofeelEffectOnTemperature() {
 
 function typeofrideEffectOnTemperature() {
   return 3 * $( "#typeofride" ).slider( "value");
+}
+
+function rideType() {
+  switch($( "#typeofride" ).slider( "value")) {
+    case 0:
+      return 'commute';
+    case 1:
+      return 'mountain';
+    case 2:
+      return 'road';
+  }
 }
 
 function levelofexertionEffectOnTemperature() {
@@ -94,7 +105,7 @@ function updateHead() {
 function updateTopHalf() {
   toWear = 'Short Sleeve Jersey, maybe some sunscreen';
   if (effectiveTemperature() <= 55) { toWear = 'Short Sleeve Jersey with a light baselayer or a wind vest' };
-  if (effectiveTemperature() <= 43) { toWear = 'Short Sleeve Jersey with a light baselayer and light jacket '};
+  if (effectiveTemperature() <= 43) { toWear = 'Short Sleeve Jersey with a light baselayer and/or a light jacket '};
   if (effectiveTemperature() <= 33) { toWear = 'Short Sleeve Jersey with a light baselayer and insulated jacket '};
   $( "#top_half" ).html( toWear );
 }
@@ -117,16 +128,21 @@ function updateHands() {
 
 function updateBottomHalf() {
   toWear = 'Bib Shorts';
-  if (effectiveTemperature() <= 55) { toWear = 'Cover your knees. Bib-shorts w/knee warmers, Bib-knickers, etc' };
-  if (effectiveTemperature() <= 43) { toWear = 'Cover your legs. Bib-shorts w/leg warmers, Bib-tights, Mad Embro, etc' };
-  if (effectiveTemperature() <= 32) { toWear = 'Cover your legs with warm. Bib-shorts w/tights over them, maybe windblocking tights' };
+  if (rideType() === 'commute') {
+    toWear = 'Shorts';
+    if (effectiveTemperature() <= 60) { toWear = 'Cover your legs, maybe some <a href="http://www.amazon.com/gp/product/B00JKAI77Y/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00JKAI77Y&linkCode=as2&tag=ckdake-20&linkId=RU4N6BXK3O6SJRWL">Levi\'s Commuter 504 5-Pocket Pants</a>.'}
+  } else {
+    if (effectiveTemperature() <= 55) { toWear = 'Cover your knees. Bib-shorts w/knee warmers, Bib-knickers, etc' };
+    if (effectiveTemperature() <= 43) { toWear = 'Cover your legs. Bib-shorts w/leg warmers, Bib-tights, Mad Embro, etc' };
+    if (effectiveTemperature() <= 32) { toWear = 'Cover your legs with warm. Bib-shorts w/tights over them, maybe windblocking tights' };
+  }
   $( "#bottom_half" ).html( toWear );
 }
 
 function updateFeet() {
   toWear = 'Wool socks and cycling shoes';
   if (effectiveTemperature() >= 70) { toWear = 'Thin wool socks and cycling shoes' };
-  if (effectiveTemperature() <= 50) { toWear = 'Wool socks and cycling shoes, maybe toe covers' };
+  if (effectiveTemperature() <= 50) { toWear = 'Wool socks and cycling shoes, maybe toe covers if your shoes breathe well' };
   if (effectiveTemperature() <= 40) { toWear = 'Wool socks and cycling shoes, toe covers' };
   if (effectiveTemperature() <= 30) { toWear = 'Wool socks and cycling shoes, shoe covers' };
   $( "#feet" ).html( toWear );
