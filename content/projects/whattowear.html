@@ -98,31 +98,31 @@ function updateSliderLabels() {
 
 function updateHead() {
   toWear = 'Helmet and Red Lens glasses and maybe a cycling cap';
-  if (effectiveTemperature() <= 50) { toWear = 'Helmet and Red Lens glasses and a thin fleece/windstop beanie' };
+  if (effectiveTemperature() <= 53) { toWear = 'Helmet and Red Lens glasses and a thin fleece/windstop beanie' };
   $( "#head" ).html( toWear );
 }
 
 function updateTopHalf() {
   toWear = 'Short Sleeve Jersey, maybe some sunscreen';
-  if (effectiveTemperature() <= 55) { toWear = 'Short Sleeve Jersey with a light baselayer or a wind vest' };
-  if (effectiveTemperature() <= 43) { toWear = 'Short Sleeve Jersey with a light baselayer and/or a light jacket '};
-  if (effectiveTemperature() <= 33) { toWear = 'Short Sleeve Jersey with a light baselayer and insulated jacket '};
+  if (effectiveTemperature() <= 56) { toWear = 'Short Sleeve Jersey with a light baselayer or a wind vest' };
+  if (effectiveTemperature() <= 46) { toWear = 'Short Sleeve Jersey with a light baselayer and/or a light jacket '};
+  if (effectiveTemperature() <= 36) { toWear = 'Short Sleeve Jersey with a light baselayer and insulated jacket '};
   $( "#top_half" ).html( toWear );
 }
 
 function updateArms() {
   toWear = '';
-  if (effectiveTemperature() <= 60) { toWear = 'Arm Warmers' };
-  if (effectiveTemperature() <= 35) { toWear = 'Arm Warmers, and another layer from your top' };
+  if (effectiveTemperature() <= 63) { toWear = 'Arm Warmers (If they are not covered by your top)' };
+  if (effectiveTemperature() <= 38) { toWear = 'Arm Warmers, and another layer from your top' };
   $( "#arms" ).html( toWear );
 }
 
 function updateHands() {
   toWear = 'Lightweight fingerless gloves if you want';
-  if (effectiveTemperature() <= 60) { toWear = 'Lightweight Gloves' };
-  if (effectiveTemperature() <= 50) { toWear = 'Warm Gloves' };
-  if (effectiveTemperature() <= 32) { toWear = 'Windstop Gloves with Wool Glove Liners' };
-  if (effectiveTemperature() <= 15) { toWear = 'Your crazy Lobster Glove setup' };
+  if (effectiveTemperature() <= 63) { toWear = 'Lightweight Gloves' };
+  if (effectiveTemperature() <= 53) { toWear = 'Warm Gloves' };
+  if (effectiveTemperature() <= 35) { toWear = 'Windstop Gloves with Wool Glove Liners' };
+  if (effectiveTemperature() <= 18) { toWear = 'Your crazy Lobster Glove setup' };
   $( "#hands" ).html( toWear );
 }
 
@@ -130,21 +130,21 @@ function updateBottomHalf() {
   toWear = 'Bib Shorts';
   if (rideType() === 'commute') {
     toWear = 'Shorts';
-    if (effectiveTemperature() <= 60) { toWear = 'Cover your legs, maybe some <a href="http://www.amazon.com/gp/product/B00JKAI77Y/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00JKAI77Y&linkCode=as2&tag=ckdake-20&linkId=RU4N6BXK3O6SJRWL">Levi\'s Commuter 504 5-Pocket Pants</a>.'}
+    if (effectiveTemperature() <= 63) { toWear = 'Cover your legs, maybe some <a href="http://www.amazon.com/gp/product/B00JKAI77Y/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00JKAI77Y&linkCode=as2&tag=ckdake-20&linkId=RU4N6BXK3O6SJRWL">Levi\'s Commuter 504 5-Pocket Pants</a>.'}
   } else {
-    if (effectiveTemperature() <= 55) { toWear = 'Cover your knees. Bib-shorts w/knee warmers, Bib-knickers, etc' };
-    if (effectiveTemperature() <= 43) { toWear = 'Cover your legs. Bib-shorts w/leg warmers, Bib-tights, Mad Embro, etc' };
-    if (effectiveTemperature() <= 32) { toWear = 'Cover your legs with warm. Bib-shorts w/tights over them, maybe windblocking tights' };
+    if (effectiveTemperature() <= 58) { toWear = 'Cover your knees. Bib-shorts w/knee warmers, Bib-knickers, etc' };
+    if (effectiveTemperature() <= 46) { toWear = 'Cover your legs. Bib-shorts w/leg warmers, Bib-tights, Mad Embro, etc' };
+    if (effectiveTemperature() <= 35) { toWear = 'Cover your legs with warm. Bib-shorts w/tights over them, maybe windblocking tights' };
   }
   $( "#bottom_half" ).html( toWear );
 }
 
 function updateFeet() {
   toWear = 'Wool socks and cycling shoes';
-  if (effectiveTemperature() >= 70) { toWear = 'Thin wool socks and cycling shoes' };
-  if (effectiveTemperature() <= 50) { toWear = 'Wool socks and cycling shoes, maybe toe covers if your shoes breathe well' };
-  if (effectiveTemperature() <= 40) { toWear = 'Wool socks and cycling shoes, toe covers' };
-  if (effectiveTemperature() <= 30) { toWear = 'Wool socks and cycling shoes, shoe covers' };
+  if (effectiveTemperature() >= 73) { toWear = 'Thin wool socks and cycling shoes' };
+  if (effectiveTemperature() <= 53) { toWear = 'Wool socks and cycling shoes, maybe toe covers if your shoes breathe well' };
+  if (effectiveTemperature() <= 43) { toWear = 'Wool socks and cycling shoes, toe covers' };
+  if (effectiveTemperature() <= 33) { toWear = 'Wool socks and cycling shoes, shoe covers' };
   $( "#feet" ).html( toWear );
 }
 
