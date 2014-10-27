@@ -103,7 +103,7 @@ function updateHead() {
 }
 
 function updateTopHalf() {
-  toWear = 'Short Sleeve Jersey, maybe some sunscreen';
+  toWear = 'Short Sleeve Jersey';
   if (effectiveTemperature() <= 56) { toWear = 'Short Sleeve Jersey with a light baselayer or a wind vest' };
   if (effectiveTemperature() <= 46) { toWear = 'Short Sleeve Jersey with a light baselayer and/or a light jacket '};
   if (effectiveTemperature() <= 36) { toWear = 'Short Sleeve Jersey with a light baselayer and insulated jacket '};
@@ -111,7 +111,7 @@ function updateTopHalf() {
 }
 
 function updateArms() {
-  toWear = '';
+  toWear = 'Sunscreen';
   if (effectiveTemperature() <= 63) { toWear = 'Arm Warmers (If they are not covered by your top)' };
   if (effectiveTemperature() <= 38) { toWear = 'Arm Warmers, and another layer from your top' };
   $( "#arms" ).html( toWear );
