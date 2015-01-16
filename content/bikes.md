@@ -11,7 +11,7 @@ kind: page
 
 <ul>
   <li>Tuesday Night Mountain Bike Ride:  Meet at 8:30pm at The Flying Biscuit at 1655 McLendon Ave. Atlanta, GA 30307 at 8:30pm. Ride for ~2.5 hours and bring $10 cash for beer+pizza at the Felinis right down the street afterwards. You'll need a helmet light putting out 300+lumens and some mountain biking ability to enjoy this ride.</li>
-  <li>Wednesday Run: 10 kilometers, groups going anywhere from 8:00/m to 13:00/m.  Meet at Big Nerd Ranch at 200 Arizona Ave, Atlanta, GA for a 5:00pm departure.</li>
+  <li>Wednesday Run: 10 kilometers, groups going anywhere from 8:00/m to 13:00/m.  Figuring out how this will work with the new gig!</li>
   <li>Thursday FM:Race Hilly Road Bike Ride: evenings in the 'summer' half of Daylight Savings Time, meet at 6:45pm at The Gear Revival at 955 Marietta St NW Atlanta, GA 30318 for a 2 hour terrible tour of hills. 30 miles, 3000+ft of climbing. Don't show up in the 'winter' half of DST because nobody will be there and it will be cold.</li>
   <li>Any other day, any other time, if you want to ride or run ping me (@ckdake on twitter is easiest)</li>
 </ul>

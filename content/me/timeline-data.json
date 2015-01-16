@@ -38,8 +38,18 @@
               "tag":"#personal"
             },
             {
+              "startDate":"2015,01,19",
+              "endDate":"2015,12,31",
+              "headline": "Pardot",
+              "text":"<p>Software Engineering Manager</p>",
+              "tag":"#work",
+              "asset": {
+                "media":"https://twitter.com/ckdake/status/556115045659459585"
+              }
+            },
+            {
               "startDate":"2012,11,01",
-              "endDate":"2014,12,31",
+              "endDate":"2015,01,16",
               "headline": "Big Nerd Ranch",
               "text":"<p>Operations</p>",
               "tag":"#work",

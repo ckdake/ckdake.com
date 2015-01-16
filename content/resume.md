@@ -12,7 +12,9 @@ I’m a technical polyglot with demonstrated knowledge in a wide range of techno
 
 ## Experience
 
-### Director of Internal Operations, Big Nerd Ranch 2012-2014
+### Software Engineering Manager, Pardot 2015
+
+### Director of Internal Operations, Big Nerd Ranch 2012-2015
 
 Highgroove merged with Big Nerd Ranch to form an 85 person company in late 2012. I acted as Chief Operations Officer for the first 3 months of the merger to accelerate coalescing of processes and cultures. Currently, I manage the team of developers that work on internal tools that enable us to run our business from custom software to IT, and I work with the Leadership Team to figure out the direction these tools should take. We are up to ~120 people currently. My team:
 
