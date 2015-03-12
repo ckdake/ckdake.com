@@ -2,7 +2,7 @@ base_url: 'http://ckdake.com'
 deploy:
   default:
     kind: rsync
-    dst: "web_ckdake@jake.ithought.org:/var/www/ckdake.com/htdocs"
+    dst: "web_ckdake@manage.ithought.org:/var/www/ckdake.com/htdocs"
     options: [ '-aP' ]
     #, '--delete-after' ]
 
