@@ -18,6 +18,7 @@ I started at Pardot as part of the first try at hiring engineering managers from
 
 * led, both through internal recruitment and external hiring, the growth of the "New Markets Program" with a team of engineers focused on Globalizing Pardot, and a to-be-formed team on Upmarket/Enterprise functionality. 
 * launched twitter.com/PardotEng and our sponsorship of 3+ monthly meetups to build brand awareness in the Atlanta software engineering community, and led improvements to our hiring and onboarding processes. This helped us exceed very ambitious hiring targets for Q1
+* attended Salesforce Adaptive Development Methodology training and recieved "ICAgile Certified Professional (ICP)" certification
 
 ### Director of Internal Operations, Big Nerd Ranch 2012-2015
 
