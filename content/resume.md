@@ -14,9 +14,9 @@ I’m a technical polyglot with demonstrated knowledge in a wide range of techno
 
 ### Software Engineering Manager, Pardot 2015
 
-I started at Pardot as part of the first try at hiring engineering managers from the outside, and helped to dramatically grow the engineering organization while continually improving the quality of our product and processes. I manage the "New Markets Program", leading a team of Software Engineering direct reports and cross-funcitonal team members including Product Management, Program Managament, Quality Engineering, and Operations. In my first 90 days: 
+I started at Pardot as part of the first try at hiring engineering managers from the outside, and helped to dramatically grow the engineering organization while continually improving the quality of our product and processes. I manage the "New Markets Program", leading a team of Software Engineering direct reports and cross-funcitonal team members including Product Management, Program Managament, Quality Engineering, and Operations. In my first 90 days:
 
-* led, both through internal recruitment and external hiring, the growth of the "New Markets Program" with a team of engineers focused on Globalizing Pardot, and a to-be-formed team on Upmarket/Enterprise functionality. 
+* led, both through internal recruitment and external hiring, the growth of the "New Markets Program" with a team of engineers focused on Globalizing Pardot, and a to-be-formed team on Upmarket/Enterprise functionality.
 * launched twitter.com/PardotEng and our sponsorship of 3+ monthly meetups to build brand awareness in the Atlanta software engineering community, and led improvements to our hiring and onboarding processes. This helped us exceed very ambitious hiring targets for Q1
 * attended Salesforce Adaptive Development Methodology training and recieved "ICAgile Certified Professional (ICP)" certification
 
