@@ -7,6 +7,7 @@ kind: page
 <p>Similar to those online places that recommend companies you should use, here is mine. None of this feedback is paid or solicited or rewarded unless specifically indicated. I like and highly recommend all of these things.</p>
 
 <h3>Internet Stuff</h3>
+<p>These links are all referral links. I'll get some $ if you sign up and pay them, but I'd recommend them even without referral programs</p>
 <ul>
   <li><a href="http://wlth.fr/1119Pfi">Wealthfront</a> is the place to invest your money when you don't want to worry about stock/fund picking. I have my ROTH IRA and Rollover IRA there and have been very happy with the process and the returns.</li>
   <li><a href="http://www.namecheap.com/?aff=62435">NameCheap</a> - I have over 50 domains registered at NameCheap. Their purchase process is quick and painless.</li>
