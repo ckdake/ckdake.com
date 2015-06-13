@@ -1,9 +1,8 @@
 ---
-title: TFStat - Traffic Flow Statistics
+title: TFStat - Traffic Flow Statistics Status
 created_at: 2007-05-01 10:09:24 -0400
 kind: article
 ---
-Another class, another group project. For CS7260 - Internet Architectures &amp; Protocols, Chris Lewis and I worked together again to build what we think is a pretty neat networking tool. The full details are available on a page here: <a href="http://ckdake.com/portfolio/software/tfstat.html">tfstat</a>, but the abstract is copied below. This was a pretty fun project to work on. I got to learn how to use libpcap and did a lot of multithreading with persistent shared objects in perl, and I'll likely continue work on this in the fall to submit to a conference.  And having pretty graphs as results is always fun!
+Another class, another group project. For CS7260 - Internet Architectures &amp; Protocols, Chris Lewis and I worked together again to build what we think is a pretty neat networking tool. The full details are available on a page here: <a href="http://ckdake.com/projects/tfstat.html">tfstat</a>, but the abstract is copied below. This was a pretty fun project to work on. I got to learn how to use libpcap and did a lot of multithreading with persistent shared objects in perl, and I'll likely continue work on this in the fall to submit to a conference.  And having pretty graphs as results is always fun!
 
 Traditionally, researchers who wish to look at traffic flow have one option – Netflow. However, Netflow only allows researchers to get a limited view of the big pictures as the data comes from core routers – it is very difficult to get a view of the network from an end user's perspective. TFStat is a set of tools that solve this problem. TFStat allows researchers to get such data from the vantage point of the end user, and has the added benefit of being compatible with Netflow. This paper will present the 2 major components of TFStat, discuss the implementation, look at some experimental results running the tools, and finally note some areas for future research to expand on the project.
-
