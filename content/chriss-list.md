@@ -14,6 +14,7 @@ kind: page
   <li><a href="https://www.digitalocean.com/?refcode=f7ac2e018837">Digital Ocean</a> - I use Digtal Ocean for my 'cloud hosting' when I don't want something running on the hardware in my datacenter.</li>
   <li><a href="http://tracking.rackspace.com/SHrj">Rackspace</a> is the place to go for hosted e-mail. My e-mail lives there, as does many of my hosting customers.</li>
   <li><a href="https://ithought.freshbooks.com/refer/www">FreshBooks</a> is fantastic accounting software that doesn't make mistakes and makes it easy to keep my company books.</li>
+  <li><a href="https://secure.backblaze.com/r/00btsg">Backblaze</a> is easy painless online backup for computers. Set it and forget about it until something happens to your computer, and everything is safe there.</li>
 </ul>
 
 <h3>Contractors/etc</h3>
