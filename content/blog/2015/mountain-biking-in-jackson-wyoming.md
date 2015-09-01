@@ -1,6 +1,6 @@
 ---
 title: Mountain Biking in Jackson, Wyoming
-created_at: 2015-09-01 14:30:37 -0400
+created_at: 2015-09-01 18:30:37 -0400
 kind: article
 ---
 
@@ -14,7 +14,13 @@ Those of us flying in from Atlanta for Day 1 (Me, Marc, and Brian) lucked out wi
 
 The rental car counter was no more than a few hundred feet from the door of the plane, and we quickly headed to town to check in to the very expensive Jackson Hole Motel 6. After some incredibly delicious burgers at [MacPhail's Burgers](http://www.yelp.com/biz/macphails-burgers-jackson), we drove back to the airport to pick up Paul. In the 10 minutes we were at the airport, someone hit a moose on the road back into town and wedged up traffic a little bit. Drive safe out there!
 
+Groceries were a short trip away to Albertsons, though we had to walk to a liquor store to buy beer. Yay laws.
+
 # Day One
+
+We picked up bikes from the very well equipped [Hoback Sports](http://hobacksports.com), a few Specialized Cambers and Paul and I both on pretty high end build [Santa Cruz 5010](http://www.santacruzbicycles.com/en/us/5010)s.
+
+First up was a "Lets ride up Hagen and Game Creek and see how we are feeling" ride. We got to the West Game Creek turnoff and decided to climb a little more and then descend down Wilson's Canyon. All the trails were extremely nice, West Game Creek climbing was a little rough, and the descent down Wilson's Canyon was fantastic.  It is rated double black, but that mostly because it has some steep technical bits, and if you're in the area this is a trail you definitely want to do. The video doesn't quite do it justice, but we were all mostly able to ride down most of it.
 
 <iframe height='405' width='590' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/activities/372938203/embed/54ea91438300b876ffb554cb37af62a4b8d8ba90'></iframe>
 
@@ -27,9 +33,14 @@ The rental car counter was no more than a few hundred feet from the door of the 
 ## Photo Album from Day 1
 <a data-flickr-embed="true"  href="https://www.flickr.com/photos/ckdake/albums/72157657172807538" title="Jackson, WY 2015 Day 1"><img src="https://farm1.staticflickr.com/642/20774297285_f6896f6afa_z.jpg" width="640" height="427" alt="Jackson, WY 2015 Day 1"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
-Dinner at [El Abuelito](http://www.yelp.com/biz/el-abuelito-family-mexican-restaurant-jackson)
+We stopped for dinner at the first Mexican restaurant we saw: [El Abuelito](http://www.yelp.com/biz/el-abuelito-family-mexican-restaurant-jackson), and were not disappointed. I mistakenly ordered two chimichangas and ate both of them, one would have been a much better idea.
 
 # Day Two
+
+We purchased a 10-pack of bus passes from Albertson's and waited for the bus, and almost got on the wrong bus (there are pretty much only 2 busses in Jackson). With some gentle convincing, the bus driver let all 4 of us on with our bikes (2 on the front of the bus), and drove us ~5 miles closer to the trailhead for the day.
+
+We climed a few thousand feet up the paved and closed-to-cars "Old Pass Road", then took Phillips Connector and Arrow over to Phillips Canyon. Another day, another double black descent. I slapped knee pads on again and we flew down another must-ride downhill to the bottom.  After almost no deliberation, we all agreed to climb up another several thousand feet up Phillips Ridge to turn around and ride back down again, and this was another good decision.  All smiles and pretty worn out, we cruised down the very gentle 8-mile (mostly on bike path) road back to our hotel.
+
 <iframe height='405' width='590' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/activities/373737986/embed/f7a132b0f55f8cac816ca8ff9aabbc0aedff2081'></iframe>
 
 ## Video of Day 2
@@ -38,12 +49,15 @@ Dinner at [El Abuelito](http://www.yelp.com/biz/el-abuelito-family-mexican-resta
 ## Photo Album from Day 2
 <a data-flickr-embed="true"  href="https://www.flickr.com/photos/ckdake/albums/72157655260841123" title="Jackson, WY 2015 Day 2"><img src="https://farm1.staticflickr.com/690/20588011760_c80283d80f_z.jpg" width="640" height="427" alt="Jackson, WY 2015 Day 2"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
+Bob joined us in the evening, and because beer is important, we had dinner at [Snake River Brewing](http://www.yelp.com/biz/snake-river-brewing-jackson). The food was decent and the beer was pretty solid, and we picked up some 'to go' beer for later in the week including what turned out to be a quite fantastic limited-release farmhouse ale.
+
 <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="4" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://instagram.com/p/6oNrQaCmK1/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_top">&#34;Put our river through your liver&#34;</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A photo posted by Chris Kelly (@ckdake) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2015-08-21T02:17:00+00:00">Aug 20, 2015 at 7:17pm PDT</time></p></div></blockquote>
 <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
 
-Dinner at [Snake River Brewing](http://www.yelp.com/biz/snake-river-brewing-jackson)
-
 # Day 3
+
+Now with a crew of 5, we climbed up to the top again, this time up Putt Putt to get to Game Creek. Instead of turning off for West Game Creek, we downhilled a fast easy run to the bottom, and climbed back up the hill before tackling West Game Creek uphill again.  Instead of a left down Wilson Canyon, we kept going and after a brief visit to the FCC restricted top of the mountain, headed down a 'blue' 'must do' downhill on Ferrin's. More smiles, and a nice ride back to the hotel.  
+
 <iframe height='405' width='590' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/activities/374358624/embed/7977adc4dae357aec0415b00178702e3c1ce832f'></iframe>
 
 <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="4" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://instagram.com/p/6qIu-jimHN/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_top">Stupid FCC, always claiming mountaintops for themselves.</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A photo posted by Chris Kelly (@ckdake) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2015-08-21T20:12:18+00:00">Aug 21, 2015 at 1:12pm PDT</time></p></div></blockquote>
@@ -55,9 +69,12 @@ Dinner at [Snake River Brewing](http://www.yelp.com/biz/snake-river-brewing-jack
 ## Photo Album from Day 3
 <a data-flickr-embed="true"  href="https://www.flickr.com/photos/ckdake/albums/72157657537490786" title="Jackson, WY 2015 Day 3"><img src="https://farm6.staticflickr.com/5823/20787067315_37e670a2fe_z.jpg" width="640" height="427" alt="Jackson, WY 2015 Day 3"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
-Dinner at [Pinky G's Pizzeria](http://www.yelp.com/biz/pinky-gs-pizzeria-jackson)
+In the evening we wandered around downtown a little bit, marveling at the severe tourist feeling, and ended up getting dinner at a hole-in-the-wall [Pinky G's Pizzeria](http://www.yelp.com/biz/pinky-gs-pizzeria-jackson). The 5 of us almost tackled 2 of their large pizzas, and other people at the restaurant only pointed and giggled at Brian's short shorts once.
 
 # Day 4
+
+We heard that we had to ride Black Canyon, so again we hopped on the bus (with 5 of us, this bus driver required a lot of convincing) and got off a few stops later within cruising distance of Old Pass Road. This time, we climbed up some nice singletrack next to the road for a bit, and then took the road to the top at ~8300ft, and then climbed another ~1000 feet on singletrack to top out for the day and the trip at ~9200ft. Then came the wonderful 20 minute contiguous descent down Black Canyon. 3.6 miles dropping 2284 feet, it was probably one of the most fun downhills that any of us had ever ridden.
+
 <iframe height='405' width='590' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/activities/375098266/embed/f2d68b7e54b2acbe3425618579dc5942d5a189b6'></iframe>
 
 ## Video from Day 4
@@ -69,12 +86,17 @@ Dinner at [Pinky G's Pizzeria](http://www.yelp.com/biz/pinky-gs-pizzeria-jackson
 <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="4" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://instagram.com/p/6ssqsWimBO/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_top">#mtb2k15 day 4 ride success, now for beer and figuring out what to ride tomorrow.</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A photo posted by Chris Kelly (@ckdake) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2015-08-22T20:04:46+00:00">Aug 22, 2015 at 1:04pm PDT</time></p></div></blockquote>
 <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
 
+Finishing riding with some time to spare, we drove up to see if the smoke from western forest fires had cleared enough to let us see anything, and we were almost able to finally see the Tetons.
+
 <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="4" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://instagram.com/p/6s5OJWimMc/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_top">The majestic Tetons. #mtb2k15 kinda smoky out</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A photo posted by Chris Kelly (@ckdake) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2015-08-22T21:54:28+00:00">Aug 22, 2015 at 2:54pm PDT</time></p></div></blockquote>
 <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
 
-Dinner at [The Gun Barrel](http://www.yelp.com/biz/the-gun-barrel-steak-and-game-house-jackson)
+With all 5 people here and all 5 people tired and hungry, we went to splurge on our 'fancy' dinner at [The Gun Barrel](http://www.yelp.com/biz/the-gun-barrel-steak-and-game-house-jackson) and all ate giant pieces of meat. Elk and Bison are delicious.
 
 # Day 5
+
+Last up, we rode (and by rode I mean mostly hike-a-biked except for Marc) up the Snow King Summit road to the top of Snow King, did some exploration towards Josie's ridge (which may or may not be hikers only, we couldn't figure it out so we skipped it), and flew down Ferrin's again to get back to town. A short and fun way to finish out the week.
+
 <iframe height='405' width='590' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/activities/376063166/embed/af177dbc5c856c5620e7a5aede047adbd653f348'></iframe>
 
 <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="4" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://instagram.com/p/6u5zB4imOI/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_top">Another day, another mounatintop. #mtb2k15</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A photo posted by Chris Kelly (@ckdake) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2015-08-23T16:37:59+00:00">Aug 23, 2015 at 9:37am PDT</time></p></div></blockquote>
@@ -86,7 +108,20 @@ Dinner at [The Gun Barrel](http://www.yelp.com/biz/the-gun-barrel-steak-and-game
 ## Photo album from Day 5
 <a data-flickr-embed="true"  href="https://www.flickr.com/photos/ckdake/albums/72157657673842955" title="Jackson, WY 2015 Day 5"><img src="https://farm1.staticflickr.com/720/20819011882_258608789a_z.jpg" width="640" height="427" alt="Jackson, WY 2015 Day 5"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
+Bikes dropped back at the shop, and after a quick jaunt in the hotel pool, we got some local details on the 'most delicious' Mexican food in town and headed over to [Pica's Mexican Taqueria](http://www.yelp.com/biz/picas-mexican-taqueria-jackson) and chowed down, and took care of a pitcher of margaritas.
+
 # Getting Home
+
+The trip home from Jackson was a long one, hanging out at the Jackson airport, flying to Salt Lake City, hanging out for 3+ hours at their airport and then getting back into Atlanta after the sun went down.
 
 <blockquote class="instagram-media" data-instgrm-version="4" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://instagram.com/p/6yg1VnimFZ/" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_top">A photo posted by Chris Kelly (@ckdake)</a> on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2015-08-25T02:16:49+00:00">Aug 24, 2015 at 7:16pm PDT</time></p></div></blockquote>
 <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+
+## Totals for the trip
+
+* 5 days, 5 dudes, 5 bikes
+* 124.5 miles
+* 15 hours, 40 minutes of saddle time
+* 17,835 feet climbed.
+
+Overall, not bad for a 7th annual bike trip. Great crowd and mostly the same pace except for Marc totally crushing us on the longer climbs. Jackson, while extremely pricy is a great little spot. The food is fantastic, the lodging extremely overpriced, and the scenery is worth it.  We did ride pretty much all of the 'recommended' trails and while they were all some of the best trails we have ridden, there was 'only' about 100 miles of amazing trail rideable from town. Other places like Sun Valley and Park City have trails that are not quite as nice, but give you enough to ride that you don't need to do any doubling back like we did in Jackson. If you're in to Mountain Biking, Jackson should be on your list of places to go. For me, it's crossed off and it's starting to be time to think about next year.
