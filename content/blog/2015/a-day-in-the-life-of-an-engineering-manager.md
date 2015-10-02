@@ -64,4 +64,6 @@ Plenty of things don't need to happen every week or two, but there is usually on
 * **Hack Days:** We shut down product work for a few days and let engineers scratch itches and work on crazy ideas in the Pardot product.
 * **T&P Summit week:** We shut down product work for a whole week and run an internal conference, with several talk tracks featuring internal speakers talking about everything from the origins of coffee, to sending e-mail at scale.
 
+It's also worth noting I keep thinking of more things to add, so this list should be taken as woefully incomplete.
+
 Whew, that’s a lot.
