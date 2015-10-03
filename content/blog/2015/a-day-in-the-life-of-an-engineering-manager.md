@@ -44,7 +44,7 @@ It's also worth mentioning that the engineers on my team have _much_ simpler sch
 
 Team Standups happen every day, and I have a 1:1 with everyone on my team (direct reports and functional reports) every week. Depending on the day of the week there are a few other recurring things:
 
-* **Mondays:** We get together to watch Night Rider over lunch because Night Rider is pretty terrible and entertaining. There are also a few recurring Tactical meetings for things like "Technology Services" as well as bi-weekly Sprint Planning and Retrospective meetings for each of my Scrum teams.
+* **Mondays:** We get together to watch Knight Rider over lunch because Knight Rider is pretty terrible and entertaining. There are also a few recurring Tactical meetings for things like "Technology Services" as well as bi-weekly Sprint Planning and Retrospective meetings for each of my Scrum teams.
 * **Tuesday:** We're trying out #nomeetingtuesdays with my direct team, its going pretty well so far! This means I have bigger blocks of time to do strategic planning and bigger things with people on other teams.
 * **Thursday:**  All the engineering hiring managers spend 30 minutes covering all of our open positions and people in the hiring pipeline in our Weekly Hiring Standup, all the engineering managers cover a mix of tactical and strategic things in the Weekly Engineering Managers Meeting,  and I have a 1:1 with my manager: the Senior Director Software Engineering at Pardot.
 * **Friday:** As part of Scrum, each team (every other week) has Grooming and Estimating sessions to get ready for the next sprint to start, and 4pm Friday means a beer and demos to all of Engineering from the entire team.
