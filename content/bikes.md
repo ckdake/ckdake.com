@@ -12,11 +12,11 @@ kind: page
 <ul>
   <li>Tuesday Night Mountain Bike Ride:  Meet at 8:30pm at The Flying Biscuit at 1655 McLendon Ave. Atlanta, GA 30307 at 8:30pm. Ride for ~2.5 hours and bring $10 cash for beer+pizza at the Felinis right down the street afterwards. You'll need a helmet light putting out 300+lumens and some mountain biking ability to enjoy this ride.</li>
   <li>Wednesday Run: 10 kilometers, groups going anywhere from 8:00/m to 13:00/m.  Figuring out how this will work with the new gig!</li>
-  <li>Thursday FM:Race Hilly Road Bike Ride: evenings in the 'summer' half of Daylight Savings Time, meet at 6:45pm at The Gear Revival at 955 Marietta St NW Atlanta, GA 30318 for a 2 hour terrible tour of hills. 30 miles, 3000+ft of climbing. Don't show up in the 'winter' half of DST because nobody will be there and it will be cold.</li>
+  <li>Thursday FM:Race Hilly Road Bike Ride: evenings in the 'summer' half of Daylight Savings Time, meet at 6:45pm at Atlanta Beltline Bicycle for a 2 hour terrible tour of hills. 30 miles, 3000+ft of climbing. Don't show up in the 'winter' half of DST because nobody will be there and it will be cold.</li>
   <li>Any other day, any other time, if you want to ride or run ping me (@ckdake on twitter is easiest)</li>
 </ul>
 
-I bike to work on a single speed, ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and currently are mostly focused on our race team <a href="http://fastermustache.org/race">FM:Race</a> which I am a part of. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I will took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cylcocross races were rode, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd.
+I bike to work on a single speed, ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and spun up a pretty solid race team: <a href="http://fastermustache.org/race">FM:Race</a>. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I  took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cyclocross races were ridden, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd. In 2014 I ran a half marathon every month, and 2015 is back to just making sure I'm mountain biking as much as possible.
 
 <ul>
   <li><a href="http://www.strava.com/athletes/ckdake" rel="me">me on Strava</a></li>
@@ -50,12 +50,12 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 <h3>2014 Salsa Colossal Ti</h3>
 <a href="https://www.flickr.com/photos/ckdake/11873308936" title="2014 Salsa Colossal Ti by Chris Kelly, on Flickr"><img src="https://farm8.staticflickr.com/7416/11873308936_2ca06c1394_m.jpg" width="240" height="160" alt="2014 Salsa Colossal Ti"></a>
 <p>Shimano Ultegra 22, Disc Brakes, Thomson/Salsa components, Crank Brothers Quattro pedals (19.85lb)</p>
-<p>Shiny new Titanium road bike for doing all the miles. Bought in November 2013 to replace my 2007 Specialized Roubaix. Time to get 20k miles in.</p>
+<p>Titanium road bike for doing all the miles. Bought in November 2013 to replace my 2007 Specialized Roubaix. Working towards getting 20,000 miles in on it.</p>
 
 <h3>2009 Independent Fabrication Steel Deluxe</h3>
 <a href="https://www.flickr.com/photos/ckdake/14379528758" title="_MG_9946 by Chris Kelly, on Flickr"><img src="https://farm3.staticflickr.com/2907/14379528758_c6e0ec1b30_m.jpg" width="240" height="160" alt="_MG_9946"></a>
-<p>Independent Fabrication Steel Deluxe frame, Stans 4.4Ti Crest Wheels, Crank Brothers Eggbeater 3 peadals, Crank Brothers Iodine SL Headset, RockShock SID Team 100m fork, Ergon GR2 grips, SRAM X.9 drivetrain, Race Face Deus XC cranks, Thomson Titanium 6 Bars, Avid Jucy Ultimate brakes, Thomson Elite seatpost and stem, WTB Silverado Pro seat, WTB Wolverine UST tires (23.4lb)</p>
-<p>Half Squish. Mountain bike of choice these days. Full ride location list on <a href="http://www.singletracks.com/php/my/ridden.php?view_user=ckdake">singletracks.com</a>. Bought in Summer 2009 with first ride on July 2.</p>
+<p>Independent Fabrication Steel Deluxe frame, Stan's 4.4Ti Crest Wheels, Crank Brothers Eggbeater 3 pedals, Crank Brothers Iodine SL Headset, RockShock SID Team 100m fork, Ergon GR2 grips, SRAM X.9 drivetrain, Race Face Deus XC cranks, Thomson Titanium 6 Bars, 2015 SRAM Guide R Brakes, Thomson Elite seatpost and stem, WTB Silverado Pro seat, Maxis Ignitor UST 2.1 tires (23.4lb)</p>
+<p>Steel Hardtail that I spend most of my time on. Full ride location list on <a href="http://www.singletracks.com/php/my/ridden.php?view_user=ckdake">singletracks.com</a>. Bought in Summer 2009 with first ride on July 2.</p>
 
 <h3>2006 Redline 925 frame</h3>
 <a href="https://www.flickr.com/photos/ckdake/14562735561" title="IMG_2046 by Chris Kelly, on Flickr"><img src="https://farm6.staticflickr.com/5512/14562735561_0bb4d5312c_m.jpg" width="240" height="180" alt="IMG_2046"></a>
@@ -70,7 +70,7 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 
 <h2>The Junkyard</h2>
 
-<h3>FOR SALE: 2007 Specialized Roubaix Comp Compact</h3>
+<h3>SOLD: 2007 Specialized Roubaix Comp Compact</h3>
 <a href="https://www.flickr.com/photos/ckdake/14586219343" title="img_3204 by Chris Kelly, on Flickr"><img src="https://farm4.staticflickr.com/3847/14586219343_73ee45d937_m.jpg" width="240" height="160" alt="img_3204"></a>
 <p>Crank Brothers Quattro pedals, Shimano Ultegra drivetrain, Fulcrum Racing 3 Wheels, 23C Specialized Armadillo Elite tires (20.5lb)</p>
 <p>Base miles.  Bought May 2008 as a first real road bike, Ridden over 10,000 miles all over the place. (<a href="http://www.bikepedia.com/QuickBike/BikeSpecs.aspx?Year=2007&Brand=Specialized&Model=Roubaix+Comp+Compact&Type=bike">specs</a>)</p>
