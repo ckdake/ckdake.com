@@ -31,18 +31,19 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
   <li>2005.10.08-09 - <a href="http://ckdake.com/gallery/2005/24hourbikerace/">24 Hours of Adrenalin (Conyers)</a> - My first mountain bike race was a 24 hour team event</li>
   <li>2005.10.23-24 - <a href="http://fastermustache.org/fm24/2005/">FM.24.05</a> - the only FM.24 that I seriously rode in. The other 4 I mostly ran the event</li>
   <li>2006.05.13-24 - <a href="http://ckdake.com/gallery/2006/may-sw/">Southwestern US Trip</a> - mountain biking in Colorado (Palmer Park and Hartman Rocks) and Moab, Utah (Slickrock and Porcupine Rim)</li>
-  <li>2007.03.07  - <a href="http://ckdake.com/gallery/misc/me/413358102_59f1ccf721_b.jpg.html">Georgia Rides to the Capitol 2007</a> - first annual</li>
-  <li>2008.03.11 - <a href="http://georgiaridestothecapitol.org/2008event.php">Georgia Rides to the Capitol 2008</a></li>
+  <li>2007.03.07  - <a href="http://ckdake.com/gallery/misc/me/413358102_59f1ccf721_b.jpg.html">Georgia Rides to the Capitol 2007</a> - first annual (and I've done this every year since)</li>
   <li>2008.08.02 - <a href="http://ckdake.com/content/2008/covington-century.html">Covington Century 2008</a> - first century</li>
   <li>2009.03.03 - <a href="http://vimeo.com/3463269">Georgia Rides to the Capitol 2009</a></li>
   <li>2009.08.23-26 - <a href="http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html">Mountain Biking in Santa Fe</a> - 1 dude, 120 miles and 14,000ft in 4 days</li>
-  <li>2009.09.27 - <a href="http://ckdake.com/content/2009/six-gap-century.html">Six Gap Century 2009</a> - 2 dudes</li>
+  <li>2009.09.27 - <a href="http://ckdake.com/content/2009/six-gap-century.html">Six Gap Century 2009</a> - 2 dudes, 100 miles, 11,200ft</li>
   <li>2010.06.09 - <a href="http://ckdake.com/content/2010/road-biking-in-portland-or.html">Road Biking in Portland</a> - 4 dudes, 200 miles and 13,000ft</li>
   <li>2011.07.27 - <a href="http://ckdake.com/content/2011/mountain-biking-in-colorado.html">Mountain Biking in Colorado</a> - 2 dudes, 156 miles and 29,000ft</li>
   <li>2011.11.27 - <a href="http://ckdake.com/content/2011/riding-bikes-in-2011.html">Strava Turkey Takeoff (and other 2011 riding)</a> - 250 miles in 4 days</li>
   <li>2012.06.20 - <a href="http://ckdake.com/content/2012/2012-mountain-bike-trip-sun-valley.html">Mountain Biking in Sun Valley, Idaho</a> - 7 dudes, 150 miles and 19,000ft in 6 days</li>
   <li>2013.10.06 - <a href="http://ckdake.com/content/2013/mtb-2k13-park-city.html">Mountain Biking in Park City, Utah</a> - 7 dudes, 128 miles, and 16,000ft in 5 days</li>
   <li>2014.08.19 - <a href="http://ckdake.com/content/2014/mountain-biking-in-oakridge-oregon.html">Mountain Biking in Oakridge, OR</a> - 4 dudes, 1 gal, 130 miles and 25,000ft in 5 days</li>
+  <li>2014.12.26 <a href="https://www.strava.com/activities/233221540">Haleakala Attempt</a> - Made it up 7000ft</li>
+  <li>2015.08-18-22 - <a href="http://ckdake.com/content/2015/mountain-biking-in-jackson-wyoming.html">Mountain Biking in Jackson, WY</a> - 5 dudes, 125 miles and 18,000ft in 5 days</li>
 </ul>
 
 <h2>The Garage</h2>
