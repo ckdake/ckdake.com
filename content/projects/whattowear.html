@@ -23,7 +23,7 @@ function conditionFromConditionCode(code) {
 }
 
 function updateWithLocation(userLocation) {
-  weatherURL = "http://api.openweathermap.org/data/2.5/weather/?lat="+userLocation[0]+"&lon="+userLocation[1]+"&units=imperial";
+  weatherURL = "http://api.openweathermap.org/data/2.5/weather/?lat="+userLocation[0]+"&lon="+userLocation[1]+"&units=imperial&appid=4ffaf6109b4759e5b8531edefdf81bf4";
   $.getJSON(weatherURL, function (data) {
     $( "#userLocation" ).html('(Defaults based on weather in '+data['name']+'.)');
     $( "#temperature" ).slider( "option", "value", data['main']['temp'] );
