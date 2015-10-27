@@ -13,7 +13,7 @@ I have used all of these to get jobs, and am far more likely to hire someone tha
 Yes, you can search the internet for a job, but if you want to be able to pick from a few great choices to find a job you love, it's going to be through the people you know. Some of these you get 'for free' because you were in a class with someone or your brother's wife's bff works somewhere you want to work, but most of your network will take a little bit of work. Try out:
 
 * Attending meetups/conferences/techevents/etc and introducing yourself to strangers. Spend a few minutes on [meetup.com](http://www.meetup.com) and you'll end up with more than you can count.
-* Responding to recruiters, let them buy you lunch, and find out what they are looking for. Read through [The Recruiter Project](http://www.recruiterproject.org) for some inside info.
+* Responding to recruiters, let them buy you lunch, and find out what they are looking for. Read through [The Recruiter Project](http://recruiterproject.org) for some inside info.
 * Start/Join a reading group that focuses on a technical area
 * Do something regularly with a group (maybe a weekly group bike ride) and talk to people about what they do
 
