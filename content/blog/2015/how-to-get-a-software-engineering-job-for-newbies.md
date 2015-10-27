@@ -51,7 +51,7 @@ Employers do care that everyone pulls their own weight, but the productivity of 
 
 You are making a pitch as to why someone should hire you. Have a plan for what story you are telling, tell it clearly, listen actively, and practice. Have an 'elevator pitch' version of your story, write it out each time instead of copy/pasting, and use it on everyone you know. But first, find out what theirs is.
 
-## Learn about where you want to work (Do they use PHP? Build somethign in PHP)
+## Learn about where you want to work (Do they use PHP? Build something in PHP)
 
 Apply to work at a PHP/Java/Erlang/whatever shop and don't know it? That is completely okay and great.  It's all the other skills that matter, but to show off all your other skills, hack something together using the language/platform that your new job uses.  Port something you've built in the past over, build something new that "scratches an itch", and share it with the people you're interviewing with.  
 
