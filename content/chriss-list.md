@@ -20,6 +20,7 @@ kind: page
 
 <h3>Contractors/etc</h3>
 <ul>
+  <li>Camera Equipment: Rent from <a href="https://cameralends.referralrock.com/landing/53BC5FDD">CameraLends</a>. Use that link to get 20% off.</li>
   <li>Roofing: David at <a href="http://firstratesiding.com/">First Rate Siding</a> was pleasant to work with. He communicated with me via e-mail and SMS as appropriate, and worked with his team to get my roof replaced in a timely and cost-effective manner in April 2015. </li>
   <li>Financial Advisor: Kyle at <a href="http://kylebrooker.nm.com/">Northwestern Mutual</a> has been a great help at guiding me through the mess of insurance options, and with support from his team he's helped me out with planning my saving and eventual retirement.</li>
   <li>Handyman: Donald at <a href="https://www.facebook.com/fixosis">Fixosis</a> is the man. If it is in any way related to your house, he can fix it.</li>
