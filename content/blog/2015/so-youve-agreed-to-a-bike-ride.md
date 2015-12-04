@@ -44,6 +44,8 @@ Your Walmart $99 bike is not going to cut it for a 'ride'. Maybe to get to dinne
 
 <a data-flickr-embed="true"  href="https://www.flickr.com/photos/ckdake/8439531946/in/album-72157645385507565/" title="Stinky Trail, Peachtree City, Georgia"><img src="https://farm9.staticflickr.com/8080/8439531946_c123fd72e2_z.jpg" width="640" height="427" alt="Stinky Trail, Peachtree City, Georgia"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
+Also, this ride with other people probably shouldn't be the first time you have ridden this bike. Do a few laps in your neighborhood, make sure it's adjusted ok, has working brakes, shifts ok, doesn't have loose parts, and doesn't have flat tires. 
+
 ## What should you wear?
 
 Bike shorts with a chamois are a must. Wear them as your layer closest to your skin (no undies under them). Ask if you can borrow some. "Bib Shorts" with suspenders are life changing, but reasonable ones cost $100 or more so borrow first.
@@ -62,7 +64,7 @@ Ask the people you're riding with what they're wearing.
 
 ## What should you eat?
 
-If you're riding an hour or less, don't worry about it. Have your usual breakfast/lunch/dinner and leave an hour or so in there before wheels-moving time to digest and you'll be fine.  For rides pushing 2 hours, you'll start to get a little hungry so think about a snack bar or some nuts or a banana or something to eat about halfway through, and for rides longer than 2 hours you'll either want to start thinking about sandwiches (PB&J is great) or a small stockpile of bars/gets/etc.  
+If you're riding an hour or less, don't worry about it. Have your usual breakfast/lunch/dinner and leave an hour or so in there before wheels-moving time to digest and you'll be fine.  For rides pushing 2 hours, you'll start to get a little hungry so think about a snack bar or some nuts or a banana or something to eat about halfway through, and for rides longer than 2 hours you'll either want to start thinking about sandwiches (PB&J is great) or a small stockpile of bars/gels/etc.  
 
 <a data-flickr-embed="true"  href="https://www.flickr.com/photos/ckdake/20794652245/in/album-72157657537490786/" title="IMG_3294.jpg"><img src="https://farm1.staticflickr.com/747/20794652245_efc58bc2e9_z.jpg" width="640" height="427" alt="IMG_3294.jpg"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
