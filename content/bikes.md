@@ -11,12 +11,12 @@ kind: page
 
 <ul>
   <li>Tuesday Night Mountain Bike Ride:  Meet at 8:30pm at The Flying Biscuit at 1655 McLendon Ave. Atlanta, GA 30307 at 8:30pm. Ride for ~2.5 hours and bring $10 cash for beer+pizza at the Felinis right down the street afterwards. You'll need a helmet light putting out 300+lumens and some mountain biking ability to enjoy this ride.</li>
-  <li>Wednesday Run: 10 kilometers, groups going anywhere from 8:00/m to 13:00/m.  Figuring out how this will work with the new gig!</li>
+  <li>Wednesday Run: 5k or 10k, groups going anywhere from 8:00/m to 13:00/m. Meet in front of the Salesforce building across the street from the Lenox MARTA Station at 5pm every Wednesday.</li>
   <li>Thursday FM:Race Hilly Road Bike Ride: evenings in the 'summer' half of Daylight Savings Time, meet at 6:45pm at Atlanta Beltline Bicycle for a 2 hour terrible tour of hills. 30 miles, 3000+ft of climbing. Don't show up in the 'winter' half of DST because nobody will be there and it will be cold.</li>
   <li>Any other day, any other time, if you want to ride or run ping me (@ckdake on twitter is easiest)</li>
 </ul>
 
-I bike to work on a single speed, ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and spun up a pretty solid race team: <a href="http://fastermustache.org/race">FM:Race</a>. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I  took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cyclocross races were ridden, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd. In 2014 I ran a half marathon every month, and 2015 is back to just making sure I'm mountain biking as much as possible.
+I bike to work on a single speed, ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and spun up a pretty solid race team: <a href="http://fastermustache.org/race">FM:Race</a>. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I  took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cyclocross races were ridden, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd. In 2014 I ran a half marathon every month, and 2015 onward is back to just making sure I'm mountain biking as much as possible and taking as many new people riding as possible.
 
 <ul>
   <li><a href="http://www.strava.com/athletes/ckdake" rel="me">me on Strava</a></li>
@@ -58,7 +58,13 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 <p>Independent Fabrication Steel Deluxe frame, Stan's 4.4Ti Crest Wheels, Crank Brothers Eggbeater 3 pedals, Crank Brothers Iodine SL Headset, RockShock SID Team 100m fork, Ergon GR2 grips, SRAM X.9 drivetrain, Race Face Deus XC cranks, Thomson Titanium 6 Bars, 2015 SRAM Guide R Brakes, Thomson Elite seatpost and stem, WTB Silverado Pro seat, Maxis Ignitor UST 2.1 tires (23.4lb)</p>
 <p>Steel Hardtail that I spend most of my time on. Full ride location list on <a href="http://www.singletracks.com/php/my/ridden.php?view_user=ckdake">singletracks.com</a>. Bought in Summer 2009 with first ride on July 2.</p>
 
-<h3>2006 Redline 925 frame</h3>
+<h3>Trek 970</h3>
+<a href="https://www.flickr.com/photos/ckdake/23901775131" title=""><img src="https://c2.staticflickr.com/2/1672/23901775131_f211bafe2d_n.jpg" witdh="240" height="180"></a>
+<p>Old Trek 970 frame, old prototype Rolf wheels, Thomson seatpost and stem, RockShock SID SL Fork, FSA Carbon handlebars, Ergon Grips, flat pedals, SRAM X.0 Derailluer, RaceFace 32T front chainring, SRAM Cassette with Wolf Tooth 42T ring, Continental X-King tires.</p>
+<p>After all these years I finally have a loaner bike so it's even easier to bring out new people mountain biking. Even though this is a loaner and was pieced together with spare parts and $300, it's a very nice bike and I ride it sometimes instead of my IF. December 2015. 21lb and change.</p>
+
+
+<h3>2006 Redline 925</h3>
 <a href="https://www.flickr.com/photos/ckdake/14562735561" title="IMG_2046 by Chris Kelly, on Flickr"><img src="https://farm6.staticflickr.com/5512/14562735561_0bb4d5312c_m.jpg" width="240" height="180" alt="IMG_2046"></a>
 <p>Phil Wood hubs laced to DTSwiss TH540 rims, 28mm Continental Gatorskins tires, WTB Silverado Pro saddle, Cane Creek front and rear brakes, Ergon grips, freewheel (22.5lb)</p>
 <p>To the post office, grocery store, and beyond! Bought August 2007 to replace broken Nishiki.(<a href="http://www.bikepedia.com/QuickBike/BikeSpecs.aspx?Year=2007&Brand=Redline&Model=925&Type=bike">specs</a> - frame only)</p>
@@ -102,12 +108,10 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 <h3>SOLD: Nishiki Sport</h3>
 <p>First fixie for me, upgraded and parts replaced and all, met it's end of me riding it in a wreck with a car in California. However, it wasn't too busted and someone bought it to turn it into a commuter bike. Bought Fall 2006, Sold Spring 2009</p>
 
-
 <h3>SOLD: 2010 Fuji Cross Pro</h3>
 <a href="https://www.flickr.com/photos/ckdake/14543094436" title="IMG_0786 by Chris Kelly, on Flickr"><img src="https://farm4.staticflickr.com/3919/14543094436_a0ede161eb_m.jpg" width="240" height="180" alt="IMG_0786"></a>
 <p>Crank Brothers pedals. (21.2lb)</p>
 <p>Cyclocross!. Bought in October 2011. Barely ridden. Sold June 2013.</p>
-
 
 <h2>(some of) The Usual Suspects</h2>
 <ul>
