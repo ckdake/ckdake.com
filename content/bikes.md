@@ -48,6 +48,8 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 
 <h2>The Garage</h2>
 
+<p>(You can rent some of these on <a href="http://spnl.st/s/3f060c">spinlister</a>.)</p>
+
 <h3>2014 Salsa Colossal Ti</h3>
 <a href="https://www.flickr.com/photos/ckdake/11873308936" title="2014 Salsa Colossal Ti by Chris Kelly, on Flickr"><img src="https://farm8.staticflickr.com/7416/11873308936_2ca06c1394_m.jpg" width="240" height="160" alt="2014 Salsa Colossal Ti"></a>
 <p>Shimano Ultegra 22, Disc Brakes, Thomson/Salsa components, Crank Brothers Quattro pedals (19.85lb)</p>
