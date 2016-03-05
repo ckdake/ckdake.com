@@ -16,7 +16,7 @@ kind: page
   <li>Any other day, any other time, if you want to ride or run ping me (@ckdake on twitter is easiest)</li>
 </ul>
 
-I bike to work on a single speed, ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and spun up a pretty solid race team: <a href="http://fastermustache.org/race">FM:Race</a>. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I  took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cyclocross races were ridden, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd. In 2014 I ran a half marathon every month, and 2015 onward is back to just making sure I'm mountain biking as much as possible and taking as many new people riding as possible.
+I ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and spun up a pretty solid race team: <a href="http://fastermustache.org/race">FM:Race</a>. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I  took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cyclocross races were ridden, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd. In 2014 I ran a half marathon every month, and 2015 onward is back to just making sure I'm mountain biking as much as possible and taking as many new people riding as possible.
 
 <ul>
   <li><a href="http://www.strava.com/athletes/ckdake" rel="me">me on Strava</a></li>
@@ -71,13 +71,12 @@ I bike to work on a single speed, ride mountain bikes for fun, and ride most oth
 <p>Phil Wood hubs laced to DTSwiss TH540 rims, 28mm Continental Gatorskins tires, WTB Silverado Pro saddle, Cane Creek front and rear brakes, Ergon grips, freewheel (22.5lb)</p>
 <p>To the post office, grocery store, and beyond! Bought August 2007 to replace broken Nishiki.(<a href="http://www.bikepedia.com/QuickBike/BikeSpecs.aspx?Year=2007&Brand=Redline&Model=925&Type=bike">specs</a> - frame only)</p>
 
-<h3>2009 Kawasaki KLX 250S</h3>
+<h2>The Junkyard</h2>
+
+<h3>SOLD: 2009 Kawasaki KLX 250S</h3>
 <a href="https://www.flickr.com/photos/ckdake/14586275553" title="IMG_1379 by Chris Kelly, on Flickr"><img src="https://farm3.staticflickr.com/2939/14586275553_492e8a8db0_m.jpg" width="240" height="180" alt="IMG_1379"></a>
 <p>ProTaper Bars, Acerbis hand guards, Pelican Case (278lb)</p>
-<p>Less pedaling, more mud. Bought in July 2012.</p>
-
-
-<h2>The Junkyard</h2>
+<p>Less pedaling, more mud. Bought in July 2012. Sold March 2016</p>
 
 <h3>SOLD: 2007 Specialized Roubaix Comp Compact</h3>
 <a href="https://www.flickr.com/photos/ckdake/14586219343" title="img_3204 by Chris Kelly, on Flickr"><img src="https://farm4.staticflickr.com/3847/14586219343_73ee45d937_m.jpg" width="240" height="160" alt="img_3204"></a>
