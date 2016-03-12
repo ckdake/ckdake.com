@@ -50,8 +50,8 @@ I ride mountain bikes for fun, and ride most other kinds of bikes to make mounta
 
 <p>(You can rent some of these on <a href="http://spnl.st/s/3f060c">spinlister</a>.)</p>
 
-<h3>2016 Yeti ASR Enduro</h2>
-<a data-flickr-embed="true"  href="https://www.flickr.com/photos/ckdake/25589173972/in/album-72157665737107936/" title="IMG_3664.jpg"><img src="https://farm2.staticflickr.com/1669/25589173972_5a8bb9ece7_m.jpg" width="240" height="160" alt="IMG_3664.jpg"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+<h3>2016 Yeti ASR Enduro</h3>
+<a href="https://www.flickr.com/photos/ckdake/25589173972/in/album-72157665737107936/" title="IMG_3664.jpg"><img src="https://farm2.staticflickr.com/1669/25589173972_5a8bb9ece7_m.jpg" width="240" height="160" alt="IMG_3664.jpg"></a>
 <p>Full squish for the first time in a while. SRAM GX1, Fox Performance, Crank Brothers Candy pedals, 9point8 dropper post. (27.5lb)</p>
 
 <h3>2014 Salsa Colossal Ti</h3>
