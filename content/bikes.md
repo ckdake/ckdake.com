@@ -24,6 +24,7 @@ I ride mountain bikes for fun, and ride most other kinds of bikes to make mounta
   <li><a href="http://connect.garmin.com/profile/ckdake" rel="me">me on Garmin Connect</a></li>
   <li><a href="http://xtrack.ckdake.com/" rel="me">me on XTrack</a></li>
   <li><a href="http://ckdake.com/bikes/raceresults.html">Race Results and Records</a></li>
+  <li><a href="/bikes/stats.html">stats!</a></li>
 </ul>
 
 <h2>Rides of Note</h2>
