@@ -18,6 +18,11 @@ kind: page
   <li><a href="https://secure.backblaze.com/r/00btsg">Backblaze</a> is easy painless online backup for computers. Set it and forget about it until something happens to your computer, and everything is safe there.</li>
 </ul>
 
+<h3>Random stuff</h3>
+<ul>
+  <li>Snacks! Order things from <a href="https://thefeed.com/?raf=14661">The Feed</a> with this link and you get $5. Drink mixes, bars, jerky, etc</li>
+</ul>
+
 <h3>Contractors/etc</h3>
 <ul>
   <li>Camera Equipment: Rent from <a href="https://cameralends.referralrock.com/landing/53BC5FDD">CameraLends</a>. Use that link to get 20% off.</li>
