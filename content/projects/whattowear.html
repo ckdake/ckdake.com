@@ -14,22 +14,36 @@ var WOULDLIKETOFEELS = ['Cool', 'Neutral', 'Warm' ];
 var TYPEOFRIDES = ['Commute', 'Mountain', 'Road'];
 var LEVELOFEXERTIONS = ['Easy', 'Medium', 'Hard'];
 
-function conditionFromConditionCode(code) {
-  // see http://openweathermap.org/weather-conditions
-  if ($.inArray(code, [800, 801]) >= 0) { return 0; }
-  else if ($.inArray(code, [802, 803, 804, 701, 711, 721, 731, 741, 751, 761, 762, 771, 781]) >= 0) { return 1; }
-  else if ($.inArray(code, [200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 300, 301, 302, 310, 311, 312, 313, 314, 321, 500, 501, 502, 503, 504, 511, 520, 521, 522, 531, 900, 901, 902]) >= 0) { return 2; }
-  else if ($.inArray(code, [600, 601, 602, 611, 612, 615, 616, 620, 621, 622]) >= 0) { return 3; }
-  else { return 0 };
-}
+// old openweathermap (SSL not supported)
+// function conditionFromConditionCode(code) {
+//   // see http://openweathermap.org/weather-conditions
+//   if ($.inArray(code, [800, 801]) >= 0) { return 0; }
+//   else if ($.inArray(code, [802, 803, 804, 701, 711, 721, 731, 741, 751, 761, 762, 771, 781]) >= 0) { return 1; }
+//   else if ($.inArray(code, [200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 300, 301, 302, 310, 311, 312, 313, 314, 321, 500, 501, 502, 503, 504, 511, 520, 521, 522, 531, 900, 901, 902]) >= 0) { return 2; }
+//   else if ($.inArray(code, [600, 601, 602, 611, 612, 615, 616, 620, 621, 622]) >= 0) { return 3; }
+//   else { return 0 };
+// }
+//
+// function updateWithLocation(userLocation) {
+//   weatherURL = "http://api.openweathermap.org/data/2.5/weather/?lat="+userLocation[0]+"&lon="+userLocation[1]+"&units=imperial&appid=4ffaf6109b4759e5b8531edefdf81bf4";
+//   $.getJSON(weatherURL, function (data) {
+//     $( "#userLocation" ).html('(Defaults based on weather in '+data['name']+'.)');
+//     $( "#temperature" ).slider( "option", "value", data['main']['temp'] );
+//     $( "#wind" ).slider( "option", "value", data['wind']['speed'] );
+//     $( "#conditions" ).slider( "option", "value", conditionFromConditionCode(data['weather'][0]['id']) );
+//   });
+// }
 
 function updateWithLocation(userLocation) {
-  weatherURL = "http://api.openweathermap.org/data/2.5/weather/?lat="+userLocation[0]+"&lon="+userLocation[1]+"&units=imperial&appid=4ffaf6109b4759e5b8531edefdf81bf4";
-  $.getJSON(weatherURL, function (data) {
-    $( "#userLocation" ).html('(Defaults based on weather in '+data['name']+'.)');
-    $( "#temperature" ).slider( "option", "value", data['main']['temp'] );
-    $( "#wind" ).slider( "option", "value", data['wind']['speed'] );
-    $( "#conditions" ).slider( "option", "value", conditionFromConditionCode(data['weather'][0]['id']) );
+  $.ajax({
+    url: "https://api.forecast.io/forecast/311b4ee0d3f084d7558e5a8463876285/"+userLocation[0]+","+userLocation[1],
+    dataType: "jsonp",
+    success: function (data) {
+      $( "#userLocation" ).html('(Defaults based on weather at your current location.)');
+      $( "#temperature" ).slider( "option", "value", data['currently']['temperature'] );
+      $( "#wind" ).slider( "option", "value", data['currently']['windSpeed'] );
+      $( "#conditions" ).slider( "option", "value", (data['currently']['cloudCover'] * 3) );
+    }
   });
 }
 
