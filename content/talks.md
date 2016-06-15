@@ -4,6 +4,10 @@ created_at: 2016-06-15 18:20:29 -0500
 kind: page
 ---
 
+# Talks
+
+Every now and then I say a few things, and every now and then they get recorded. Enjoy!
+
 ## 2016.05.18 - "You're Doing it Wrong" (Personal Fulfillment)
 
 <iframe src="https://player.vimeo.com/video/170836522" width="640" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
