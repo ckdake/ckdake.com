@@ -12,7 +12,7 @@ Every now and then I say a few things, and every now and then they get recorded.
 
 <iframe src="https://player.vimeo.com/video/170836522" width="640" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-<p>10 minute lightning talk from Salesforce Pardot's internal Tech and Product Summit 2016</a>
+<p>10 minute lightning talk from Salesforce Pardot's internal Tech and Product Summit 2016</p>
 
 ## 2014.11.18 - "A Day in the Life of a HTTP Request."
 

@@ -39,13 +39,20 @@
             },
             {
               "startDate":"2015,01,19",
-              "endDate":"2016,12,31",
+              "endDate":"2016,06,16",
               "headline": "Pardot",
               "text":"<p>Software Engineering Manager</p>",
               "tag":"#work",
               "asset": {
                 "media":"https://twitter.com/ckdake/status/556115045659459585"
               }
+            },
+            {
+              "startDate":"2016,06,17",
+              "endDate":"2017,12,31",
+              "headline": "Salesforce",
+              "text":"<p>Senior Manager, Software Engineering</p>",
+              "tag":"#work",
             },
             {
               "startDate":"2012,11,01",
