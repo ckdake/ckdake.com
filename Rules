@@ -13,23 +13,23 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
-compile 'sitemap' do
+compile '/sitemap/' do
   filter :erb
 end
 
-route 'sitemap' do
+route '/sitemap/' do
   item.identifier.chop + '.xml'
 end
 
-compile '/blog/feed' do
+compile '/blog/feed/' do
   filter :erb
 end
 
-route '/blog/feed' do
+route '/blog/feed/' do
   '/rss.xml'
 end
 
-compile '/blog/*' do
+compile '/blog/**/*/' do
   if item[:extension] == 'md'
     filter :kramdown
   else
@@ -39,43 +39,46 @@ compile '/blog/*' do
   layout 'post'
 end
 
-route '/blog/*' do
+route '/blog/**/*/' do
   y,slug = /([0-9]+)(.+)/.match(item.identifier).captures
   "/content/#{y}#{slug[0..-2]}.html"
 end
 
-compile '/files/*' do
+compile '/files/**/*/' do
 end
 
-route '/files/*' do
-  item[:extension] ||= ''
-  item.identifier.chop + '.' + item[:extension]
+route '/files/**/*/' do
+  extension = ''
+  unless item[:extension] == nil
+    extension = item[:extension]
+  end
+  item.identifier.to_s.chop + '.' + extension
 end
 
-compile '/htaccess*' do
+compile '/htaccess*/' do
   filter :erb
   '.htaccess'
 end
 
-route '/htaccess*' do
+route '/htaccess*/' do
   '/.htaccess'
 end
 
-compile '*' do
+compile '/**/*' do
   if item[:extension] == 'md'
     filter :kramdown
-    layout 'default'
+    layout '/default/'
   elsif item[:extension] == 'css'
     # don’t filter stylesheets
   elsif item.binary?
     # don’t filter binary items
   else
     filter :erb
-    layout 'default'
+    layout '/default/'
   end
 end
 
-route '*' do
+route '/**/*' do
   if item[:extension] == 'css'
     # Write item with identifier /foo/ to /foo.css
     item.identifier.chop + '.css'
@@ -84,14 +87,14 @@ route '*' do
     item[:extension] ||= ''
     item.identifier.chop + '.' + item[:extension]
   else
-    if item.identifier == "/"
+    if item.identifier == '/'
       '/index.html'
     else
-      item.identifier[0..-2] + '.html'
+      item.identifier.to_s[0..-2] + '.html'
     end
     # Write item with identifier /foo/ to /foo/index.html
     # item.identifier + '.html'
   end
 end
 
-layout '*', :erb
+layout '/**/*', :erb

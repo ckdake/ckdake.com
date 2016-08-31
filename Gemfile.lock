@@ -12,7 +12,8 @@ GEM
     builder (3.1.4)
     coderay (1.1.0)
     colored (1.2)
-    cri (2.6.1)
+    concurrent-ruby (1.0.2)
+    cri (2.7.0)
       colored (~> 1.2)
     excon (0.37.0)
     flickraw (0.9.8)
@@ -22,6 +23,8 @@ GEM
       i18n (~> 0.5)
       oauth (~> 0.4)
       rest-client (~> 1.6)
+    hamster (3.0.0)
+      concurrent-ruby (~> 1.0)
     hashie (2.1.2)
     httparty (0.13.1)
       json (~> 1.8)
@@ -37,13 +40,16 @@ GEM
     minitest (5.4.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nanoc (3.7.1)
+    nanoc (4.3.2)
       cri (~> 2.3)
+      hamster (~> 3.0)
+      ref (~> 2.0)
     netrc (0.7.7)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     oauth (0.4.7)
     rack (1.5.2)
+    ref (2.0.0)
     rest-client (1.7.1)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -74,6 +80,9 @@ DEPENDENCIES
   nokogiri
   vacuum
   vimeo
+
+RUBY VERSION
+   ruby 2.3.0p0
 
 BUNDLED WITH
    1.12.5
