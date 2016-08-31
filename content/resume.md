@@ -12,7 +12,7 @@ I’m a technical polyglot with demonstrated knowledge in a wide range of techno
 
 ## Experience
 
-### Senior Manager, Software Engineering, Salesforce Pardot 2015
+### Senior Manager, Software Engineering, Salesforce Pardot 2015-2016
 
 I started at Pardot as part of the first try at hiring engineering managers from the outside, and helped to dramatically grow the engineering organization while continually improving the quality of our product and processes. I manage the "New Markets Program", leading a team of Software Engineering direct reports and cross-funcitonal team members including Product Management, Program Managament, Quality Engineering, and Operations. In my first 90 days:
 
