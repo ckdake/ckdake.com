@@ -36,7 +36,7 @@ var LEVELOFEXERTIONS = ['Easy', 'Medium', 'Hard'];
 
 function updateWithLocation(userLocation) {
   $.ajax({
-    url: "https://api.forecast.io/forecast/311b4ee0d3f084d7558e5a8463876285/"+userLocation[0]+","+userLocation[1],
+    url: "https://api.darksky.net/forecast/311b4ee0d3f084d7558e5a8463876285/"+userLocation[0]+","+userLocation[1],
     dataType: "jsonp",
     success: function (data) {
       $( "#userLocation" ).html('(Defaults based on weather at your current location.)');
@@ -276,3 +276,5 @@ $(function() {
   <li>Bottom-half: <b><em><span id="bottom_half"></span></b></em></li>
   <li>Feet: <b><em><span id="feet"></span></b></em></li>
 </ul>
+
+<p><a href="https://darksky.net/poweredby/">Powered by Dark Sky</a></p>
