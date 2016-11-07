@@ -14,9 +14,9 @@ First up, the reason Salesforce shipped me over to California for Dreamforce: A 
 
 This small bunch of people (plus one remote person, and the 20+ people in Marketing, Pricing, Licensing, etc) worked together over the year to build and ship Pardot's 3rd unique product, a powerful analytics tool for marketing data from Pardot, built on the Salesforce Analytics Cloud platform.  Here's some links to find out more:
 
-* (Salesforce announces Wave B2b Marketing Analytics )[http://www.pardot.com/blog/salesforce-announces-wave-b2b-marketing-analytics-every-b2b-marketer/]
-* (Marketing Wave Overview)[http://www.salesforce.com/analytics-cloud/marketing-wave/overview/]
-* (Pardot Wave for B2B Marketing)[https://www.pardot.com/solutions/wave-b2b-marketing/]
+* <a href="http://www.pardot.com/blog/salesforce-announces-wave-b2b-marketing-analytics-every-b2b-marketer/">http://www.pardot.com/blog/salesforce-announces-wave-b2b-marketing-analytics-every-b2b-marketer/</a>
+* <a href="http://www.salesforce.com/analytics-cloud/marketing-wave/overview/">http://www.salesforce.com/analytics-cloud/marketing-wave/overview/</a>
+* <a href="https://www.pardot.com/solutions/wave-b2b-marketing/">https://www.pardot.com/solutions/wave-b2b-marketing/</a>
 
 While Danielle (product manager) and Michael (UX) got most of the on-stage time doing announcements and roadmap sessions, I spoke at 3 different 'hands on sessions' to introduce people to the product and answer questions. Thats me!
 
@@ -40,7 +40,7 @@ After the CAB and after my talks, I got to speak with a lot of customers. They a
 
 ## Mindfulness
 
-The last day of Dreamforce is always a 'weird one'. While the tech things are still going on, the primary track for the day is on something different. I was free Friday so I sat in the entire "Mindfulness" keynote track.  No individual specific moment was life changing, but just sitting and absorbing for a few hours was pretty impactful:  From Monks encouraging us all to slow down, to Larry Brilliant (helped lead Smallpox eradication) and Daniel Goleman (author of (Emotional Intelligence)[http://amzn.to/2fy21zI]) chatting on stage for a bit about being Mindful and doing good in the world, to Nadine Burke talking about her work around neurodevelopmental results of toxic stress that mirror toxic environmental exposure.
+The last day of Dreamforce is always a 'weird one'. While the tech things are still going on, the primary track for the day is on something different. I was free Friday so I sat in the entire "Mindfulness" keynote track.  No individual specific moment was life changing, but just sitting and absorbing for a few hours was pretty impactful:  From Monks encouraging us all to slow down, to Larry Brilliant (helped lead Smallpox eradication) and Daniel Goleman (author of [Emotional Intelligence](http://amzn.to/2fy21zI)) chatting on stage for a bit about being Mindful and doing good in the world, to Nadine Burke talking about her work around neurodevelopmental results of toxic stress that mirror toxic environmental exposure.
 
 ### Larry Brilliant and Daniel Goleman
 
@@ -58,7 +58,7 @@ First things first, at 6am Monday I convinced a few co-workers to rent road bike
 
 ### Butter Lap Sunset
 
-Wednesday evening is time for (Butter Lap)[http://butterlap.com] with a spread of people from San Francisco and an occasional person I can convince to join me. Caleb recently moved from Atlanta to SF and it didn't take much convincing to get him to join in on his new bike.
+Wednesday evening is time for [Butter Lap](http://butterlap.com) with a spread of people from San Francisco and an occasional person I can convince to join me. Caleb recently moved from Atlanta to SF and it didn't take much convincing to get him to join in on his new bike.
 
 <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BLNFcmrhkdF/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">#butterlap sunset</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A photo posted by Chris Kelly (@ckdake) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2016-10-06T02:19:18+00:00">Oct 5, 2016 at 7:19pm PDT</time></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
 
