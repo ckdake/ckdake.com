@@ -171,7 +171,8 @@ iframe {
 /* this block is used for big screens */
 @media (min-width: 600px) {
   .container {
-    max-width: 620px;
+    /* max-width: 620px; */
+    margin-right: 40px;
   }
 
   .only-show-small {
