@@ -10,9 +10,9 @@ kind: page
 <h2>Ride/Run with me!</h2>
 
 <ul>
-  <li>Tuesday Night Mountain Bike Ride:  Meet at 8:30pm at The Flying Biscuit at 1655 McLendon Ave. Atlanta, GA 30307 at 8:30pm. Ride for ~2.5 hours and bring $10 cash for beer+pizza at the Felinis right down the street afterwards. You'll need a helmet light putting out 300+lumens and some mountain biking ability to enjoy this ride.</li>
-  <li>Wednesday Run: 5k or 10k, groups going anywhere from 8:00/m to 13:00/m. Meet in front of the Salesforce building across the street from the Lenox MARTA Station at 5pm every Wednesday.</li>
-  <li>Thursday FM:Race Hilly Road Bike Ride: evenings in the 'summer' half of Daylight Savings Time, meet at 6:45pm at Atlanta Beltline Bicycle for a 2 hour terrible tour of hills. 30 miles, 3000+ft of climbing. Don't show up in the 'winter' half of DST because nobody will be there and it will be cold.</li>
+  <li>Monday Run: My place in Winnona Park, happy to do a quick 5K or cruise along for an hour with some dirt mixed in.</li>
+  <li>Tuesday Night Mountain Bike Ride:  Meet at 8:00pm at The Flying Biscuit at 1655 McLendon Ave. Atlanta, GA 30307 at 8:00pm. Ride for ~2.5 hours and bring $10 cash for beer+pizza at the Felinis right down the street afterwards. You'll need a helmet light putting out 300+lumens and some mountain biking ability to enjoy this ride.</li>
+  <li>Thursday FM:Race Hilly Road Bike Ride: evenings in the 'summer' half of Daylight Savings Time, meet at 6:45pm at Atlanta Beltline Bicycle for a 2 hour terrible tour of hills. 30 miles, 3000+ft of climbing. Don't show up in the 'winter' half of DST because nobody will be there and it will be cold. Instead, message me about some night mountain biking ;)</li>
   <li>Any other day, any other time, if you want to ride or run ping me (@ckdake on twitter is easiest)</li>
 </ul>
 
@@ -24,18 +24,18 @@ I ride mountain bikes for fun, and ride most other kinds of bikes to make mounta
   <li><a href="http://connect.garmin.com/profile/ckdake" rel="me">me on Garmin Connect</a></li>
   <li><a href="http://xtrack.ckdake.com/" rel="me">me on XTrack</a></li>
   <li><a href="http://ckdake.com/bikes/raceresults.html">Race Results and Records</a></li>
-  <li><a href="/bikes/stats.html">stats!</a></li>
+  <li><a href="/bikes/stats.html">ride stats</a></li>
 </ul>
 
 <h2>Rides of Note</h2>
 <ul>
   <li>2005.10.08-09 - <a href="http://ckdake.com/gallery/2005/24hourbikerace/">24 Hours of Adrenalin (Conyers)</a> - My first mountain bike race was a 24 hour team event</li>
   <li>2005.10.23-24 - <a href="http://fastermustache.org/fm24/2005/">FM.24.05</a> - the only FM.24 that I seriously rode in. The other 4 I mostly ran the event</li>
-  <li>2006.05.13-24 - <a href="http://ckdake.com/gallery/2006/may-sw/">Southwestern US Trip</a> - mountain biking in Colorado (Palmer Park and Hartman Rocks) and Moab, Utah (Slickrock and Porcupine Rim)</li>
+  <li>2006.05.13 - <a href="http://ckdake.com/gallery/2006/may-sw/">Southwestern US Trip</a> - mountain biking in Colorado (Palmer Park and Hartman Rocks) and Moab, Utah (Slickrock and Porcupine Rim)</li>
   <li>2007.03.07  - <a href="http://ckdake.com/gallery/misc/me/413358102_59f1ccf721_b.jpg.html">Georgia Rides to the Capitol 2007</a> - first annual (and I've done this every year since)</li>
   <li>2008.08.02 - <a href="http://ckdake.com/content/2008/covington-century.html">Covington Century 2008</a> - first century</li>
   <li>2009.03.03 - <a href="http://vimeo.com/3463269">Georgia Rides to the Capitol 2009</a></li>
-  <li>2009.08.23-26 - <a href="http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html">Mountain Biking in Santa Fe</a> - 1 dude, 120 miles and 14,000ft in 4 days</li>
+  <li>2009.08.23 - <a href="http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html">Mountain Biking in Santa Fe</a> - 1 dude, 120 miles and 14,000ft in 4 days</li>
   <li>2009.09.27 - <a href="http://ckdake.com/content/2009/six-gap-century.html">Six Gap Century 2009</a> - 2 dudes, 100 miles, 11,200ft</li>
   <li>2010.06.09 - <a href="http://ckdake.com/content/2010/road-biking-in-portland-or.html">Road Biking in Portland</a> - 4 dudes, 200 miles and 13,000ft</li>
   <li>2011.07.27 - <a href="http://ckdake.com/content/2011/mountain-biking-in-colorado.html">Mountain Biking in Colorado</a> - 2 dudes, 156 miles and 29,000ft</li>
@@ -43,13 +43,19 @@ I ride mountain bikes for fun, and ride most other kinds of bikes to make mounta
   <li>2012.06.20 - <a href="http://ckdake.com/content/2012/2012-mountain-bike-trip-sun-valley.html">Mountain Biking in Sun Valley, Idaho</a> - 7 dudes, 150 miles and 19,000ft in 6 days</li>
   <li>2013.10.06 - <a href="http://ckdake.com/content/2013/mtb-2k13-park-city.html">Mountain Biking in Park City, Utah</a> - 7 dudes, 128 miles, and 16,000ft in 5 days</li>
   <li>2014.08.19 - <a href="http://ckdake.com/content/2014/mountain-biking-in-oakridge-oregon.html">Mountain Biking in Oakridge, OR</a> - 4 dudes, 1 gal, 130 miles and 25,000ft in 5 days</li>
-  <li>2014.12.26 <a href="https://www.strava.com/activities/233221540">Haleakala Attempt</a> - Made it up 7000ft</li>
-  <li>2015.08-18-22 - <a href="http://ckdake.com/content/2015/mountain-biking-in-jackson-wyoming.html">Mountain Biking in Jackson, WY</a> - 5 dudes, 125 miles and 18,000ft in 5 days</li>
+  <li>2014.12.26 - <a href="https://www.strava.com/activities/233221540">Haleakala Attempt</a> - Made it up 7000ft</li>
+  <li>2015.08-18 - <a href="/content/2015/mountain-biking-in-jackson-wyoming.html">Mountain Biking in Jackson, WY</a> - 5 dudes, 125 miles and 18,000ft in 5 days</li>
+  <li>2016.10.09 - <a href="/content/2016/mountain-biking-in-moab-utah.html">Mountain Biking in Moab, UT</a>.</li>
+  <li>2017.10.16 - <a href="/content/2017/mountain-biking-in-pisgah-nc.html">Mountain Biking in Pisgah, NC</a>.</li>
 </ul>
 
 <h2>The Garage</h2>
 
 <p>(You can rent some of these on <a href="http://spnl.st/s/3f060c">spinlister</a>.)</p>
+
+<h3>2017 Surly Big Fat Dummy</h3>
+<a href="https://www.flickr.com/photos/ckdake/37850918774/in/dateposted/" title="#newbikeday with that minivan I hear parents are supposed to buy."><img src="https://farm5.staticflickr.com/4521/37850918774_430e1ac408_m.jpg" width="240" height="240" alt="#newbikeday with that minivan I hear parents are supposed to buy."></a>
+<p>Big Fat Cargo bike for chainsaw hauling, toddler hauling, and venturing out into the great unknown.</p>
 
 <h3>2016 Yeti ASR Enduro</h3>
 <a href="https://www.flickr.com/photos/ckdake/25589173972/in/album-72157665737107936/" title="IMG_3664.jpg"><img src="https://farm2.staticflickr.com/1669/25589173972_5a8bb9ece7_m.jpg" width="240" height="160" alt="IMG_3664.jpg"></a>
