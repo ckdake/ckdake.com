@@ -7,12 +7,12 @@ kind: page
   <iframe height='454' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='http://app.strava.com/athletes/5850/latest-rides/9538a0ecafeb51e7795c686881f29207a44f78b3'></iframe>
 </div>
 
-<h2>Ride/Run with me!</h2>
+<h2>The Plan</h2>
 
 <ul>
-  <li>Monday Run: My place in Winnona Park, happy to do a quick 5K or cruise along for an hour with some dirt mixed in.</li>
-  <li>Tuesday Night Mountain Bike Ride:  Meet at 8:00pm at The Flying Biscuit at 1655 McLendon Ave. Atlanta, GA 30307 at 8:00pm. Ride for ~2.5 hours and bring $10 cash for beer+pizza at the Felinis right down the street afterwards. You'll need a helmet light putting out 300+lumens and some mountain biking ability to enjoy this ride.</li>
-  <li>Thursday FM:Race Hilly Road Bike Ride: evenings in the 'summer' half of Daylight Savings Time, meet at 6:45pm at Atlanta Beltline Bicycle for a 2 hour terrible tour of hills. 30 miles, 3000+ft of climbing. Don't show up in the 'winter' half of DST because nobody will be there and it will be cold. Instead, message me about some night mountain biking ;)</li>
+  <li>MWF: r/bodyweightfitness recommended routine first thing in the morning</li>
+  <li>TR: morning run</li>
+  <li>Weekend: Mountain bikes hopefully!</li>
   <li>Any other day, any other time, if you want to ride or run ping me (@ckdake on twitter is easiest)</li>
 </ul>
 
