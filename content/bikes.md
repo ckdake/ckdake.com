@@ -10,13 +10,11 @@ kind: page
 <h2>The Plan</h2>
 
 <ul>
-  <li>MWF: r/bodyweightfitness recommended routine first thing in the morning</li>
-  <li>TR: morning run</li>
-  <li>Weekend: Mountain bikes hopefully!</li>
-  <li>Any other day, any other time, if you want to ride or run ping me (@ckdake on twitter is easiest)</li>
+  <li>MWF: <a href="https://www.reddit.com/r/bodyweightfitness/wiki/kb/recommended_routine">r/bodyweightfitness recommended routine</a> first thing in the morning at work</li>
+  <li>Working on figuring out: Weekly evening ride, weekend ride routine</li>
 </ul>
 
-I ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and spun up a pretty solid race team: <a href="http://fastermustache.org/race">FM:Race</a>. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I  took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cyclocross races were ridden, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd. In 2014 I ran a half marathon every month, and 2015 onward is back to just making sure I'm mountain biking as much as possible and taking as many new people riding as possible.
+I ride mountain bikes for fun, and ride most other kinds of bikes to make mountain biking more fun.  In 2004 I co-founded <a href="http://fastermustache.org/">Faster Mustache</a> which at one point was the place to go for anything bike related in Atlanta. We organized the only urban 24 hour race in the world for 5 years in a row, and spun up a pretty solid race team: <a href="http://fastermustache.org/race">FM:Race</a>. In 2009 I raced full seasons of XC mountain bike racing and velodrome racing.  2010 I focused on track racing and as team leader, led us to a 1st place team finish for the season with 4 people in the top 15 individual standings including first place.  In 2011 I raced a full season at the track, but focused on the Chainbusters 6-hour race series where  Jason and I  took 3th of over 75 teams in the Pro/Open Men's Duo category.  Some cyclocross races were ridden, and 2012 was a the year of running races and mountain biking adventures. 2013 onward bring bigger bike adventures, and running with a bigger crowd. In 2014 I ran a half marathon every month, and 2015 onward is back to just making sure I'm mountain biking as much as possible and taking as many new people riding as possible. A move to CT in early 2018 means lots of new singletrack to find!
 
 <ul>
   <li><a href="http://www.strava.com/athletes/ckdake" rel="me">me on Strava</a></li>
@@ -51,31 +49,23 @@ I ride mountain bikes for fun, and ride most other kinds of bikes to make mounta
 
 <h2>The Garage</h2>
 
-<p>(You can rent some of these on <a href="http://spnl.st/s/3f060c">spinlister</a>.)</p>
-
 <h3>2017 Surly Big Fat Dummy</h3>
 <a href="https://www.flickr.com/photos/ckdake/37850918774/in/dateposted/" title="#newbikeday with that minivan I hear parents are supposed to buy."><img src="https://farm5.staticflickr.com/4521/37850918774_430e1ac408_m.jpg" width="240" height="240" alt="#newbikeday with that minivan I hear parents are supposed to buy."></a>
 <p>Big Fat Cargo bike for chainsaw hauling, toddler hauling, and venturing out into the great unknown.</p>
 
 <h3>2016 Yeti ASR Enduro</h3>
 <a href="https://www.flickr.com/photos/ckdake/25589173972/in/album-72157665737107936/" title="IMG_3664.jpg"><img src="https://farm2.staticflickr.com/1669/25589173972_5a8bb9ece7_m.jpg" width="240" height="160" alt="IMG_3664.jpg"></a>
-<p>Full squish for the first time in a while. SRAM GX1, Fox Performance, Crank Brothers Candy pedals, 9point8 dropper post. (27.5lb)</p>
+<p>The big but-not-that-big bike. SRAM GX1, Fox Performance, Crank Brothers Candy pedals, 9point8 dropper post. (27.5lb)</p>
 
 <h3>2014 Salsa Colossal Ti</h3>
 <a href="https://www.flickr.com/photos/ckdake/11873308936" title="2014 Salsa Colossal Ti by Chris Kelly, on Flickr"><img src="https://farm8.staticflickr.com/7416/11873308936_2ca06c1394_m.jpg" width="240" height="160" alt="2014 Salsa Colossal Ti"></a>
 <p>Shimano Ultegra 22, Disc Brakes, Thomson/Salsa components, Crank Brothers Quattro pedals (19.85lb)</p>
-<p>Titanium road bike for doing all the miles. Bought in November 2013 to replace my 2007 Specialized Roubaix. Working towards getting 20,000 miles in on it.</p>
+<p>When singletrack is not an option. Bought in November 2013 to replace my 2007 Specialized Roubaix. Working towards getting 20,000 miles in on it.</p>
 
 <h3>2009 Independent Fabrication Steel Deluxe</h3>
 <a href="https://www.flickr.com/photos/ckdake/14379528758" title="_MG_9946 by Chris Kelly, on Flickr"><img src="https://farm3.staticflickr.com/2907/14379528758_c6e0ec1b30_m.jpg" width="240" height="160" alt="_MG_9946"></a>
 <p>Independent Fabrication Steel Deluxe frame, Stan's 4.4Ti Crest Wheels, Crank Brothers Eggbeater 3 pedals, Crank Brothers Iodine SL Headset, RockShock SID Team 100m fork, Ergon GR2 grips, SRAM X.9 drivetrain, Race Face Deus XC cranks, Thomson Titanium 6 Bars, 2015 SRAM Guide R Brakes, Thomson Elite seatpost and stem, WTB Silverado Pro seat, Maxis Ignitor UST 2.1 tires (23.4lb)</p>
-<p>Steel Hardtail that I spend most of my time on. Full ride location list on <a href="http://www.singletracks.com/php/my/ridden.php?view_user=ckdake">singletracks.com</a>. Bought in Summer 2009 with first ride on July 2.</p>
-
-<h3>Trek 970</h3>
-<a href="https://www.flickr.com/photos/ckdake/23901775131" title=""><img src="https://c2.staticflickr.com/2/1672/23901775131_f211bafe2d_n.jpg" witdh="240" height="180"></a>
-<p>Old Trek 970 frame, old prototype Rolf wheels, Thomson seatpost and stem, RockShock SID SL Fork, FSA Carbon handlebars, Ergon Grips, flat pedals, SRAM X.0 Derailluer, RaceFace 32T front chainring, SRAM Cassette with Wolf Tooth 42T ring, Continental X-King tires.</p>
-<p>After all these years I finally have a loaner bike so it's even easier to bring out new people mountain biking. Even though this is a loaner and was pieced together with spare parts and $300, it's a very nice bike and I ride it sometimes instead of my IF. December 2015. 21lb and change.</p>
-
+<p>Steel is real functional when full squish is in need of repair. Bought in Summer 2009 with first ride on July 2.</p>
 
 <h3>2006 Redline 925</h3>
 <a href="https://www.flickr.com/photos/ckdake/14562735561" title="IMG_2046 by Chris Kelly, on Flickr"><img src="https://farm6.staticflickr.com/5512/14562735561_0bb4d5312c_m.jpg" width="240" height="180" alt="IMG_2046"></a>
@@ -83,6 +73,11 @@ I ride mountain bikes for fun, and ride most other kinds of bikes to make mounta
 <p>To the post office, grocery store, and beyond! Bought August 2007 to replace broken Nishiki.(<a href="http://www.bikepedia.com/QuickBike/BikeSpecs.aspx?Year=2007&Brand=Redline&Model=925&Type=bike">specs</a> - frame only)</p>
 
 <h2>The Junkyard</h2>
+
+<h3>SOLD: Trek 970</h3>
+<a href="https://www.flickr.com/photos/ckdake/23901775131" title=""><img src="https://c2.staticflickr.com/2/1672/23901775131_f211bafe2d_n.jpg" witdh="240" height="180"></a>
+<p>Old Trek 970 frame, old prototype Rolf wheels, Thomson seatpost and stem, RockShock SID SL Fork, FSA Carbon handlebars, Ergon Grips, flat pedals, SRAM X.0 Derailluer, RaceFace 32T front chainring, SRAM Cassette with Wolf Tooth 42T ring, Continental X-King tires.</p>
+<p>After all these years I finally have a loaner bike so it's even easier to bring out new people mountain biking. Even though this is a loaner and was pieced together with spare parts and $300, it's a very nice bike and I ride it sometimes instead of my IF. December 2015. 21lb and change. Sold in Jan 2018.</p>
 
 <h3>SOLD: 2009 Kawasaki KLX 250S</h3>
 <a href="https://www.flickr.com/photos/ckdake/14586275553" title="IMG_1379 by Chris Kelly, on Flickr"><img src="https://farm3.staticflickr.com/2939/14586275553_492e8a8db0_m.jpg" width="240" height="180" alt="IMG_1379"></a>
