@@ -9,27 +9,8 @@
     <link rel="stylesheet" href="<%= @items['/stylesheet/'].path %>">
     <link rel="alternate" type="application/rss+xml" title="ckdake.com" href="/rss.xml">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <script>
-var _prum = [['id', '5502251fabe53d9637772897'],
-             ['mark', 'firstbyte', (new Date()).getTime()]];
-(function() {
-    var s = document.getElementsByTagName('script')[0]
-      , p = document.createElement('script');
-    p.async = 'async';
-    p.src = '//rum-static.pingdom.net/prum.min.js';
-    s.parentNode.insertBefore(p, s);
-})();
-</script>
   </head>
   <body>
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
     <div id="sidebar">
       <div id="headline">
         <a class="only-show-small" href="#content">jump to content</a>
@@ -42,11 +23,10 @@ var _prum = [['id', '5502251fabe53d9637772897'],
           <ul>
             <li><a href="https://www.flickr.com/photos/ckdake/sets/" rel="me"><img src="/img/icons/flickr.png"></a></li>
             <li><a href="http://vimeo.com/ckdake" rel="me"><img src="/img/icons/vimeo.png"></a></li>
-            <li><a href="http://twitter.com/ckdake" rel="me"><img src="/img/icons/twitter.png"></a></li>
             <li><a href="http://instagram.com/ckdake" rel="me"><img src="/img/icons/instagram.png"></a></li>
             <li><a href="http://github.com/ckdake" rel="me"><img src="/img/icons/github.png" width="16" height="16"></a></li>
             <li><a href="http://www.linkedin.com/in/ckdake" rel="me"><img src="/img/icons/linkedin.png"></a></li>
-            <li><a href="http://last.fm/ckdake" rel="me"><img src="/img/icons/lastfm.png"></a></li>
+            <li><a href="http://twitter.com/ckdake" rel="me"><img src="/img/icons/twitter.png"></a></li>
             <li><a href="http://facebook.com/ckdake" rel="me"><img src="/img/icons/facebook.png"></a></li>
             <li><a href="/rss.xml" rel="me"><img src="/img/icons/blog.png"></a></li>
           </ul>
@@ -109,24 +89,6 @@ var _prum = [['id', '5502251fabe53d9637772897'],
               <% end %>
             </ul>
           </nav>
-        </div>
-      </div>
-      <div id="search-section">
-        <div class="container">
-          <h2>Search</h2>
-          <script>
-            (function() {
-              var cx = '018178449386979284272:agezxhbkxea';
-              var gcse = document.createElement('script');
-              gcse.type = 'text/javascript';
-              gcse.async = true;
-              gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                  '//www.google.com/cse/cse.js?cx=' + cx;
-              var s = document.getElementsByTagName('script')[0];
-              s.parentNode.insertBefore(gcse, s);
-            })();
-          </script>
-          <gcse:search></gcse:search>
         </div>
       </div>
       <div id="poweredby-section">
