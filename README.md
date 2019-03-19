@@ -1,6 +1,10 @@
 Running ckdake.com
 ==================
 
-# gem install bundler && bundle
-# nanoc compile
-# nanoc view
+1. gem install bundler && bundle
+1. nanoc compile
+1. nanoc view
+
+Deployment
+==================
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c5d600c9-50fd-466e-8298-b1e1d36eafcb/deploy-status)](https://app.netlify.com/sites/clever-beaver-30e461/deploys)
