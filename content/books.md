@@ -8,6 +8,7 @@ kind: page
 ## CS Must Reads
 
 Really? You haven't read these as part of your formal software engineering education?
+
 * [The Pragmatic Programmer](https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X/ref=sr_1_1?crid=4R7PS282H6P3&keywords=the+pragmatic+programmer&qid=1563459403&s=gateway&sprefix=the+pragmati%2Caps%2C241&sr=8-1)
 * [The Design of Everyday Things](https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654/ref=sr_1_1?keywords=the+design+of+everyday+things&qid=1563459463&s=gateway&sr=8-1)
 * [Design Patterns](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/ref=sr_1_3?keywords=design+patterns&qid=1563459544&s=gateway&sr=8-3)
@@ -25,7 +26,7 @@ Really? You haven't read these as part of your formal software engineering educa
 
 Managers and not-managers should probably read these to think about how all the pieces fit together
 
-* [The Mythical Man Month(https://www.amazon.com/Mythical-Man-Month-Anniversary-Software-Engineering-ebook/dp/B00B8USS14/ref=sr_1_1?crid=3F664MRVXNLDL&keywords=mythical+man+month&qid=1563459154&s=digital-text&sprefix=mythical%2Cdigital-text%2C180&sr=1-1)
+* [The Mythical Man Month](https://www.amazon.com/Mythical-Man-Month-Anniversary-Software-Engineering-ebook/dp/B00B8USS14/ref=sr_1_1?crid=3F664MRVXNLDL&keywords=mythical+man+month&qid=1563459154&s=digital-text&sprefix=mythical%2Cdigital-text%2C180&sr=1-1)
 * [Managing Humans(https://www.amazon.com/Managing-Humans-Humorous-Software-Engineering-ebook/dp/B01J53IE1O/ref=sr_1_3?keywords=managing+humans&qid=1563457637&s=digital-text&sr=1-3)
 * [Radical Candor(https://www.amazon.com/Radical-Candor-Kim-Scott/dp/B01KTIEFEE/ref=sr_1_1?keywords=radical+candor&qid=1563457712&s=digital-text&sr=1-1)
 * [The Managers Path(https://www.amazon.com/Managers-Path-Leaders-Navigating-Growth-ebook/dp/B06XP3GJ7F/ref=sr_1_3?keywords=the+managers+path&qid=1563457734&s=digital-text&sr=1-3)
