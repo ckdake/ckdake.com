@@ -1,3 +1,9 @@
+---
+title: Books
+created_at: 2020-03-17 12:32:21 -0400
+kind: page
+---
+
 CS Must Reads
 
 Really? You haven't read these as part of your formal software engineering education?
