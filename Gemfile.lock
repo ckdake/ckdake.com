@@ -115,7 +115,7 @@ DEPENDENCIES
   vimeo
 
 RUBY VERSION
-   ruby 2.6.1p33
+   ruby 2.6.3p62
 
 BUNDLED WITH
-   1.13.7
+   1.17.2
