@@ -27,15 +27,15 @@ Really? You haven't read these as part of your formal software engineering educa
 Managers and not-managers should probably read these to think about how all the pieces fit together
 
 * [The Mythical Man Month](https://www.amazon.com/Mythical-Man-Month-Anniversary-Software-Engineering-ebook/dp/B00B8USS14/ref=sr_1_1?crid=3F664MRVXNLDL&keywords=mythical+man+month&qid=1563459154&s=digital-text&sprefix=mythical%2Cdigital-text%2C180&sr=1-1)
-* [Managing Humans(https://www.amazon.com/Managing-Humans-Humorous-Software-Engineering-ebook/dp/B01J53IE1O/ref=sr_1_3?keywords=managing+humans&qid=1563457637&s=digital-text&sr=1-3)
-* [Radical Candor(https://www.amazon.com/Radical-Candor-Kim-Scott/dp/B01KTIEFEE/ref=sr_1_1?keywords=radical+candor&qid=1563457712&s=digital-text&sr=1-1)
-* [The Managers Path(https://www.amazon.com/Managers-Path-Leaders-Navigating-Growth-ebook/dp/B06XP3GJ7F/ref=sr_1_3?keywords=the+managers+path&qid=1563457734&s=digital-text&sr=1-3)
-* [The Five Dysfunctions of a Team(https://www.amazon.com/Five-Dysfunctions-Team-Leadership-Fable/dp/0787960756/ref=sr_1_1?crid=2GO76V9FDESK0&keywords=five+disfunction%27s+of+a+team&qid=1563459429&s=gateway&sprefix=five+disfun%2Caps%2C222&sr=8-1)
-* [Drive(https://www.amazon.com/Drive-Surprising-Truth-About-Motivates/dp/1594484805/ref=sr_1_2?keywords=drive&qid=1563457960&s=books&sr=1-2)
-* [High Output Management(https://www.amazon.com/High-Output-Management-Andrew-Grove-ebook/dp/B015VACHOK/ref=sr_1_1?keywords=high+output+management&qid=1563457996&s=digital-text&sr=1-1)
-* [Punished By Rewards(https://www.amazon.com/Punished-Rewards-Twenty-fifth-Anniversary-Incentive-ebook/dp/B004MYFLDG/ref=sr_1_1?crid=SCY9Z69ZI2FF&keywords=punished+by+rewards&qid=1563458221&s=digital-text&sprefix=punished+by+rewards%2Cdigital-text%2C279&sr=1-1)
-* [The Phoenix Project(https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B078Y98RG8/ref=sr_1_1?keywords=the+phoenix+project&qid=1563458262&s=digital-text&sr=1-1)
-* [Generalship: Its Diseases and Their Cure(https://www.amazon.com/Generalship-Diseases-Personal-Factor-Command-ebook/dp/B06XGLG4LS/ref=sr_1_2?keywords=generalship&qid=1563459055&s=digital-text&sr=1-2)
+* [Managing Humans](https://www.amazon.com/Managing-Humans-Humorous-Software-Engineering-ebook/dp/B01J53IE1O/ref=sr_1_3?keywords=managing+humans&qid=1563457637&s=digital-text&sr=1-3)
+* [Radical Candor](https://www.amazon.com/Radical-Candor-Kim-Scott/dp/B01KTIEFEE/ref=sr_1_1?keywords=radical+candor&qid=1563457712&s=digital-text&sr=1-1)
+* [The Managers Path](https://www.amazon.com/Managers-Path-Leaders-Navigating-Growth-ebook/dp/B06XP3GJ7F/ref=sr_1_3?keywords=the+managers+path&qid=1563457734&s=digital-text&sr=1-3)
+* [The Five Dysfunctions of a Team](https://www.amazon.com/Five-Dysfunctions-Team-Leadership-Fable/dp/0787960756/ref=sr_1_1?crid=2GO76V9FDESK0&keywords=five+disfunction%27s+of+a+team&qid=1563459429&s=gateway&sprefix=five+disfun%2Caps%2C222&sr=8-1)
+* [Drive](https://www.amazon.com/Drive-Surprising-Truth-About-Motivates/dp/1594484805/ref=sr_1_2?keywords=drive&qid=1563457960&s=books&sr=1-2)
+* [High Output Management](https://www.amazon.com/High-Output-Management-Andrew-Grove-ebook/dp/B015VACHOK/ref=sr_1_1?keywords=high+output+management&qid=1563457996&s=digital-text&sr=1-1)
+* [Punished By Rewards](https://www.amazon.com/Punished-Rewards-Twenty-fifth-Anniversary-Incentive-ebook/dp/B004MYFLDG/ref=sr_1_1?crid=SCY9Z69ZI2FF&keywords=punished+by+rewards&qid=1563458221&s=digital-text&sprefix=punished+by+rewards%2Cdigital-text%2C279&sr=1-1)
+* [The Phoenix Project](https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B078Y98RG8/ref=sr_1_1?keywords=the+phoenix+project&qid=1563458262&s=digital-text&sr=1-1)
+* [Generalship: Its Diseases and Their Cure](https://www.amazon.com/Generalship-Diseases-Personal-Factor-Command-ebook/dp/B06XGLG4LS/ref=sr_1_2?keywords=generalship&qid=1563459055&s=digital-text&sr=1-2)
 
 ## Just Read These
 
