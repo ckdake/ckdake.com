@@ -41,6 +41,7 @@ Managers and not-managers should probably read these to think about how all the 
 
 They are not about programming, or management, but our world is a system of systems and wet things and that impacts the work we do.
 
+* [Principles](https://www.amazon.com/Principles-Life-Work-Ray-Dalio-ebook/dp/B071CTK28D/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=1589387176&sr=8-3) 
 * [Normal Accidents](https://www.amazon.com/Normal-Accidents-Living-Technologies-Updated-ebook/dp/B00CHRINUI/ref=sr_1_1?keywords=normal+accidents&qid=1563458028&s=digital-text&sr=1-1)
 * [Better: A Surgeon's Notes on Performance](https://www.amazon.com/Better-Surgeons-Performance-Atul-Gawande-ebook/dp/B000QCSAB8/ref=sr_1_1?keywords=better+performance&qid=1563458294&s=digital-text&sr=1-1)
 * [Searching For Safety](https://www.amazon.com/Searching-Safety-Aaron-Wildavsky-ebook/dp/B075GX27LP/ref=sr_1_1?keywords=searching+for+safety&qid=1563458358&s=digital-text&sr=1-1)
