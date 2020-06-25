@@ -74,7 +74,7 @@ GEM
     oauth (0.5.4)
     parallel (1.13.0)
     public_suffix (3.0.3)
-    rack (2.0.8)
+    rack (2.2.3)
     ref (2.0.0)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
