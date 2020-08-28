@@ -4,11 +4,10 @@ require 'digest/md5'
 # API is throttled to 1 per second :(
 # TODO: spreadsheet of Year, ASIN from Goodreads
 
-$req = Vacuum.new('US', true)
-$req.configure(
-  aws_access_key_id: ENV['AWS_ACCSS_KEY_ID'],
-  aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-  associate_tag: 'ckdake-20'
+$req = Vacuum.new(
+  access_key: ENV['AWS_ACCSS_KEY_ID'],
+  secret_key: ENV['AWS_SECRET_ACCESS_KEY'],
+  partner_tag: 'ckdake-20'
 )
 
 def amazon_book_to_html(params)
