@@ -50,8 +50,8 @@ chris.kelly@oit.gatech.edu, chris.lewis@gatech.edu
 <p>It was discovered that while the packet count for certain ports was comparable for packets in versus  packets out, the byte count was strongly disproportionate.   Figure 1 displays the byte count for http traffic (port 80).  The number of bytes coming from the web server with the IP address of 216.165.129.135 was around 210.1 million.  The number of bytes sent to that host was only 4.6 million. </p>
 
 <p>Figure 1:  Differences in byte count for port 80.  Top graph displays incoming traffic.  Bottom graph displays outgoing traffic.</p>
-<img src="http://ckdake.com/files/tfstat_1.png" />
-<img src="http://ckdake.com/files/tfstat_2.png" />
+<img src="//ckdake.com/files/tfstat_1.png" />
+<img src="//ckdake.com/files/tfstat_2.png" />
 
 <p>This is almost a difference of 50 times between the amount of traffic sent and received to that one host.  The disproportionate ratio between incoming and outgoing bytes on a port-by-port basis can be seen for many other ports as well. </p>
 <p>Although this makes sense, given that traffic to the web server might have mostly consisted of GET requests, with the response containing a large number of graphics and other large data objects, it is interesting to see concrete results and visualizations on this.   An additional graph could be created to display the two byte counts on the same graph with the same scale, and this would provide an even more convincing visual display of the data.</p>
@@ -62,13 +62,13 @@ chris.kelly@oit.gatech.edu, chris.lewis@gatech.edu
 
 
 <p>Figure 2: Difference in graph structure for number of flows / flow size (in bytes).  Top graph displays incoming traffic.  Bottom graph displays spoofed traffic.</p>
-<img src="http://ckdake.com/files/tfstat_3.png" />
-<img src="http://ckdake.com/files/tfstat_4.png" />
+<img src="//ckdake.com/files/tfstat_3.png" />
+<img src="//ckdake.com/files/tfstat_4.png" />
 
 
 <p>Figure 3: Top graph displays the number of bytes / IP protocol for incoming traffic, while the bottom graph shows bytes / IP protocol for spoofed traffic.</p>
-<img src="http://ckdake.com/files/tfstat_5.png" />
-<img src="http://ckdake.com/files/tfstat_6.png" />
+<img src="//ckdake.com/files/tfstat_5.png" />
+<img src="//ckdake.com/files/tfstat_6.png" />
 
 <p>Finally, the ability that from every graph (with the current exception of the bandwidth graphs) a user can  view the flow records from the database for the graph in question within one or two clicks provided to be a very useful tool.  Obviously, this was very helpful in debugging the creation of the collection server graphs.  More so than that, there were a few situations where there was some question about some of  the traffic that had come from for a particular protocol.  After clicking on the IP address generating the offending traffic, it was very quickly apparent what that traffic was and that it was indeed  supposed to be occurring.   This ability will enable other users to perform the same analysis.  If this ability was not readily available on the tool, it would take a much longer time to determine what this traffic was, especially if it did not occur again. </p>
 

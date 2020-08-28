@@ -18,24 +18,24 @@ Assuming you're using Rails 3, everything below is stubbed out and may work out 
 
 First get the gems you'll need:
 
-<script src="http://gist.github.com/660059.js?file=Gemfile"></script>
+<script src="https://gist.github.com/660059.js?file=Gemfile"></script>
 
 and run "bundle install".
 
 Then set up some routes:
 
-<script src="http://gist.github.com/660059.js?file=routes.rb"></script>
+<script src="https://gist.github.com/660059.js?file=routes.rb"></script>
 
 And create a table in a migration to hold the information.  Run "rails generate migration CreateFacebookAccount"  and put this in the file it creates for you:
 
-<script src="http://gist.github.com/660059.js?file=table.rb"></script>
+<script src="https://gist.github.com/660059.js?file=table.rb"></script>
 
 The model takes care of building the authorize URL, validating the token we get back, and posting:
 
-<script src="http://gist.github.com/660059.js?file=facebook_account.rb"></script>
+<script src="https://gist.github.com/660059.js?file=facebook_account.rb"></script>
 
 While the controller redirects when needed and handles the callback from facbeook:
 
-<script src="http://gist.github.com/660059.js?file=facebook_accounts_controller.rb"></script>
+<script src="https://gist.github.com/660059.js?file=facebook_accounts_controller.rb"></script>
 
 And thats it! Anywhere else in your account you can call .post('Hello World') on an active FacebookAccount and it'll show up on the linked user's Facebook wall. 

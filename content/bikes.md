@@ -4,7 +4,7 @@ created_at: 2007-09-26 17:35:21 -0400
 kind: page
 ---
 <div style="float: right; margin-left: 20px;">
-  <iframe height='454' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='http://app.strava.com/athletes/5850/latest-rides/9538a0ecafeb51e7795c686881f29207a44f78b3'></iframe>
+  <iframe height='454' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://app.strava.com/athletes/5850/latest-rides/9538a0ecafeb51e7795c686881f29207a44f78b3'></iframe>
 </div>
 
 <h2>The Plan</h2>

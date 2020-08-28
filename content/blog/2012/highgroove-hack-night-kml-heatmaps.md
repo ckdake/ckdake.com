@@ -23,6 +23,6 @@ This gets run like:
 
 For my 2007 kml this was only ~3000 points and worked pretty quickly, but for 2008 there are ~60k points and I had to shrink dot size and bump up output size pretty significantly to get it to finish.  csv2map.py ran for ~12 hours and finally outputted a pretty neat image:
 
-<img src="http://ckdake.com/files/google-earth-heatmap.jpg">
+<img src="//ckdake.com/files/google-earth-heatmap.jpg">
 
 Looks like I rode to Stone Mountain a lot in 2008. This could probably be generated in a few seconds with a more performant heatmap library, so perhaps I'll hack one of those together in the future.  That said, this was a fun proof of concept and may be useful for people with smaller KML files than me!  My entire my.kml has over 1 Million points, so it may never build a heatmap of all of them.

@@ -23,7 +23,7 @@ SugarCRM checks if apc_store exists to see if it can use APC,  so I simply added
 
 This ended up being the problem and the solution. It turns out that increasing the memory available to APC meant that things were staying in the cache longer which made the contention issue even worse. SugarCRM's use of a user cache simply doesn't scale well in a massive clustered environment,  and with it disabled, the opcode cache can do a better job. Hit rates are up to  92% to 99% across the cluster, and response times are down.  Below is a sanitized graph of response times to a test instance designed to represent the worst response times across the OnDemand cluster:
 
-<img src="http://ckdake.com/files/odresponsetimes_1.png">
+<img src="//ckdake.com/files/odresponsetimes_1.png">
 
 <ul>
 <li>APC's memory was increased from 128M to 512M a little after the dotted red line at 12:00.  This improved consistency of 'worst case' response times significantly</li>

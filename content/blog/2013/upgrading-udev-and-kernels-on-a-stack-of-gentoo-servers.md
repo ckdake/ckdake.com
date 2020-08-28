@@ -37,7 +37,7 @@ The impact of disabling APC is that PHP has to do a little more work on each htt
 
 It's frustrating when tools that are designed to enhance performance cause things to implode, but it's nice to clean up the stack a little and APC doesn't have the reputation of being the most stable thing out there anyways. Time will tell what impact this has on response code breakdown.  Here's graph of CPU usage on this box during the events in the last 24 hours. From descriptions above you can probably see what looks pretty clear in hindsight.
 
-<img src="http://ckdake.com/files/cpu.png" />
+<img src="//ckdake.com/files/cpu.png" />
 
 <h3>The End</h3>
 

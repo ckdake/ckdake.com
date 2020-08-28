@@ -5,7 +5,7 @@ kind: article
 ---
 In December, I had a pretty nasty wreck on a night mountain bike ride in town.  Once I was able to ride again, Bob and I went out and <a href="http://ckdake.com/gallery/2011/trailfixing/">fixed a bunch of things</a> including the "bridge" (first photo in the album) that I fell on. We've both ridden all the things we fixed a few times now and it's nice to know we made a difference. Nice! I spread the word that I'd like to do more of this, and got a phone call a few weeks later about some people working on some trails behind a friend's house in-town.  Several hours later, we ended up with 3 new berms and a hundred or so feet of new rideable trail.  Here's the fun part:
 
-<iframe src="http://player.vimeo.com/video/36670537" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+<iframe src="https://player.vimeo.com/video/36670537" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
 I showed up with far more tools than I needed, the wooden thing we made out of an old futon frame is almost certainly not going to last, and we'll see what work needs to be done due to the recent rain.  But it was a blast, the berms are a lot of fun to ride, and we got in a nice ride afterwards.
 
