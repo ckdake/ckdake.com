@@ -50,3 +50,21 @@ They are not about programming, or management, but our world is a system of syst
 * [Predictably Irrational](https://www.amazon.com/Predictably-Irrational-Revised-Expanded-Decisions-ebook/dp/B002C949KE/ref=sr_1_1?crid=WJYQ5ETOBDD7&keywords=predictably+irrational&qid=1563459104&s=digital-text&sprefix=predicta%2Cdigital-text%2C259&sr=1-1)
 * [Algorithms to Live By](https://www.amazon.com/Algorithms-Live-Computer-Science-Decisions/dp/1250118360/ref=sr_1_2?crid=3ADFE989VREUR&keywords=algorithms+to+live+by&qid=1563459589&s=gateway&sprefix=algorightms+to+l%2Caps%2C174&sr=8-2)
 * [Human Error](https://www.amazon.com/Human-Error-James-Reason-ebook/dp/B000SEJ89W/ref=pd_sim_351_6/132-9300843-3720554?_encoding=UTF8&pd_rd_i=B000SEJ89W&pd_rd_r=7a8edccd-a963-11e9-bc59-bd9b9921c68b&pd_rd_w=I6928&pd_rd_wg=US9QZ&pf_rd_p=90485860-83e9-4fd9-b838-b28a9b7fda30&pf_rd_r=4SX7BKHCTM7GW199SW2C&psc=1&refRID=4SX7BKHCTM7GW199SW2C)
+
+
+## Like Books, but not
+
+These are things worth reading that are not books, but that are equally great
+
+* [Software Lead Weekly](https://softwareleadweekly.com/) - A weekly email for busy people who care about people, culture and leadership.
+* [MIT Technology Review](https://www.technologyreview.com/) - An actual paper publicaiton that you can subscribe to.
+* [IEE Spectrum](https://spectrum.ieee.org/) - An actual paper publicaiton that you can subscribe to.
+* [Rands in Repose](https://randsinrepose.com/) - Software / Management blog
+* [Eilded Branches](https://www.elidedbranches.com/) - Software / Management blog
+* [Ed Batista](https://www.edbatista.com/) - Leadership blog
+* [Light Blue Touchpaper](https://www.lightbluetouchpaper.org/) - Security blog
+* [ACM Queue](https://queue.acm.org/) - ACM blog/magazine
+* [Netflix TechBlog](https://netflixtechblog.com/)
+* [The Cloudflare Blog](https://blog.cloudflare.com/) - pick some tags like "Deep Dive" instead of the whole thing
+* [Code as Craft, Etsy's Engineering Blog](https://codeascraft.com/)
+* [Joel on Software](https://www.joelonsoftware.com/)
