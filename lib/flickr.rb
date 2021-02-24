@@ -32,7 +32,7 @@ def recent_flickr_sets_html(count)
   html = ''
   update_photosets
   (0..(count.to_i - 1)).each do |i|
-    if $photosets[i]['visibility_can_see_set'] == 1
+    if $photosets and $photosets[i]['visibility_can_see_set'] == 1
       html = html + flickr_set_to_html(
         {
           title: $photosets[i]['title'],
