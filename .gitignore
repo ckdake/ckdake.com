@@ -3,3 +3,4 @@ tmp/
 output.diff
 output/
 _static/
+.DS_Store

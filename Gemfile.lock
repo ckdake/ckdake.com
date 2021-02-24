@@ -1,12 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.0.3.2)
+    activesupport (6.1.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (>= 0.7, < 2)
-      minitest (~> 5.1)
-      tzinfo (~> 1.1)
-      zeitwerk (~> 2.2, >= 2.2.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+      zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     adsf (1.4.3)
@@ -33,7 +33,7 @@ GEM
       ffi (>= 1.0.0)
       rake
     flickraw (0.9.10)
-    goodreads (0.7.0)
+    goodreads (0.8.0)
       activesupport (>= 3.0)
       hashie (~> 2.0)
       i18n (>= 0.6, < 2)
@@ -51,8 +51,8 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
-    http-parser (1.2.1)
-      ffi-compiler (>= 1.0, < 2.0)
+    http-parser (1.2.2)
+      ffi-compiler
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -65,9 +65,9 @@ GEM
       rexml
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
+    mime-types-data (3.2020.1104)
     mini_portile2 (2.4.0)
-    minitest (5.14.1)
+    minitest (5.14.2)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nanoc (4.11.18)
@@ -111,7 +111,7 @@ GEM
     pastel (0.7.4)
       equatable (~> 0.6)
       tty-color (~> 0.5)
-    public_suffix (4.0.5)
+    public_suffix (4.0.6)
     rack (2.2.3)
     rake (13.0.1)
     ref (2.0.0)
@@ -122,19 +122,18 @@ GEM
       netrc (~> 0.8)
     rexml (3.2.4)
     slow_enumerator_tools (1.1.0)
-    thread_safe (0.3.6)
     tomlrb (1.3.0)
     tty-color (0.5.2)
     tty-command (0.9.0)
       pastel (~> 0.7.0)
     tty-platform (0.3.0)
     tty-which (0.4.2)
-    tzinfo (1.2.7)
-      thread_safe (~> 0.1)
+    tzinfo (2.0.3)
+      concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
-    vacuum (3.4.0)
+    vacuum (3.4.1)
       aws-sigv4 (~> 1.0)
       http (~> 4.0)
     vimeo (1.5.4)
@@ -143,7 +142,7 @@ GEM
       json (>= 1.1.9)
       multipart-post (>= 1.0.1)
       oauth (>= 0.4.3)
-    zeitwerk (2.4.0)
+    zeitwerk (2.4.2)
 
 PLATFORMS
   ruby
@@ -161,7 +160,7 @@ DEPENDENCIES
   vimeo
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 2.7.2p137
 
 BUNDLED WITH
    2.1.4
