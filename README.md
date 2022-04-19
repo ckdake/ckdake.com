@@ -2,8 +2,8 @@ Running ckdake.com
 ==================
 
 1. gem install bundler && bundle
-1. nanoc compile
-1. nanoc view
+1. bundle exec nanoc compile
+1. bundle exec nanoc view
 
 Deployment
 ==================
