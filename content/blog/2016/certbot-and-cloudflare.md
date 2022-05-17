@@ -10,6 +10,8 @@ Had you used one of the other methods (e.g. docroot verification) you'd be ok, b
 
 Do not fear! There is a not-ideal-but-works-pretty-well way of doing this. My specific version doesn't have the best error handling , has no tests, and may be a jerk, but it's worked for me for the last round of renewals so it's got that going for it. Read on for details.
 
+<!-- more -->
+
 ## The Assumptions
 
 1. You have certbot up and running and working and your sites have SSL certificates. You just need to renew them. (This may work for setup, but I usually do that before setting up CloudFlare)

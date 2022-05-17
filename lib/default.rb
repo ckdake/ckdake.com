@@ -29,3 +29,12 @@ def next_link
     link_to(html, post.reps[:default], :class => "next", :title => title)
   end
 end
+
+def get_post_start(post)
+  content = post.compiled_content
+  if content =~ /\s<!-- more -->\s/
+    content = content.partition('<!-- more -->').first +
+    "<div class='read-more'><a href='#{post.path}'>Continue reading &rsaquo;</a></div>"
+  end
+  return content
+end

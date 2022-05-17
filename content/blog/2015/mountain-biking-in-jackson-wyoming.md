@@ -6,6 +6,8 @@ kind: article
 
 Once again, continuing the tradition ([2009: Santa Fe, NM](http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html), [2010: Portland, OR](http://ckdake.com/content/2010/road-biking-in-portland-or.html), [2011: Colorado](http://ckdake.com/content/2011/mountain-biking-in-colorado.html), [2012: Sun Valley, ID](http://ckdake.com/content/2012/2012-mountain-bike-trip-sun-valley.html), [2013: Park City, UT](http://ckdake.com/content/2013/mtb-2k13-park-city.html), [2014: Oakridge, OR](http://ckdake.com/content/2014/mountain-biking-in-oakridge-oregon)), this year I went on an epic mountain biking trip with some friends. For #mtb2k15, we met up in Jackson, Wyoming for a week of epic trail riding.
 
+<!-- more -->
+
 ## Getting There
 Those of us flying in from Atlanta for Day 1 (Me, Marc, and Brian) lucked out with a direct flight from Atlanta to Jackson Hole Airport, a 7-gate _very_ tiny airport with a pretty great view.
 

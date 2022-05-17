@@ -6,6 +6,8 @@ kind: article
 
 Maybe you were convinced (perhaps no so subtly), maybe you've always been wanting to, or maybe you had a few too many beers and shook hands on something. Now the day approaches, and you're going to show up because you are a man/woman of your word. Excellent. See you there!
 
+<!-- more -->
+
 <a data-flickr-embed="true"  href="https://www.flickr.com/photos/ckdake/17160502320/in/album-72157651863429587/" title="IMG_2993.jpg"><img src="https://farm8.staticflickr.com/7713/17160502320_e4801a45c2_z.jpg" width="640" height="427" alt="IMG_2993.jpg"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
 Whats that? You don't know what you're getting into?  Here are some questions that you should be asking, and some guidelines for an answer. Ask me more comments "for a friend" below and I'll help "your friend" out.

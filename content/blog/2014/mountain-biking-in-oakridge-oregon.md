@@ -10,6 +10,8 @@ Continuing the tradition ([2009: Santa Fe, NM](http://ckdake.com/content/2009/mo
 
 We rented some nice bikes from [Willamette Mountain Mercantile](http://oakridgebikeshop.com) (I got a [Ibis Mojo HDR 650b](http://www.ibiscycles.com/bikes/mojo_hdr650b/)) and headed out for the trails. Charlie, Diane, Marc, and I were all on rentals, and Paul was on his shiny new Pivot from home.
 
+<!-- more -->
+
 ## 08/06/2014 Day 1: Larison Rock, Flat Creek / Dead Mountain. 27.2 Miles, 6515 feet up and down.
 
 <a href="https://www.flickr.com/photos/ckdake/14662700420" title="IMG_2051.jpg by Chris Kelly, on Flickr"><img src="https://farm6.staticflickr.com/5585/14662700420_3f99ff5aa0.jpg" width="500" height="333" alt="IMG_2051.jpg"></a>

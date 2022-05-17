@@ -6,6 +6,8 @@ kind: article
 
 I recently gave a Tech Talk at Big Nerd Ranch on "A Day in the Life of a HTTP Request." It takes as deep of a dive into networking and the internet as I can fit into an hour, and while it shouldn't be used as an authoritative reference on any specific detail, give it a watch if you're curious about the tubes. It's a repeat of a talk I gave last year that didn't get recorded properly. Below are the other recorded talks I've given in the past.
 
+<!-- more -->
+
 ## 2014.11.18 - "A Day in the Life of a HTTP Request."
 
 <iframe src="//player.vimeo.com/video/102181354?portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/102181354">A Day in the Life of an HTTP Request: A Big Nerd Ranch Tech Talk</a> from <a href="http://vimeo.com/bignerdranch">Big Nerd Ranch</a> on <a href="https://vimeo.com">Vimeo</a>.</p> <p>What really happens when you type a URL into your web browser? Big Nerd Ranch&#039;s Director of Internal Operations, Chris Kelly has the networking know-how and he&#039;s here to explain. <br /> <br /> From TCP handshakes to spanning tree troubleshooting, it&#039;s all covered in our latest Tech Talk that explores the life and journey of an HTTP request.<br /> <br /> http://www.bignerdranch.com<br /> http://www.twitter.com/bignerdranch<br /> http://www.facebook.com/bignerdranch</p>

@@ -8,11 +8,13 @@ kind: article
 
 For #mtb2k16 this year, we headed to Moab, Utah. It's got the views and the downhills, but not quite the ups of years past. 5 days of great riding, only one minor emergency room visit, and a lot of great food and beer.
 
-## Getting There
+### Getting There
 
 Paul flew into Denver from Portland, while Brian and I flew in from Atlanta to meet up and pick up the cheapest rental car Hertz had: a Mercedes GLA 350.  No idea why this was $300 for an entire week, but no complaints!  We drove the 5+ hours to Moab, UT, where we met up with Dave (drove in from Albuerqueue, NM) and Jason (Flew into Jackson).  It was a bit of a logistical mess and the kind folks at the bike shop ended up staying open a little late for us. Rent your bikes from [Moab Cyclery](http://moabcyclery.com), they'll take care of you. I was on a Specialized 6Fattie for the week which was tons of fun.
 
 Will lives in Moab currently and came over to talk trails, drink some beers, and figure out the week. Our rental house comfortably held the 6 of us and we made good use of the original Atari, hot tub, wifi, kitchen, and 2 car (1 car and a huge pile of bikes) garage.
+
+<!-- more -->
 
 ## Day 1 - Hymasa Ahab Hymasa Jackson
 

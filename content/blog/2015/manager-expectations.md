@@ -6,6 +6,8 @@ kind: article
 
 I'm still figuring out what being a manager means, but it's pretty apparent so far that having clear expectations is extremely important.  I'm publishing this post both so that I can share what some of my expectations are with people that work with me, and so you can tell me what you'd like to know, what you disagree with, or what I left out, so ask away in the comments!
 
+<!-- more -->
+
 For some context, I'm a Software Engineering Manager at Salesforce Pardot. These comments are my own and not in any way official Salesforce communication or policy. I'm hiring, go peruse [my LinkedIn profile](https://www.linkedin.com/profile/view?id=8655611), etc. For more details on me and how I've gotten where I am, there is a [brief biography a click away](http://ckdake.com/biography.html).
 
 So hello!  Maybe you work with me, here is some of what you can expect from me:

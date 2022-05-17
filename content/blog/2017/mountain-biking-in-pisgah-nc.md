@@ -8,6 +8,8 @@ kind: article
 
 It was finally time to make the drive from home to Brevard, NC to ride around Pisgah for a week for #mtb2k17. All kinds of technical downhills, some great miles of flow, even less views than North GA. Paul flew in from Portland, Kurt drove over from Charlotte, and the rest of us all drove up from Atlanta in a handful of cars.  This was my first bike trip on my own mountain bike (instead of a rental) which was great, and the rest of the crew had a great spread of their own bikes and some sick rentals from [The Hub](https://www.thehubpisgah.com) (who also have all the maps and draft beer you need).  We stayed at a [great AirBnB](https://www.airbnb.com/rooms/8016924) a quick bike ride from town. The first night we turned on TNT and Star Wars was on, a different Star Wars was on every night, so we watched all of them and added Rogue One from Jason's Netflix account the last evening. Best beer of the trip for me was Lorelai IPA by Bhramari Brewing Company, and second place was far too close to call between Asheville Brewing's Perfect Day IPA, Lazy Hiker Brewing's Slack Pack, and Catawba Brewing's Hopness Monster. 
 
+<!-- more -->
+
 ## Day 1 - Davidson, Cove Creek, Daniel's Ridge
 
 Ah, a nice easy intro to Pisgah. We missed a turn and did a silly out and back that turned from technical to overgrown over a little over a mile, but found our way back. Best 2 trail-side waterfalls of the day were here, Cove Creek was a really nice flowly (but almost too flat) downhill, and Daniel's ridge was a great technical intro to what would come later on the trip. Dinner was some fancy mexican food at Quixote in Brevard which was delicious but missing that 'uncomfortably full' feeling that I look for in my mexican food.

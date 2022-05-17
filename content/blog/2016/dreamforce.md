@@ -12,6 +12,8 @@ First up, the reason Salesforce shipped me over to California for Dreamforce: A 
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Launch day = cake for lunch! Congratulations to the team that built Wave for B2B Marketing! <a href="https://t.co/rUmLWKdh8S">pic.twitter.com/rUmLWKdh8S</a></p>&mdash; Pardot Engineering (@PardotEng) <a href="https://twitter.com/PardotEng/status/788049809395638272">October 17, 2016</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<!-- more -->
+
 This small bunch of people (plus one remote person, and the 20+ people in Marketing, Pricing, Licensing, etc) worked together over the year to build and ship Pardot's 3rd unique product, a powerful analytics tool for marketing data from Pardot, built on the Salesforce Analytics Cloud platform.  Here's some links to find out more:
 
 * <a href="http://www.pardot.com/blog/salesforce-announces-wave-b2b-marketing-analytics-every-b2b-marketer/">http://www.pardot.com/blog/salesforce-announces-wave-b2b-marketing-analytics-every-b2b-marketer/</a>

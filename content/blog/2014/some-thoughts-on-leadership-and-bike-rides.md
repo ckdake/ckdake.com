@@ -7,6 +7,8 @@ For the last few years I've been doing a lot of thinking and reading about leade
 
 Every Thursday during the summer I lead a bike ride: <a href="http://www.fastermustache.org/rides/fmrideatl/">#fmrideATL</a>.  It's a 'social training' ride which means that it is really tough, but we're in it together and try to have some fun.  Last Thursday, we 'dropped' someone for the first time in as long as I can remember, and I felt pretty bad about it.  Thinking about this while grinding up the next long hill, I realized that the makings of a successful group ride (and specifically my ride) have a lot in common with some things that I think are important about leading people.
 
+<!-- more -->
+
 **I'm the ride leader, this is my ride, I make the rules.**
 
 fmrideATL is not a democracy. It is my ride and I make the rules. Each year I change the route a little bit based on safety issues, feedback from people, and with the intent to add in some more climbing without sacrificing safety or fun.  The route currently has 50+ turns, 30+ miles, and 3000+ feet of climbing. Everyone has their favorite and least favorite parts of the route, and because it's not up for a vote we can expend our energy on other things. People get directed to me with questions, and I'm the person with the answers and the reasons. Rules are posted on the website, and shared before the start of the ride with anyone new that shows up.

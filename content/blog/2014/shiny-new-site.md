@@ -10,6 +10,8 @@ At work, we recently launched a new <a href="http://www.bignerdranch.com/">bigne
 
 With fantastic services like Flickr for photos and Vimeo for video, I set out to migrate my photos to Flickr and build a simple and fast 'static' site for ckdake.com. Here it is! The theme still needs a lot of work which is fine, and <a href="http://nanoc.ws">nanoc</a> has been a lot of fun to get up and running.
 
+<!-- more -->
+
 ## Migrating Photos to Flickr
 
 Flickr has a pretty straightforward API, and the <a href="https://github.com/hanklords/flickraw">Flickraw</a> gem makes writing ruby code to talk to Flickr pretty easily. A few weeks ago I started on this and published the script that migrated my ~25,000 photos to Flickr here: <a href="https://gist.github.com/ckdake/612bdaa1a8333ac37b17">gallery2flickr.rb</a>.

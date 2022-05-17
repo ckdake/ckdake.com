@@ -6,6 +6,8 @@ kind: article
 
 Hackers suck. As a web hosting provider with 40+ people running Wordpress that don't always keep it up to date, hackers are always trying to get in. Last month they were pretty successful, so I tightened some things down a little bit further. I don't  manage any of the PHP files, so coordinating things among customers is a lot harder than it could be, and I won't be able to get them to standardize on plugins (e.g. a way to log failed logins to a consistent place).
 
+<!-- more -->
+
 First up was trying to get everyone upgraded to the newest version which keeps most of the automated tools out, but still leaves everyone exposed to brute-force password guessing attempts.
 
 One can go the route of configuring Wordpress plugins to handle everything, but because I use [fail2ban](http://www.fail2ban.org) to protect SSH access I figured it wouldn't be too bad to get some help there. Turns out, I was right!

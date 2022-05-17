@@ -4,9 +4,11 @@ created_at: 2015-10-02 10:30:35 -0400
 kind: article
 ---
 
-# So, what is it that you do here?
-
 As a software developer, avoiding meetings is generally a good call because they interrupt flow and often don't really need you to be there, and meetings aren't really getting work done. One of the weirdest things about becoming a manager is how much more meaningful meetings seem to become, and how many more of them appear on the calendar.
+
+<!-- more -->
+
+## So, what is it that you do here?
 
 I've been an engineering manager at Salesforce for about a year, and have 11 people in my program currently.  (I'm looking for one more engineer with 2+ years of experience if you are looking!) We have pretty good rhythms, and while my calendar is full, it’s a good full. Here is what a pretty typical day looks like for me:
 

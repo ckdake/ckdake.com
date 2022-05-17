@@ -6,6 +6,8 @@ kind: article
 
 I have a pretty usual weekly routine for doing things outside, and even though I've done some things over 100 times, I still find myself forgetting a detail or two every now and then. This post is a reminder for myself, and is also something I can give to people that I'm bringing along on a weekend mountain bike ride sometimes. If someone asks in the comments, I may even make a printable/laminateable template. I'll update this in the future as I'm sure I left out some things.
 
+<!-- more -->
+
 ### Road Bike Ride
 
 * Road Bike

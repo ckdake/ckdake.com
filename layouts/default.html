@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ckdake.com - <%= @item[:title] %></title>
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Handlee' rel='stylesheet' type='text/css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="<%= @items['/stylesheet/'].path %>">
     <link rel="alternate" type="application/rss+xml" title="ckdake.com" href="/rss.xml">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -13,27 +14,24 @@
   <body>
     <div id="sidebar">
       <div id="headline">
-        <a class="only-show-small" href="#content">jump to content</a>
+        <a class="only-show-small" href="#content" style="margin-top: 10px;">jump to content</a>
+        <hr class="only-show-small" />
         <header>
-          <h2><img src="/files/logo.png" style="display: inline; width: 16px !important; height: 16px !important; margin-right: 8px; border-radius: 0 !important;">Chris Kelly</h2>
-          <p>Instigator. Problem Solver</p>
+          <a href="/"><h2><img src="/files/logo.png" style="display: inline; width: 16px !important; height: 16px !important; margin-right: 8px; border-radius: 0 !important;">Chris Kelly</h2></a>
         </header>
         <div id="serviceicons">
           <ul>
-            <li><a href="https://www.flickr.com/photos/ckdake/sets/" rel="me"><img src="/img/icons/flickr.png"></a></li>
-            <li><a href="http://vimeo.com/ckdake" rel="me"><img src="/img/icons/vimeo.png"></a></li>
             <li><a href="http://instagram.com/ckdake" rel="me"><img src="/img/icons/instagram.png"></a></li>
             <li><a href="http://github.com/ckdake" rel="me"><img src="/img/icons/github.png" width="16" height="16"></a></li>
             <li><a href="http://www.linkedin.com/in/ckdake" rel="me"><img src="/img/icons/linkedin.png"></a></li>
-            <li><a href="http://twitter.com/ckdake" rel="me"><img src="/img/icons/twitter.png"></a></li>
-            <li><a href="http://facebook.com/ckdake" rel="me"><img src="/img/icons/facebook.png"></a></li>
+            <li><a href="http://vimeo.com/ckdake" rel="me"><img src="/img/icons/vimeo.png"></a></li>
             <li><a href="/rss.xml" rel="me"><img src="/img/icons/blog.png"></a></li>
           </ul>
         </div>
+        <hr />
       </div>
       <div id="pages-section">
         <div class="container">
-          <h2>Pages</h2>
           <nav class="nav">
             <ul>
               <li><a href="/biography.html">Biography</a></li>
@@ -47,14 +45,6 @@
               <li><a href="/allposts.html">All Posts</a></li>
             </ul>
           </nav>
-        </div>
-      </div>
-      <div id="flickr-secion">
-        <div class="container">
-          <h2>Newest Album</h2>
-          <div class="small-center-big-right">
-            <%= recent_flickr_sets_html(1) %>
-          </div>
         </div>
       </div>
       <div id="projects-section">
@@ -101,6 +91,7 @@
           </nav>
         </div>
       </div>
+      <hr class="only-show-small" />
     </div>
     <div id="content">
       <a name="content"></a>
@@ -109,5 +100,6 @@
       </div>
     </div>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a58fa7ee5f644d9180647ff4a34392b9"}'></script><!-- End Cloudflare Web Analytics -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </body>
 </html>

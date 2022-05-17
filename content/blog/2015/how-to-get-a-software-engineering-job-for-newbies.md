@@ -8,6 +8,8 @@ A career in software engineering can be a pretty good (and profitable) one, and 
 
 I have used all of these to get jobs, and am far more likely to hire someone that does these things.
 
+<!-- more -->
+
 ## Network (People, meetups, recruiters, conferences, etc)
 
 Yes, you can search the internet for a job, but if you want to be able to pick from a few great choices to find a job you love, it's going to be through the people you know. Some of these you get 'for free' because you were in a class with someone or your brother's wife's bff works somewhere you want to work, but most of your network will take a little bit of work. Try out:

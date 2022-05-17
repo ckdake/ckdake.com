@@ -10,6 +10,8 @@ Last time I looked at doing PHP on Heroku it was pretty scary and involved creat
 
 Today, I read <a href="https://blog.heroku.com/archives/2014/4/29/introducing_the_new_php_on_heroku">Introducing the new PHP on Heroku</a> and set out to migrate over a tool I wrote 5+ years ago from a LAMP server over to Heroku. The end result: <a href="http://xtrack.ckdake.com/">xtrack.ckdake.com</a>.
 
+<!-- more -->
+
 ## The Basics
 
 Migrating from subversion to git. <a href="https://github.com/nirvdrum/svn2git">git2svn</a> makes this really easy. Creating an app on Heroku and pushing to it is the usual easy <code>heroku create</code> and <code>git push heroku master</code>, and hooray, I was done! Not quite...
