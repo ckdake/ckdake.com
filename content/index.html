@@ -10,7 +10,7 @@ title: Chris Kelly
 <% sorted_articles[0..9].each do |post| %>
 <div class='post'>
     <h2><%= link_to post[:title], post.path %></h2>
-    <aside>Posted at: <%= post[:created_at] %></aside>
+    <aside><%= post[:created_at] %></aside>
     <article>
         <%= get_post_start(post) %>
     </article>

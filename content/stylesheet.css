@@ -45,6 +45,7 @@ aside {
   position: absolute;
   right: 10px;
   top: 20px;
+  color: #ccc;
 }
 
 pre {
@@ -92,6 +93,11 @@ td {
 
 #content ul li {
   list-style-type: square;
+}
+
+div.embedimg img {
+  width: 100%;
+  border-radius: 8px;
 }
 
 #sidebar h2 {
