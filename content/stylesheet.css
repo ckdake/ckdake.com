@@ -31,20 +31,11 @@ p.prev {
   float: left;
 }
 
-div.post {
-  position: relative;
-  border-top: 1px solid #ccc;
-  margin-bottom: 20px;
-}
-
 div.read-more {
   text-align: right;
 }
 
 aside {
-  position: absolute;
-  right: 10px;
-  top: 20px;
   color: #ccc;
 }
 
@@ -65,11 +56,12 @@ td {
   font-weight: normal;
   line-height: 40px;
   letter-spacing: -1px;
-  margin: 20px 0;
+  margin-top: 20px;
 }
 
 #content h2 {
-  margin: 20px 0;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 #content h2 a {
