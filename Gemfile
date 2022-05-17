@@ -9,6 +9,5 @@ gem 'builder'
 gem 'nokogiri'
 gem 'coderay'
 
-gem 'flickraw'
-gem 'vimeo'
 gem 'vacuum'
+gem 'webrick'
