@@ -36,6 +36,8 @@ RUN rm -rf /tmp/library-scripts
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
+RUN sudo apt-get update && sudo apt-get install gnupg2 -y
+
 # [Optional] Uncomment this line to install additional gems.
 # RUN gem install <your-gem-names-here>
 RUN bash gem install bundler && bundle install
