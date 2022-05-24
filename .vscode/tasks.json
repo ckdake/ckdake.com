@@ -19,24 +19,14 @@
                 "_id": "build",
                 "isDefault": false
             }
-        },
-        {
-            "label": "deploy",
-            "type": "shell",
-            "args": [
-                "exec",
-                "nanoc",
-                "deploy"
-            ],
-            "problemMatcher": []
-        },
+        }
         {
             "label": "view",
             "type": "shell",
             "args": [
                 "exec",
                 "nanoc",
-                "view"
+                "live"
             ],
             "problemMatcher": []
         }
