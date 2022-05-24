@@ -21,7 +21,7 @@
             }
         }
         {
-            "label": "view",
+            "label": "live",
             "type": "shell",
             "args": [
                 "exec",
