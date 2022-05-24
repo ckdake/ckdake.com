@@ -12,7 +12,7 @@ kind: page
   <li><a href="http://wlth.fr/1119Pfi">Wealthfront</a> is the place to invest your money when you don't want to worry about stock/fund picking. I have my ROTH IRA and Rollover IRA there and have been very happy with the process and the returns.</li>
   <li><a href="http://www.namecheap.com/?aff=62435">NameCheap</a> - I have over 50 domains registered at NameCheap. Their purchase process is quick and painless.</li>
   <li><a href="https://www.digitalocean.com/?refcode=f7ac2e018837">Digital Ocean</a> - I use Digtal Ocean for my 'cloud hosting' when I don't want something running on the hardware in my datacenter.</li>
-  <li><a href="https://ubiquityhosting.com/aff/index/2429">Ubiquity Hosting</a> - I use Ubiquity for my datacenter colocation. They have cloud products as well. Use this link to get a $10 credit on service there</a>.</li>
+  <li><a href="https://ubiquityhosting.com/aff/index/2429">Ubiquity Hosting</a> - I use Ubiquity for my datacenter colocation. They have cloud products as well. Use this link to get a $10 credit on service there.</li>
   <li><a href="http://tracking.rackspace.com/SHrj">Rackspace</a> is the place to go for hosted e-mail. My e-mail lives there, as does many of my hosting customers.</li>
   <li><a href="https://ithought.freshbooks.com/refer/www">FreshBooks</a> is fantastic accounting software that doesn't make mistakes and makes it easy to keep my company books.</li>
   <li><a href="https://secure.backblaze.com/r/00btsg">Backblaze</a> is easy painless online backup for computers. Set it and forget about it until something happens to your computer, and everything is safe there.</li>

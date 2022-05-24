@@ -1,7 +1,7 @@
 <% render '/default/' do %>
   <div class='post'>
     <h1><%= item[:title] %></h1>
-    <aside><%= item[:created_at] %></aside>
+    <aside><p><%= tags_for(@item, none_text:'') %> <%= item[:created_at] %></aside>
     <article>
       <%= yield %>
     </article>
