@@ -208,7 +208,7 @@ iframe {
   color: black;
 }
 .CodeRay pre {
-  margin: 0px;
+  margin: 10px;
 }
 
 span.CodeRay { white-space: pre; border: 0px; padding: 2px; }
