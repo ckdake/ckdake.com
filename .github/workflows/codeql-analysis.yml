@@ -66,8 +66,8 @@ jobs:
 
     - run: |
         echo "Run, Build Application using script"
-        gem install bundler
-        bundle install
+        sudo gem install bundler
+        sudo bundle install
         bundle exec nanoc compile
 
     - name: Perform CodeQL Analysis
