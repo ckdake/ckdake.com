@@ -3,7 +3,7 @@ title: Building A Smarter Sprinkler System
 created_at: 2022-05-25 20:40:37 -0400
 kind: article
 tags: [project]
-project_name: Smarter Sprinkler
+short_name: Smarter Sprinkler
 ---
 
 I moved into a house a year ago, and with some time between jobs finally had some time to get through a pile of projects. The existing sprinkler system controller turns on when it is not supposed to, and forgets everything whenever the power blips, which has been happening a lot.

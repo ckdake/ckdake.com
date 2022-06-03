@@ -2,6 +2,8 @@
 title: Mountain Biking In Santa Fe
 created_at: 2009-08-30 21:24:46 -0400
 kind: article
+tags: [biketrip]
+short_title: "#mtb2009 - Santa Fe"
 ---
 Another year, another Gallery Developers Conference. Chad (The lead Gallery UX guy) took care of organizing things this year, so we ended up in his current hometown: Santa Fe, NM.  I took off the Thursday and Friday from work, but figured I might as well make a bigger trip of it so I took off the whole week and flew out last Saturday so I could squeeze in 4 full days of mountain biking before Gallery work began. I spent the first few days staying with Chad and biking on trails around Santa Fe on a sweet rental mountain bike from <a href="http://mellowvelo.com/">Mellow Velo</a>: a <a href="http://www.bikepedia.com/quickbike/BikeSpecs.aspx?Year=2009&Brand=Commencal&Model=Skin+2&Type=bike">Commencal Skin 2</a>.  All the photos are at: <a href="http://ckdake.com/gallery/2009/santafe-mtb/">http://ckdake.com/gallery/2009/santafe-mtb/</a> and some highlights are below. Chad was kind enough to let me stay at his house, and his fridge was always full of beer!
 

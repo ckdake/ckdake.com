@@ -2,6 +2,8 @@
 title: Mountain Biking in Jackson, Wyoming
 created_at: 2015-09-01 18:30:37 -0400
 kind: article
+tags: [biketrip]
+short_title: "#mtb2k15 - Jackson"
 ---
 
 Once again, continuing the tradition ([2009: Santa Fe, NM](http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html), [2010: Portland, OR](http://ckdake.com/content/2010/road-biking-in-portland-or.html), [2011: Colorado](http://ckdake.com/content/2011/mountain-biking-in-colorado.html), [2012: Sun Valley, ID](http://ckdake.com/content/2012/2012-mountain-bike-trip-sun-valley.html), [2013: Park City, UT](http://ckdake.com/content/2013/mtb-2k13-park-city.html), [2014: Oakridge, OR](http://ckdake.com/content/2014/mountain-biking-in-oakridge-oregon)), this year I went on an epic mountain biking trip with some friends. For #mtb2k15, we met up in Jackson, Wyoming for a week of epic trail riding.

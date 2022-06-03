@@ -2,6 +2,8 @@
 title: "MTB 2k13: Park City"
 created_at: 2013-10-06 12:37:09 -0400
 kind: article
+tags: [biketrip]
+short_title: "#mtb2k13 - Park City"
 ---
 Another year, another week long mountain biking trip in the books. Last year we <a href="http://ckdake.com/content/2012/2012-mountain-bike-trip-sun-valley.html">Rode in Sun Valley, Idaho</a>. This year, we headed to Park City, Utah. Park City is the only <a href="http://www.imba.com">IMBA</a> Gold Ride Center, and has over 400 miles of bike-legal singletrack within riding distance from downtown.
 

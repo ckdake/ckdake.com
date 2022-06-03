@@ -5,7 +5,12 @@ kind: page
 ---
 <h1>All Posts</h2>
 <ul>
-  <% sorted_articles.each do |post| %>
-    <li><%= post[:created_at] %> - <%= link_to(post[:title], post.path, :title => post[:title]) %></li>
+  <% grouped_articles.each do |year, articles_this_year| %>
+    <h2><%= year %></h2>
+    <ul>
+    <% articles_this_year.each do |article| %>
+      <li><%= article[:created_at] %> - <%= link_to(article[:title], article.path, :title => article[:title]) %></li>
+    <% end %>
+    </ul>
   <% end %>
 </ul>

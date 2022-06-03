@@ -2,6 +2,8 @@
 title: "2012 Mountain Bike Trip: Sun Valley"
 created_at: 2012-06-20 16:03:31 -0400
 kind: article
+tags: [biketrip]
+short_title: "#mtb2k12 - Sun Valley"
 ---
 Another year, another awesome bike trip.  What started in 2009 as just <a href="http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html">me and a rental bike in Santa Fe, NM</a> turned into a party of 7 riding epic trails for a week in Sun Valley, Idaho.  Austin and Paul (who made appearances in <a href="http://ckdake.com/content/2010/road-biking-in-portland-or.html">bike trip 2010 in Portland</a>) drove in from Portland,  Jason (my riding buddy for <a href="http://ckdake.com/content/2011/mountain-biking-in-colorado.html">last year's week of riding in Colorado</a>) flew in from Pittsburgh, and Bob/Jim/Charles flew in from Atlanta for a few days.
 

@@ -2,6 +2,8 @@
 title: Mountain Biking in Oakridge, Oregon
 created_at: 2014-08-19 12:27:37 -0400
 kind: article
+tags: [biketrip]
+short_title: "#mtb2k14 - Oakridge"
 ---
 
 Continuing the tradition ([2009: Santa Fe, NM](http://ckdake.com/content/2009/mountain-biking-in-santa-fe.html), [2010: Portland, OR](http://ckdake.com/content/2010/road-biking-in-portland-or.html), [2011: Colorado](http://ckdake.com/content/2011/mountain-biking-in-colorado.html), [2012: Sun Valley, ID](http://ckdake.com/content/2012/2012-mountain-bike-trip-sun-valley.html), [2013: Park City, Utah](http://ckdake.com/content/2013/mtb-2k13-park-city.html)), this year I went on an epic mountain biking trip with some friends. We flew into Portland, crashed at Paul's place for the night, and drive to Oakridge early the next morning.
