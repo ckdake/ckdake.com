@@ -8,57 +8,98 @@ kind: page
 
 ## Profile
 
-I’m a technical polyglot with demonstrated knowledge in a wide range of technologies, with leadership experience and a track record of successful teams and projects. I’ve built full-stack web applications, automated a datacenter or two, and want to continue to solve bigger problems by leading a growing team of experts. I’ve worked remotely and with flexible hours, but like the structure and balance and typical hours that an office provide, and love calling Atlanta home. I’ve orchestrated a 24 hour bicycle race (and built its RFID tracking system), and I am well suited to play devils advocate or convince anyone to do anything from jumping out of a plane to using a particular project management methodology. I’m the Project Manager for the Open Source project Gallery, and run a small web hosting company that I started in 1999. I make things happen, from on time website launches to weekly after-work group runs. I’m usually early, always prepared, and positively impact everyone and everything around me.
+Software Engineer turned manager, I deeply care about getting to the right technical outcomes, and the engineering and people machines that get us there. I have a track record of hiring, growing, and leading engineering organizations. I stay technical enough to add value in architecture discussions and individual changes.
+
+I’m organized, systematic, and reliable.  I’m often the person that speaks up about something that isn’t right, and I’ve operated enough software stacks and worked within enough engineering organizations that I’m generally bringing solutions instead of problems. I am the person to organize a group run before work, play devils advocate to any point of view, and to geek out on super technical things.
+
+I’ve had lots of fun taking 0-5 person engineering organizations to 25+, and while I’m comfortable across the whole stack, I’m particularly strong in platform/infrastructure work.
 
 ## Experience
 
-### Senior Manager, Software Engineering, Salesforce Pardot 2015-2017
+### Senior Software Engineer, Statype - 2022+
 
-I started at Pardot as part of the first try at hiring engineering managers from the outside, and helped to dramatically grow the engineering organization while continually improving the quality of our product and processes. I manage the "New Markets Program", leading a team of Software Engineering direct reports and cross-funcitonal team members including Product Management, Program Managament, Quality Engineering, and Operations. In my first 90 days:
+[https://www.statype.com/](https://www.statype.com)
 
-* led, both through internal recruitment and external hiring, the growth of the "New Markets Program" with a team of engineers focused on Globalizing Pardot, and a to-be-formed team on Upmarket/Enterprise functionality.
-* launched twitter.com/PardotEng and our sponsorship of 3+ monthly meetups to build brand awareness in the Atlanta software engineering community, and led improvements to our hiring and onboarding processes. This helped us exceed very ambitious hiring targets for Q1
-* attended Salesforce Adaptive Development Methodology training and recieved "ICAgile Certified Professional (ICP)" certification
+Hire number 7, 4th person in Engineering. Building something new, coming to business near you in 2022.
 
-### Director of Internal Operations, Big Nerd Ranch 2012-2015
+### Director of Engineering, Zenput - 2022-2022
 
-Highgroove merged with Big Nerd Ranch to form an 85 person company in late 2012. I acted as Chief Operations Officer for the first 3 months of the merger to accelerate coalescing of processes and cultures. Currently, I manage the team of developers that work on internal tools that enable us to run our business from custom software to IT, and I work with the Leadership Team to figure out the direction these tools should take. We are up to ~120 people currently. My team:
+[https://www.zenput.com](https://www.zenput.com)
 
-* rebuilt and manages bignerdranch.com, which doubled our traffic from 75k unique monthly sessions to 150k.
-* built and manages training.bignerdranch.com which has directly processed $2M+ of open enrollment student registrations and $6M+ of corporate training classes.
-* built and manages nerdassociation.org which has provided classroom logistics and discussion for over 10k students in over 1000 classes.
-* built and manages Stable, our internal ERP system which has tracked over 10k 'results' for over 150 employees.
+Led the ‘core’ engineering org at Zenput for 2 years. Hired managers and supported their growth including several fullstack engineering teams, a new IT/Helpdesk team, and our first Infrastructure/Automation team. Partnered with Product to deliver customer value through new functionality and supporting internal team/org growth and growth of our platform.  Migrated infrastructure to code with CloudFlare/Terraform, rolled out ChatOps, and point person for operational spend. Drove resource/spend optimization including CI utilization, Instrumentation, Compute autoscaling, and Heroku/AWS/GCP. 
 
-### Developer and Methodologist, Highgroove Studios 2010-2012
+### Technology General Manager, Bridgewater Associates - 2018-2020
 
-Hired with no Ruby on Rails experience as a Ruby on Rails developer, I quickly mastered the technology to build a bunch of functional and profitable applications for our clients. I was instrumental in growing our team from 5 to 30 people including finding new hires, organizing our first go at 'teams', writing our consulting playbook, mentoring other developers, and on-boarding clients. I taught several classes on Agile Development at both startups and Fortune 100 companies.
+[https://www.bridgewater.com](https://www.bridgewater.com)
 
-### NOC Manager and Operations Engineer, SugarCRM 2008-2010
+Managed teams of software engineers including Reporting/CRM/ETL, Infrastructure, and Scala. Seamlessly migrated a large application and its supporting tooling and dev pipelines to a new cloud based container platform, and made huge strides in improving new-feature velocity for a team of 50 developers with automation and testing.
 
-My first full-time job out of graduate school, I worked remotely to lead the charge to take SugarCRM’s datacenter from a patchwork of hand configuration to an automated (with Puppet), monitored, and scalable infrastructure. Before I left SugarCRM, I was leading a team of 3 with an annual operating budget of ~$600k and a 24/7 production environment.
+### Senior Manager, Software Engineering, Salesforce Pardot - 2015-2017
 
-### Undergraduate and Graduate Research Assistant, Georgia Tech 2005-2007
+[https://www.pardot.com/](https://www.pardot.com/)
 
-While in school, I acted as the technical lead for CPR: the ‘Campus-Wide Network Performance Monitoring and Recovery System’. I wrote automation, monitoring, and data-collection software for 50+ monitoring systems around the world. The platform I built enabled researchers to run massive performance experiments, and I wrote several papers on network anomaly detection.
+Built and led the Marketing Insights program at Salesforce Pardot, including hiring 20+ engineers and product managers across 4 engineering teams. Built and launched: B2B Marketing Analytics, Customizable Reporting, Multi-Scoring, Campaign Influence Multi Touch Attribution, and Internationalization. Owned the Pardot API, Scoring and Grading, and the Google Adwords connectors.
 
-#### Platforms Engineering Intern, Google 2007 - Network performance simulation software
+### Director of Internal Operations, Big Nerd Ranch - 2010-2014
 
-#### CTO, CollegeMedium 2006 - “Craigslist for college students” startup. Successful exit.
+[https://bignerdranch.com](https://bignerdranch.com)
 
-#### Security Engineer, The Fulcrum Group 2004-2006 - Software development and pen-testing
+Hired as a junior Ruby on Rails developer and employee #5 at Highgroove Studios, stepped up as a leader, and worked with the founder to grow to a 30 person consulting business. Taught classes on Agile Development and led the rapid build of MVP web applications, for startups and Fortune 100 companies. In late 2012, merged with Big Nerd Ranch. Managed the teams that owned: .com (rebuild doubled traffic to 150k/month unique sessions); Training (processed $8M+ of transactions), nerdassociation.org (realtime collab for 10k+ students in 1000+ classes); and Stable (internal ERP for 150 employees).
 
-#### Linux Server Administrator, WebConnect 2004
+### NOC Manager and Operations Engineer, SugarCRM - 2008-2010
 
-#### IT Manager, Georgia Tech Student Center 2002-2004
+[https://www.sugarcrm.com](https://www.sugarcrm.com)
 
-#### Peer Leader/RA, Georgia Tech 2002-2003
+Worked remotely to lead the charge to take SugarCRM’s datacenter from a patchwork of hand configuration to an automated (with Puppet), monitored, and scalable infrastructure. At exit, was leading a team of 3 with an annual operating budget of ~$600k and a 24/7 production environment.
+
+### Undergraduate and Graduate Research Assistant, Georgia Tech RNOC - 2005-2007
+
+[https://rnoc.gatech.edu](https://rnoc.gatech.edu)
+
+Led engineering on CPR: the ‘Campus-Wide Network Performance Monitoring and Recovery System’. Wrote automation, monitoring, and data-collection software for 50+ monitoring systems around the world. Built a platform that enabled researchers to run massive performance experiments, and wrote several papers on network anomaly detection.
+
+### Owner, ithought 1999-current
+
+[https://www.ithought.org](https://www.ithought.org)
+
+Owner/operator of small web hosting company. Turned one P3 tower with one website into a rack of Dell/Cisco equipment in a datacenter, into automated cloud infrastructure using  Ubuntu/Git/Cloudflare/Netlify/LetsEncrypt/DigitalOcean. O(50) customers.
+
+## Additional Experience
+
+### Mentor, Everwise, GT Mentor Jackets, and others 2012-present
+Volunteer mentor for College Students and budding software engineering leaders. 
+
+### Board Member, Wandrer 2020—present
+Startup working to encourage recreational atheletes in finding unfamiliar places
+
+### Project Manager, Gallery 2004-2014
+Open Source photo sharing/hosting application
+
+### Platforms Engineering Intern, Google 2007
+Network performance simulation software
+
+### CTO, CollegeMedium 2006
+“Craigslist for college students” startup. Successful exit.
+
+### Security Engineer, The Fulcrum Group 2004-2006
+
+### Linux Server Administrator, WebConnect 2004
+
+### IT Manager, Georgia Tech Student Center 2002-2004
+
+### Peer Leader/RA, Georgia Tech 2002-2003
 
 ## Education
 
 ### Georgia Institute Of Technology — MS CS 2007, BS CS 2005
 
-I focused on Network Performance on the Computer Science side of things, and minored in Public Policy focusing on the intersections of Policy and Technology. The NSA gave me a Security certificate. I’m typically taking a class from “Open Yale Courses” at any time.
+Specialized in Computer Network Performance and Observability. Minored in Public Policy focusing on the intersections of Policy and Technology. NSA Security certificate.
+
+### Self Guided
+
+4-course business program from Wharton on Coursera with certificate
+AWS and Azure base certifications
 
 ## Bonus Skills
 
-Epic mountain bike adventurer. Ex Mountain/Track/Cyclocross bike racer. Simplifier and Organizer of all things. Occasionally published photographer. Faster Mustache co-founder. MENSA. Eagle Scout. Cellist. Connoisseur of delicious food of questionable health merits.
+Epic mountain bike adventurer. Simplifier and Organizer of all things. Occasionally published photographer. MENSA. Eagle Scout. Cellist. Connoisseur of delicious food of questionable health merits. INTJ.
