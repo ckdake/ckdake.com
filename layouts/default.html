@@ -62,7 +62,9 @@
               <li><a href="/projects/shortestpath.html">shortestpath</a></li>
               <li><a href="/projects/tfstat.html">tfstat</a></li>
               <li><a href="/projects/websites.html">websites</a></li>
-              <li><a href="/projects/zcc.html">zcc</a></li>
+              <% items_with_tag("project").each do |project| %>
+                  <li><%= link_to project[:project_name], project.path %></li>
+              <% end %>
             </ul>
           </nav>
         </div>
