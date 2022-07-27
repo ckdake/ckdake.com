@@ -22,7 +22,7 @@ I’ve had lots of fun taking 0-5 person engineering organizations to 25+, and w
 
 Hire number 7, 4th person in Engineering. Building something new, coming to business near you in 2022.
 
-### Director of Engineering, Zenput - 2022-2022
+### Director of Engineering, Zenput - 2020-2022
 
 [https://www.zenput.com](https://www.zenput.com)
 
