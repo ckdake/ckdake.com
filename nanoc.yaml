@@ -1,10 +1,11 @@
 base_url: 'https://ckdake.com'
-deploy:
-  default:
-    kind: rsync
-    dst: "web_ckdake@manage.ithought.org:/var/www/ckdake.com/htdocs"
-    options: [ '-aP' ]
-    #, '--delete-after' ]
+# Currently on Cloudflare Pages instead
+# deploy:
+#   default:
+#     kind: rsync
+#     dst: "web_ckdake@manage.ithought.org:/var/www/ckdake.com/htdocs"
+#     options: [ '-aP' ]
+#     #, '--delete-after' ]
 
 # A list of file extensions that nanoc will consider to be textual rather than
 # binary. If an item with an extension not in this list is found,  the file

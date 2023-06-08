@@ -19,7 +19,7 @@
                 "_id": "build",
                 "isDefault": false
             }
-        }
+        },
         {
             "label": "live",
             "type": "shell",
