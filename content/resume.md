@@ -16,17 +16,17 @@ I’ve had lots of fun taking 0-5 person engineering organizations to 25+, and w
 
 ## Experience
 
-### Senior Software Engineer, Statype - 2022+
+### Senior Software Engineer, Statype - 2022-2023
 
 [https://www.statype.com/](https://www.statype.com)
 
-Hire number 7, 4th person in Engineering. Building something new, coming to business near you in 2022.
+Employee #4 at bootstrapped pre-market-fit startup. Built infrastructure and platform from the ground up using terraform on AWS+Fivetran including CI-CD of Rails and dbt to ECS tasks/services with Event Bridge, RDS Serverless, Cognito, SES, in a single tenant architecture. Drove AWS Well Architected and 100% compliance with AWS FSBP and CIS AWS, and SOC 2 type 1. Shaped company culture including leading Mission/Vision/ Values and holistically owning Engineering delivery.
 
 ### Director of Engineering, Zenput - 2020-2022
 
 [https://www.zenput.com](https://www.zenput.com)
 
-Led the ‘core’ engineering org at Zenput for 2 years. Hired managers and supported their growth including several fullstack engineering teams, a new IT/Helpdesk team, and our first Infrastructure/Automation team. Partnered with Product to deliver customer value through new functionality and supporting internal team/org growth and growth of our platform.  Migrated infrastructure to code with CloudFlare/Terraform, rolled out ChatOps, and point person for operational spend. Drove resource/spend optimization including CI utilization, Instrumentation, Compute autoscaling, and Heroku/AWS/GCP. 
+Led the ‘core’ engineering org at Zenput for 2 years. Hired managers and supported their growth including several fullstack engineering teams, a new IT/Helpdesk team, and our first Infrastructure/Automation team. Partnered with Product to deliver customer value through new functionality and supporting internal team/org growth and growth of our platform.  Migrated infrastructure to code with CloudFlare/Terraform, rolled out ChatOps, and point person for operational spend. Drove resource/spend optimization including CI utilization, Instrumentation, Compute autoscaling, and Heroku/AWS/GCP. Company Acquired in 2022.
 
 ### Technology General Manager, Bridgewater Associates - 2018-2020
 
