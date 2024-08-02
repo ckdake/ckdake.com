@@ -115,13 +115,15 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbtree (0.4.6)
-    rexml (3.2.6)
+    rexml (3.3.3)
+      strscan
     set (1.0.3)
     slow_enumerator_tools (1.1.0)
     sorted_set (1.0.3)
       rbtree
       set (~> 1.0)
     stringio (3.0.8)
+    strscan (3.1.0)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
