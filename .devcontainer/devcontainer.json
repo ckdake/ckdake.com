@@ -3,16 +3,10 @@
 {
 	"name": "Ruby",
 	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			// Update 'VARIANT' to pick a Ruby version: 3.4, 3.3, 3.2, etc.
-			// Append -bullseye or -bookworm to pin to an OS version.
-			// Use -bullseye variants on local arm64/Apple Silicon.
-			"VARIANT": "3.4-bullseye",
-			// Options
-			"NODE_VERSION": "none"
-		}
+		"dockerfile": "Dockerfile"
 	},
+
+	"features": {},
 
 	"mounts": ["source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind"],
 
