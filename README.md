@@ -2,7 +2,9 @@ Running ckdake.com
 ==================
 
 1. Open in Codespaces or VS Code
-1. Use 'live' command to veiw things locally
+1. Run `bundle install`
+1. Use `bundle exec nanoc live` to preview locally
+1. Use `bundle exec nanoc compile` for a full build
 
 Deployment
 ==================
