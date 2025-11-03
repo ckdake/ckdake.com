@@ -1,5 +1,5 @@
 # Use Ruby 3.4 base image (bullseye for ARM64/Apple Silicon compatibility)
-FROM mcr.microsoft.com/devcontainers/ruby:1-3.4-bullseye
+FROM mcr.microsoft.com/devcontainers/ruby:3.4-bullseye
 
 # Create rbenv symlink so system Ruby 3.4.4 is recognized by rbenv
 RUN su vscode -c "mkdir -p ~/.rbenv/versions && ln -s /usr/local ~/.rbenv/versions/3.4.4"
