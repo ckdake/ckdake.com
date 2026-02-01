@@ -20,7 +20,7 @@ I've ridden bicycles since I was a little kid, and there are not many things I w
 
 I've taken pictures of everything from Lego constructions to mountain passes. I don't really consider myself a 'photographer' because I never really go looking to take a particular photograph, but I do enjoy capturing my experiences and sharing them. Head right over to [flickr](https://www.flickr.com/photos/ckdake/sets) or [vimeo](https://vimeo.com/ckdake/videos) to see. Adobe Lightroom and Final Cut Pro each get a good bit of use.
 
-Sometimes I make music, and frequently I listen to music. I play cello, bass guitar, a bit of piano, and a little guitar guitar and you can hear some things I've made on my [media projects](/projects/media.html) page..  I'll listen to any music that has soul and some that doesn't.  [My Last.fm page](http://www.last.fm/user/ckdake) has a lot of the details, but isn't that up to date.
+Sometimes I make music, and frequently I listen to music. I play cello, bass guitar, a bit of piano, and a little guitar guitar and you can hear some things I've made on my [audio projects](/projects/audio.html) page..  I'll listen to any music that has soul and some that doesn't.  [My Last.fm page](http://www.last.fm/user/ckdake) has a lot of the details, but isn't that up to date.
 
 ## Hacking
 

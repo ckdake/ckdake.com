@@ -15,3 +15,5 @@ gem 'coderay'
 
 gem 'vacuum'
 gem 'webrick'
+
+gem 'aws-sdk-s3'

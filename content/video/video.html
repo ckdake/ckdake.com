@@ -1,0 +1,60 @@
+---
+title: Video
+created_at: 2006-09-25 19:42:45 -0400
+kind: page
+---
+<h3>Video</h3>
+
+<style>
+	.video-gallery {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		grid-auto-rows: auto;
+		gap: 12px;
+	}
+	.video-thumb {
+		text-decoration: none;
+	}
+	.video-thumb img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+	.video-title {
+		font-size: 0.9rem;
+		margin-top: 6px;
+		color: inherit;
+	}
+	.video-pagination {
+		margin-top: 16px;
+		display: flex;
+		gap: 8px;
+		align-items: center;
+		justify-content: center;
+	}
+	.video-pagination button.btn {
+		border-radius: 999px;
+		padding: 4px 14px;
+	}
+	.video-page-numbers {
+		display: flex;
+		gap: 6px;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	.video-page-numbers button {
+		border-radius: 999px;
+		min-width: 34px;
+		padding: 4px 10px;
+	}
+</style>
+
+<div id="video-gallery" class="video-gallery"></div>
+
+<div class="video-pagination">
+	<button id="video-prev" type="button" class="btn btn-outline-secondary btn-sm" disabled>Prev</button>
+	<div id="video-page-numbers" class="video-page-numbers"></div>
+	<button id="video-next" type="button" class="btn btn-outline-secondary btn-sm" disabled>Next</button>
+</div>
+
+<script src="/video/videos-app.js" defer></script>
