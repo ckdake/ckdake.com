@@ -134,7 +134,7 @@ GEM
     vacuum (4.3.0)
       aws-sigv4 (~> 1.0)
       http (>= 4.0, < 6.0)
-    webrick (1.9.1)
+    webrick (1.9.2)
     zeitwerk (2.7.3)
 
 PLATFORMS
