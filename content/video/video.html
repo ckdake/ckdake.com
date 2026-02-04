@@ -20,10 +20,74 @@ kind: page
 		height: auto;
 		display: block;
 	}
+	.video-thumb-button {
+		padding: 0;
+		border: 0;
+		background: none;
+		text-align: left;
+		width: 100%;
+		cursor: pointer;
+	}
+	.video-meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		margin-top: 6px;
+	}
 	.video-title {
 		font-size: 0.9rem;
-		margin-top: 6px;
 		color: inherit;
+	}
+	.video-vimeo {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.video-vimeo img {
+		width: 16px;
+		height: 16px;
+	}
+	.video-lightbox-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.75);
+		display: none;
+		align-items: center;
+		justify-content: center;
+		z-index: 9999;
+		padding: 20px;
+	}
+	.video-lightbox-overlay.is-open {
+		display: flex;
+	}
+	.video-lightbox {
+		background: #000;
+		border-radius: 8px;
+		max-width: 960px;
+		width: 100%;
+		position: relative;
+		padding: 12px;
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+	}
+	.video-lightbox video {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+	.video-lightbox-close {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		border: 0;
+		background: rgba(255, 255, 255, 0.85);
+		border-radius: 999px;
+		width: 32px;
+		height: 32px;
+		font-weight: bold;
+		line-height: 32px;
+		text-align: center;
+		cursor: pointer;
 	}
 	.video-pagination {
 		margin-top: 16px;

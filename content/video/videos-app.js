@@ -11,6 +11,70 @@
 
   let videos = [];
   let currentPage = 1;
+  const videoBaseUrl = "https://ckvideos.atl1.cdn.digitaloceanspaces.com/";
+
+  const buildVideoUrl = (sourceFileName) => {
+    if (!sourceFileName) {
+      return null;
+    }
+    const encodedName = encodeURIComponent(sourceFileName);
+    return `${videoBaseUrl}${encodedName}`;
+  };
+
+  const overlay = document.createElement("div");
+  overlay.className = "video-lightbox-overlay";
+  overlay.innerHTML = `
+    <div class="video-lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+      <button type="button" class="video-lightbox-close" aria-label="Close">×</button>
+      <video controls preload="metadata"></video>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  const lightbox = overlay.querySelector(".video-lightbox");
+  const videoElement = overlay.querySelector("video");
+  const closeButton = overlay.querySelector(".video-lightbox-close");
+
+  const closeLightbox = () => {
+    overlay.classList.remove("is-open");
+    if (videoElement) {
+      videoElement.pause();
+      videoElement.removeAttribute("src");
+      videoElement.load();
+    }
+  };
+
+  const openLightbox = (sourceFileName, vimeoId, name) => {
+    const url = buildVideoUrl(sourceFileName);
+    if (!url || !videoElement) {
+      return;
+    }
+    if (vimeoId) {
+      const posterUrl = `/video/thumbnails/${vimeoId}.png`;
+      videoElement.setAttribute("poster", posterUrl);
+    } else {
+      videoElement.removeAttribute("poster");
+    }
+    videoElement.src = url;
+    videoElement.load();
+    overlay.classList.add("is-open");
+  };
+
+  if (closeButton) {
+    closeButton.addEventListener("click", closeLightbox);
+  }
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+  });
 
   const clampPage = (page, totalPages) => {
     if (totalPages <= 0) {
@@ -72,11 +136,14 @@
         return;
       }
 
-      const link = document.createElement("a");
-      link.className = "video-thumb";
-      link.href = `https://vimeo.com/video/${vimeoId}`;
-      link.target = "_blank";
-      link.rel = "noopener";
+      const sourceFileName = video?.source_file_name;
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "video-thumb";
+
+      const thumbButton = document.createElement("button");
+      thumbButton.type = "button";
+      thumbButton.className = "video-thumb-button";
 
       const img = document.createElement("img");
       img.loading = "lazy";
@@ -86,13 +153,36 @@
         img.remove();
       };
 
-      const title = document.createElement("div");
-      title.className = "video-title";
-      title.textContent = video?.name || `Vimeo ${vimeoId}`;
+      thumbButton.appendChild(img);
+      thumbButton.addEventListener("click", () => openLightbox(sourceFileName, vimeoId, video?.name));
 
-      link.appendChild(img);
-      link.appendChild(title);
-      fragment.appendChild(link);
+      const meta = document.createElement("div");
+      meta.className = "video-meta";
+
+      const titleButton = document.createElement("button");
+      titleButton.type = "button";
+      titleButton.className = "video-thumb-button video-title";
+      titleButton.textContent = video?.name || `Vimeo ${vimeoId}`;
+      titleButton.addEventListener("click", () => openLightbox(sourceFileName, vimeoId, video?.name));
+
+      const vimeoLink = document.createElement("a");
+      vimeoLink.className = "video-vimeo";
+      vimeoLink.href = `https://vimeo.com/video/${vimeoId}`;
+      vimeoLink.target = "_blank";
+      vimeoLink.rel = "noopener";
+      vimeoLink.title = "Open on Vimeo";
+
+      const vimeoIcon = document.createElement("img");
+      vimeoIcon.alt = "Vimeo";
+      vimeoIcon.src = "/img/icons/vimeo.png";
+
+      vimeoLink.appendChild(vimeoIcon);
+      meta.appendChild(titleButton);
+      meta.appendChild(vimeoLink);
+
+      wrapper.appendChild(thumbButton);
+      wrapper.appendChild(meta);
+      fragment.appendChild(wrapper);
     });
 
     gallery.appendChild(fragment);
