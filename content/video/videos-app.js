@@ -42,6 +42,7 @@
       videoElement.removeAttribute("src");
       videoElement.load();
     }
+    setVideoInUrl(null);
   };
 
   const openLightbox = (sourceFileName, vimeoId, name) => {
@@ -58,6 +59,7 @@
     videoElement.src = url;
     videoElement.load();
     overlay.classList.add("is-open");
+    setVideoInUrl(vimeoId);
   };
 
   if (closeButton) {
@@ -86,6 +88,16 @@
   const setPageInUrl = (page) => {
     const url = new URL(window.location.href);
     url.searchParams.set("page", String(page));
+    window.history.replaceState({}, "", url);
+  };
+
+  const setVideoInUrl = (vimeoId) => {
+    const url = new URL(window.location.href);
+    if (vimeoId) {
+      url.searchParams.set("video", String(vimeoId));
+    } else {
+      url.searchParams.delete("video");
+    }
     window.history.replaceState({}, "", url);
   };
 
@@ -234,6 +246,14 @@
         currentPage = clampPage(urlPage, totalPages);
       }
       renderPage();
+
+      const urlVideo = new URL(window.location.href).searchParams.get("video");
+      if (urlVideo) {
+        const match = videos.find((video) => String(video?.vimeo_id) === String(urlVideo));
+        if (match) {
+          openLightbox(match.source_file_name, match.vimeo_id, match.name);
+        }
+      }
     })
     .catch(() => {
       gallery.textContent = "Failed to load videos.";
