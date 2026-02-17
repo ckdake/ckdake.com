@@ -112,7 +112,7 @@ GEM
       method_source (~> 1.0)
     public_suffix (6.0.2)
     racc (1.8.1)
-    rack (3.2.3)
+    rack (3.2.5)
     rackup (2.2.1)
       rack (>= 3)
     rake (13.3.0)
