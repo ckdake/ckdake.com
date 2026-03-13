@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FuelDash Admin – Fleet Policy Manager</title>
+  <style>
+    :root {
+      --green-900: #14532d;
+      --green-800: #166534;
+      --green-700: #15803d;
+      --green-600: #16a34a;
+      --green-500: #22c55e;
+      --green-400: #4ade80;
+      --green-100: #dcfce7;
+      --green-50:  #f0fdf4;
+      --gray-950: #0b0f0d;
+      --gray-900: #111827;
+      --gray-800: #1f2937;
+      --gray-700: #374151;
+      --gray-600: #4b5563;
+      --gray-400: #9ca3af;
+      --gray-200: #e5e7eb;
+      --gray-100: #f3f4f6;
+      --gray-50:  #f9fafb;
+      --amber: #f59e0b;
+      --red:   #ef4444;
+      --blue:  #3b82f6;
+      --sidebar-w: 230px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif; font-size: 14px; background: var(--gray-50); color: var(--gray-900); }
+
+    /* ─── LAYOUT ─────────────────────────────────────────── */
+    .app { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ─── SIDEBAR ────────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--green-900);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-logo-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--green-400), var(--green-500));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 10px rgba(74,222,128,0.3);
+      font-size: 18px;
+    }
+    .sidebar-logo-text { font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .sidebar-logo-text span { color: var(--green-400); }
+    .sidebar-section { padding: 16px 10px 6px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.35); padding: 0 8px; margin-bottom: 4px; }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.65);
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: 1px;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.07); color: #fff; }
+    .nav-link.active { background: rgba(74,222,128,0.15); color: var(--green-400); }
+    .nav-link svg { opacity: 0.8; flex-shrink: 0; }
+    .nav-link.active svg { opacity: 1; }
+    .nav-badge {
+      margin-left: auto;
+      background: var(--green-600);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 99px;
+    }
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 14px 10px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .sidebar-user:hover { background: rgba(255,255,255,0.07); }
+    .sidebar-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-500), var(--green-700));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: #fff;
+    }
+    .sidebar-user-info { flex: 1; min-width: 0; }
+    .sidebar-user-name { font-size: 12.5px; font-weight: 700; color: #fff; }
+    .sidebar-user-role { font-size: 10.5px; color: rgba(255,255,255,0.45); font-weight: 500; }
+
+    /* ─── MAIN ────────────────────────────────────────────── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* ─── TOPBAR ─────────────────────────────────────────── */
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .topbar-title { font-size: 18px; font-weight: 800; color: var(--gray-900); letter-spacing: -0.3px; }
+    .topbar-sub { font-size: 13px; color: var(--gray-400); font-weight: 500; margin-left: 6px; }
+    .topbar-actions { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--green-600); color: #fff; box-shadow: 0 2px 8px rgba(34,197,94,0.25); }
+    .btn-primary:hover { background: var(--green-700); }
+    .btn-secondary { background: #fff; color: var(--gray-700); border: 1.5px solid var(--gray-200); }
+    .btn-secondary:hover { background: var(--gray-50); }
+    .btn-ghost { background: none; color: var(--gray-600); }
+    .btn-ghost:hover { background: var(--gray-100); }
+    .btn-danger { background: #fee2e2; color: #991b1b; border: 1.5px solid #fecaca; }
+    .btn-danger:hover { background: #fecaca; }
+
+    /* ─── CONTENT ────────────────────────────────────────── */
+    .content { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+
+    /* ─── STAT CARDS ─────────────────────────────────────── */
+    .stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .stat-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 20px;
+      border: 1.5px solid var(--gray-200);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .stat-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .stat-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .stat-trend { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 99px; }
+    .trend-up { background: #dcfce7; color: #15803d; }
+    .trend-warn { background: #fef3c7; color: #92400e; }
+    .trend-down { background: #fee2e2; color: #991b1b; }
+    .stat-val { font-size: 28px; font-weight: 900; color: var(--gray-900); letter-spacing: -0.5px; line-height: 1; }
+    .stat-label { font-size: 12px; font-weight: 600; color: var(--gray-400); }
+
+    /* ─── PANELS ─────────────────────────────────────────── */
+    .panel-row { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
+    .panel {
+      background: #fff;
+      border-radius: 16px;
+      border: 1.5px solid var(--gray-200);
+      overflow: hidden;
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .panel-title { font-size: 15px; font-weight: 800; color: var(--gray-900); }
+    .panel-sub { font-size: 12px; color: var(--gray-400); font-weight: 500; margin-top: 1px; }
+
+    /* ─── SEARCH / FILTER BAR ────────────────────────────── */
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 7px 12px;
+      flex: 1;
+      max-width: 300px;
+    }
+    .search-wrap input {
+      border: none;
+      background: none;
+      outline: none;
+      font-size: 13px;
+      color: var(--gray-900);
+      width: 100%;
+    }
+    .search-wrap input::placeholder { color: var(--gray-400); }
+    .filter-select {
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--gray-700);
+      background: var(--gray-50);
+      cursor: pointer;
+      outline: none;
+    }
+    .row-count { margin-left: auto; font-size: 12px; color: var(--gray-400); font-weight: 600; }
+
+    /* ─── TABLE ──────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: var(--gray-50); }
+    thead th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-400);
+      border-bottom: 1px solid var(--gray-200);
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--gray-100);
+      transition: background 0.1s;
+      cursor: pointer;
+    }
+    tbody tr:hover { background: var(--gray-50); }
+    tbody tr.selected { background: var(--green-50); }
+    tbody td { padding: 12px 14px; font-size: 13px; color: var(--gray-700); vertical-align: middle; }
+    .td-check { width: 32px; }
+    input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--green-600); cursor: pointer; }
+
+    .driver-cell { display: flex; align-items: center; gap: 10px; }
+    .driver-ava {
+      width: 32px; height: 32px; border-radius: 50%;
+      font-size: 11px; font-weight: 800; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .driver-name-cell { font-weight: 700; color: var(--gray-900); line-height: 1.2; }
+    .driver-id { font-size: 11px; color: var(--gray-400); font-weight: 500; }
+
+    /* status badges */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-green  { background: #dcfce7; color: #15803d; }
+    .badge-amber  { background: #fef3c7; color: #92400e; }
+    .badge-red    { background: #fee2e2; color: #991b1b; }
+    .badge-blue   { background: #dbeafe; color: #1d4ed8; }
+    .badge-gray   { background: var(--gray-100); color: var(--gray-600); }
+    .badge-purple { background: #f3e8ff; color: #6b21a8; }
+
+    .eld-cell { display: flex; flex-direction: column; gap: 2px; }
+    .eld-hos { font-weight: 700; color: var(--gray-900); }
+    .eld-sub { font-size: 11px; color: var(--gray-400); font-weight: 500; }
+
+    .tank-cell { display: flex; flex-direction: column; gap: 4px; }
+    .tank-bar-track { height: 5px; background: var(--gray-200); border-radius: 99px; width: 80px; }
+    .tank-bar-fill { height: 100%; border-radius: 99px; }
+    .tank-label { font-size: 11px; font-weight: 700; }
+
+    .policy-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+
+    .action-btns { display: flex; gap: 6px; opacity: 0; transition: opacity 0.1s; }
+    tbody tr:hover .action-btns { opacity: 1; }
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.1s;
+    }
+
+    /* ─── POLICY PANEL ───────────────────────────────────── */
+    .policy-list { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .policy-card {
+      border: 1.5px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .policy-card:hover { border-color: var(--green-400); box-shadow: 0 2px 12px rgba(34,197,94,0.1); }
+    .policy-card.active { border-color: var(--green-500); background: var(--green-50); }
+    .policy-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .policy-name { font-size: 13.5px; font-weight: 800; color: var(--gray-900); display: flex; align-items: center; gap: 6px; }
+    .policy-driver-count { font-size: 11px; font-weight: 600; color: var(--gray-400); }
+    .policy-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .policy-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+    .tag-allow { background: #dcfce7; color: #15803d; }
+    .tag-deny  { background: #fee2e2; color: #991b1b; text-decoration: line-through; }
+    .tag-info  { background: #dbeafe; color: #1d4ed8; }
+    .policy-stations { font-size: 11px; color: var(--gray-500); margin-top: 8px; font-weight: 500; }
+
+    /* ─── DRIVER DETAIL DRAWER ───────────────────────────── */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 40;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .drawer-overlay.show { opacity: 1; pointer-events: all; }
+    .drawer {
+      position: fixed;
+      right: 0; top: 0; bottom: 0;
+      width: 480px;
+      background: #fff;
+      z-index: 50;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--gray-200);
+      box-shadow: -8px 0 30px rgba(0,0,0,0.10);
+    }
+    .drawer.show { transform: translateX(0); }
+    .drawer-top {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .drawer-avatar {
+      width: 52px; height: 52px; border-radius: 16px;
+      font-size: 18px; font-weight: 900; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .drawer-name { font-size: 20px; font-weight: 800; color: var(--gray-900); }
+    .drawer-meta { font-size: 12.5px; color: var(--gray-400); font-weight: 500; margin-top: 2px; }
+    .drawer-close {
+      margin-left: auto;
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gray-100);
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      color: var(--gray-600);
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .drawer-close:hover { background: var(--gray-200); }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; }
+    .drawer-section { margin-bottom: 24px; }
+    .drawer-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+    }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .info-item { background: var(--gray-50); border-radius: 10px; padding: 12px 14px; }
+    .info-label { font-size: 10.5px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+    .info-val { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+    .info-val.green { color: var(--green-700); }
+    .info-val.amber { color: #b45309; }
+    .info-val.red { color: #dc2626; }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-info { flex: 1; }
+    .toggle-title { font-size: 13.5px; font-weight: 700; color: var(--gray-900); }
+    .toggle-sub { font-size: 11.5px; color: var(--gray-400); font-weight: 500; margin-top: 1px; }
+    /* toggle switch */
+    .toggle { position: relative; display: inline-block; width: 42px; height: 24px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0;
+      background: var(--gray-300);
+      border-radius: 99px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      left: 3px; top: 3px;
+      width: 18px; height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transition: 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .toggle input:checked + .toggle-slider { background: var(--green-500); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+    .product-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .product-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1.5px solid;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .product-chip.on { border-color: var(--green-400); background: var(--green-50); color: var(--green-800); }
+    .product-chip.off { border-color: var(--gray-200); background: var(--gray-50); color: var(--gray-400); text-decoration: line-through; }
+    .product-chip.on::before { content: '✓ '; font-size: 10px; }
+
+    .station-list { display: flex; flex-direction: column; gap: 8px; }
+    .station-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+    .station-row.allowed { border-color: #bbf7d0; background: var(--green-50); }
+    .station-logo-sm {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900;
+    }
+    .station-row-name { font-size: 13px; font-weight: 700; color: var(--gray-800); flex: 1; }
+    .station-row-count { font-size: 11.5px; color: var(--gray-400); font-weight: 500; }
+
+    .drawer-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      gap: 10px;
+    }
+
+    /* ─── ELD status colors ──────────────────────────────── */
+    .eld-driving   { color: var(--green-700); font-weight: 700; }
+    .eld-sleeper   { color: var(--blue); font-weight: 700; }
+    .eld-off       { color: var(--gray-400); font-weight: 700; }
+    .eld-on-duty   { color: var(--amber); font-weight: 700; }
+
+    /* ─── EMPTY / LOADING ────────────────────────────────── */
+    .empty-state { text-align: center; padding: 48px 24px; color: var(--gray-400); }
+    .empty-state svg { margin-bottom: 12px; }
+    .empty-state p { font-size: 14px; font-weight: 600; }
+
+    /* ─── TOAST ──────────────────────────────────────────── */
+    .toast-stack {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .toast-item {
+      background: var(--gray-900);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: slide-up 0.3s ease both;
+    }
+    @keyframes slide-up { from {transform:translateY(10px);opacity:0} to {transform:none;opacity:1} }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 99px; }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ─── SIDEBAR ─────────────────────────────────────────── -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">⚡</div>
+      <div class="sidebar-logo-text">Fuel<span>Dash</span></div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Fleet</div>
+      <div class="nav-link active" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="2" stroke="#4ade80" stroke-width="1.5"/><path d="M5 7h6M5 10h4" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Drivers
+        <span class="nav-badge">42</span>
+      </div>
+      <div class="nav-link" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1L2 5v6a5 5 0 006 5 5 5 0 006-5V5L8 1z" stroke="currentColor" stroke-width="1.5"/></svg>
+        Policies
+        <span class="nav-badge">5</span>
+      </div>
+      <div class="nav-link" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        ELD Live
+      </div>
+      <div class="nav-link" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M2 12l3-5 3 3 2-4 4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Analytics
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Network</div>
+      <div class="nav-link" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 2C5 2 3 4.7 3 7c0 3.5 5 9 5 9s5-5.5 5-9c0-2.3-2-5-5-5zm0 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" stroke="currentColor" stroke-width="1.5"/></svg>
+        Fuel Stops
+      </div>
+      <div class="nav-link" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Products
+      </div>
+      <div class="nav-link" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><rect x="1" y="4" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 6l3-2v8l-3-2V6z" stroke="currentColor" stroke-width="1.5"/></svg>
+        Billing
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">System</div>
+      <div class="nav-link" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><circle cx="8" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Admins
+      </div>
+      <div class="nav-link" onclick="setNav(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 2v2M8 12v2M2 8h2M12 8h2M4.1 4.1l1.4 1.4M10.5 10.5l1.4 1.4M4.1 11.9l1.4-1.4M10.5 5.5l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
+        Settings
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">JL</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name">Jordan Lee</div>
+          <div class="sidebar-user-role">Fleet Admin</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── MAIN ──────────────────────────────────────────────── -->
+  <div class="main">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div>
+        <span class="topbar-title">Driver Management</span>
+        <span class="topbar-sub">Horizon Freight LLC</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-secondary" onclick="showToast('🔄 Syncing ELD data…', 'blue')">
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M12 7a5 5 0 01-9 3M2 7A5 5 0 0111 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 4h1.5V2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Sync ELD
+        </button>
+        <button class="btn btn-secondary">Export</button>
+        <button class="btn btn-primary" onclick="showToast('➕ Add Driver modal — TODO', 'green')">
+          + Add Driver
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Stats -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon" style="background:#dcfce7;">🚛</div>
+            <span class="stat-trend trend-up">+3 this week</span>
+          </div>
+          <div class="stat-val">42</div>
+          <div class="stat-label">Active Drivers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon" style="background:#dbeafe;">📡</div>
+            <span class="stat-trend trend-up">↑ 38 online</span>
+          </div>
+          <div class="stat-val">38</div>
+          <div class="stat-label">ELD Connected</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon" style="background:#fef3c7;">⛽</div>
+            <span class="stat-trend trend-warn">$23,840 MTD</span>
+          </div>
+          <div class="stat-val">184</div>
+          <div class="stat-label">Fills This Month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon" style="background:#fee2e2;">⚠️</div>
+            <span class="stat-trend trend-down">2 new</span>
+          </div>
+          <div class="stat-val">4</div>
+          <div class="stat-label">Policy Violations</div>
+        </div>
+      </div>
+
+      <!-- Driver Table + Policy Panel -->
+      <div class="panel-row">
+        <!-- Driver Table -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">All Drivers</div>
+              <div class="panel-sub">Click a row to view & edit driver details</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-ghost" style="font-size:12px;">Bulk Assign</button>
+            </div>
+          </div>
+          <div class="table-toolbar">
+            <div class="search-wrap">
+              <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="6" cy="6" r="4.5" stroke="#9ca3af" stroke-width="1.4"/><path d="M10 10l2.5 2.5" stroke="#9ca3af" stroke-width="1.4" stroke-linecap="round"/></svg>
+              <input type="text" placeholder="Search drivers…" id="driverSearch" oninput="filterDrivers()"/>
+            </div>
+            <select class="filter-select" id="policyFilter" onchange="filterDrivers()">
+              <option value="">All Policies</option>
+              <option>Standard OTR</option>
+              <option>Premium Flex</option>
+              <option>Regional Restricted</option>
+              <option>Owner-Operator</option>
+              <option>Trainee</option>
+            </select>
+            <select class="filter-select" id="eldFilter" onchange="filterDrivers()">
+              <option value="">All ELD</option>
+              <option>Driving</option>
+              <option>Sleeper</option>
+              <option>Off Duty</option>
+              <option>On Duty</option>
+            </select>
+            <span class="row-count" id="rowCount">42 drivers</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="td-check"><input type="checkbox" onchange="toggleAll(this)"/></th>
+                  <th>Driver</th>
+                  <th>Policy</th>
+                  <th>ELD Status</th>
+                  <th>Tank Level</th>
+                  <th>Tank-Lock</th>
+                  <th>Last Fill</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="driverTbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Policy Panel -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Policies</div>
+              <div class="panel-sub">5 policies · click to preview</div>
+            </div>
+            <button class="btn btn-primary" style="font-size:12px;padding:6px 12px;" onclick="showToast('➕ New policy editor — TODO','green')">+ New</button>
+          </div>
+          <div class="policy-list" id="policyList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── DRIVER DETAIL DRAWER ─────────────────────────────── -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-top" id="drawerTop"></div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-footer" id="drawerFooter"></div>
+</div>
+
+<!-- ─── TOAST ────────────────────────────────────────────── -->
+<div class="toast-stack" id="toastStack"></div>
+
+<script>
+/* ═══ DATA ═══════════════════════════════════════════════════ */
+const POLICIES = [
+  {
+    id: 1, name: 'Standard OTR', color: '#22c55e', drivers: 18,
+    products: { diesel: true, def: true, premium: false, regular: false, scales: true, cash: false, showers: true, food: false, lube: true },
+    stations: ['TravelCenters of America','Pilot Flying J','Love\'s Travel Stop'],
+    tankLock: true, perFill: 350, monthly: 3000, tier: 'Tier-2 Network'
+  },
+  {
+    id: 2, name: 'Premium Flex', color: '#3b82f6', drivers: 8,
+    products: { diesel: true, def: true, premium: true, regular: true, scales: true, cash: true, showers: true, food: true, lube: true },
+    stations: ['TravelCenters of America','Pilot Flying J','Love\'s Travel Stop','Kwik Trip','Casey\'s General Stores'],
+    tankLock: false, perFill: 600, monthly: 5000, tier: 'Tier-1 Network'
+  },
+  {
+    id: 3, name: 'Regional Restricted', color: '#f59e0b', drivers: 7,
+    products: { diesel: true, def: false, premium: false, regular: false, scales: false, cash: false, showers: false, food: false, lube: false },
+    stations: ['Kwik Trip','Casey\'s General Stores'],
+    tankLock: true, perFill: 200, monthly: 1800, tier: 'Regional Only'
+  },
+  {
+    id: 4, name: 'Owner-Operator', color: '#8b5cf6', drivers: 6,
+    products: { diesel: true, def: true, premium: false, regular: false, scales: true, cash: true, showers: true, food: true, lube: false },
+    stations: ['TravelCenters of America','Pilot Flying J','Love\'s Travel Stop','Kwik Trip'],
+    tankLock: false, perFill: 500, monthly: 4500, tier: 'Tier-1 Network'
+  },
+  {
+    id: 5, name: 'Trainee', color: '#ef4444', drivers: 3,
+    products: { diesel: true, def: false, premium: false, regular: false, scales: false, cash: false, showers: false, food: false, lube: false },
+    stations: ['Pilot Flying J'],
+    tankLock: true, perFill: 150, monthly: 1000, tier: 'Trainee Restricted'
+  },
+];
+
+const PRODUCT_LABELS = {
+  diesel: '⛽ Diesel', def: '🧴 DEF', premium: '🔴 Premium', regular: '🟡 Regular',
+  scales: '⚖️ Scales', cash: '💵 Cash Advance', showers: '🚿 Showers', food: '🍔 Food', lube: '🔧 Lube'
+};
+
+const STATION_LOGOS = {
+  'TravelCenters of America': {bg:'#fff3cd',color:'#856404',abbr:'TA'},
+  'Pilot Flying J': {bg:'#fde8d8',color:'#7c2d12',abbr:'Pt'},
+  'Love\'s Travel Stop': {bg:'#fef9c3',color:'#713f12',abbr:'Lv'},
+  'Kwik Trip': {bg:'#dbeafe',color:'#1e40af',abbr:'KT'},
+  'Casey\'s General Stores': {bg:'#f3e8ff',color:'#6b21a8',abbr:'CG'},
+};
+
+const ELD_STATUSES = ['Driving','Sleeper','Off Duty','On Duty','Driving','Driving','Sleeper','Driving'];
+const ELD_COLORS = { 'Driving':'eld-driving','Sleeper':'eld-sleeper','Off Duty':'eld-off','On Duty':'eld-on-duty' };
+
+const FIRST = ['Mike','Sandra','James','Carlos','Tiffany','Ray','Denise','Omar','Patricia','Hector','Amy','Tyler','Priya','Lamont','Sofia','Brett','Naomi','Ivan','Dana','Kwame','Rosa','Luke','Yolanda','Finn','Aaliyah','Diego','Bonnie','Marcus','Elise','Dev'];
+const LAST  = ['Rodriguez','Williams','Park','Morales','Johnson','Chen','Davis','Hassan','Kim','Torres','Scott','Webb','Patel','Brown','Reyes','Foster','Okafor','Novak','Walsh','Asante','Salazar','Murphy','Carter','Larsen','Thompson','Vega','Shaw','Wright','Lee','Kumar'];
+const COLORS= ['#166534','#1d4ed8','#7c3aed','#b45309','#be123c','#0891b2','#0f766e','#c2410c','#4f46e5','#6d28d9'];
+
+function randInt(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+
+const DRIVERS = Array.from({length:42},(_,i)=>{
+  const policyId = POLICIES[i%5].id;
+  const eldIdx = i%ELD_STATUSES.length;
+  const tank = randInt(12,94);
+  return {
+    id: 1001+i,
+    first: FIRST[i%FIRST.length],
+    last: LAST[i%LAST.length],
+    unit: `#${4800+i}`,
+    cdl: `CDL-${String(100+i).padStart(5,'0')}`,
+    policyId,
+    eld: ELD_STATUSES[eldIdx],
+    hosRemaining: `${randInt(1,10)}h ${randInt(0,59)}m`,
+    tank,
+    tankLock: POLICIES.find(p=>p.id===policyId).tankLock,
+    lastFill: `Mar ${randInt(7,11)}, ${randInt(7,12).toString().padStart(2,'0')}:${randInt(0,59).toString().padStart(2,'0')}`,
+    color: COLORS[i%COLORS.length],
+    violations: i%15===0 ? 1 : 0,
+    phone: `+1 (${randInt(200,999)}) ${randInt(200,999)}-${randInt(1000,9999)}`,
+    state: ['TX','AZ','NM','OK','KS','MO','TN','AR'][i%8],
+  };
+});
+
+/* ═══ RENDER ══════════════════════════════════════════════════ */
+let selectedPolicyId = null;
+let openDrawerDriver = null;
+
+function renderPolicies() {
+  const list = document.getElementById('policyList');
+  list.innerHTML = POLICIES.map(p=>`
+    <div class="policy-card ${selectedPolicyId===p.id?'active':''}" onclick="selectPolicy(${p.id})">
+      <div class="policy-header-row">
+        <div class="policy-name">
+          <span class="policy-dot" style="background:${p.color}"></span>
+          ${p.name}
+        </div>
+        <span class="policy-driver-count">${p.drivers} drivers</span>
+      </div>
+      <div class="policy-tags">
+        ${Object.entries(p.products).map(([k,v])=>`<span class="policy-tag ${v?'tag-allow':'tag-deny'}">${PRODUCT_LABELS[k]}</span>`).join('')}
+        <span class="policy-tag tag-info">Cap $${p.perFill}/fill</span>
+        <span class="policy-tag tag-info">${p.tier}</span>
+        ${p.tankLock?`<span class="policy-tag tag-allow">⛽ Tank-lock</span>`:''}
+      </div>
+      <div class="policy-stations">📍 ${p.stations.slice(0,2).join(', ')}${p.stations.length>2?` +${p.stations.length-2} more`:''}</div>
+    </div>
+  `).join('');
+}
+
+function selectPolicy(id) {
+  selectedPolicyId = selectedPolicyId===id ? null : id;
+  renderPolicies();
+  filterDrivers();
+}
+
+function filterDrivers() {
+  const q = document.getElementById('driverSearch').value.toLowerCase();
+  const pf = document.getElementById('policyFilter').value;
+  const ef = document.getElementById('eldFilter').value;
+
+  const filtered = DRIVERS.filter(d=>{
+    const name = `${d.first} ${d.last}`.toLowerCase();
+    const policyName = POLICIES.find(p=>p.id===d.policyId).name;
+    const matchQ = !q || name.includes(q) || String(d.id).includes(q) || d.unit.toLowerCase().includes(q);
+    const matchP = (!pf && !selectedPolicyId) || (pf && policyName===pf) || (selectedPolicyId && d.policyId===selectedPolicyId);
+    const matchE = !ef || d.eld===ef;
+    return matchQ && matchP && matchE;
+  });
+
+  document.getElementById('rowCount').textContent = `${filtered.length} driver${filtered.length!==1?'s':''}`;
+  renderDriverRows(filtered);
+}
+
+function renderDriverRows(drivers) {
+  const tbody = document.getElementById('driverTbody');
+  if (!drivers.length) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><p>No drivers match your filters.</p></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = drivers.map(d=>{
+    const policy = POLICIES.find(p=>p.id===d.policyId);
+    const initials = d.first[0]+d.last[0];
+    const tankColor = d.tank>70?'#22c55e':d.tank>35?'#f59e0b':'#ef4444';
+    return `
+      <tr onclick="openDriverDrawer(${d.id})" class="${openDrawerDriver===d.id?'selected':''}">
+        <td class="td-check" onclick="event.stopPropagation()"><input type="checkbox"/></td>
+        <td>
+          <div class="driver-cell">
+            <div class="driver-ava" style="background:${d.color}">${initials}</div>
+            <div>
+              <div class="driver-name-cell">${d.first} ${d.last}</div>
+              <div class="driver-id">ID ${d.id} · ${d.unit}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="badge-pill badge-gray">
+            <span class="policy-dot" style="background:${policy.color}"></span>
+            ${policy.name}
+          </span>
+          ${d.violations?`<span class="badge-pill badge-red" style="margin-left:4px;">⚠ Violation</span>`:''}
+        </td>
+        <td>
+          <div class="eld-cell">
+            <span class="${ELD_COLORS[d.eld]}">${d.eld}</span>
+            <span class="eld-sub">HOS: ${d.hosRemaining}</span>
+          </div>
+        </td>
+        <td>
+          <div class="tank-cell">
+            <div class="tank-bar-track"><div class="tank-bar-fill" style="width:${d.tank}%;background:${tankColor}"></div></div>
+            <span class="tank-label" style="color:${tankColor}">${d.tank}%</span>
+          </div>
+        </td>
+        <td>
+          ${d.tankLock
+            ? `<span class="badge-pill badge-green">⛽ Enabled</span>`
+            : `<span class="badge-pill badge-gray">Off</span>`}
+        </td>
+        <td style="font-size:12px;color:#6b7280;">${d.lastFill}</td>
+        <td>
+          <div class="action-btns">
+            <button class="action-btn" style="background:#f0fdf4;color:#15803d;" onclick="event.stopPropagation();showToast('✏️ Editing ${d.first}…','green')">Edit</button>
+            <button class="action-btn" style="background:#fee2e2;color:#991b1b;" onclick="event.stopPropagation();showToast('⏸ ${d.first} suspended','amber')">Suspend</button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+/* ═══ DRAWER ══════════════════════════════════════════════════ */
+function openDriverDrawer(id) {
+  const d = DRIVERS.find(x=>x.id===id);
+  const policy = POLICIES.find(p=>p.id===d.policyId);
+  openDrawerDriver = id;
+
+  const initials = d.first[0]+d.last[0];
+  const tankColor = d.tank>70?'#22c55e':d.tank>35?'#f59e0b':'#ef4444';
+
+  document.getElementById('drawerTop').innerHTML = `
+    <div class="drawer-avatar" style="background:${d.color}">${initials}</div>
+    <div>
+      <div class="drawer-name">${d.first} ${d.last}</div>
+      <div class="drawer-meta">Driver ID ${d.id} · Unit ${d.unit} · ${d.cdl}</div>
+      <div style="display:flex;gap:6px;margin-top:8px;">
+        <span class="badge-pill badge-green">${d.eld}</span>
+        ${d.violations?`<span class="badge-pill badge-red">⚠ Policy Violation</span>`:''}
+      </div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  `;
+
+  document.getElementById('drawerBody').innerHTML = `
+    <!-- ELD & HOS -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">ELD / HOS Status <span style="background:#dbeafe;color:#1d4ed8;font-size:10px;padding:2px 8px;border-radius:99px;font-weight:700;margin-left:6px;">Live</span></div>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">ELD Status</div>
+          <div class="info-val ${d.eld==='Driving'?'green':d.eld==='Off Duty'?'':d.eld==='Sleeper'?'':'amber'}">${d.eld}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">HOS Remaining</div>
+          <div class="info-val green">${d.hosRemaining}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Tank Level</div>
+          <div class="info-val" style="color:${tankColor}">${d.tank}% full</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Last Fill</div>
+          <div class="info-val">${d.lastFill}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">State / Route</div>
+          <div class="info-val">${d.state}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Phone</div>
+          <div class="info-val" style="font-size:12px;">${d.phone}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Policy -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Assigned Policy</div>
+      <div style="border:1.5px solid ${policy.color}33;border-radius:12px;padding:14px 16px;background:${policy.color}11;margin-bottom:12px;">
+        <div style="font-size:15px;font-weight:800;color:#1a2e22;display:flex;align-items:center;gap:8px;">
+          <span class="policy-dot" style="background:${policy.color}"></span>${policy.name}
+        </div>
+        <div style="font-size:12px;color:#6b7280;margin-top:4px;">${policy.tier} · $${policy.perFill}/fill cap · $${policy.monthly.toLocaleString()}/mo</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <select style="flex:1;border:1.5px solid #e5e7eb;border-radius:8px;padding:8px 10px;font-size:13px;font-weight:600;color:#374151;outline:none;cursor:pointer;">
+          ${POLICIES.map(p=>`<option ${p.id===d.policyId?'selected':''}>${p.name}</option>`).join('')}
+        </select>
+        <button class="btn btn-primary" onclick="showToast('✅ Policy updated for ${d.first}','green')">Apply</button>
+      </div>
+    </div>
+
+    <!-- Product Permissions -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Allowed Products (via Policy)</div>
+      <div class="product-grid">
+        ${Object.entries(policy.products).map(([k,v])=>`
+          <div class="product-chip ${v?'on':'off'}">${PRODUCT_LABELS[k]}</div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Authorized Stations -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Authorized Fuel Stops</div>
+      <div class="station-list">
+        ${policy.stations.map(s=>{
+          const logo = STATION_LOGOS[s]||{bg:'#f3f4f6',color:'#374151',abbr:s[0]};
+          return `
+            <div class="station-row allowed">
+              <div class="station-logo-sm" style="background:${logo.bg};color:${logo.color};">${logo.abbr}</div>
+              <div class="station-row-name">${s}</div>
+              <span class="badge-pill badge-green">Authorized</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Overrides & Controls -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">Driver-Level Controls</div>
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-title">⛽ Tank-Lock Fill Control</div>
+          <div class="toggle-sub">Only authorize fueling when tank has capacity. Current: ${d.tank}% full</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" ${d.tankLock?'checked':''} onchange="showToast('⛽ Tank-lock ${d.tankLock?'disabled':'enabled'} for ${d.first}','green')"/>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-title">🔒 Suspend Fueling</div>
+          <div class="toggle-sub">Temporarily block all transactions for this driver</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" onchange="showToast('⚠️ Fueling ${d.first} suspended — confirm?','amber')"/>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-title">📲 Push Notifications</div>
+          <div class="toggle-sub">Send alerts to driver app on each transaction</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked/>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-title">📍 Location Required</div>
+          <div class="toggle-sub">Require GPS match before generating pump code</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" checked/>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('drawerFooter').innerHTML = `
+    <button class="btn btn-secondary" style="flex:1;" onclick="showToast('📋 Viewing fill history for ${d.first}…','blue')">View Fill History</button>
+    <button class="btn btn-primary" style="flex:1;" onclick="showToast('✅ Changes saved for ${d.first}','green')">Save Changes</button>
+  `;
+
+  document.getElementById('drawerOverlay').classList.add('show');
+  document.getElementById('drawer').classList.add('show');
+  renderDriverRows(DRIVERS);
+}
+
+function closeDrawer() {
+  openDrawerDriver = null;
+  document.getElementById('drawerOverlay').classList.remove('show');
+  document.getElementById('drawer').classList.remove('show');
+}
+
+/* ═══ NAV ═════════════════════════════════════════════════════ */
+function setNav(el) {
+  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  showToast(`Navigating to ${el.textContent.trim().replace(/\d+/g,'').trim()}…`,'blue');
+}
+
+function toggleAll(cb) {
+  document.querySelectorAll('#driverTbody input[type=checkbox]').forEach(c=>c.checked=cb.checked);
+}
+
+/* ═══ TOAST ═══════════════════════════════════════════════════ */
+function showToast(msg, type='green') {
+  const stack = document.getElementById('toastStack');
+  const el = document.createElement('div');
+  const colors = {green:'#15803d',blue:'#1d4ed8',amber:'#92400e',red:'#991b1b'};
+  el.className='toast-item';
+  el.style.background = colors[type]||'#1f2937';
+  el.textContent = msg;
+  stack.appendChild(el);
+  setTimeout(()=>el.style.opacity='0', 3000);
+  setTimeout(()=>el.remove(), 3500);
+}
+
+/* ═══ INIT ════════════════════════════════════════════════════ */
+renderPolicies();
+filterDrivers();
+</script>
+</body>
+</html>

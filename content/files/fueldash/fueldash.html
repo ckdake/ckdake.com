@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>FuelDash – Driver Pay App</title>
+  <style>
+    /* ─── RESET & BASE ────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+      background: #0f1a14;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* ─── PHONE SHELL ─────────────────────────────────────── */
+    .phone-shell {
+      width: 390px;
+      height: 844px;
+      background: #111c16;
+      border-radius: 54px;
+      box-shadow:
+        0 0 0 10px #1a2a1e,
+        0 0 0 12px #0d160f,
+        0 40px 80px rgba(0,0,0,0.6),
+        inset 0 0 0 1px rgba(255,255,255,0.06);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* notch */
+    .phone-shell::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 34px;
+      background: #0f1a14;
+      border-radius: 0 0 22px 22px;
+      z-index: 100;
+    }
+
+    /* ─── SCREEN ──────────────────────────────────────────── */
+    .screen {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      background: #f4f7f5;
+      display: flex;
+      flex-direction: column;
+    }
+    .screen::-webkit-scrollbar { display: none; }
+
+    /* ─── STATUS BAR ──────────────────────────────────────── */
+    .status-bar {
+      background: #1a3d27;
+      padding: 12px 24px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      flex-shrink: 0;
+    }
+    .status-bar .time { font-size: 15px; font-weight: 700; }
+    .status-icons { display: flex; gap: 6px; align-items: center; }
+    .status-icons svg { opacity: 0.9; }
+
+    /* ─── HEADER ──────────────────────────────────────────── */
+    .header {
+      background: linear-gradient(160deg, #1a3d27 0%, #226637 60%, #2a7a42 100%);
+      padding: 8px 22px 28px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -20px; right: 60px;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, #4ade80, #22c55e);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(74,222,128,0.35);
+    }
+    .logo-text {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .logo-text span { color: #7defa1; }
+    .avatar-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      border: 2px solid rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .greeting { color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+    .driver-name { color: #fff; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
+    .driver-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+    .badge.online { background: rgba(74,222,128,0.2); border-color: rgba(74,222,128,0.4); color: #7defa1; }
+    .badge svg { flex-shrink: 0; }
+
+    /* ─── MAIN CARD ───────────────────────────────────────── */
+    .main-card {
+      margin: -16px 16px 16px;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+    .card-inner { padding: 22px 22px 24px; }
+    .card-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #6b7c6f;
+      margin-bottom: 14px;
+    }
+
+    /* ─── BIG TAP BUTTON ──────────────────────────────────── */
+    .tap-zone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 0 12px;
+    }
+    .tap-btn {
+      width: 152px; height: 152px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #22c55e, #16a34a);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow:
+        0 0 0 12px rgba(34,197,94,0.10),
+        0 0 0 24px rgba(34,197,94,0.06),
+        0 12px 32px rgba(22,163,74,0.40);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tap-btn:hover { transform: scale(1.04); box-shadow: 0 0 0 14px rgba(34,197,94,0.13), 0 0 0 28px rgba(34,197,94,0.07), 0 16px 40px rgba(22,163,74,0.50); }
+    .tap-btn:active { transform: scale(0.96); }
+    .tap-btn.loading { animation: pulse-ring 1s ease-in-out infinite; }
+    .tap-btn.success {
+      background: linear-gradient(145deg, #10b981, #059669);
+      box-shadow: 0 0 0 12px rgba(16,185,129,0.12), 0 0 0 24px rgba(16,185,129,0.07), 0 12px 32px rgba(5,150,105,0.45);
+    }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5), 0 0 0 12px rgba(34,197,94,0.12), 0 12px 32px rgba(22,163,74,0.35); }
+      50% { box-shadow: 0 0 0 20px rgba(34,197,94,0.0), 0 0 0 32px rgba(34,197,94,0.0), 0 12px 32px rgba(22,163,74,0.35); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5), 0 0 0 12px rgba(34,197,94,0.12), 0 12px 32px rgba(22,163,74,0.35); }
+    }
+    .tap-btn-icon { font-size: 44px; line-height: 1; }
+    .tap-btn-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* ─── CODE DISPLAY ────────────────────────────────────── */
+    .code-display {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .code-label-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #6b7c6f;
+    }
+    .code-dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .code-digit {
+      width: 44px; height: 52px;
+      background: #f0f9f3;
+      border: 2px solid #d1fae5;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 900;
+      color: #166534;
+      font-variant-numeric: tabular-nums;
+      transition: all 0.25s ease;
+      letter-spacing: -1px;
+    }
+    .code-digit.placeholder { color: #c4d4c9; border-color: #e5ede9; background: #f8fbf9; }
+    .code-digit.active { border-color: #22c55e; background: #f0fdf4; transform: scale(1.06); }
+    .code-sep {
+      width: 8px; height: 2px;
+      background: #c4d4c9;
+      border-radius: 2px;
+    }
+    .code-expiry {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7c6f;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .code-expiry.active { color: #16a34a; }
+    .countdown {
+      font-weight: 800;
+      color: #16a34a;
+      font-variant-numeric: tabular-nums;
+    }
+    .countdown.warn { color: #f59e0b; }
+    .countdown.urgent { color: #ef4444; animation: blink 0.5s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ─── COPY BUTTON ─────────────────────────────────────── */
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1.5px solid #22c55e;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #16a34a;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-top: 2px;
+    }
+    .copy-btn:hover { background: #f0fdf4; }
+    .copy-btn:active { transform: scale(0.97); }
+
+    /* ─── DIVIDER ─────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: #f0f4f1;
+      margin: 20px 0 0;
+    }
+
+    /* ─── POLICY STRIP ────────────────────────────────────── */
+    .policy-strip {
+      padding: 14px 22px 0;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .policy-strip::-webkit-scrollbar { display: none; }
+    .policy-chip {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+    .policy-chip.allowed { background: #f0fdf4; color: #15803d; border: 1.5px solid #bbf7d0; }
+    .policy-chip.warn    { background: #fffbeb; color: #b45309; border: 1.5px solid #fde68a; }
+    .policy-chip.info    { background: #eff6ff; color: #1d4ed8; border: 1.5px solid #bfdbfe; }
+
+    /* ─── SECTION ─────────────────────────────────────────── */
+    .section { padding: 16px 16px 0; }
+    .section-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1a2e22;
+      letter-spacing: -0.2px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-link { font-size: 12px; font-weight: 600; color: #22c55e; }
+
+    /* ─── NEARBY STATIONS ─────────────────────────────────── */
+    .station-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 10px;
+      border: 1.5px solid #f0f4f1;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .station-card:hover { border-color: #bbf7d0; box-shadow: 0 4px 16px rgba(34,197,94,0.10); }
+    .station-card:active { transform: scale(0.99); }
+    .station-logo {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .station-info { flex: 1; min-width: 0; }
+    .station-name { font-size: 14px; font-weight: 700; color: #1a2e22; }
+    .station-addr { font-size: 11.5px; color: #6b7c6f; font-weight: 500; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .station-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .station-dist { font-size: 12px; font-weight: 700; color: #22c55e; }
+    .station-price { font-size: 11px; font-weight: 600; color: #6b7c6f; }
+    .station-price s { color: #ef4444; }
+    .station-price strong { color: #15803d; }
+
+    /* ─── RECENT TXNS ─────────────────────────────────────── */
+    .txn-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      margin-bottom: 8px;
+      border: 1.5px solid #f0f4f1;
+    }
+    .txn-icon {
+      width: 38px; height: 38px;
+      border-radius: 11px;
+      background: #f0fdf4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .txn-info { flex: 1; }
+    .txn-title { font-size: 13px; font-weight: 700; color: #1a2e22; }
+    .txn-sub { font-size: 11px; color: #6b7c6f; font-weight: 500; margin-top: 1px; }
+    .txn-amount { font-size: 15px; font-weight: 800; color: #15803d; }
+
+    /* ─── PAYMENT METHOD CARD ─────────────────────────────── */
+    .pay-card {
+      background: linear-gradient(135deg, #15803d 0%, #166534 50%, #14532d 100%);
+      border-radius: 18px;
+      padding: 18px 20px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 10px;
+      box-shadow: 0 6px 20px rgba(21,128,61,0.3);
+    }
+    .pay-card::after {
+      content: '';
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .pay-card::before {
+      content: '';
+      position: absolute;
+      bottom: -30px; right: 40px;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .pay-card-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .pay-card-company { font-size: 17px; font-weight: 800; margin-top: 3px; }
+    .pay-card-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 16px; }
+    .pay-card-balance-label { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 600; letter-spacing: 0.5px; }
+    .pay-card-balance { font-size: 24px; font-weight: 900; letter-spacing: -0.5px; }
+    .pay-card-period { font-size: 10px; color: rgba(255,255,255,0.5); font-weight: 500; }
+    .pay-card-limit { text-align: right; }
+    .pay-card-limit-label { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 600; }
+    .pay-card-limit-val { font-size: 14px; font-weight: 800; color: #86efac; }
+    .pay-card-chip { position: absolute; top: 18px; right: 18px; font-size: 22px; opacity: 0.8; }
+
+    /* progress bar */
+    .usage-bar { margin-top: 12px; }
+    .usage-row { display: flex; justify-content: space-between; font-size: 10.5px; color: rgba(255,255,255,0.6); font-weight: 600; margin-bottom: 5px; }
+    .usage-row span:last-child { color: rgba(255,255,255,0.85); }
+    .bar-track { height: 5px; background: rgba(255,255,255,0.15); border-radius: 99px; }
+    .bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #86efac, #4ade80); width: 61%; }
+
+    /* ─── BOTTOM NAV ──────────────────────────────────────── */
+    .bottom-nav {
+      background: #fff;
+      border-top: 1px solid #f0f4f1;
+      padding: 10px 0 20px;
+      display: flex;
+      flex-shrink: 0;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      padding: 4px 0;
+    }
+    .nav-item:active { opacity: 0.7; }
+    .nav-icon {
+      width: 28px; height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9px;
+    }
+    .nav-item.active .nav-icon { background: #f0fdf4; }
+    .nav-label { font-size: 10px; font-weight: 700; color: #c4d4c9; letter-spacing: 0.3px; }
+    .nav-item.active .nav-label { color: #16a34a; }
+
+    /* ─── SPACER ──────────────────────────────────────────── */
+    .spacer { height: 20px; flex-shrink: 0; }
+
+    /* ─── MODAL OVERLAY ───────────────────────────────────── */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: flex-end;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.show { opacity: 1; pointer-events: all; }
+    .modal-sheet {
+      background: #fff;
+      border-radius: 28px 28px 0 0;
+      width: 100%;
+      padding: 12px 22px 36px;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.34, 1.20, 0.64, 1);
+    }
+    .modal-overlay.show .modal-sheet { transform: translateY(0); }
+    .modal-handle {
+      width: 38px; height: 4px;
+      background: #d1d5db;
+      border-radius: 99px;
+      margin: 0 auto 20px;
+    }
+    .modal-title { font-size: 20px; font-weight: 800; color: #1a2e22; margin-bottom: 6px; }
+    .modal-sub { font-size: 13px; color: #6b7c6f; font-weight: 500; margin-bottom: 22px; }
+    .modal-code-big {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .modal-digit {
+      width: 52px; height: 66px;
+      background: #f0fdf4;
+      border: 2.5px solid #22c55e;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-weight: 900;
+      color: #166534;
+      font-variant-numeric: tabular-nums;
+      animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .modal-digit:nth-child(1){animation-delay:.00s}
+    .modal-digit:nth-child(2){animation-delay:.05s}
+    .modal-digit:nth-child(3){animation-delay:.10s}
+    .modal-sep-big { width: 10px; height: 3px; background: #c4d4c9; border-radius: 2px; align-self: center; }
+    .modal-digit:nth-child(5){animation-delay:.15s}
+    .modal-digit:nth-child(6){animation-delay:.20s}
+    .modal-digit:nth-child(7){animation-delay:.25s}
+    @keyframes pop-in {
+      0% { transform: scale(0.6) translateY(10px); opacity:0; }
+      100% { transform: scale(1) translateY(0); opacity:1; }
+    }
+    .modal-timer {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7c6f;
+      margin-bottom: 22px;
+    }
+    .modal-timer strong { color: #16a34a; font-size: 15px; }
+    .modal-timer strong.warn { color: #f59e0b; }
+    .modal-timer strong.urgent { color: #ef4444; }
+    .modal-info-row {
+      background: #f0f9f3;
+      border-radius: 14px;
+      padding: 13px 16px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .modal-info-item { text-align: center; }
+    .modal-info-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7c6f; }
+    .modal-info-val { font-size: 14px; font-weight: 800; color: #1a2e22; margin-top: 2px; }
+    .modal-new-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      cursor: pointer;
+      letter-spacing: -0.2px;
+      box-shadow: 0 6px 20px rgba(34,197,94,0.35);
+      transition: all 0.15s ease;
+    }
+    .modal-new-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(34,197,94,0.40); }
+    .modal-new-btn:active { transform: scale(0.98); }
+    .modal-dismiss {
+      width: 100%;
+      padding: 12px;
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      color: #6b7c6f;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* ─── TOAST ────────────────────────────────────────────── */
+    .toast {
+      position: absolute;
+      top: 56px; left: 50%; transform: translateX(-50%) translateY(-10px);
+      background: #166534;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 99px;
+      white-space: nowrap;
+      z-index: 200;
+      opacity: 0;
+      transition: all 0.25s ease;
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ─── LOADING SPINNER ─────────────────────────────────── */
+    .spin {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── RESPONSIVE / DESKTOP ────────────────────────────── */
+    @media (max-width: 430px) {
+      .phone-shell {
+        width: 100vw; height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-shell">
+    <div class="screen" id="screen">
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="white">
+            <rect x="0" y="3" width="3" height="9" rx="1" opacity="0.4"/>
+            <rect x="4.5" y="2" width="3" height="10" rx="1" opacity="0.6"/>
+            <rect x="9" y="0" width="3" height="12" rx="1"/>
+            <rect x="13.5" y="1" width="2.5" height="10" rx="1"/>
+          </svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="white">
+            <path d="M8 2.5C10.2 2.5 12.2 3.4 13.6 4.9L15 3.5C13.2 1.7 10.7 0.6 8 0.6S2.8 1.7 1 3.5L2.4 4.9C3.8 3.4 5.8 2.5 8 2.5Z" opacity="0.4"/>
+            <path d="M8 5.5C9.5 5.5 10.8 6.1 11.8 7.1L13.2 5.7C11.8 4.4 10 3.6 8 3.6S4.2 4.4 2.8 5.7L4.2 7.1C5.2 6.1 6.5 5.5 8 5.5Z" opacity="0.6"/>
+            <circle cx="8" cy="10" r="1.5"/>
+          </svg>
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="white">
+            <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.4" fill="none"/>
+            <rect x="2" y="2" width="16" height="8" rx="2" fill="white"/>
+            <path d="M23 4.5v3a1.5 1.5 0 000-3z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="header-top">
+          <div class="logo">
+            <div class="logo-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <!-- Lightning bolt through fuel drop -->
+                <path d="M11 2L5 12h5.5L8 20l9-11h-5.5L14 2H11z" fill="#fff" opacity="0.15"/>
+                <path d="M12 1L6 11.5H11L9 21l10-12.5H14.5L16 1H12z" fill="#fff"/>
+              </svg>
+            </div>
+            <span class="logo-text">Fuel<span>Dash</span></span>
+          </div>
+          <div class="avatar-btn">MR</div>
+        </div>
+        <div class="greeting">Good morning 👋</div>
+        <div class="driver-name">Mike Rodriguez</div>
+        <div class="driver-meta">
+          <div class="badge online">
+            <svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill="#4ade80"/></svg>
+            On Route
+          </div>
+          <div class="badge">🚛 Unit #4821</div>
+          <div class="badge">I-40 W</div>
+        </div>
+      </div>
+
+      <!-- Main Card -->
+      <div class="main-card">
+        <div class="card-inner">
+          <div class="card-label">Tap to generate pump code</div>
+
+          <!-- Big Tap Button -->
+          <div class="tap-zone">
+            <button class="tap-btn" id="tapBtn" onclick="generateCode()">
+              <div id="btnContent">
+                <div class="tap-btn-icon">⚡</div>
+                <div class="tap-btn-label">Tap Once</div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Code Display -->
+          <div class="code-display" id="codeDisplay">
+            <div class="code-label-row">
+              <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="#d1fae5"/></svg>
+              Pump Entry Code
+            </div>
+            <div class="code-dots">
+              <div class="code-digit placeholder" id="d0">·</div>
+              <div class="code-digit placeholder" id="d1">·</div>
+              <div class="code-digit placeholder" id="d2">·</div>
+              <div class="code-sep"></div>
+              <div class="code-digit placeholder" id="d3">·</div>
+              <div class="code-digit placeholder" id="d4">·</div>
+              <div class="code-digit placeholder" id="d5">·</div>
+            </div>
+            <div class="code-expiry" id="expiryLabel">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#d1d5db" stroke-width="1.5"/><path d="M6 3v3l2 1" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Expires in <span class="countdown" id="countdown">—</span>
+            </div>
+            <button class="copy-btn" id="copyBtn" onclick="copyCode()" style="opacity:0;pointer-events:none;">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="2" stroke="#22c55e" stroke-width="1.5"/><path d="M1 9V2a1 1 0 011-1h7" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Copy Code
+            </button>
+          </div>
+
+          <!-- Policy strip -->
+          <div class="divider"></div>
+          <div class="policy-strip">
+            <div class="policy-chip allowed">✓ Diesel Only</div>
+            <div class="policy-chip allowed">✓ DEF Allowed</div>
+            <div class="policy-chip warn">⚠ No Premium</div>
+            <div class="policy-chip info">ⓘ Tier-2 Rate</div>
+            <div class="policy-chip allowed">✓ Network A</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Card -->
+      <div class="section">
+        <div class="section-title">
+          Fleet Account
+          <span class="section-link">Details →</span>
+        </div>
+        <div class="pay-card">
+          <div class="pay-card-chip">💳</div>
+          <div class="pay-card-label">Company Account</div>
+          <div class="pay-card-company">Horizon Freight LLC</div>
+          <div class="usage-bar">
+            <div class="usage-row">
+              <span>Monthly Usage</span>
+              <span>$1,830 of $3,000</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill"></div></div>
+          </div>
+          <div class="pay-card-row">
+            <div>
+              <div class="pay-card-balance-label">Remaining This Month</div>
+              <div class="pay-card-balance">$1,170</div>
+              <div class="pay-card-period">Resets Apr 1</div>
+            </div>
+            <div class="pay-card-limit">
+              <div class="pay-card-limit-label">Per-Fill Limit</div>
+              <div class="pay-card-limit-val">$350</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nearby Authorized Stations -->
+      <div class="section">
+        <div class="section-title">
+          Nearby Authorized
+          <span class="section-link">Map →</span>
+        </div>
+        <div class="station-card" onclick="selectStation(this)">
+          <div class="station-logo" style="background:#fff3cd;color:#856404;">TA</div>
+          <div class="station-info">
+            <div class="station-name">TravelCenters of America</div>
+            <div class="station-addr">Exit 214 – Amarillo, TX 79101</div>
+          </div>
+          <div class="station-right">
+            <div class="station-dist">0.4 mi</div>
+            <div class="station-price"><s>$3.89</s> → <strong>$3.41</strong></div>
+          </div>
+        </div>
+        <div class="station-card" onclick="selectStation(this)">
+          <div class="station-logo" style="background:#fde8d8;color:#7c2d12;">Pt</div>
+          <div class="station-info">
+            <div class="station-name">Pilot Flying J</div>
+            <div class="station-addr">Hwy 40 Service Rd, Amarillo</div>
+          </div>
+          <div class="station-right">
+            <div class="station-dist">1.2 mi</div>
+            <div class="station-price"><s>$3.91</s> → <strong>$3.38</strong></div>
+          </div>
+        </div>
+        <div class="station-card" onclick="selectStation(this)" style="border-color:#fde68a;">
+          <div class="station-logo" style="background:#fef9c3;color:#713f12;">Lv</div>
+          <div class="station-info">
+            <div class="station-name">Love's Travel Stop</div>
+            <div class="station-addr">I-40 Exit 221, Canyon, TX</div>
+          </div>
+          <div class="station-right">
+            <div class="station-dist">8.1 mi</div>
+            <div class="station-price"><s>$3.87</s> → <strong>$3.35</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="section">
+        <div class="section-title">
+          Recent Fills
+          <span class="section-link">All →</span>
+        </div>
+        <div class="txn-card">
+          <div class="txn-icon">⛽</div>
+          <div class="txn-info">
+            <div class="txn-title">Pilot Flying J – Albuquerque</div>
+            <div class="txn-sub">Mar 11, 2026 · 84.3 gal Diesel · Code #5927183</div>
+          </div>
+          <div class="txn-amount">$285.60</div>
+        </div>
+        <div class="txn-card">
+          <div class="txn-icon">⛽</div>
+          <div class="txn-info">
+            <div class="txn-title">TA – Oklahoma City</div>
+            <div class="txn-sub">Mar 10, 2026 · 76.1 gal Diesel · Code #3841029</div>
+          </div>
+          <div class="txn-amount">$259.78</div>
+        </div>
+        <div class="txn-card">
+          <div class="txn-icon">🧴</div>
+          <div class="txn-info">
+            <div class="txn-title">Pilot – Memphis · DEF</div>
+            <div class="txn-sub">Mar 9, 2026 · 8.5 gal DEF · Code #2018374</div>
+          </div>
+          <div class="txn-amount">$28.05</div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+    </div><!-- /.screen -->
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item active" onclick="setNav(this)">
+        <div class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 8.5L10 2l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V8.5z" stroke="#16a34a" stroke-width="1.8" fill="#f0fdf4"/>
+          </svg>
+        </div>
+        <span class="nav-label">Home</span>
+      </div>
+      <div class="nav-item" onclick="setNav(this)">
+        <div class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#c4d4c9" stroke-width="1.8"/>
+            <path d="M10 6v4l2.5 2.5" stroke="#c4d4c9" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="nav-label">History</span>
+      </div>
+      <div class="nav-item" onclick="setNav(this)">
+        <div class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2C6.7 2 4 4.7 4 8c0 4 6 10 6 10s6-6 6-10c0-3.3-2.7-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" stroke="#c4d4c9" stroke-width="1.8" fill="none"/>
+          </svg>
+        </div>
+        <span class="nav-label">Map</span>
+      </div>
+      <div class="nav-item" onclick="setNav(this)">
+        <div class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="7" r="3" stroke="#c4d4c9" stroke-width="1.8"/>
+            <path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#c4d4c9" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="nav-label">Profile</span>
+      </div>
+    </div>
+
+    <!-- Code Modal Sheet -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+      <div class="modal-sheet" id="modalSheet">
+        <div class="modal-handle"></div>
+        <div class="modal-title">🟢 Code Ready!</div>
+        <div class="modal-sub">Enter this at the pump keypad to authorize fuel.</div>
+        <div class="modal-code-big" id="modalCodeBig">
+          <!-- digits injected by JS -->
+        </div>
+        <div class="modal-timer" id="modalTimer">Expires in <strong id="modalCountdown">2:00</strong></div>
+        <div class="modal-info-row">
+          <div class="modal-info-item">
+            <div class="modal-info-label">Max Gallons</div>
+            <div class="modal-info-val">120 gal</div>
+          </div>
+          <div class="modal-info-item">
+            <div class="modal-info-label">Product</div>
+            <div class="modal-info-val">Diesel / DEF</div>
+          </div>
+          <div class="modal-info-item">
+            <div class="modal-info-label">Network</div>
+            <div class="modal-info-val">Tier-2</div>
+          </div>
+          <div class="modal-info-item">
+            <div class="modal-info-label">Per-Fill Cap</div>
+            <div class="modal-info-val">$350</div>
+          </div>
+        </div>
+        <button class="modal-new-btn" onclick="refreshCode()">⚡ Generate New Code</button>
+        <button class="modal-dismiss" onclick="closeModalDirect()">Done</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">✓ Copied to clipboard</div>
+  </div><!-- /.phone-shell -->
+
+  <script>
+    let currentCode = '';
+    let countdownSecs = 0;
+    let countdownTimer = null;
+    let isLoading = false;
+
+    function randDigits(n) {
+      let s = '';
+      for (let i = 0; i < n; i++) s += Math.floor(Math.random() * 10);
+      return s;
+    }
+
+    function generateCode() {
+      if (isLoading) return;
+      isLoading = true;
+
+      const btn = document.getElementById('tapBtn');
+      const btnContent = document.getElementById('btnContent');
+
+      btn.classList.add('loading');
+      btnContent.innerHTML = '<div class="spin"></div>';
+
+      // Simulate async code generation
+      setTimeout(() => {
+        currentCode = randDigits(6);
+        isLoading = false;
+        btn.classList.remove('loading');
+        btn.classList.add('success');
+        btnContent.innerHTML = '<div class="tap-btn-icon">✓</div><div class="tap-btn-label">Code Ready</div>';
+
+        // Fill compact digits
+        for (let i = 0; i < 6; i++) {
+          const el = document.getElementById('d' + i);
+          el.textContent = currentCode[i];
+          el.className = 'code-digit active';
+          setTimeout(() => el.classList.remove('active'), 600);
+        }
+
+        // Show copy button
+        const copyBtn = document.getElementById('copyBtn');
+        copyBtn.style.opacity = '1';
+        copyBtn.style.pointerEvents = 'auto';
+
+        // Start countdown
+        startCountdown(120);
+
+        // Open modal
+        openModal();
+
+        // Reset button after a bit
+        setTimeout(() => {
+          btn.classList.remove('success');
+          btnContent.innerHTML = '<div class="tap-btn-icon">⚡</div><div class="tap-btn-label">New Code</div>';
+        }, 3000);
+      }, 900);
+    }
+
+    function startCountdown(secs) {
+      if (countdownTimer) clearInterval(countdownTimer);
+      countdownSecs = secs;
+      updateCountdownDisplay();
+      countdownTimer = setInterval(() => {
+        countdownSecs--;
+        updateCountdownDisplay();
+        if (countdownSecs <= 0) {
+          clearInterval(countdownTimer);
+          expireCode();
+        }
+      }, 1000);
+    }
+
+    function updateCountdownDisplay() {
+      const m = Math.floor(countdownSecs / 60);
+      const s = countdownSecs % 60;
+      const str = m > 0 ? `${m}:${String(s).padStart(2,'0')}` : `${s}s`;
+
+      // compact
+      const compact = document.getElementById('countdown');
+      compact.textContent = str;
+      compact.className = 'countdown' + (countdownSecs <= 30 ? ' warn' : '') + (countdownSecs <= 10 ? ' urgent' : '');
+
+      // modal
+      const mc = document.getElementById('modalCountdown');
+      mc.textContent = str;
+      mc.className = countdownSecs <= 30 ? 'warn' : (countdownSecs <= 10 ? 'urgent' : '');
+
+      // update expiry label
+      const el = document.getElementById('expiryLabel');
+      el.className = 'code-expiry active';
+    }
+
+    function expireCode() {
+      // Reset compact
+      for (let i = 0; i < 6; i++) {
+        const el = document.getElementById('d' + i);
+        el.textContent = '·';
+        el.className = 'code-digit placeholder';
+      }
+      const copyBtn = document.getElementById('copyBtn');
+      copyBtn.style.opacity = '0';
+      copyBtn.style.pointerEvents = 'none';
+      document.getElementById('countdown').textContent = 'EXPIRED';
+      document.getElementById('countdown').className = 'countdown urgent';
+      currentCode = '';
+    }
+
+    function openModal() {
+      const overlay = document.getElementById('modalOverlay');
+      const big = document.getElementById('modalCodeBig');
+
+      // Build modal digits
+      big.innerHTML = '';
+      for (let i = 0; i < 6; i++) {
+        if (i === 3) {
+          const sep = document.createElement('div');
+          sep.className = 'modal-sep-big';
+          big.appendChild(sep);
+        }
+        const d = document.createElement('div');
+        d.className = 'modal-digit';
+        d.textContent = currentCode[i];
+        big.appendChild(d);
+      }
+
+      overlay.classList.add('show');
+    }
+
+    function closeModal(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+    }
+
+    function closeModalDirect() {
+      document.getElementById('modalOverlay').classList.remove('show');
+    }
+
+    function refreshCode() {
+      document.getElementById('modalOverlay').classList.remove('show');
+      setTimeout(() => {
+        const btn = document.getElementById('tapBtn');
+        const btnContent = document.getElementById('btnContent');
+        btnContent.innerHTML = '<div class="tap-btn-icon">⚡</div><div class="tap-btn-label">Tap Once</div>';
+        btn.classList.remove('success');
+        generateCode();
+      }, 200);
+    }
+
+    function copyCode() {
+      if (!currentCode) return;
+      const formatted = currentCode.slice(0,3) + '-' + currentCode.slice(3);
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(formatted).catch(() => {});
+      }
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    function setNav(el) {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function selectStation(el) {
+      document.querySelectorAll('.station-card').forEach(s => s.style.borderColor = '');
+      el.style.borderColor = '#22c55e';
+    }
+  </script>
+</body>
+</html>
